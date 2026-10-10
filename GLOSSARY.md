@@ -24,6 +24,10 @@ _Avoid_: Metaplot, overarching story
 An open story element that the players could follow: a lead, a promise, an unanswered question.
 _Avoid_: Hook, loose end, plotline
 
+**World entry**:
+A lasting page for one NPC, place, or faction of the world, kept apart from any single session.
+_Avoid_: Wiki page, codex entry, lore note
+
 **Fizzle**:
 A campaign losing momentum until it stalls: players no longer see progress, and the game master loses the energy to prep it.
 _Avoid_: Burnout, campaign death
@@ -33,6 +37,10 @@ _Avoid_: Burnout, campaign death
 **Player character**:
 A character played by one of the players.
 _Avoid_: PC, hero
+
+**Character goal**:
+What a player wants for their player character, which the game master ties into the story.
+_Avoid_: Player plot, personal quest, backstory hook
 
 **NPC**:
 A character the game master plays, either prepared ahead or invented at the table.
@@ -71,6 +79,14 @@ _Avoid_: Summary, previously-on
 **Strong start**:
 The opening scene that drops the players straight into action at the start of a session.
 _Avoid_: Cold open, hook
+
+**Encounter**:
+A prepared fight: its opponents, their stat blocks, and the place it happens.
+_Avoid_: Combat, battle
+
+**Reward**:
+Loot and items the players can gain in a session.
+_Avoid_: Treasure, drops
 
 **Idea**:
 A loose thought for the campaign that comes to the game master between sessions, before it has a place in prep.

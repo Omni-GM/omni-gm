@@ -20,6 +20,10 @@ _Avoid_: Arc, module, chapter
 The story that spans a whole campaign and that its adventures move forward.
 _Avoid_: Metaplot, overarching story
 
+**Adventure frame**:
+The game master's intent for the current adventure: its goal, stakes, timeframe, pressure, and finale, and how it moves the main plot forward. It is intent, not story state.
+_Avoid_: Adventure plan, outline, arc
+
 **Thread**:
 An open story element that the players could follow: a lead, a promise, an unanswered question.
 _Avoid_: Hook, loose end, plotline

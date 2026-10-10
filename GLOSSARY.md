@@ -24,6 +24,22 @@ _Avoid_: Metaplot, overarching story
 An open story element that the players could follow: a lead, a promise, an unanswered question.
 _Avoid_: Hook, loose end, plotline
 
+**Faction**:
+A group or power in the world with its own goal, which acts whether or not the players are present.
+_Avoid_: Organization, power group
+
+**Off-screen move**:
+Something a faction does between sessions while the players are elsewhere, together with its effect on the world.
+_Avoid_: Background event, downtime action
+
+**Clock**:
+A track that counts down or fills up toward an event, either shown to the players or kept by the game master.
+_Avoid_: Timer, countdown, counter
+
+**Pressure**:
+The urgency that pushes the players toward the main plot, usually from a clock or a threat, alternating with moments of release.
+_Avoid_: Tension, stakes
+
 **World entry**:
 A lasting page for one NPC, place, or faction of the world, kept apart from any single session.
 _Avoid_: Wiki page, codex entry, lore note

@@ -48,8 +48,12 @@ _Avoid_: Tension, stakes
 A lasting page for one NPC, place, or faction of the world, kept apart from any single session.
 _Avoid_: Wiki page, codex entry, lore note
 
+**World fact**:
+Something the table established as true about the world that does not belong to one NPC or place, such as a custom, a law, or a past event.
+_Avoid_: Lore, canon
+
 **Story state**:
-The current truth of the world and the campaign as of the last session: open threads, NPCs as they were played, clocks, faction positions, and character goals. It records what happened, not what the game master intends for the main plot or the next adventure.
+The current truth of the world and the campaign as of the last session: open threads, NPCs as they were played, places, world facts, clocks, faction positions, and character goals. It records what happened, not what the game master intends for the main plot or the next adventure.
 _Avoid_: Campaign state, world state, canon
 
 **Fizzle**:

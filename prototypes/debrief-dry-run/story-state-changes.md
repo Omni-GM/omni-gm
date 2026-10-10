@@ -19,13 +19,14 @@ A debrief is a list of changes to the story state, grouped by scene. This file d
 - **Kind:** one of the kinds below.
 - **Name:** the name as it was spoken at the table. Note other spellings heard in the transcript.
 - **Fields:** only the ones listed for the kind, and only when the session shows them.
-- **basis:** where the change comes from. One of:
+- **basis:** where the change comes from. One or more of:
   - `narrated`: the game master stated it as narrator or as a ruling, or it happened in play.
   - `said by <NPC>`: an NPC told the party. The game master decides whether it is true.
   - `rumor`: introduced at the table as a rumor.
   - `player guess`: a player's theory that the game master did not confirm.
   - `player plan`: what the players intend to do.
-- **line:** at least one timestamp with a short verbatim quote from the transcript. A change without a line is not allowed.
+  - `game master`: the game master's answer or correction during review.
+- **line:** at least one timestamp with a short verbatim quote from the transcript, or the game master's answer for `basis: game master`. A change without a line is not allowed.
 - **why:** one short sentence on why this changes the story state.
 
 ## Fields per kind
@@ -39,6 +40,8 @@ A debrief is a list of changes to the story state, grouped by scene. This file d
 | `character goal` | character, goal, what changed |
 | `clock` | counts toward, value, change, visible to players |
 
-**played as** is the most important field for an NPC: voice, manner, speech habits, and attitude toward the party, as the game master actually played them. It is what lets the game master play the NPC the same way next time.
+A `clock` is a story clock: a deadline or a threat in the world. Rest limits and other mechanics are not clocks.
+
+**played as** is required for every NPC the game master voiced, and empty for NPCs who were only named. It is the most important field for an NPC: voice, manner, speech habits, and attitude toward the party, as the game master actually played them. It is what lets the game master play the NPC the same way next time.
 
 **Facts and guesses stay apart.** A `player guess` or `player plan` never updates an NPC, place, world fact, or clock. It may only open or advance a `thread` or update a `character goal`.

@@ -2,19 +2,22 @@
 // store's internal queries and mutations. A real build would make reads queries and writes single mutations.
 import { internalAction, ActionCtx } from "./_generated/server";
 import { internal } from "./_generated/api";
-import { v } from "convex/values";
+import { v, Infer } from "convex/values";
+import { mcpCallerValidator } from "convex-mcp-gateway";
 import { Id } from "./_generated/dataModel";
 import { changeOp } from "./schema";
 import { proposedChange, schemaOp } from "./store";
 
-async function campaignOf(ctx: ActionCtx) {
-  const identity = await ctx.auth.getUserIdentity();
-  const campaign = await ctx.runQuery(internal.store.campaignForOwner, { ownerId: identity?.subject ?? "local" });
+type Caller = Infer<typeof mcpCallerValidator>;
+
+async function campaignOf(ctx: ActionCtx, caller: Caller) {
+  const campaign = await ctx.runQuery(internal.store.campaignForOwner, { ownerId: caller.subject });
   if (!campaign) throw new Error("No campaign yet. Run the seed.");
   return campaign._id;
 }
 
 export const readArgs = {
+  caller: mcpCallerValidator,
   view: v.union(v.literal("overview"), v.literal("schema"), v.literal("entities"), v.literal("entity")),
   kind: v.optional(v.string()),
   nameContains: v.optional(v.string()),
@@ -25,7 +28,7 @@ export const readArgs = {
 export const storyRead = internalAction({
   args: readArgs,
   handler: async (ctx, args): Promise<unknown> => {
-    const campaignId = await campaignOf(ctx);
+    const campaignId = await campaignOf(ctx, args.caller);
     switch (args.view) {
       case "overview":
         return await ctx.runQuery(internal.store.structure, { campaignId });
@@ -45,6 +48,7 @@ export const storyRead = internalAction({
 });
 
 export const debriefArgs = {
+  caller: mcpCallerValidator,
   action: v.union(v.literal("open"), v.literal("propose"), v.literal("drop"), v.literal("show"), v.literal("commit")),
   debriefId: v.optional(v.id("debriefs")),
   sessionId: v.optional(v.id("sessions")),
@@ -64,7 +68,7 @@ export const debriefArgs = {
 export const debrief = internalAction({
   args: debriefArgs,
   handler: async (ctx, args): Promise<unknown> => {
-    const campaignId = await campaignOf(ctx);
+    const campaignId = await campaignOf(ctx, args.caller);
     let debriefId = args.debriefId;
     let result: unknown = null;
     switch (args.action) {
@@ -101,20 +105,21 @@ function need(debriefId: Id<"debriefs"> | undefined) {
 }
 
 export const correctArgs = {
+  caller: mcpCallerValidator,
   reason: v.string(),
   changes: v.array(v.object({ change: changeOp, why: v.string(), sceneId: v.optional(v.id("scenes")) })),
 };
 
 export const storyCorrect = internalAction({
   args: correctArgs,
-  handler: async (ctx, args): Promise<unknown> =>
-    await ctx.runMutation(internal.store.commitCorrection, { campaignId: await campaignOf(ctx), ...args }),
+  handler: async (ctx, { caller, ...args }): Promise<unknown> =>
+    await ctx.runMutation(internal.store.commitCorrection, { campaignId: await campaignOf(ctx, caller), ...args }),
 });
 
-export const schemaArgs = { reason: v.string(), ops: v.array(schemaOp) };
+export const schemaArgs = { caller: mcpCallerValidator, reason: v.string(), ops: v.array(schemaOp) };
 
 export const schemaChange = internalAction({
   args: schemaArgs,
-  handler: async (ctx, args): Promise<unknown> =>
-    await ctx.runMutation(internal.store.changeSchema, { campaignId: await campaignOf(ctx), ...args }),
+  handler: async (ctx, { caller, ...args }): Promise<unknown> =>
+    await ctx.runMutation(internal.store.changeSchema, { campaignId: await campaignOf(ctx, caller), ...args }),
 });

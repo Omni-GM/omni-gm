@@ -35,20 +35,21 @@ const starterSchema = [
 ] as const;
 
 export const createCampaign = internalMutation({
-  args: {},
-  handler: async (ctx) => {
-    const campaignId = await ctx.db.insert("campaigns", { ownerId: "local", name: "The Lantern Coast" });
+  args: { ownerId: v.string() },
+  handler: async (ctx, { ownerId }) => {
+    const campaignId = await ctx.db.insert("campaigns", { ownerId, name: "The Lantern Coast" });
     const adventureId = await ctx.db.insert("adventures", { campaignId, name: "The Drowned Bell", ordinal: 1 });
     return { campaignId, adventureId };
   },
 });
 
 export const run = internalAction({
-  args: { force: v.optional(v.boolean()) },
-  handler: async (ctx): Promise<unknown> => {
-    const existing = await ctx.runQuery(internal.store.campaignForOwner, { ownerId: "local" });
+  args: { ownerId: v.optional(v.string()) },
+  handler: async (ctx, args): Promise<unknown> => {
+    const ownerId = args.ownerId ?? "local";
+    const existing = await ctx.runQuery(internal.store.campaignForOwner, { ownerId });
     if (existing) return { skipped: "already seeded", campaignId: existing._id };
-    const { campaignId, adventureId } = await ctx.runMutation(internal.seed.createCampaign, {});
+    const { campaignId, adventureId } = await ctx.runMutation(internal.seed.createCampaign, { ownerId });
     await ctx.runMutation(internal.store.changeSchema, {
       campaignId,
       reason: "Starter schema",

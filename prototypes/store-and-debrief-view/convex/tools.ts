@@ -18,6 +18,7 @@ export const tools: McpToolRegistration[] = [
       "entity: one entity's properties and relationships by entityId; withHistory adds every past change with scene, transcript line, and why.",
     ].join("\n"),
     fn: internal.mcpTools.storyRead,
+    identityArg: "caller",
     args: readArgs,
     annotations: { readOnlyHint: true },
   }),
@@ -32,6 +33,7 @@ export const tools: McpToolRegistration[] = [
       "commit: apply the whole draft as one commit. Only when the GM says it is right.",
     ].join("\n"),
     fn: internal.mcpTools.debrief,
+    identityArg: "caller",
     args: debriefArgs,
     _meta: { ui: { resourceUri: DEBRIEF_VIEW_URI } },
   }),
@@ -39,6 +41,7 @@ export const tools: McpToolRegistration[] = [
     name: "story_correct",
     description: "Fix the committed story state outside a debrief, as one small commit with the reason the GM gave. All changes apply, or none.",
     fn: internal.mcpTools.storyCorrect,
+    identityArg: "caller",
     args: correctArgs,
   }),
   defineMcpAction({
@@ -46,6 +49,7 @@ export const tools: McpToolRegistration[] = [
     description:
       "Deliberately change the story-state schema: add a kind, add or retire a property, or add a relationship type. Only when the GM explicitly asks, never as part of a debrief. Recorded in the history with the reason.",
     fn: internal.mcpTools.schemaChange,
+    identityArg: "caller",
     args: schemaArgs,
   }),
 ];

@@ -40,7 +40,7 @@
 </style></head>
 <body>
 <h1>How should the story-state store and the draft-debrief view be shaped?</h1>
-<p class="muted">Prototype for ticket #8 · branch <code>prototype/store-and-debrief-view</code> · invented example data · round 1 locked, round 2 open.</p>
+<p class="muted">Prototype for ticket #8 · branch <code>prototype/store-and-debrief-view</code> · invented example data · all cards locked, waiting for your acceptance.</p>
 
 <h2>Change map</h2>
 <div class="diagram">
@@ -51,8 +51,8 @@
   </div>
   <div class="arrows"><span>tools/call + Bearer →</span><span>← ui://omni-gm/draft-debrief</span><span>debrief drop via host →</span></div>
   <div class="zone"><div class="label">Convex deployment (cloud dev, D8)</div>
-    <div class="box new"><code>/mcp</code> · convex-mcp-gateway component<small>sessions, discovery, auth hook, audit log · resolveIdentity(static token) → owner</small></div>
-    <div class="box new">4 deep tools · internal functions<small>story_read · debrief · story_correct · schema_change</small></div>
+    <div class="box new"><code>/mcp</code> · convex-mcp-gateway component<small>sessions, OAuth discovery, auth hook, audit log · WorkOS AuthKit JWT (D10) or static token → caller</small></div>
+    <div class="box new">4 deep tools · internal functions<small>story_read · debrief · story_correct · schema_change · caller injected via identityArg</small></div>
     <div class="box new">store · 13 tables<small>structure · definitions · entities · drafts · commits · per-entity history</small></div>
   </div>
 </div>
@@ -112,22 +112,16 @@ rejected: "mood" is not a property of npc. Allowed: playedAs, role, status.
   <div class="arrow">later: export → import --prod<br/><small>keeps _id + _creationTime</small></div>
   <div class="box">Convex prod<small>OAuth via auth.config.ts</small></div>
 </div>
-<p class="muted">The code is the same everywhere. Hosting on cloud dev means one <code>convex login</code> plus <code>convex dev</code> against a cloud project. ADR 0001 says "start local", so it needs an amendment (D9).</p>
+<p class="muted">The code is the same everywhere. Hosting on cloud dev means one <code>convex login</code> plus <code>convex dev</code> against a cloud project. ADR 0001 gets amended at resolution (D9).</p>
 
-<h2>Open decision cards (round 2)</h2>
-<div class="cards">
-  <div class="card"><h3><span class="tag">D9</span>How is ADR 0001 updated for "cloud dev now"?</h3><ul>
-    <li><b>A. Amend ADR 0001 on main now</b>: "starts on a Convex cloud dev deployment with a static token; real auth later", with today's date and the reason.</li>
-    <li><b>B. Write a new ADR 0002</b> that supersedes the "start local" part.</li>
-    <li><b>C. Leave it to the spec ticket.</b></li></ul>
-    <div class="rec">I recommend A, as part of this ticket's resolution. Earlier tickets also wrote decisions straight to main, and one ADR stays one truth.</div></div>
-  <div class="card"><h3><span class="tag">D10</span>Which client renders the view, and how does it authenticate?</h3><ul>
-    <li>Only an MCP Apps host renders the Ledger: Claude Desktop or claude.ai, not Claude Code. Their connector UI doesn't take custom headers.</li>
-    <li><b>A. Static token through a local bridge</b>: Claude Desktop's config runs <code>bunx mcp-remote &lt;url&gt; --header "Authorization: Bearer …"</code>. It works today, but only on machines with that config.</li>
-    <li><b>B. WorkOS AuthKit OAuth now</b>: <code>auth.config.ts</code> plus the gateway's OAuth discovery, and AuthKit's dynamic client registration for claude.ai. It works in every client, but it's the auth work ADR 0001 deferred.</li>
-    <li><b>C. Secret in the URL path</b>, no auth header. Easiest, and the weakest.</li></ul>
-    <div class="rec">I recommend A for the first real prep. B follows when a second client or person needs it, and the gateway makes it mostly configuration.</div></div>
-</div>
+<h2>Auth: WorkOS AuthKit now (D10)</h2>
+<pre><code>WORKOS_AUTHKIT_DOMAIN=https://&lt;subdomain&gt;.authkit.app      (deployment env var)
+setup/workos-auth.config.ts → convex/auth.config.ts          Convex validates AuthKit JWTs (customJwt, RS256, &lt;domain&gt;/oauth2/jwks)
+pnpm exec convex run oauth:configure                         gateway serves /.well-known/oauth-protected-resource/mcp → AuthKit
+requireAuth: true                                            anonymous initialize gets 401 + WWW-Authenticate, so claude.ai starts OAuth
+AuthKit dashboard: enable dynamic client registration        claude.ai and Claude Desktop register themselves
+caller = identity.subject (via identityArg)                  campaigns.ownerId = the WorkOS user id; seed with { ownerId }</code></pre>
+<p class="muted">Without the env var, a static token resolves to owner "local", which is how the prototype runs today. Finding: Convex strips <code>ctx.auth</code> at the component boundary, so the owner reaches the tools only through the gateway's <code>identityArg</code>. It's hidden from the schema, and a caller-supplied value is stripped (verified). The WorkOS path is wired but not run: it needs an AuthKit project.</p>
 
 <h2>Locked</h2>
 <div class="grid2">
@@ -138,7 +132,9 @@ rejected: "mood" is not a property of npc. Allowed: playedAs, role, status.
   <div class="card locked"><h3><span class="tag">D5</span>Starter schema accepted as the start</h3>The dry-run ticket trims or adds fields through schema commits.</div>
   <div class="card locked"><h3><span class="tag">D6</span>Few deep tools</h3>Four tools. A parameter picks the operation, which keeps context small and the choice easy.</div>
   <div class="card locked"><h3><span class="tag">D7</span>Ledger view</h3>Ledger with the session-note box. Drop is the only write; every other fix is said to the AI.</div>
-  <div class="card locked"><h3><span class="tag">D8</span>Convex cloud dev deployment now</h3>Nothing to move later. This reopens ADR 0001's "start local" (D9).</div>
+  <div class="card locked"><h3><span class="tag">D8</span>Convex cloud dev deployment now</h3>Nothing to move later. Prod later is a snapshot import that keeps every id.</div>
+  <div class="card locked"><h3><span class="tag">D9</span>Amend ADR 0001 on main</h3>As part of this ticket's resolution: cloud dev now, WorkOS AuthKit OAuth.</div>
+  <div class="card locked"><h3><span class="tag">D10</span>WorkOS AuthKit OAuth now</h3>So claude.ai and Claude Desktop connectors render the Ledger without a local bridge.</div>
   <div class="card locked"><h3><span class="tag">L</span>From earlier decisions</h3>Generic entities constrained by definitions · no AI calls on the server · one debrief per session with scene, line, and why · corrections are small commits · domain functions internal.</div>
 </div>
 

@@ -11,6 +11,7 @@
 import type * as _view from "../_view.js";
 import type * as http from "../http.js";
 import type * as mcpTools from "../mcpTools.js";
+import type * as oauth from "../oauth.js";
 import type * as seed from "../seed.js";
 import type * as store from "../store.js";
 import type * as tools from "../tools.js";
@@ -25,6 +26,7 @@ declare const fullApi: ApiFromModules<{
   _view: typeof _view;
   http: typeof http;
   mcpTools: typeof mcpTools;
+  oauth: typeof oauth;
   seed: typeof seed;
   store: typeof store;
   tools: typeof tools;

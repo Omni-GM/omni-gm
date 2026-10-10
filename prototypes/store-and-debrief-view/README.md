@@ -26,7 +26,7 @@ Claude Code (tools only, no view):
 claude mcp add --transport http omni-gm-proto http://127.0.0.1:3211/mcp --header "Authorization: Bearer prototype-local-token"
 ```
 
-To see the view in Claude Desktop, bridge the header with `bunx mcp-remote http://127.0.0.1:3211/mcp --header "Authorization: Bearer prototype-local-token"` in its MCP config (D10).
+To see the view in claude.ai or Claude Desktop, switch to WorkOS AuthKit (D10): set `WORKOS_AUTHKIT_DOMAIN`, copy `setup/workos-auth.config.ts` to `convex/auth.config.ts`, run `pnpm exec convex run oauth:configure`, and seed with `{"ownerId": "<your WorkOS user id>"}`. A public URL is needed, so do this on the Convex cloud dev deployment (D8): `pnpm exec convex login`, then `pnpm dev`.
 
 `pnpm dev` runs `scripts/embed-view.ts` first, which inlines the view HTML into `convex/_view.ts`.
 `pnpm seed` wipes the story-state tables before seeding.

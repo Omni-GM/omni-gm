@@ -96,6 +96,10 @@ _Avoid_: Log, protocol
 A scene-by-scene digest of what happened in a session, focused on the plot points that matter for the story.
 _Avoid_: Recap, minutes
 
+**Debrief**:
+The step after a session that turns what happened at the table into changes to the story state. Each change carries the session it came from and why, and all changes from one session are recorded together.
+_Avoid_: Import, sync, update
+
 **Recap**:
 The opening text the game master reads to the players at the start of a session to remind them of the story so far.
 _Avoid_: Summary, previously-on

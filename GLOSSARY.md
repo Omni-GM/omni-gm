@@ -45,7 +45,7 @@ A lasting page for one NPC, place, or faction of the world, kept apart from any 
 _Avoid_: Wiki page, codex entry, lore note
 
 **Story state**:
-The current truth of the world and the campaign as of the last session: open threads, NPCs as they were played, clocks, faction positions, and character goals.
+The current truth of the world and the campaign as of the last session: open threads, NPCs as they were played, clocks, faction positions, and character goals. It records what happened, not what the game master intends for the main plot or the next adventure.
 _Avoid_: Campaign state, world state, canon
 
 **Fizzle**:

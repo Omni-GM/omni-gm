@@ -92,12 +92,16 @@ _Avoid_: Voice memo, audio log
 The verbatim text of a recording, with speakers attributed.
 _Avoid_: Log, protocol
 
+**Scene**:
+One continuous part of a session, in one place and situation. Sessions break down into scenes, and what changes in the story state is tied to the scene where it happened.
+_Avoid_: Encounter, beat
+
 **Session summary**:
 A scene-by-scene digest of what happened in a session, focused on the plot points that matter for the story.
 _Avoid_: Recap, minutes
 
 **Debrief**:
-The step after a session that turns what happened at the table into changes to the story state. Each change carries the session it came from and why, and all changes from one session are recorded together.
+The step after a session that turns what happened at the table into changes to the story state. Each change carries the scene it happened in and why, and all changes from one session are recorded together.
 _Avoid_: Import, sync, update
 
 **Recap**:

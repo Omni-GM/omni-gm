@@ -44,6 +44,10 @@ _Avoid_: Tension, stakes
 A lasting page for one NPC, place, or faction of the world, kept apart from any single session.
 _Avoid_: Wiki page, codex entry, lore note
 
+**Story state**:
+The current truth of the world and the campaign as of the last session: open threads, NPCs as they were played, clocks, faction positions, and character goals.
+_Avoid_: Campaign state, world state, canon
+
 **Fizzle**:
 A campaign losing momentum until it stalls: players no longer see progress, and the game master loses the energy to prep it.
 _Avoid_: Burnout, campaign death

@@ -24,8 +24,8 @@ iframe{display:block;width:min(860px,100%);margin:0 auto 24px;border:0;border-ra
 <script>
 const frame = document.getElementById("view");
 const params = new URLSearchParams(location.search);
-frame.src = "/view?variant=" + (params.get("variant") || "A");
-const mcp = (method, p) => fetch("/mcp", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ method, params: p }) }).then(r => r.json());
+frame.src = "view?variant=" + (params.get("variant") || "A");
+const mcp = (method, p) => fetch("mcp", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ method, params: p }) }).then(r => r.json());
 const send = (msg) => frame.contentWindow.postMessage({ jsonrpc: "2.0", ...msg }, "*");
 let debriefId = params.get("debrief");
 addEventListener("message", async (e) => {

@@ -1,0 +1,20 @@
+{
+  "name": "omni-gm-store-prototype",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun scripts/embed-view.ts && convex dev --typecheck=disable",
+    "seed": "convex run seed:run",
+    "smoke": "bun scripts/mcp-smoke.ts",
+    "view": "bun scripts/serve-view.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "convex": "^1.46.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "bun-types": "^1.4.3",
+    "typescript": "^7.0.2"
+  }
+}

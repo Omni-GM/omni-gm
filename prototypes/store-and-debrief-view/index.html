@@ -1,0 +1,347 @@
+<!doctype html>
+<!-- PROTOTYPE — throwaway architecture brief for ticket #8. Open in a browser; no build step. -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Architecture brief · story-state store and draft-debrief view</title>
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: true, theme: "neutral", securityLevel: "loose" });
+</script>
+<style>
+  :root { --accent: #b4532a; --muted: #6b655c; --line: #e6e1d8; --bg: #faf8f5; --new: #2f7d4f; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: #1d1b18; font: 15px/1.55 ui-sans-serif, system-ui, sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1 { font-size: 26px; margin: 0 0 4px; } h2 { font-size: 19px; margin: 40px 0 8px; border-bottom: 2px solid var(--accent); padding-bottom: 4px; }
+  h3 { font-size: 15px; margin: 22px 0 6px; }
+  .eyebrow { color: var(--accent); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; }
+  .muted { color: var(--muted); }
+  nav a { color: var(--accent); margin-right: 12px; font-size: 13px; }
+  pre { background: #1f1d1a; color: #f3eee6; padding: 14px 16px; border-radius: 8px; overflow: auto; font-size: 12.5px; line-height: 1.45; }
+  code { font-family: ui-monospace, monospace; font-size: .92em; }
+  ul.tight li { margin: 2px 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; background: #fff; }
+  th, td { border: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; }
+  th { background: #f2eee7; }
+  .mermaid { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 12px; margin: 10px 0; }
+  .card { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--accent); border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  .card.locked { border-left-color: var(--new); }
+  .card h3 { margin: 0 0 6px; display: flex; gap: 8px; align-items: baseline; }
+  .status { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; padding: 1px 7px; border-radius: 4px; color: #fff; background: var(--accent); }
+  .locked .status { background: var(--new); }
+  .card .rec { background: #fbf3ee; border-radius: 6px; padding: 6px 10px; margin-top: 8px; }
+  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .shots figure { margin: 0; } .shots img { width: 100%; border: 1px solid var(--line); border-radius: 6px; }
+  .shots figcaption { font-size: 12px; color: var(--muted); text-align: center; }
+  .legend span { display: inline-block; padding: 1px 8px; border-radius: 4px; margin-right: 6px; font-size: 12px; }
+</style>
+</head>
+<body>
+<main>
+<div class="eyebrow">Prototype · ticket #8 · throwaway</div>
+<h1>How should the story-state store and the draft-debrief view be shaped?</h1>
+<p class="muted">Branch <code>prototype/store-and-debrief-view</code>. Example data is invented. Nothing here is production code.</p>
+<nav><a href="#question">Question</a><a href="#map">Change map</a><a href="#contracts">Contracts</a><a href="#flows">Flows</a><a href="#data">Data</a><a href="#view">View</a><a href="#hosting">Local → hosted</a><a href="#cards">Decision cards</a><a href="#blast">Blast radius</a></nav>
+
+<h2 id="question">1. Question</h2>
+<p>
+  The first version of Omni-GM is "state in, intent out": after each session, a <b>debrief</b> turns the transcript into reviewed changes to the
+  <b>story state</b>, scene by scene. ADR 0001 says the story state lives only in our own thin MCP server over a local Convex deployment.
+  This brief shows the shape of that store before the spec: the starter schema with property and relationship definitions, how a deliberate
+  schema change works, how a draft debrief and its commits are modeled, how the history is read per entity, the MCP tool surface, the MCP UI view
+  of a draft debrief, and how the server moves from local to hosted without a migration. A working prototype backs every section: a real MCP
+  client drafts a debrief against a local Convex deployment, and the view renders that draft.
+</p>
+
+<h3>What the earlier prototypes teach this design (ideas only, no code)</h3>
+<ul class="tight">
+  <li><b>Never rebuild the truth wholesale.</b> One earlier import cleared and rebuilt all records. Here every change is an append-only history row inside one commit.</li>
+  <li><b>Proposals before truth.</b> Several attempts reviewed AI changes before they counted. Here the draft debrief is that gate, at session granularity, not per field.</li>
+  <li><b>Typed property definitions keep the AI honest.</b> An earlier engine typed its properties. Here the server rejects any property the schema does not define, with the allowed list.</li>
+  <li><b>Short, bounded reads.</b> A real prep showed that long answers defeat the purpose. Here <code>story_entity</code> returns the current state, and history only on request; lists cap at 25.</li>
+  <li><b>The hosted move is where an attempt stalled.</b> Here the same Convex code runs locally and hosted, and the move is a snapshot import that keeps every id.</li>
+  <li><b>Complexity killed momentum.</b> The prototype has 12 tools, 13 tables, and no app of its own.</li>
+</ul>
+
+<h2 id="map">2. Change map</h2>
+<p class="legend"><span style="background:#d8efe0">new</span><span style="background:#eee">untouched</span>Everything is new; the repo has no code yet. The notes vault is untouched by design.</p>
+<pre class="mermaid">
+flowchart LR
+  subgraph Client["GM's AI client (Claude Desktop / Code)"]
+    AI["AI: reads transcript,<br/>drafts changes"]
+    V["Draft-debrief view<br/>(MCP Apps iframe)"]
+  end
+  Vault["Notes vault<br/>session notes + prep<br/>(no state copy)"]:::untouched
+  subgraph Convex["Convex deployment (local now, hosted later)"]
+    MCP["/mcp HTTP action<br/>auth → ownerId<br/>JSON-RPC: tools, resources"]:::new
+    Store["store.ts<br/>internal queries + mutations<br/>validation, commit, history"]:::new
+    DB[("tables: structure,<br/>definitions, entities,<br/>drafts, commits, history")]:::new
+  end
+  AI -- "tools/call (Bearer token)" --> MCP
+  V -- "tools/call via host" --> MCP
+  MCP -- "resources/read ui://omni-gm/draft-debrief" --> V
+  MCP -- "ctx.runQuery / runMutation (internal)" --> Store --> DB
+  AI -. "short summary" .-> Vault
+  classDef new fill:#d8efe0,stroke:#2f7d4f
+  classDef untouched fill:#eee,stroke:#999
+</pre>
+
+<h2 id="contracts">3. Contracts</h2>
+<h3>Seam 1: MCP tool surface (AI client ↔ /mcp)</h3>
+<p>The descriptions are part of the contract: they steer the AI. Source: <code>convex/tools.ts</code>.</p>
+<table>
+  <tr><th>Tool</th><th>Input</th><th>Does</th></tr>
+  <tr><td><code>story_structure</code></td><td>—</td><td>Adventures and sessions in order, each with its debrief status. The entry point.</td></tr>
+  <tr><td><code>story_schema</code></td><td>—</td><td>Kinds, allowed properties (type, enum values), relationship types (from/to kinds).</td></tr>
+  <tr><td><code>story_find</code></td><td><code>kind?, nameContains?</code></td><td>At most 25 ids and names. Used to avoid duplicates.</td></tr>
+  <tr><td><code>story_entity</code></td><td><code>entityId, withHistory?</code></td><td>Current properties and relationships; with history, every past change with scene, line, why.</td></tr>
+  <tr><td><code>session_create</code></td><td><code>adventureId, playedOn, scenes[]</code></td><td>Records a played session and its ordered scenes, the anchors for changes.</td></tr>
+  <tr><td><code>debrief_start</code></td><td><code>sessionId, summary, shortSummary</code></td><td>Opens or updates the one draft debrief of a session.</td></tr>
+  <tr><td><code>debrief_propose</code></td><td><code>debriefId, changes[]</code></td><td>Adds changes; each is validated alone, rejected ones come back with a reason.</td></tr>
+  <tr><td><code>debrief_drop</code></td><td><code>changeId</code></td><td>Removes one draft change. A fix is drop + propose.</td></tr>
+  <tr><td><code>debrief_show</code></td><td><code>debriefId</code></td><td>Returns the draft scene by scene; <code>_meta.ui.resourceUri</code> opens the view.</td></tr>
+  <tr><td><code>debrief_commit</code></td><td><code>debriefId</code></td><td>Applies all draft changes in one transaction as one commit.</td></tr>
+  <tr><td><code>story_correct</code></td><td><code>reason, changes[]</code></td><td>A small commit outside a debrief; all or nothing.</td></tr>
+  <tr><td><code>schema_change</code></td><td><code>reason, ops[]</code></td><td>Adds a kind, adds or retires a property, adds a relationship type; recorded as a schema commit.</td></tr>
+</table>
+<p>The change that every write tool carries:</p>
+<pre><code>type EntityRef = Id&lt;"entities"&gt; | `$${string}`;   // existing id, or $tempKey created earlier in the same draft
+
+type Change =
+  | { op: "create_entity"; tempKey: string; kind: string; name: string; properties: Record&lt;string, unknown&gt; }
+  | { op: "set_property";  entity: EntityRef; key: string; value: unknown }
+  | { op: "relate";        type: string; from: EntityRef; to: EntityRef }
+  | { op: "unrelate";      type: string; from: EntityRef; to: EntityRef };
+
+type ProposedChange = {
+  scene: number;                                  // scene ordinal within the debriefed session
+  change: Change;
+  transcript: { line: number; quote: string };    // where it happened at the table
+  why: string;
+};</code></pre>
+<ul class="tight">
+  <li><b>Invariants:</b> no property outside the kind's definitions; enum values only from the list; relationships only between the defined kinds; no second entity with the same name; one debrief per session; a committed debrief never changes again.</li>
+  <li><b>Errors:</b> per-change rejection in <code>debrief_propose</code> (the rest are kept); whole-call rejection in <code>story_correct</code> and <code>debrief_commit</code>; tool errors return <code>isError: true</code> with a sentence the AI can act on.</li>
+  <li><b>Performance:</b> every call is one Convex query or mutation on indexes; a debrief is tens of changes, not thousands.</li>
+</ul>
+
+<h3>Seam 2: the view (host iframe ↔ /mcp)</h3>
+<pre><code>// resources/read ui://omni-gm/draft-debrief  →  mimeType "text/html;profile=mcp-app", one self-contained HTML file
+// host → view:  ui/notifications/tool-result { structuredContent: DraftDebrief }
+// view → host:  tools/call debrief_drop | debrief_show   (the only writes the view makes)
+type DraftDebrief = {
+  debriefId: string; status: "draft" | "committed"; title: string; playedOn: string;
+  summary: string; shortSummary: string;
+  scenes: { ordinal: number; title: string; summary: string;
+            changes: { changeId: string; op: Change["op"]; subject: string; kind?: string; key?: string;
+                       before?: unknown; after?: unknown; object?: string; properties?: Record&lt;string, unknown&gt;;
+                       transcript: { line: number; quote: string }; why: string }[] }[];
+};</code></pre>
+
+<h3>Seam 3: auth (request → owner)</h3>
+<pre><code>// local (prototype):  Bearer &lt;MCP_TOKEN&gt;   → ownerId "local"
+// hosted (later):     Bearer &lt;OAuth access token&gt; → verify JWT → ownerId = subject
+async function ownerFromRequest(request: Request): Promise&lt;string | null&gt;</code></pre>
+<p>Everything behind this function is the same locally and hosted. Every campaign row carries <code>ownerId</code> from day one.</p>
+
+<h2 id="flows">4. Flows</h2>
+<h3>Write path: debrief of one session</h3>
+<pre class="mermaid">
+sequenceDiagram
+  participant GM
+  participant AI as AI client
+  participant M as /mcp
+  participant S as store (Convex)
+  GM->>AI: "Debrief last session" + transcript file
+  AI->>M: story_structure, story_schema, story_find
+  AI->>M: session_create(scenes)
+  AI->>M: debrief_start(summary, shortSummary)
+  AI->>M: debrief_propose(changes[])
+  M->>S: validate each change, store draft rows
+  S-->>AI: per-change accepted / rejected + reason
+  AI->>M: debrief_show
+  M-->>GM: view, scene by scene
+  GM->>AI: "Pell is a girl, and drop the sundown law"
+  AI->>M: debrief_drop, debrief_propose
+  GM->>AI: "Looks right, commit"
+  AI->>M: debrief_commit
+  M->>S: one transaction: commit row, apply changes, history rows, delete draft
+  AI->>GM: short summary for the session note
+</pre>
+<h3>Read path: prep</h3>
+<pre class="mermaid">
+sequenceDiagram
+  participant AI as AI client
+  participant M as /mcp
+  AI->>M: story_structure (where are we?)
+  AI->>M: story_find kind=thread / clock / character_goal
+  AI->>M: story_entity(id) (current tip)
+  AI->>M: story_entity(id, withHistory) only when the GM asks "since when?"
+</pre>
+<h3>Failure path: the AI invents a property</h3>
+<pre class="mermaid">
+sequenceDiagram
+  participant AI as AI client
+  participant M as /mcp
+  AI->>M: debrief_propose [ set_property Maren.mood = "scared" ]
+  M-->>AI: rejected: "mood" is not a property of npc. Allowed: playedAs, role, status. A new property needs a deliberate schema_change.
+  Note over AI: AI rewrites it as playedAs, or asks the GM whether to add the property
+</pre>
+
+<h2 id="data">5. Data</h2>
+<p>Source: <code>convex/schema.ts</code>. Sixteen indexes, no full scans on any tool path.</p>
+<pre class="mermaid">
+erDiagram
+  campaigns ||--o{ adventures : has
+  adventures ||--o{ sessions : has
+  sessions ||--o{ scenes : "ordered"
+  sessions ||--o| debriefs : "one"
+  debriefs ||--o{ draftChanges : "while draft"
+  scenes ||--o{ draftChanges : "anchors"
+  campaigns ||--o{ kindDefinitions : defines
+  campaigns ||--o{ propertyDefinitions : defines
+  campaigns ||--o{ relationshipDefinitions : defines
+  campaigns ||--o{ entities : "story state"
+  entities ||--o{ relationships : "from / to"
+  campaigns ||--o{ commits : "debrief | correction | schema | seed"
+  commits ||--o{ history : "append-only"
+  entities ||--o{ history : "by_entity"
+  scenes ||--o{ history : "where"
+</pre>
+<h3>Starter schema (the seed commit)</h3>
+<table>
+  <tr><th>Kind</th><th>Properties</th></tr>
+  <tr><td>npc</td><td><code>role</code> text · <code>playedAs</code> text · <code>status</code> alive | dead | missing | unknown</td></tr>
+  <tr><td>player_character</td><td><code>concept</code> text</td></tr>
+  <tr><td>place</td><td><code>description</code> text</td></tr>
+  <tr><td>world_fact</td><td><code>statement</code> text</td></tr>
+  <tr><td>thread</td><td><code>question</code> text · <code>status</code> open | resolved | dropped</td></tr>
+  <tr><td>character_goal</td><td><code>goal</code> text · <code>status</code> open | progressing | fulfilled | abandoned</td></tr>
+  <tr><td>clock</td><td><code>segments</code> number · <code>filled</code> number · <code>visibility</code> shown | hidden · <code>whenFull</code> text</td></tr>
+</table>
+<table style="margin-top:8px">
+  <tr><th>Relationship type</th><th>From → to</th></tr>
+  <tr><td><code>last_seen_at</code> (last seen at / last place of)</td><td>npc, player_character → place</td></tr>
+  <tr><td><code>located_in</code></td><td>place → place</td></tr>
+  <tr><td><code>involves</code></td><td>thread, world_fact → npc, place, player_character, world_fact</td></tr>
+  <tr><td><code>pursues</code></td><td>player_character → character_goal</td></tr>
+  <tr><td><code>pressures</code></td><td>clock → thread, player_character, place</td></tr>
+  <tr><td><code>knows</code></td><td>npc, player_character → npc, player_character</td></tr>
+</table>
+<h3>History, per entity</h3>
+<p>Each applied change writes one <code>history</code> row per touched entity: the change, the value before, the scene, the transcript line, the why, and its commit (kind and reason). A schema commit writes rows without an entity. Reading an entity's history is one index range: <code>history.by_entity</code>. Current state is materialized on <code>entities</code> in the same transaction, so prep never folds history.</p>
+<h3>Migration</h3>
+<p>None. There is no older data; ADR 0001 seeds from the latest session only. The seed is itself a commit, so the history starts at the seed.</p>
+
+<h2 id="view">6. The draft-debrief view</h2>
+<p>One MCP Apps resource, three layouts. Switch with the floating bar or ← →. Rendered by the prototype host from live MCP data (session 2 of the invented campaign).</p>
+<div class="shots">
+  <figure><a href="screenshots/variant-A.png"><img src="screenshots/variant-A.png" alt="Variant A"></a><figcaption>A · Scene timeline</figcaption></figure>
+  <figure><a href="screenshots/variant-B.png"><img src="screenshots/variant-B.png" alt="Variant B"></a><figcaption>B · Transcript margin</figcaption></figure>
+  <figure><a href="screenshots/variant-C.png"><img src="screenshots/variant-C.png" alt="Variant C"></a><figcaption>C · Ledger + session-note box</figcaption></figure>
+</div>
+
+<h2 id="hosting">7. Local → hosted without a migration</h2>
+<pre class="mermaid">
+flowchart LR
+  L["Local deployment<br/>127.0.0.1:3211/mcp<br/>static token"] -- "convex export (ZIP)" --> Z[("snapshot")]
+  Z -- "convex import --prod --replace<br/>keeps _id and _creationTime" --> H["Hosted Convex prod<br/>&lt;name&gt;.convex.site/mcp<br/>OAuth (WorkOS AuthKit)"]
+  C["Same convex/ code,<br/>only ownerFromRequest changes"] -.-> L
+  C -.-> H
+</pre>
+<ol class="tight">
+  <li>Same code, same schema: the MCP endpoint is a Convex HTTP action, so "hosting the server" is <code>convex deploy</code>. There is no second server to host.</li>
+  <li>Same data: a snapshot export from the local deployment imports into the hosted one with every <code>_id</code> and <code>_creationTime</code> kept, so references and history stay intact (Convex docs, import page).</li>
+  <li>Same owner model: campaigns already carry <code>ownerId</code>. Hosting swaps the static token for OAuth and maps the GM's subject to their owner id (see card D8).</li>
+  <li>Only the client config changes: the MCP URL and the auth method.</li>
+</ol>
+
+<h2>8. Caching and performance</h2>
+<p>Does not apply in v1: one GM, a few hundred entities, tens of changes per debrief. No cache. Reads are bounded (25 per list, history on request) to keep AI context small, not for load.</p>
+
+<h2 id="cards">9. Decision cards</h2>
+<p class="muted">Open cards first. Each one was built as the recommendation, so the prototype shows it working; the alternatives are a short change.</p>
+
+<div class="card"><h3><span class="status">open</span>D1 · Where does the MCP server run?</h3>
+<ul class="tight">
+  <li><b>A. A Convex HTTP action at <code>/mcp</code></b> (built). One deployable; domain functions stay internal; hosting is <code>convex deploy</code>. Cost: a hand-written stateless JSON-RPC handler (about 100 lines), since the MCP SDK server transport expects Node.</li>
+  <li><b>B. A separate Bun process</b> with the MCP SDK and <code>ConvexHttpClient</code>. Full SDK; but domain functions must be public and guarded by a shared secret, and hosted needs a second service.</li>
+</ul>
+<div class="rec">Recommend A: the hosted move is where an earlier attempt stalled, and A removes the second thing to host. Verified with the official MCP SDK client against the local endpoint.</div></div>
+
+<div class="card"><h3><span class="status">open</span>D2 · Are campaign, adventure, session, and scene tables or graph entities?</h3>
+<ul class="tight">
+  <li><b>A. Fixed tables</b> (built). Ordering, "one debrief per session", and scene anchors are enforced by shape. Adventure-to-adventure relations need their own small table later.</li>
+  <li><b>B. Entities in the graph</b> with kinds like <code>session</code>. One model for everything, but ordering and anchoring become conventions the AI can break.</li>
+</ul>
+<div class="rec">Recommend A: structure is the frame the debrief hangs on, not story state the AI should edit freely.</div></div>
+
+<div class="card"><h3><span class="status">open</span>D3 · How are drafts, commits, and history stored?</h3>
+<ul class="tight">
+  <li><b>A. Server-side draft rows; commit applies them to materialized current state and writes append-only history rows in one transaction</b> (built). Reads are cheap; history is one index range; the draft survives a closed chat.</li>
+  <li><b>B. Event-sourced:</b> history is the truth and current state is folded from it. Elegant reordering, but every read folds or needs a projection to maintain.</li>
+  <li><b>C. Client-held draft</b> submitted once at commit. Less server state, but the view cannot reload and fixes across turns are lost.</li>
+</ul>
+<div class="rec">Recommend A. Convex mutations are transactional, so current state and history cannot drift apart.</div></div>
+
+<div class="card"><h3><span class="status">open</span>D4 · How does a deliberate schema change work, and is it history?</h3>
+<ul class="tight">
+  <li><b>A. A dedicated <code>schema_change</code> tool</b> (built). Its description says "only when the GM explicitly asks"; the client's tool-approval prompt is the deliberate step; it writes a <code>schema</code> commit with a reason into the same log. Properties are retired, never deleted, so old history stays readable. No renames in v1.</li>
+  <li><b>B. Schema as code</b> in this repo, changed by deploy. Strong review, history in git; but the GM cannot add a property mid-debrief without a code change.</li>
+  <li><b>C. Only from a view button</b>, never from the AI. Hard boundary; needs more view and host support.</li>
+</ul>
+<div class="rec">Recommend A: one log answers "when did we start tracking this, and why?"</div></div>
+
+<div class="card"><h3><span class="status">open</span>D5 · Is the starter schema right?</h3>
+<ul class="tight">
+  <li>Kinds and properties as in the <a href="#data">Data</a> tables. "Where last seen" is a relationship, not text, so a place lists who was last seen there.</li>
+  <li>Relationship definitions are directed, with a label and an inverse label and the allowed from/to kinds. <b>No properties on relationships in v1</b> (for example, no attitude on <code>knows</code>).</li>
+  <li>Open for the dry-run prototype to confirm: which fields the debrief actually fills.</li>
+</ul>
+<div class="rec">Recommend: accept as the starting point, and let the dry-run ticket trim or add fields through schema commits.</div></div>
+
+<div class="card"><h3><span class="status">open</span>D6 · Is this the right tool surface?</h3>
+<ul class="tight">
+  <li><b>A. Twelve focused tools</b> (built), with entity references as ids or <code>$tempKey</code> inside one draft. Each tool has one job; the descriptions steer.</li>
+  <li><b>B. Fewer, coarser tools</b>, for example one <code>debrief_save</code> that replaces the whole draft. Simpler list, but every fix resends everything and the per-change rejection gets lost.</li>
+  <li>Sub-question: references by <b>id/$tempKey</b> (built) or by <b>name</b> resolved on the server (friendlier, ambiguous).</li>
+</ul>
+<div class="rec">Recommend A with ids/$tempKey: per-change validation is what keeps invented properties out.</div></div>
+
+<div class="card"><h3><span class="status">open</span>D7 · Which view, and does it write?</h3>
+<ul class="tight">
+  <li><b>A. Scene timeline:</b> the scenes as a spine, change cards under each. Clearest scene by scene; longest.</li>
+  <li><b>B. Transcript margin:</b> quote on the left, change in the margin. Fastest to check "did this happen?"</li>
+  <li><b>C. Ledger:</b> a dense table with a "for your session note" box. Best overview; least story feel.</li>
+  <li>Writes: only <b>drop</b> buttons (built); every other fix is said to the AI.</li>
+</ul>
+<div class="rec">Recommend B with C's session-note box on top, keeping only the drop buttons, because the GM fixes things by talking.</div></div>
+
+<div class="card"><h3><span class="status">open</span>D8 · How does the store move from local to hosted?</h3>
+<ul class="tight">
+  <li><b>A. Snapshot export → import into hosted prod</b>, ids kept; the static token becomes OAuth; the owner id "local" is mapped to the GM's subject by a small <code>accounts</code> table, so no row is rewritten.</li>
+  <li><b>B. Same as A, but rewrite <code>ownerId</code></b> on campaigns at cutover (one patch, a small data change).</li>
+  <li><b>C. Start on a free Convex cloud dev deployment now</b> with the static token. Nothing to move later; reopens ADR 0001's "start local".</li>
+</ul>
+<div class="rec">Recommend A: no code path changes except <code>ownerFromRequest</code>, and no data changes at all.</div></div>
+
+<div class="card locked"><h3><span class="status">locked</span>L1 · Generic entities constrained by definitions</h3><p>The AI cannot invent a property or kind; schema changes are a separate step. <i>Reason: the brainstorm resolution.</i></p></div>
+<div class="card locked"><h3><span class="status">locked</span>L2 · The server makes no AI calls</h3><p>Extraction runs in the GM's client; the server stores, validates, and keeps history. <i>Reason: ADR 0001.</i></p></div>
+<div class="card locked"><h3><span class="status">locked</span>L3 · One debrief per session; draft, then commit; each change carries scene, transcript line, and why</h3><p><i>Reason: brainstorm resolution and the glossary entry for debrief.</i></p></div>
+<div class="card locked"><h3><span class="status">locked</span>L4 · Later corrections are small commits with a reason</h3><p><i>Reason: brainstorm resolution.</i> Built as <code>story_correct</code>.</p></div>
+<div class="card locked"><h3><span class="status">locked</span>L5 · Domain functions are internal; only our MCP endpoint reaches them</h3><p><i>Reason: ADR 0001 rejected Convex's developer MCP server because it gives the AI admin access to every function.</i></p></div>
+<div class="card locked"><h3><span class="status">locked</span>L6 · Start local with a static token; no migration of older records</h3><p><i>Reason: ADR 0001.</i></p></div>
+
+<h2 id="blast">10. Blast radius</h2>
+<ul class="tight">
+  <li><b>What can break:</b> a bad commit corrupts the story state. Mitigation: every commit is reversible from history (a correction can restore <code>before</code> values); the draft gate sits in front.</li>
+  <li><b>Who notices:</b> the GM, at the next prep, when the AI recalls something wrong.</li>
+  <li><b>Exercised:</b> the full debrief flow through the official MCP SDK client; the guard rejecting an invented property; the view rendering live data in a minimal MCP Apps host; a drop button clicked in the view, going through <code>tools/call</code> and re-rendering from the server.</li>
+  <li><b>Not exercised in the prototype:</b> a real MCP Apps host (Claude Desktop) rendering the view; the export/import move; OAuth.</li>
+  <li><b>Out of scope:</b> faction positions and off-screen moves; idea capture; real campaign data (never in this repo); the adventure frame's storage (a later decision, likely a separate non-state record).</li>
+</ul>
+</main>
+</body>
+</html>

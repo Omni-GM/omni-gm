@@ -10,6 +10,7 @@ The prototype is a procedure, not code: two prompts the game master runs in thei
 | [`debrief.md`](debrief.md) | The prompt that turns one session's transcript into a draft of story-state changes, scene by scene. |
 | [`story-state-changes.md`](story-state-changes.md) | The change format and the field list for each story-state kind. |
 | [`frame-talk.md`](frame-talk.md) | The prompt for the frame talk at the start of prep, where the AI asks and the game master writes the adventure frame. |
+| [`prep-sparring.md`](prep-sparring.md) | The prompt for the rest of prep: the AI brings facts and structure along the game master's own checklist; the game master creates. |
 
 ## How to run it
 

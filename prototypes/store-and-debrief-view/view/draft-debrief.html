@@ -1,7 +1,6 @@
 <!doctype html>
-<!-- PROTOTYPE — throwaway. MCP Apps view (text/html;profile=mcp-app) for debrief_show.
-     Three variants of the draft debrief, switchable with the floating bar or ← →:
-     A Scene timeline · B Transcript margin · C Ledger -->
+<!-- PROTOTYPE — throwaway. MCP Apps view (text/html;profile=mcp-app) for the debrief tool.
+     The Ledger layout (D7). Variants A and B are in git history (commit f2c8d3b). -->
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -42,25 +41,6 @@
   button.drop:hover { color: var(--unrel); border-color: var(--unrel); }
   .empty { color: var(--muted); font-style: italic; }
 
-  /* A — Scene timeline */
-  .timeline { padding: 16px 24px; }
-  .scene { position: relative; padding-left: 28px; margin-bottom: 22px; }
-  .scene::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: -22px; width: 2px; background: var(--line); }
-  .scene:last-child::before { display: none; }
-  .scene .dot { position: absolute; left: 0; top: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 10px; display: grid; place-items: center; font-weight: 700; }
-  .scene h2 { font-size: 15px; margin: 0; } .scene > p { margin: 2px 0 10px; color: var(--muted); }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; display: grid; gap: 4px; }
-  .card .head { display: flex; gap: 8px; align-items: center; } .card .head strong { flex: 1; }
-
-  /* B — Transcript margin */
-  .margin { padding: 8px 24px; }
-  .margin section { border-bottom: 1px solid var(--line); padding: 14px 0; }
-  .margin h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--accent); margin: 0 0 8px; }
-  .row { display: grid; grid-template-columns: 56px 1fr 1fr; gap: 12px; padding: 6px 0; align-items: start; }
-  .row .quote { font-size: 15px; color: var(--text); }
-  .note { border-left: 3px solid var(--line); padding-left: 10px; display: grid; gap: 2px; }
-  .note.create_entity { border-color: var(--new); } .note.set_property { border-color: var(--set); }
-  .note.relate { border-color: var(--rel); } .note.unrelate { border-color: var(--unrel); }
 
   /* C — Ledger */
   .ledger { padding: 12px 24px; }
@@ -71,22 +51,11 @@
   th { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); background: var(--bg); }
   tr.scene-head td { background: var(--bg); font-weight: 600; color: var(--accent); }
 
-  /* prototype switcher (not part of the design) */
-  #switcher { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); background: #111; color: #fff; border-radius: 999px; padding: 6px 8px; display: flex; gap: 6px; align-items: center; box-shadow: 0 6px 24px rgba(0,0,0,.3); font: 12px ui-monospace, monospace; z-index: 10; }
-  #switcher button { background: #333; color: #fff; border: 0; border-radius: 999px; width: 26px; height: 26px; cursor: pointer; }
-  #switcher span { padding: 0 8px; }
 </style>
 </head>
 <body>
 <div id="app"><p class="empty" style="padding:24px">Waiting for the draft debrief…</p></div>
-<div id="switcher"><button id="prev">←</button><span id="label"></span><button id="next">→</button></div>
 <script>
-const VARIANTS = [
-  { key: "A", name: "Scene timeline", render: renderTimeline },
-  { key: "B", name: "Transcript margin", render: renderMargin },
-  { key: "C", name: "Ledger", render: renderLedger },
-];
-let variant = new URLSearchParams(location.search).get("variant") || "A";
 let draft = null;
 
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
@@ -116,27 +85,7 @@ const counts = () => {
 };
 const header = () => `<header><div class="eyebrow">Draft debrief · played ${esc(draft.playedOn)}</div><h1>${esc(draft.title)}</h1><p>${esc(draft.summary)}</p>${counts()}</header>`;
 
-function renderTimeline() {
-  return header() + `<div class="timeline">${draft.scenes.map((s) => `
-    <div class="scene"><div class="dot">${s.ordinal}</div><h2>${esc(s.title)}</h2><p>${esc(s.summary)}</p>
-      ${s.changes.length ? s.changes.map((c) => `
-        <div class="card"><div class="head">${opBadge(c)}<span style="flex:1">${headline(c)}</span>${dropBtn(c)}</div>
-          ${detail(c)}
-          <div><span class="line">L${c.transcript.line}</span> <span class="quote">“${esc(c.transcript.quote)}”</span></div>
-          <div class="why">Why: ${esc(c.why)}</div></div>`).join("") : `<p class="empty">No changes in this scene.</p>`}
-    </div>`).join("")}</div>`;
-}
 
-function renderMargin() {
-  return header() + `<div class="margin">${draft.scenes.map((s) => `
-    <section><h2>Scene ${s.ordinal} · ${esc(s.title)}</h2>
-      ${s.changes.length ? [...s.changes].sort((a, b) => a.transcript.line - b.transcript.line).map((c) => `
-        <div class="row"><span class="line">L${c.transcript.line}</span>
-          <span class="quote">“${esc(c.transcript.quote)}”</span>
-          <div class="note ${c.op}"><div>${opBadge(c)} ${headline(c)} ${dropBtn(c)}</div>${detail(c)}<div class="why">${esc(c.why)}</div></div>
-        </div>`).join("") : `<p class="empty">Nothing changed. ${esc(s.summary)}</p>`}
-    </section>`).join("")}</div>`;
-}
 
 function renderLedger() {
   return header() + `<div class="ledger">
@@ -149,25 +98,14 @@ function renderLedger() {
 }
 
 function render() {
-  const v = VARIANTS.find((x) => x.key === variant) || VARIANTS[0];
-  document.getElementById("label").textContent = `${v.key} (${v.name})`;
-  if (draft) document.getElementById("app").innerHTML = v.render();
+  if (draft) document.getElementById("app").innerHTML = renderLedger();
   reportSize();
 }
-function cycle(step) {
-  const i = VARIANTS.findIndex((x) => x.key === variant);
-  variant = VARIANTS[(i + step + VARIANTS.length) % VARIANTS.length].key;
-  const url = new URL(location.href); url.searchParams.set("variant", variant);
-  try { history.replaceState(null, "", url); } catch {}
-  render();
+
+function draftFrom(toolResult) {
+  const value = toolResult.structuredContent ?? JSON.parse(toolResult.content?.[0]?.text ?? "null");
+  return value?.draft ?? value;
 }
-document.getElementById("prev").onclick = () => cycle(-1);
-document.getElementById("next").onclick = () => cycle(1);
-addEventListener("keydown", (e) => {
-  if (e.target.closest("input, textarea, [contenteditable]")) return;
-  if (e.key === "ArrowLeft") cycle(-1);
-  if (e.key === "ArrowRight") cycle(1);
-});
 
 // --- MCP Apps bridge: JSON-RPC over postMessage with the host ---
 let nextId = 1; const pending = new Map();
@@ -185,13 +123,12 @@ addEventListener("message", (e) => {
     const p = pending.get(msg.id); pending.delete(msg.id);
     msg.error ? p.reject(msg.error) : p.resolve(msg.result); return;
   }
-  if (msg.method === "ui/notifications/tool-result") { draft = msg.params.structuredContent; render(); }
+  if (msg.method === "ui/notifications/tool-result") { draft = draftFrom(msg.params); render(); }
 });
 document.addEventListener("click", async (e) => {
   const id = e.target.closest("[data-drop]")?.dataset.drop; if (!id) return;
-  await request("tools/call", { name: "debrief_drop", arguments: { changeId: id } });
-  const result = await request("tools/call", { name: "debrief_show", arguments: { debriefId: draft.debriefId } });
-  draft = result.structuredContent; render();
+  const result = await request("tools/call", { name: "debrief", arguments: { action: "drop", debriefId: draft.debriefId, changeIds: [id] } });
+  draft = draftFrom(result); render();
 });
 
 (async () => {

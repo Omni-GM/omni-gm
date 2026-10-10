@@ -10,6 +10,7 @@
 
 import type * as _view from "../_view.js";
 import type * as http from "../http.js";
+import type * as mcpTools from "../mcpTools.js";
 import type * as seed from "../seed.js";
 import type * as store from "../store.js";
 import type * as tools from "../tools.js";
@@ -23,6 +24,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   _view: typeof _view;
   http: typeof http;
+  mcpTools: typeof mcpTools;
   seed: typeof seed;
   store: typeof store;
   tools: typeof tools;
@@ -54,4 +56,6 @@ export declare const internal: FilterApi<
   FunctionReference<any, "internal">
 >;
 
-export declare const components: {};
+export declare const components: {
+  mcpGateway: import("convex-mcp-gateway/_generated/component.js").ComponentApi<"mcpGateway">;
+};

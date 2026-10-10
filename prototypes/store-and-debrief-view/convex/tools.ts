@@ -1,156 +1,61 @@
-// PROTOTYPE — throwaway. The MCP tool surface: names, descriptions that steer the AI, and JSON schemas.
-const entityRef = {
-  type: "string",
-  description: "An existing entity id, or $tempKey of an entity created earlier in the same draft.",
-};
-
-const change = {
-  description: "One change to the story state.",
-  oneOf: [
-    {
-      type: "object",
-      required: ["op", "tempKey", "kind", "name", "properties"],
-      properties: {
-        op: { const: "create_entity" },
-        tempKey: { type: "string", description: "Draft-local key, referenced later as $tempKey." },
-        kind: { type: "string" },
-        name: { type: "string" },
-        properties: { type: "object", description: "Only properties listed by story_schema for this kind." },
-      },
-    },
-    {
-      type: "object",
-      required: ["op", "entity", "key", "value"],
-      properties: { op: { const: "set_property" }, entity: entityRef, key: { type: "string" }, value: {} },
-    },
-    {
-      type: "object",
-      required: ["op", "type", "from", "to"],
-      properties: { op: { enum: ["relate", "unrelate"] }, type: { type: "string" }, from: entityRef, to: entityRef },
-    },
-  ],
-};
-
-const transcript = {
-  type: "object",
-  required: ["line", "quote"],
-  properties: { line: { type: "number" }, quote: { type: "string", description: "Short verbatim quote, max one sentence." } },
-};
+// PROTOTYPE — throwaway. The MCP tool surface (D6: few deep tools), declared for convex-mcp-gateway.
+// Descriptions are part of the contract: they steer the AI.
+import { defineMcpAction, defineMcpResource, type McpToolRegistration } from "convex-mcp-gateway";
+import { internal } from "./_generated/api";
+import { readArgs, debriefArgs, correctArgs, schemaArgs } from "./mcpTools";
+import { DEBRIEF_VIEW_HTML } from "./_view";
 
 export const DEBRIEF_VIEW_URI = "ui://omni-gm/draft-debrief";
 
-export const tools = [
-  {
-    name: "story_structure",
-    description: "The campaign's adventures and sessions, in order, with each session's debrief status. Start here.",
-    inputSchema: { type: "object", properties: {} },
-  },
-  {
-    name: "story_schema",
-    description:
-      "Read the story-state schema: entity kinds, their allowed properties, and relationship types. Call this before drafting a debrief. You cannot invent properties or kinds.",
-    inputSchema: { type: "object", properties: {} },
-  },
-  {
-    name: "story_find",
-    description: "Find entities by kind and/or part of the name. Returns at most 25 ids and names. Use it to avoid duplicates before create_entity.",
-    inputSchema: { type: "object", properties: { kind: { type: "string" }, nameContains: { type: "string" } } },
-  },
-  {
-    name: "story_entity",
-    description: "Current state of one entity: its properties and relationships. Set withHistory to also get every past change with scene, transcript line, and why.",
-    inputSchema: {
-      type: "object",
-      required: ["entityId"],
-      properties: { entityId: { type: "string" }, withHistory: { type: "boolean" } },
-    },
-  },
-  {
-    name: "session_create",
-    description: "Record a played session and its scenes, in order. Scenes are the anchors every debrief change attaches to.",
-    inputSchema: {
-      type: "object",
-      required: ["adventureId", "playedOn", "scenes"],
-      properties: {
-        adventureId: { type: "string" },
-        playedOn: { type: "string", description: "YYYY-MM-DD" },
-        scenes: {
-          type: "array",
-          items: { type: "object", required: ["title", "summary"], properties: { title: { type: "string" }, summary: { type: "string" } } },
-        },
-      },
-    },
-  },
-  {
-    name: "debrief_start",
-    description:
-      "Open (or update) the draft debrief of a session with its session summary and a short version for the GM's session note. One debrief per session.",
-    inputSchema: {
-      type: "object",
-      required: ["sessionId", "summary", "shortSummary"],
-      properties: { sessionId: { type: "string" }, summary: { type: "string" }, shortSummary: { type: "string" } },
-    },
-  },
-  {
-    name: "debrief_propose",
-    description:
-      "Add changes to a draft debrief. Each change names its scene (ordinal), the transcript line, and why. Record only what happened at the table, never plans or player guesses. Invalid changes are rejected one by one with a reason; valid ones are kept.",
-    inputSchema: {
-      type: "object",
-      required: ["debriefId", "changes"],
-      properties: {
-        debriefId: { type: "string" },
-        changes: {
-          type: "array",
-          items: {
-            type: "object",
-            required: ["scene", "change", "transcript", "why"],
-            properties: { scene: { type: "number" }, change, transcript, why: { type: "string" } },
-          },
-        },
-      },
-    },
-  },
-  {
-    name: "debrief_drop",
-    description: "Remove one change from a draft debrief, when the GM rejects it. To fix a change, drop it and propose the corrected one.",
-    inputSchema: { type: "object", required: ["changeId"], properties: { changeId: { type: "string" } } },
-  },
-  {
-    name: "debrief_show",
-    description: "Show the draft debrief to the GM, scene by scene, in a view. Call it after proposing and after every round of fixes.",
-    inputSchema: { type: "object", required: ["debriefId"], properties: { debriefId: { type: "string" } } },
+export const tools: McpToolRegistration[] = [
+  defineMcpAction({
+    name: "story_read",
+    description: [
+      "Read the story state. Pick one view:",
+      "overview: adventures and sessions in order, each with its debrief status. Start here.",
+      "schema: entity kinds, their allowed properties, and relationship types. Read it before drafting; you cannot invent properties.",
+      "entities: find entities by kind and/or nameContains (max 25). Use it to avoid duplicates.",
+      "entity: one entity's properties and relationships by entityId; withHistory adds every past change with scene, transcript line, and why.",
+    ].join("\n"),
+    fn: internal.mcpTools.storyRead,
+    args: readArgs,
+    annotations: { readOnlyHint: true },
+  }),
+  defineMcpAction({
+    name: "debrief",
+    description: [
+      "Work on a session's debrief: the draft of story-state changes from one session, scene by scene. Every action returns the current draft and shows it to the GM.",
+      "open: start or update the draft with summary and shortSummary (for the GM's session note). Pass sessionId, or newSession {adventureId, playedOn, scenes[]} to record the played session first.",
+      "propose: add changes. Each has scene (ordinal), change, transcript {line, quote}, and why. Record only what happened at the table, never plans or player guesses. Entities are referenced by id, or $tempKey for one created earlier in the same draft. Invalid changes are rejected one by one with a reason.",
+      "drop: remove changes by changeIds when the GM rejects them. To fix a change, drop it and propose the corrected one.",
+      "show: just show the draft.",
+      "commit: apply the whole draft as one commit. Only when the GM says it is right.",
+    ].join("\n"),
+    fn: internal.mcpTools.debrief,
+    args: debriefArgs,
     _meta: { ui: { resourceUri: DEBRIEF_VIEW_URI } },
-  },
-  {
-    name: "debrief_commit",
-    description: "Commit the draft debrief to the story state, all changes at once. Only call this when the GM says the draft is right.",
-    inputSchema: { type: "object", required: ["debriefId"], properties: { debriefId: { type: "string" } } },
-  },
-  {
+  }),
+  defineMcpAction({
     name: "story_correct",
-    description:
-      "Fix the committed story state outside a debrief, as one small commit with a reason the GM gave. All changes apply, or none.",
-    inputSchema: {
-      type: "object",
-      required: ["reason", "changes"],
-      properties: {
-        reason: { type: "string" },
-        changes: {
-          type: "array",
-          items: { type: "object", required: ["change", "why"], properties: { change, why: { type: "string" } } },
-        },
-      },
-    },
-  },
-  {
+    description: "Fix the committed story state outside a debrief, as one small commit with the reason the GM gave. All changes apply, or none.",
+    fn: internal.mcpTools.storyCorrect,
+    args: correctArgs,
+  }),
+  defineMcpAction({
     name: "schema_change",
     description:
-      "Deliberately change the story-state schema: add a kind, add or retire a property, or add a relationship type. Only when the GM explicitly asks for it, never as part of a debrief. Recorded in the history with the reason.",
-    inputSchema: {
-      type: "object",
-      required: ["reason", "ops"],
-      properties: { reason: { type: "string" }, ops: { type: "array", items: { type: "object" } } },
-    },
-  },
+      "Deliberately change the story-state schema: add a kind, add or retire a property, or add a relationship type. Only when the GM explicitly asks, never as part of a debrief. Recorded in the history with the reason.",
+    fn: internal.mcpTools.schemaChange,
+    args: schemaArgs,
+  }),
+];
+
+export const resources = [
+  defineMcpResource({
+    uri: DEBRIEF_VIEW_URI,
+    name: "draft-debrief",
+    title: "Draft debrief",
+    mimeType: "text/html;profile=mcp-app",
+    read: async (_ctx, { uri }) => [{ uri, mimeType: "text/html;profile=mcp-app", text: DEBRIEF_VIEW_HTML }],
+  }),
 ];

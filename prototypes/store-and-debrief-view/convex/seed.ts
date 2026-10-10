@@ -89,3 +89,15 @@ export const run = internalAction({
     return { campaignId, adventureId, seededSession: sessionId };
   },
 });
+
+const TABLES = [
+  "campaigns", "adventures", "sessions", "scenes", "kindDefinitions", "propertyDefinitions", "relationshipDefinitions",
+  "entities", "relationships", "debriefs", "draftChanges", "commits", "history",
+] as const;
+
+export const wipe = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    for (const table of TABLES) for (const row of await ctx.db.query(table).collect()) await ctx.db.delete(row._id);
+  },
+});

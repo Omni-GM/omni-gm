@@ -11,14 +11,19 @@ await client.connect(new StreamableHTTPClientTransport(url, { requestInit: { hea
 async function call(name: string, args: Record<string, unknown> = {}) {
   const result = (await client.callTool({ name, arguments: args })) as any;
   console.log(`\n▶ ${name}${result.isError ? "  ✖ ERROR" : ""}`);
-  console.log(result.isError ? result.content[0].text : JSON.stringify(result.structuredContent, null, 2).slice(0, 1200));
-  return result.structuredContent;
+  if (result.isError) throw new Error(`${name}: ${result.content[0].text}`);
+  const value = result.structuredContent ?? JSON.parse(result.content[0].text);
+  console.log(JSON.stringify(value, null, 2).slice(0, 900));
+  return value;
 }
 
 console.log("tools:", (await client.listTools()).tools.map((t) => t.name).join(", "));
-await call("story_schema");
+console.log("resources:", (await client.listResources()).resources.map((r) => `${r.uri} (${r.mimeType})`).join(", "));
 
-const find = async (nameContains: string) => (await call("story_find", { nameContains })).entities[0].id as string;
+const read = (args: Record<string, unknown>) => call("story_read", args);
+const overview = await read({ view: "overview" });
+await read({ view: "schema" });
+const find = async (nameContains: string) => (await read({ view: "entities", nameContains })).entities[0].id as string;
 const maren = await find("Maren");
 const docks = await find("Docks");
 const vessa = await find("Vessa");
@@ -26,10 +31,10 @@ const choir = await find("Choir");
 const goal = await find("sister");
 const bell = await find("bell");
 
-const adventureId = (await call("story_structure")).adventures[0].id as string;
-const sessionId = (
-  await call("session_create", {
-    adventureId,
+const opened = await call("debrief", {
+  action: "open",
+  newSession: {
+    adventureId: overview.adventures[0].id,
     playedOn: "2026-10-03",
     scenes: [
       { title: "Fog at the docks", summary: "Maren denies the bell rang; a net-mender boy saw lights under the water." },
@@ -37,18 +42,15 @@ const sessionId = (
       { title: "Over the roofs", summary: "Something chases the party across the rooftops; the choir hums louder." },
       { title: "Back at the Gull & Lamp", summary: "Vessa promises to get the boy off the docks." },
     ],
-  })
-).sessionId;
-
-const { debriefId } = await call("debrief_start", {
-  sessionId,
+  },
   summary:
     "The party pressed the harbor-master, found a witness, learned that the Archive's bell records were burned, and escaped a chase over the roofs. Vessa made a promise to the boy.",
   shortSummary: "Witness Pell saw lights in the bay; bell records burned; the choir is louder; Vessa promised to help Pell.",
 });
-
+const debriefId = opened.draft.debriefId as string;
 const t = (line: number, quote: string) => ({ line, quote });
-await call("debrief_propose", {
+const proposed = await call("debrief", {
+  action: "propose",
   debriefId,
   changes: [
     { scene: 1, change: { op: "set_property", entity: maren, key: "playedAs", value: "Gruff, chews cloves, goes pale when the bell is named" }, transcript: t(112, "Maren's clove drops. 'There's no bell. There's been no bell for forty years.'"), why: "New tell the GM played: she is afraid of the bell." },
@@ -68,7 +70,7 @@ await call("debrief_propose", {
   ],
 });
 
-await call("debrief_show", { debriefId });
-await call("story_entity", { entityId: bell, withHistory: true });
+console.log("rejected:", proposed.result.filter((r: any) => !r.accepted));
+await read({ view: "entity", entityId: bell, withHistory: true });
 console.log(`\nDRAFT_DEBRIEF_ID=${debriefId}`);
 await client.close();

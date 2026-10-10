@@ -4,13 +4,14 @@
   "type": "module",
   "scripts": {
     "dev": "bun scripts/embed-view.ts && convex dev --typecheck=disable",
-    "seed": "convex run seed:run",
+    "seed": "convex run seed:wipe && convex run seed:run",
     "smoke": "bun scripts/mcp-smoke.ts",
     "view": "bun scripts/serve-view.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.1",
-    "convex": "^1.46.0"
+    "convex": "^1.46.0",
+    "convex-mcp-gateway": "^2.1.1"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",

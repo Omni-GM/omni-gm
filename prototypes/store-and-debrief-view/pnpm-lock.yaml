@@ -14,6 +14,9 @@ importers:
       convex:
         specifier: ^1.46.0
         version: 1.46.0
+      convex-mcp-gateway:
+        specifier: ^2.1.1
+        version: 2.1.1(convex@1.46.0)
     devDependencies:
       '@types/node':
         specifier: ^26.6.5
@@ -367,6 +370,11 @@ packages:
   content-type@2.1.0:
     resolution: {integrity: sha512-mj7UPXE0jaqaOsukNZRUEfEi2AcL7C/vwmwcHV0O97eO1E1pxBZuyjlZrx5seTaNBg1U6+o35wpa35Qfcc+7ag==}
     engines: {node: '>=18'}
+
+  convex-mcp-gateway@2.1.1:
+    resolution: {integrity: sha512-yJ5/lOkfBR5Khxm1sBIc2u2uy5qUDFfL9LLHcEfGkyff/yIJ4fKHIhwktxjQvU5K5KBTpmNK8GQkOF5HO+BPdg==}
+    peerDependencies:
+      convex: ^1.35.0
 
   convex@1.46.0:
     resolution: {integrity: sha512-dhBwDQTZDOhi5SUGAX17EWNehCdNq6/UFrSL0eLZuGfMkdsQbCVWVRZCzbZ5CF+/pgvoGxtApbEoTSipqL4JTw==}
@@ -950,6 +958,10 @@ snapshots:
   content-type@1.0.5: {}
 
   content-type@2.1.0: {}
+
+  convex-mcp-gateway@2.1.1(convex@1.46.0):
+    dependencies:
+      convex: 1.46.0
 
   convex@1.46.0:
     dependencies:

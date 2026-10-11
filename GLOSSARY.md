@@ -56,6 +56,10 @@ _Avoid_: Lore, canon
 The current truth of the world and the campaign as of the last session: open threads, NPCs as they were played, places, world facts, clocks, faction positions, and character goals. It records what happened, not what the game master intends for the main plot or the next adventure.
 _Avoid_: Campaign state, world state, canon
 
+**Secret**:
+Background the game master has decided but the table has not yet seen, such as who a villain really was. It is the game master's intent, open to change at any time, and becomes story state only once it is revealed at the table or the game master declares it fixed.
+_Avoid_: Lore, hidden fact, GM canon
+
 **Fizzle**:
 A campaign losing momentum until it stalls: players no longer see progress, and the game master loses the energy to prep it.
 _Avoid_: Burnout, campaign death
@@ -116,12 +120,20 @@ _Avoid_: Source type, confidence
 The conversation at the start of prep in which the AI asks, grounded in the story state, and the game master writes or updates the adventure frame.
 _Avoid_: Planning session, frame interview
 
+**Briefing**:
+The one-page, plot-first digest that opens prep, generated from the story state and the adventure frame: where the party stands, the threads that pull, the NPCs in play and what they want, the clocks and pressure, and a few off-screen moves or complications to pick from.
+_Avoid_: Dossier, report, digest
+
 **Prep sparring**:
-The rest of prep after the frame talk: the AI walks the game master's own prep checklist with facts, questions, and checks, never drafting prep, and assembles the session note from the game master's decisions.
+The part of prep after the briefing: the AI walks the game master's own prep checklist, opening each section with the facts that matter for it and offering pitches, and assembles the session note from the game master's decisions only.
 _Avoid_: Co-writing, prep assistant
 
+**Pitch**:
+A short idea the AI offers during prep, such as a scene, a twist, or an off-screen move, built on named story-state facts and framed as a situation, never an outcome. The game master picks, reshapes, or ignores it; an ignored pitch leaves no trace.
+_Avoid_: Suggestion, proposal, draft
+
 **Plank question**:
-One targeted question the AI asks during prep when the main plot has a gap in the story state. The answer becomes a story-state change with basis game master.
+One targeted question the AI asks during prep when the main plot has a gap in the story state. The answer becomes a secret, unless it corrects what the table already saw.
 _Avoid_: Backfill, lore interview
 
 **Recap**:

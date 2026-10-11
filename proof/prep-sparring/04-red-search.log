@@ -1,0 +1,26 @@
+
+ RUN  v4.1.0 /tmp/omnigm-impl15
+
+ ❯ tests/prep.test.ts (17 tests | 1 failed) 902ms
+   × prep search returns separately ranked source claims with their basis and timestamped utterances that get can read 23ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/prep.test.ts > prep search returns separately ranked source claims with their basis and timestamped utterances that get can read
+AssertionError: expected 1 to be greater than 1
+ ❯ tests/prep.test.ts:136:33
+    134|   const sources = await c.call("find", { query: "amber", types: ["sour…
+    135|   expect(sources.hits).toHaveLength(2);
+    136|   expect(sources.hits[0].score).toBeGreaterThan(sources.hits[1].score);
+       |                                 ^
+    137|   expect(sources.hits.map((h: { basis: string[] }) => h.basis).flat().…
+    138|   const entity = await c.call("get", { ref: sources.hits[0].ref });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 16 passed (17)
+   Start at  13:13:38
+   Duration  1.10s (transform 417ms, setup 0ms, import 96ms, tests 902ms, environment 0ms)
+

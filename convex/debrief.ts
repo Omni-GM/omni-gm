@@ -16,10 +16,12 @@ import {
   proposed,
   type Relationship,
   type SchemaInfo,
+  type StoryChange,
   scene,
   schemaFor,
   seconds,
   sessionInfo,
+  storyChange,
 } from "./model";
 import { callerArgs, campaignFor, sessionFor, sessionResult } from "./store";
 export const sessionArgs = { ...callerArgs, session: v.string() };
@@ -169,7 +171,7 @@ class DraftState {
         );
     }
   }
-  apply(p: Proposed, id: string): Applied {
+  apply(p: StoryChange, id: string): Applied {
     if (
       !p.basis.length ||
       !p.sources.length ||
@@ -561,5 +563,55 @@ export const commit = internalMutation({
       );
     await ctx.db.patch(s._id, { status: "committed" });
     return { commit: id, draft: draftResult({ ...s, status: "committed" }) };
+  },
+});
+
+export const storyArgs = {
+  ...callerArgs,
+  reason: v.string(),
+  changes: v.array(storyChange),
+};
+export const storyResult = v.object({ commit: v.string() });
+export const storyCommit = internalMutation({
+  args: storyArgs,
+  returns: storyResult,
+  handler: async (
+    ctx,
+    { caller, reason, changes },
+  ): Promise<Infer<typeof storyResult>> => {
+    if (!reason.trim()) throw new ConvexError("A reason is required");
+    if (!changes.length)
+      throw new ConvexError("Provide at least one story change");
+    if (changes.length > 500)
+      throw new ConvexError("Use at most 500 story changes");
+    if (encodedSize({ reason, changes }) > 512_000)
+      throw new ConvexError("Keep a story commit within 512 KB");
+    if (changes.some((p) => encodedSize(p) > 16_000))
+      throw new ConvexError("Keep each story change within 16 KB");
+    const campaign = await campaignFor(ctx, caller);
+    const state = await stateFor(ctx, campaign);
+    const records = changes.map((p) => {
+      for (const source of p.sources)
+        if (source.at !== undefined) seconds(source.at);
+      return { p, ...state.apply(p, crypto.randomUUID()) };
+    });
+    const id = await ctx.db.insert("commits", {
+      campaign: campaign._id,
+      kind: "story",
+      reason,
+    });
+    for (const r of records)
+      await persist(
+        ctx,
+        campaign._id,
+        {
+          commit: id,
+          ...r.p,
+          before: r.before,
+          after: r.after,
+        },
+        r.ids,
+      );
+    return { commit: id };
   },
 });

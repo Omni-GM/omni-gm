@@ -57,7 +57,7 @@ returned draft. Both tools also return `ledger` rows for the view. State and
 history commit atomically. The committed debrief, transcript, and scenes
 stay closed. Dropping a parent refuses to break retained dependent changes and lists
 their IDs. Drop them together, then add replacements in dependency order.
-Later corrections remain a later slice.
+Later corrections use `story_commit`.
 
 At prep, `get overview` returns the most recently committed `lastTime`.
 `find` lists entities and scenes without a query, or searches names,
@@ -93,6 +93,52 @@ changes story state. `get frame` returns the fields and that adventure's
 history; `get overview` includes the current frame beside `lastTime`.
 Starting another adventure gives it a fresh frame and keeps earlier frames
 and their commits. Each owner's frame remains private.
+
+## Prep sparring and plank answers
+
+Load `skill` with `name: "prep-sparring"` after the frame talk. Give the AI
+your prep checklist and session-note template from your notes vault. It
+walks your sections in order with at most five sourced facts, one question
+per section, and checks against the frame and the committed story state.
+You decide the situations. It never drafts prep or proposes unless you
+explicitly ask; then it offers at most three sourced situations.
+
+A missing main-plot fact loads `plank-questions`. The AI asks one targeted
+question and explains why, then records your confirmed answer with
+`story_commit`, `basis: ["game_master"]`, your exact words as the source,
+and your reason. A secret does not settle what the players know. Their
+unresolved threads stay open.
+
+`story_commit` also corrects committed mistakes outside a debrief. Supply
+`reason` and `changes: [{change, basis, sources, why}]`, without a session
+or scene. It uses the same kinds, properties, enums, relationship endpoints
+and guess restrictions as the debrief. The whole batch changes state and
+appends history atomically; a rejection keeps nothing. `$tempKey` resolves
+a new entity from an earlier change in that batch. The current campaign's
+schema applies, including retired properties. It changes neither committed
+debriefs nor frames nor `lastTime`. `get entity:<id>` shows its before/after,
+basis, sources and why; `get overview` shows the `story` commit and reason.
+History from a story commit has no session or scene fields.
+
+Source search hits include a structured `basis` alongside the marked quote.
+Source and utterance hits retain keyword relevance rank. Each source ref
+reads the entity's history; each utterance ref reads
+`transcript:<session>@<timestamp>` for nearby context. A raw utterance is not
+itself a validated fact.
+
+At the end the AI assembles your decisions in your template, with at most
+five short bullets per section. For each place it adds two or three mood
+details only from your own descriptions, with sources. Missing details are
+marked instead of invented. Your prep stays in your vault; it does not
+become story state. `story_commit` accepts 1 to 500 changes, at most 16 KB
+per change and 512 KB for the reason and batch together. The existing
+2,000-entity/relationship replay capacity also applies.
+
+Run `pnpm exec tsx scripts/prep-e2e.ts` on a staging branch preview with
+`OMNI_GM_MCP_URL` and `OMNI_GM_ACCESS_TOKEN`. It seeds only invented data
+and can run again on the same preview. Use `--seed-only` for the headless
+sparring fixture. `proof/prep-sparring/` holds the endpoint red/green runs,
+full gate, SDK run, headless conversation and independent readback.
 
 ## Develop and prove
 

@@ -107,13 +107,13 @@ export const basis = v.union(
   v.literal("player_plan"),
   v.literal("game_master"),
 );
-export const proposed = v.object({
-  scene: v.number(),
+export const storyChange = v.object({
   change,
   basis: v.array(basis),
   sources: v.array(v.object({ quote: v.string(), at: v.optional(v.string()) })),
   why: v.string(),
 });
+export const proposed = v.object({ scene: v.number(), ...storyChange.fields });
 export const draftChange = v.object({ id: v.string(), ...proposed.fields });
 export const scene = v.object({
   title: v.string(),
@@ -142,8 +142,8 @@ export const relationship = v.object({
 });
 export const history = v.object({
   commit: v.string(),
-  session: v.string(),
-  scene: v.number(),
+  session: v.optional(v.string()),
+  scene: v.optional(v.number()),
   change,
   basis: v.array(basis),
   sources: proposed.fields.sources,
@@ -275,6 +275,7 @@ export const commit = v.object({
   kind: v.union(
     v.literal("seed"),
     v.literal("debrief"),
+    v.literal("story"),
     v.literal("schema"),
     v.literal("frame"),
   ),
@@ -323,6 +324,7 @@ export type SchemaOp = Infer<typeof schemaOp>;
 export function schemaFor(campaign: { schema?: SchemaInfo }): SchemaInfo {
   return campaign.schema ?? { kinds, relationshipTypes, retiredProperties: {} };
 }
+export type StoryChange = Infer<typeof storyChange>;
 export type Proposed = Infer<typeof proposed>;
 export type Entity = Infer<typeof entity>;
 export type Relationship = Infer<typeof relationship>;

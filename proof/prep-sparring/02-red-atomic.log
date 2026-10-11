@@ -1,0 +1,36 @@
+
+ RUN  v4.1.0 /tmp/omnigm-impl15
+
+ ❯ tests/prep.test.ts (2 tests | 1 failed) 532ms
+   × a rejected story batch leaves state, relationships, sources and commit history unchanged 44ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/prep.test.ts > a rejected story batch leaves state, relationships, sources and commit history unchanged
+AssertionError: promise resolved "{ commit: '0000000000000000000010007…' }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "commit": "0000000000000000000010007commits",
+  }
+
+ ❯ tests/prep.test.ts:74:6
+     72|       sources: [{ quote: "The broken seal", at: "00:99:00" }],
+     73|     }],
+     74|   })).rejects.toThrow("Invalid timestamp");
+       |      ^
+     75|   expect(await c.call("get", { ref })).toEqual(before);
+     76|   expect(await c.call("get", { ref: "overview" })).toEqual(overview);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  13:12:05
+   Duration  725ms (transform 403ms, setup 0ms, import 89ms, tests 532ms, environment 0ms)
+

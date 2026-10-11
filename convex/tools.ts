@@ -12,6 +12,8 @@ import {
   draftResponse,
   dropArgs,
   scenesArgs,
+  storyArgs,
+  storyResult,
 } from "./debrief";
 import { carriesLedger } from "./ledger";
 import { adventure, frameUpdateResult, sessionInfo } from "./model";
@@ -27,6 +29,15 @@ import {
 } from "./store";
 import { uploadArgs, uploadResult } from "./uploads";
 export const tools: McpToolRegistration[] = [
+  defineMcpMutation({
+    name: "story_commit",
+    description:
+      "Commit corrections and the game master's plank answers outside a debrief, with a reason. All or nothing. A basis of only player_guess/player_plan may touch only thread or character_goal. Never draft prep.",
+    fn: internal.debrief.storyCommit,
+    identityArg: "caller",
+    args: storyArgs,
+    returns: storyResult,
+  }),
   defineMcpMutation({
     name: "frame_update",
     description:
@@ -48,7 +59,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpQuery({
     name: "skill",
     description:
-      "List procedures without a name, or load map-speakers, split-scenes, debrief or frame-talk, including standing rules. Load the matching procedure before a workflow.",
+      "List procedures without a name, or load map-speakers, split-scenes, debrief frame-talk, prep-sparring or plank-questions, including standing rules. Load the matching procedure before a workflow.",
     fn: internal.skills.skill,
     identityArg: "caller",
     args: skillArgs,
@@ -179,4 +190,15 @@ describeInput(
   "frame_update",
   ["properties", "reason"],
   "The game master's reason for changing the adventure frame.",
+);
+
+describeInput(
+  "story_commit",
+  ["properties", "changes", "items", "properties", "basis"],
+  "Where the change comes from. Plank answers use game_master. A basis of only player_guess and/or player_plan may touch only thread or character_goal.",
+);
+describeInput(
+  "story_commit",
+  ["properties", "changes", "items", "properties", "sources"],
+  "At least one short verbatim source quote. For game_master use their own answer; with npc_said identify the NPC in quote or why.",
 );

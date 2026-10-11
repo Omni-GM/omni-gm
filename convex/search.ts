@@ -1,6 +1,6 @@
 import { ConvexError, type Infer, v } from "convex/values";
 import { internalQuery } from "./_generated/server";
-import { kinds as entityKinds } from "./model";
+import { basis, kinds as entityKinds } from "./model";
 import { callerArgs, campaignFor } from "./store";
 
 const hitType = v.union(
@@ -26,6 +26,7 @@ export const findResult = v.object({
       title: v.string(),
       snippet: v.optional(v.string()),
       score: v.optional(v.number()),
+      basis: v.optional(v.array(basis)),
     }),
   ),
 });
@@ -68,11 +69,12 @@ export const find = internalQuery({
     const add = (
       hit: Infer<typeof findResult>["hits"][number],
       key = `${hit.type}:${hit.ref}`,
+      score = 1,
     ): void => {
       const old = hits.get(key);
       hits.set(key, {
         ...hit,
-        ...(query !== undefined ? { score: (old?.score ?? 0) + 1 } : {}),
+        ...(query !== undefined ? { score: (old?.score ?? 0) + score } : {}),
       });
     };
     if (query !== undefined && !words.length)
@@ -160,36 +162,46 @@ export const find = internalQuery({
     }
     if (words.length && wants("source"))
       for (const word of words)
-        for (const row of await ctx.db
-          .query("history")
-          .withSearchIndex("search_text", (q) =>
-            q.search("searchText", word).eq("campaign", campaign._id),
-          )
-          .take(200)) {
+        for (const [rank, row] of (
+          await ctx.db
+            .query("history")
+            .withSearchIndex("search_text", (q) =>
+              q.search("searchText", word).eq("campaign", campaign._id),
+            )
+            .take(200)
+        ).entries()) {
           add(
             {
               ref: `entity:${row.entityIds[0]}`,
               type: "source",
               title: row.why,
+              basis: row.basis,
               snippet: `${row.basis.join(", ")}: ${row.sources.map((s) => s.quote).join(" ")}`,
             },
             `source:${row._id}`,
+            1 / (rank + 1),
           );
         }
     if (words.length && wants("transcript"))
       for (const word of words)
-        for (const row of await ctx.db
-          .query("utterances")
-          .withSearchIndex("search_text", (q) =>
-            q.search("searchText", word).eq("campaign", campaign._id),
-          )
-          .take(200))
-          add({
-            ref: `transcript:${row.session}@${row.at}`,
-            type: "transcript",
-            title: `${row.at} ${row.speaker}`,
-            snippet: row.text.slice(0, 240),
-          });
+        for (const [rank, row] of (
+          await ctx.db
+            .query("utterances")
+            .withSearchIndex("search_text", (q) =>
+              q.search("searchText", word).eq("campaign", campaign._id),
+            )
+            .take(200)
+        ).entries())
+          add(
+            {
+              ref: `transcript:${row.session}@${row.at}`,
+              type: "transcript",
+              title: `${row.at} ${row.speaker}`,
+              snippet: row.text.slice(0, 240),
+            },
+            `transcript:${row.session}@${row.at}`,
+            1 / (rank + 1),
+          );
     const ranked = [...hits.values()];
     if (query !== undefined)
       ranked.sort(

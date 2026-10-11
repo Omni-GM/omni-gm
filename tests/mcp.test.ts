@@ -184,6 +184,8 @@ test("skills list and load the procedures with the standing rules, and initializ
   expect(init.result.instructions).toContain("Never draft prep");
   const list = await c.call("skill");
   expect(list.skills.map((s: { name: string }) => s.name)).toEqual([
+    "prep-sparring",
+    "plank-questions",
     "frame-talk",
     "map-speakers",
     "split-scenes",

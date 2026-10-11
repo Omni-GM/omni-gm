@@ -1,0 +1,40 @@
+
+ RUN  v4.1.0 /tmp/omnigm-impl15
+
+ ❯ tests/prep.test.ts (18 tests | 1 failed) 909ms
+   × the client loads prep sparring and plank questions with their creative rules and the story write contract 14ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/prep.test.ts > the client loads prep sparring and plank questions with their creative rules and the story write contract
+AssertionError: expected [ 'frame-talk', 'map-speakers', …(2) ] to deeply equal ArrayContaining{…}
+
+- Expected
++ Received
+
+- ArrayContaining [
+-   "prep-sparring",
+-   "plank-questions",
++ [
++   "frame-talk",
++   "map-speakers",
++   "split-scenes",
++   "debrief",
+  ]
+
+ ❯ tests/prep.test.ts:161:60
+    159|   expect(init.result.instructions.length).toBeLessThan(4096);
+    160|   const list = await c.call("skill");
+    161|   expect(list.skills.map((s: { name: string }) => s.name)).toEqual(exp…
+       |                                                            ^
+    162|   const prep = await c.call("skill", { name: "Prep sparring" });
+    163|   expect(prep.name).toBe("prep-sparring");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 17 passed (18)
+   Start at  13:14:18
+   Duration  1.10s (transform 413ms, setup 0ms, import 96ms, tests 909ms, environment 0ms)
+

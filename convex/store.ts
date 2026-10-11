@@ -163,7 +163,14 @@ async function read(
       .withIndex("by_campaign", (q) => q.eq("campaign", campaign._id))
       .order("desc")
       .take(200);
-    const latestSession = commits.find((c) => c.kind === "debrief")?.session;
+    const latestDebrief = await ctx.db
+      .query("commits")
+      .withIndex("by_campaign_and_kind", (q) =>
+        q.eq("campaign", campaign._id).eq("kind", "debrief"),
+      )
+      .order("desc")
+      .first();
+    const latestSession = latestDebrief?.session;
     return {
       adventures: adventures.map((a) => ({
         id: a._id,

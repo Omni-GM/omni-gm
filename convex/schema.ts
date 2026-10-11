@@ -58,7 +58,9 @@ export default defineSchema({
     reason: v.string(),
     session: v.optional(v.string()),
     schemaChange: commit.fields.schemaChange,
-  }).index("by_campaign", ["campaign"]),
+  })
+    .index("by_campaign", ["campaign"])
+    .index("by_campaign_and_kind", ["campaign", "kind"]),
   history: defineTable({
     campaign: v.id("campaigns"),
     entityIds: v.array(v.string()),

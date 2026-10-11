@@ -119,7 +119,8 @@ non-empty `reason` and an `ops` list. The whole list commits atomically:
   `description`. An enum also needs distinct, non-empty `enumValues`.
 - `retire_property`: `kind` and `key`. Old entity values and history stay
   intact. New writes and pending draft commits reject the retired property.
-  Drop or replace those pending changes before committing.
+  Errors name the pending change ID. Drop it with `debrief_drop` first, then
+  add a replacement before committing.
 - `add_relationship_type`: `type`, `from` and `to` lists of existing kinds,
   `label`, `inverseLabel`, and `description`.
 
@@ -145,4 +146,6 @@ again on the same preview. Its proof bundle is in `proof/schema-change/`.
 
 Schema changes accept 1 to 100 operations. The reason, operations and
 before/after definitions together must fit within 32 KB per schema commit.
-A rejection changes neither definitions nor history.
+A rejection changes neither definitions nor history. Overview keeps the
+latest committed `lastTime` even when its debrief is older than the recent
+200-commit history window.

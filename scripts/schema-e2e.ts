@@ -260,6 +260,26 @@ try {
     call("debrief_commit", { session: pending }),
     /Allowed properties/,
   );
+  await assert.rejects(
+    call("debrief_add", {
+      session: pending,
+      changes: [
+        {
+          ...evidence,
+          change: {
+            op: "update",
+            entity: npc.ref,
+            properties: { role: "Ferry keeper" },
+          },
+        },
+      ],
+    }),
+    /Pending change c1.*debrief_drop/,
+  );
+  await assert.rejects(
+    call("debrief_drop", { session: pending, changeIds: [] }),
+    /invalid remaining changes: c1/,
+  );
   await call("debrief_drop", { session: pending, changeIds: ["c1"] });
   const rejected = await call<{ rejected: { index: number }[] }>(
     "debrief_add",

@@ -1250,3 +1250,85 @@ test("oversized schema changes fail without altering the definitions or history"
   ).rejects.toThrow("32 KB");
   expect(await c.call("get", { refs: ["schema", "overview"] })).toEqual(before);
 });
+
+test("a retirement-invalidated draft names the pending change and the repair in every write error", async () => {
+  const { c, s } = await prepared();
+  await c.call("debrief_add", {
+    session: s.id,
+    lastTime: "At the ferry.",
+    changes: [
+      npcChange(),
+      {
+        ...npcChange(),
+        change: { op: "new", kind: "thread", name: "The ferry crossing" },
+      },
+    ],
+  });
+  await c.call("schema_change", {
+    reason: "Stop recording voices",
+    ops: [{ op: "retire_property", kind: "npc", key: "playedAs" }],
+  });
+  const before = await c.call("get", { ref: `debrief:${s.id}` });
+  await expect(
+    c.call("debrief_add", {
+      session: s.id,
+      changes: [
+        {
+          ...npcChange(),
+          change: { op: "new", kind: "place", name: "Ferry landing" },
+        },
+      ],
+    }),
+  ).rejects.toThrow("Pending change c1");
+  await expect(c.call("debrief_commit", { session: s.id })).rejects.toThrow(
+    "debrief_drop",
+  );
+  await expect(
+    c.call("debrief_drop", { session: s.id, changeIds: ["c2"] }),
+  ).rejects.toThrow("invalid remaining changes: c1");
+  expect(await c.call("get", { ref: `debrief:${s.id}` })).toEqual(before);
+  await c.call("debrief_drop", { session: s.id, changeIds: ["c1"] });
+  const accepted = await c.call("debrief_add", {
+    session: s.id,
+    changes: [
+      {
+        ...npcChange(),
+        change: { op: "new", kind: "place", name: "Ferry landing" },
+      },
+    ],
+  });
+  expect(accepted.rejected).toEqual([]);
+  await c.call("debrief_commit", { session: s.id });
+});
+
+test("overview recalls the last debrief after more schema commits than its recent-history window", async () => {
+  const { c, s } = await prepared();
+  await c.call("debrief_add", {
+    session: s.id,
+    lastTime: "The ferry awaits at dusk.",
+    changes: [npcChange()],
+  });
+  await c.call("debrief_commit", { session: s.id });
+  for (let i = 0; i < 200; i++) {
+    await c.call("schema_change", {
+      reason: "Invented recent-history capacity proof",
+      ops: [
+        {
+          op: "add_property",
+          kind: "npc",
+          key: `note${i}`,
+          type: "text",
+          description: "Invented story note",
+        },
+      ],
+    });
+  }
+  const overview = await c.call("get", { ref: "overview" });
+  expect(overview.commits).toHaveLength(200);
+  expect(
+    overview.commits.every(
+      (entry: { kind: string }) => entry.kind === "schema",
+    ),
+  ).toBe(true);
+  expect(overview.lastTime).toBe("The ferry awaits at dusk.");
+}, 30000);

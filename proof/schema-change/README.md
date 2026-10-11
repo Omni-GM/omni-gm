@@ -42,3 +42,10 @@ dispositions accompany the final reviewed commit. GitHub CI and deploy-main
 links are recorded in the ticket resolution comment.
 
 GPT-6.1 Sol wrote the implementation in T3 Code through the Codex harness.
+
+The review fixes add two red/green slices:
+
+- red-pending-errors.log / green-pending-errors.log: add, drop and commit
+  errors name a retirement-invalidated draft change and the drop-first repair.
+- red-recall.log / green-recall.log: lastTime remains readable after 200
+  newer schema commits push the debrief outside the recent-history window.

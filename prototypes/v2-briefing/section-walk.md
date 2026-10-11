@@ -16,7 +16,7 @@ Each pitch is two or three lines:
 - The situation: who wants what, where, and what lands on the table. Never how it ends or what the players choose.
 - "Built on": the named facts with sources.
 
-Pitches stay small and droppable. Never stack pitches on an unpicked pitch.
+Pitches stay small and droppable. Never stack pitches on an unpicked pitch. A pitch adds pressure around what the players plan to do; it never blocks their announced plan or a scene the game master has prepared.
 
 ## 3. The game master's turn
 

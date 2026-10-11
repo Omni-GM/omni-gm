@@ -105,7 +105,7 @@ try {
           "No operator reminders in the proof",
         );
       if (event.type !== "assistant") continue;
-      assert.equal(event.message?.model, "claude-sonnet-5-5");
+      assert.equal(event.message?.model, "claude-opus-5-5");
       for (const block of event.message.content) {
         if (block.type === "tool_use") {
           assert(block.name && block.input);
@@ -199,7 +199,8 @@ try {
       "PASS exact plank answer and game_master basis independently read back; player guess stays open; all other state and history unchanged",
     );
     const note = texts.at(-1);
-    assert(note?.includes("# Next session"));
+    assert(note);
+    assert(note.includes("# Next session"));
     const start = note.indexOf("# Next session");
     await writeFile(
       "proof/prep-sparring/session-note.md",

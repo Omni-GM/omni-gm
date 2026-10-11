@@ -303,6 +303,14 @@ try {
         (h, i) => i === 0 || (source.hits[i - 1].score ?? 0) >= (h.score ?? 0),
       ),
     );
+    const relevant = await call<{
+      hits: { basis?: string[]; snippet?: string }[];
+    }>("find", { query: "seal returned", types: ["source"], limit: 200 });
+    assert(relevant.hits[0].basis?.includes("game_master"));
+    assert(relevant.hits[0].snippet?.includes("Mira wants the seal returned"));
+    console.log(
+      "PASS the known two-keyword GM answer ranks ahead of single-keyword claims within the page",
+    );
     const utterances = await call<{ hits: { ref: string; title: string }[] }>(
       "find",
       { query: "seal", types: ["transcript"], limit: 200 },

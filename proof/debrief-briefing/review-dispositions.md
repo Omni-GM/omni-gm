@@ -28,3 +28,8 @@ reported three findings. All three hold and are fixed.
    bound stays, like the overview's other 200-item lists, rather than
    failing the overview or adding a continuation for a case no session
    reaches.
+
+After the fixes, the second headless run surfaced one more gap the review had
+not named: the client showed a polished wording of the stored briefing. The
+`debrief` procedure now asks for the final wording before storing and shows
+the stored briefing word for word. See `rejected-attempt-2-*`.

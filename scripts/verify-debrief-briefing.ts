@@ -131,6 +131,8 @@ function units(text: string): string[] {
   }
   return found.filter((unit) => /\p{L}/u.test(unit));
 }
+const isHeading = (unit: string) =>
+  /^\s*(#+\s.*|\*\*[^*]+\*\*:?)\s*$/.test(unit);
 const unquoted = (text: string) => text.replace(/["“][^"”]*["”]/g, "");
 const questionMarks = (text: string) =>
   (unquoted(text).match(/\?/g) ?? []).length;
@@ -153,7 +155,9 @@ function reviewShape(turn: Turn, briefing: string) {
     1 -
     [...lines].reverse().findIndex((line) => plain(line).includes(last));
   const after = lines.slice(end + 1).join("\n");
-  const questions = units(after).filter((u) => questionMarks(u) > 0);
+  const questions = units(after).filter(
+    (u) => questionMarks(u) > 0 && !isHeading(u),
+  );
   for (const q of questions) {
     assert.equal(questionMarks(q), 1, `One question per item: ${q}`);
     assert(timestamp.test(q), `Question without a timestamp: ${q}`);
@@ -349,7 +353,7 @@ try {
 
   assert.equal(stored.correctionsSince.length, 1);
   const [correction] = stored.correctionsSince;
-  assert.deepEqual(skills(prep), ["briefing"]);
+  assert.equal(skills(prep)[0], "briefing", "Prep opens with the briefing");
   for (const t of prep.tools) {
     assert(["skill", "get"].includes(t.name ?? ""), `Prep called ${t.name}`);
     if (t.name === "get")

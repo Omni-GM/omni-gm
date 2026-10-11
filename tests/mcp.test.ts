@@ -1266,3 +1266,162 @@ test("overview recalls the last debrief after more schema commits than its recen
   ).toBe(true);
   expect(overview.lastTime).toBe("The ferry awaits at dusk.");
 }, 30000);
+
+test("the Ledger view is served as an MCP Apps resource that debrief_add and debrief_drop carry", async () => {
+  const c = client();
+  await c.init();
+  const ledger = "ui://omni-gm/draft-debrief";
+  const listed = await c.rpc("resources/list");
+  expect(listed.result.resources).toContainEqual(
+    expect.objectContaining({
+      uri: ledger,
+      mimeType: "text/html;profile=mcp-app",
+    }),
+  );
+  const read = await c.rpc("resources/read", { uri: ledger });
+  expect(read.result.contents).toEqual([
+    expect.objectContaining({
+      uri: ledger,
+      mimeType: "text/html;profile=mcp-app",
+    }),
+  ]);
+  expect(read.result.contents[0].text).toMatch(/^<!doctype html>/i);
+  const tools = (await c.rpc("tools/list")).result.tools;
+  for (const name of ["debrief_add", "debrief_drop"])
+    expect(tools.find((t: { name: string }) => t.name === name)._meta).toEqual({
+      ui: { resourceUri: ledger },
+    });
+});
+
+test("debrief_add and debrief_drop return Ledger rows with label, subject, before and after per scene, listing only the aliases each change adds", async () => {
+  const { c, s } = await prepared();
+  const thread = {
+    ...npcChange(),
+    change: {
+      op: "new",
+      tempKey: "raiders",
+      kind: "thread",
+      name: "Who pays the raiders?",
+      properties: { status: "open" },
+    },
+    basis: ["narrated"],
+  };
+  const added = await c.call("debrief_add", {
+    session: s.id,
+    lastTime: "At dusk by the ferry.",
+    changes: [
+      npcChange(),
+      thread,
+      {
+        ...thread,
+        change: {
+          op: "relate",
+          type: "raised_by",
+          from: "$raiders",
+          to: "$sera",
+        },
+      },
+      {
+        ...npcChange(),
+        change: {
+          op: "update",
+          entity: "$sera",
+          properties: { wants: "Safe passage home" },
+          addAliases: ["Sera of the Ferry"],
+        },
+      },
+      {
+        ...thread,
+        change: {
+          op: "update",
+          entity: "$raiders",
+          properties: { status: "closed" },
+        },
+      },
+    ],
+  });
+  expect(added.rejected).toEqual([]);
+  const [sera, raiders, link, wants, closed] = added.draft.changes.map(
+    (p: { id: string }) => p.id,
+  );
+  expect(added.ledger).toEqual({
+    scenes: [{ ordinal: 1, title: "The ferry", place: "Glass Causeway" }],
+    rows: [
+      {
+        id: sera,
+        label: "new",
+        subject: "Sera Venn",
+        kind: "npc",
+        before: {},
+        after: {
+          aliases: "Sarah Ven",
+          playedAs: "Softly, with a snapped final word",
+        },
+      },
+      {
+        id: raiders,
+        label: "new",
+        subject: "Who pays the raiders?",
+        kind: "thread",
+        before: {},
+        after: { status: "open" },
+      },
+      {
+        id: link,
+        label: "link",
+        subject: "Who pays the raiders? raised by Sera Venn",
+        before: {},
+        after: {},
+      },
+      {
+        id: wants,
+        label: "change",
+        subject: "Sera Venn",
+        kind: "npc",
+        before: {},
+        after: {
+          wants: "Safe passage home",
+          addAliases: "Sera of the Ferry",
+        },
+      },
+      {
+        id: closed,
+        label: "closed",
+        subject: "Who pays the raiders?",
+        kind: "thread",
+        before: { status: "open" },
+        after: { status: "closed" },
+      },
+    ],
+  });
+  const dropped = await c.call("debrief_drop", {
+    session: s.id,
+    changeIds: [closed],
+  });
+  expect(dropped.draft.changes.map((p: { id: string }) => p.id)).toEqual([
+    sera,
+    raiders,
+    link,
+    wants,
+  ]);
+  expect(dropped.ledger.rows.map((r: { id: string }) => r.id)).toEqual([
+    sera,
+    raiders,
+    link,
+    wants,
+  ]);
+  expect(dropped.ledger.scenes).toEqual(added.ledger.scenes);
+  const more = await c.call("debrief_add", {
+    session: s.id,
+    changes: [
+      {
+        ...npcChange(),
+        change: { op: "update", entity: "$sera", addAliases: ["Ferry Sera"] },
+      },
+    ],
+  });
+  expect(more.ledger.rows.at(-1)).toMatchObject({
+    before: {},
+    after: { addAliases: "Ferry Sera" },
+  });
+});

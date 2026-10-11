@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --color-background-primary: #faf8f5;
+  --color-background-secondary: #ffffff;
+  --color-text-primary: #1d1b18;
+  --color-text-secondary: #6b655c;
+  --color-border-primary: #e6e1d8;
+  --color-accent: #b4532a;
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, serif;
+  --font-mono: ui-monospace, monospace;
+}
+
+:root[data-theme="dark"] {
+  --color-background-primary: #1d1b18;
+  --color-background-secondary: #27241f;
+  --color-text-primary: #f2eee8;
+  --color-text-secondary: #b3ab9f;
+  --color-border-primary: #3a362f;
+  --color-accent: #e08a5f;
+}
+
+body {
+  @apply bg-background-primary font-sans text-sm text-text-primary;
+}

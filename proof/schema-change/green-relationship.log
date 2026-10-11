@@ -1,0 +1,8 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-schema-change
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 23 skipped (24)
+   Start at  12:34:45
+   Duration  524ms (transform 263ms, setup 0ms, import 114ms, tests 313ms, environment 0ms)

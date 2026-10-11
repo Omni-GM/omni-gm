@@ -1,7 +1,7 @@
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/feat-frame-talk-final-headless (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/zealous-mongoose-351)
-▌ └─ https://zealous-mongoose-351.convex.cloud
-- Deploying to https://zealous-mongoose-351.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/feat-frame-talk-schema-headless (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/brainy-tortoise-930)
+▌ └─ https://brainy-tortoise-930.convex.cloud
+- Deploying to https://brainy-tortoise-930.convex.cloud...
 
 ✔ Added table indexes:
   [+] adventures.by_campaign   campaign, _creationTime
@@ -26,5 +26,5 @@
   [+] utterances.by_session_and_seconds   session, seconds, _creationTime
   [+] utterances.search_text (text)   searchText, filter on campaign
 ✔ Installed component mcpGateway.
-✔ Deployed Convex functions to https://zealous-mongoose-351.convex.cloud
+✔ Deployed Convex functions to https://brainy-tortoise-930.convex.cloud
 ✔ Finished running function "oauth:configure"

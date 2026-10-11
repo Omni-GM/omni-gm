@@ -10,5 +10,5 @@ PASS drop returns the updated draft
 PASS atomic commit
 PASS alias lookup, playedAs, history with basis and sources, lastTime read back
 PASS hosted Unicode name lookup excludes unrelated prefix matches
-PROOF SESSION k575v4h604c8e3g818541r040d8g2fv2
+PROOF SESSION k57d4byv0y9g911gcpq7gqar5h8g3ms0
 SDK E2E PASSED

@@ -67,6 +67,24 @@ try {
   assert(procedure.procedure.includes("One question at a time"));
   assert(procedure.procedure.includes("never outcomes"));
   console.log("PASS frame-talk loads through MCP with standing rules");
+  const schema = (
+    await call<{ value: { kinds: { npc: Record<string, unknown> } } }>("get", {
+      ref: "schema",
+    })
+  ).value;
+  if (!Object.hasOwn(schema.kinds.npc, "frameProofGreeting"))
+    await call("schema_change", {
+      reason: "Remember an invented greeting",
+      ops: [
+        {
+          op: "add_property",
+          kind: "npc",
+          key: "frameProofGreeting",
+          type: "text",
+          description: "How this invented NPC greets visitors",
+        },
+      ],
+    });
   const beforeStory = await story();
   const previous = (await call<{ value: Frame }>("get", { ref: "frame" }))
     .value;
@@ -109,7 +127,7 @@ try {
   assert.deepEqual(overview.frame.fields, frame.fields);
   assert.deepEqual(await story(), beforeStory);
   console.log(
-    "PASS get frame and overview agree; entities, relationships, entity history, sessions, schema and lastTime unchanged",
+    "PASS get frame and overview agree; entities, relationships, entity history, sessions, custom campaign schema and lastTime unchanged",
   );
   console.log("FRAME SDK E2E PASSED");
 } finally {

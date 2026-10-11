@@ -3,7 +3,7 @@
 
 
  Test Files  1 passed (1)
-      Tests  25 passed (25)
-   Start at  12:46:04
-   Duration  2.63s (transform 264ms, setup 0ms, import 113ms, tests 2.42s, environment 0ms)
+      Tests  34 passed (34)
+   Start at  12:52:12
+   Duration  3.75s (transform 275ms, setup 0ms, import 124ms, tests 3.52s, environment 0ms)
 

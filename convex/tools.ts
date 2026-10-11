@@ -14,6 +14,7 @@ import {
   scenesArgs,
 } from "./debrief";
 import { adventure, frameUpdateResult, sessionInfo } from "./model";
+import { schemaChangeArgs, schemaChangeResult } from "./schemaChanges";
 import { findArgs, findResult } from "./search";
 import { skillArgs, skillResult } from "./skills";
 import {
@@ -33,6 +34,15 @@ export const tools: McpToolRegistration[] = [
     identityArg: "caller",
     args: frameArgs,
     returns: frameUpdateResult,
+  }),
+  defineMcpMutation({
+    name: "schema_change",
+    description:
+      "Change the campaign schema only on the game master’s explicit request. Add or retire a property, or add a relationship type. Every change records its reason; no new kinds, deletes or renames.",
+    fn: internal.schemaChanges.changeSchema,
+    identityArg: "caller",
+    args: schemaChangeArgs,
+    returns: schemaChangeResult,
   }),
   defineMcpQuery({
     name: "skill",
@@ -73,7 +83,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "debrief_drop",
     description:
-      "Drop kept changes from a draft by changeIds. Refuses a drop that breaks retained dependants and lists their ids. Returns the draft.",
+      "Drop kept changes from a draft by changeIds. Refuses a drop that leaves invalid retained changes and lists their ids and reasons. Returns the draft.",
     fn: internal.debrief.drop,
     identityArg: "caller",
     args: dropArgs,

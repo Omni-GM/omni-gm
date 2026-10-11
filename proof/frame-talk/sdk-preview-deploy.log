@@ -1,7 +1,7 @@
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/feat-frame-talk (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/astute-oriole-812)
-▌ └─ https://astute-oriole-812.convex.cloud
-- Deploying to https://astute-oriole-812.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/feat-frame-talk-schema-sdk (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/necessary-retriever-154)
+▌ └─ https://necessary-retriever-154.convex.cloud
+- Deploying to https://necessary-retriever-154.convex.cloud...
 
 ✔ Added table indexes:
   [+] adventures.by_campaign   campaign, _creationTime
@@ -26,5 +26,5 @@
   [+] utterances.by_session_and_seconds   session, seconds, _creationTime
   [+] utterances.search_text (text)   searchText, filter on campaign
 ✔ Installed component mcpGateway.
-✔ Deployed Convex functions to https://astute-oriole-812.convex.cloud
+✔ Deployed Convex functions to https://necessary-retriever-154.convex.cloud
 ✔ Finished running function "oauth:configure"

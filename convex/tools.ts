@@ -86,7 +86,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "debrief_add",
     description:
-      "Add scene changes and lastTime to a draft. Invalid changes are rejected individually. A basis of only player_guess/player_plan may touch only a thread or character_goal.",
+      "Add scene changes and the draft briefing to a draft. Invalid changes are rejected individually. A basis of only player_guess/player_plan may touch only a thread or character_goal.",
     fn: internal.debrief.add,
     identityArg: "caller",
     args: addArgs,
@@ -106,7 +106,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "debrief_commit",
     description:
-      "Apply the draft and append history as one commit. Only after the game master says the draft is right.",
+      "Apply the draft, append history and keep its briefing as one commit. Refused without a briefing. Only after the game master says the draft is right.",
     fn: internal.debrief.commit,
     identityArg: "caller",
     args: debriefSessionArgs,

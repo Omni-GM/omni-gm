@@ -108,7 +108,7 @@ test("a debrief keeps valid changes, rejects an invented property and an NPC gue
   const { c, s } = await prepared();
   const result = await c.call("debrief_add", {
     session: s.id,
-    lastTime: "At dusk by the ferry. The gate closes in four bells.",
+    briefing: "At dusk by the ferry. The gate closes in four bells.",
     changes: [
       npcChange(),
       {
@@ -167,7 +167,7 @@ test("a debrief keeps valid changes, rejects an invented property and an NPC gue
       after: expect.objectContaining({ name: "Sera Venn" }),
     }),
   ]);
-  expect((await c.call("get", { ref: "overview" })).lastTime).toBe(
+  expect((await c.call("get", { ref: "overview" })).briefing.text).toBe(
     "At dusk by the ferry. The gate closes in four bells.",
   );
   await expect(
@@ -296,7 +296,7 @@ test("schema rules reject each invalid change with allowed values and keep valid
   const r = await c.call("debrief_add", {
     session: s.id,
     changes: cases,
-    lastTime: "The ferry waits.",
+    briefing: "The ferry waits.",
   });
   expect(r.rejected.map((r: { index: number }) => r.index)).toEqual([
     0, 1, 2, 3, 4, 5, 6, 7, 10, 11, 12,
@@ -322,7 +322,7 @@ test("dropping a parent refuses to break dependants and the retained draft can s
   const { c, s } = await prepared();
   const r = await c.call("debrief_add", {
     session: s.id,
-    lastTime: "The ferry waits.",
+    briefing: "The ferry waits.",
     changes: [
       npcChange(),
       {
@@ -383,7 +383,7 @@ test("another owner stays scoped when reusing an MCP transport session and canno
   await c.call("debrief_add", {
     session: s.id,
     changes: [npcChange()],
-    lastTime: "The ferry waits.",
+    briefing: "The ferry waits.",
   });
   await c.call("debrief_commit", { session: s.id });
   const entity = (await c.call("find", { types: ["entity"] })).hits[0].ref;
@@ -448,7 +448,7 @@ test("get reads every slice ref and find searches each kind with basis visible o
   await c.call("debrief_add", {
     session: s.id,
     changes: [npcChange()],
-    lastTime: "The ferry waits.",
+    briefing: "The ferry waits.",
   });
   await c.call("debrief_commit", { session: s.id });
   const refs = [
@@ -487,7 +487,7 @@ test("find returns both an entity hit and a source hit when their get ref is the
   await c.call("debrief_add", {
     session: s.id,
     changes: [npcChange("Sera Stones")],
-    lastTime: "The ferry waits.",
+    briefing: "The ferry waits.",
   });
   await c.call("debrief_commit", { session: s.id });
   const results = await c.call("find", {
@@ -506,7 +506,7 @@ test("list mode shows committed entities before scenes at a small limit", async 
   await c.call("debrief_add", {
     session: s.id,
     changes: [npcChange()],
-    lastTime: "At the ferry.",
+    briefing: "At the ferry.",
   });
   await c.call("debrief_commit", { session: s.id });
   const result = await c.call("find", { limit: 1 });
@@ -524,7 +524,7 @@ test("an entity history remains readable after more than 2000 unrelated campaign
   const { c, s } = await prepared();
   await c.call("debrief_add", {
     session: s.id,
-    lastTime: "At the ferry.",
+    briefing: "At the ferry.",
     changes: [
       npcChange(),
       {
@@ -543,7 +543,7 @@ test("an entity history remains readable after more than 2000 unrelated campaign
     const next = await prepared(c);
     await c.call("debrief_add", {
       session: next.s.id,
-      lastTime: "Still at the ferry.",
+      briefing: "Still at the ferry.",
       changes: Array.from({ length: 500 }, (_, n) => ({
         scene: 1,
         change: {
@@ -577,7 +577,7 @@ test("find looks up Unicode names without unrelated prefix matches", async () =>
   const { c, s } = await prepared();
   await c.call("debrief_add", {
     session: s.id,
-    lastTime: "At the ferry.",
+    briefing: "At the ferry.",
     changes: [
       npcChange("Jörg Kühn"),
       { ...npcChange(), change: { op: "new", kind: "npc", name: "Jara Horn" } },
@@ -594,7 +594,7 @@ test("oversized proposals are rejected individually and temporary entities requi
   const { c, s } = await prepared();
   const result = await c.call("debrief_add", {
     session: s.id,
-    lastTime: "At the ferry.",
+    briefing: "At the ferry.",
     changes: [
       { ...npcChange(), why: "x".repeat(17000) },
       npcChange(),
@@ -656,18 +656,18 @@ test("overview recalls the latest commit even when sessions are debriefed out of
   const later = await prepared(c);
   await c.call("debrief_add", {
     session: later.s.id,
-    lastTime: "Newer-created session.",
+    briefing: "Newer-created session.",
     changes: [npcChange()],
   });
   await c.call("debrief_commit", { session: later.s.id });
   await c.call("debrief_add", {
     session: s.id,
-    lastTime: "Most recently committed session.",
+    briefing: "Most recently committed session.",
     changes: [npcChange()],
   });
   await c.call("debrief_commit", { session: s.id });
   const overview = await c.call("get", { ref: "overview" });
-  expect(overview.lastTime).toBe("Most recently committed session.");
+  expect(overview.briefing.text).toBe("Most recently committed session.");
   expect(overview.commits[0].session).toBe(s.id);
 });
 
@@ -675,7 +675,7 @@ test("source search keeps distinct claims about one entity with their own basis"
   const { c, s } = await prepared();
   await c.call("debrief_add", {
     session: s.id,
-    lastTime: "At the ferry.",
+    briefing: "At the ferry.",
     changes: [
       { ...npcChange(), sources: [{ quote: "Sera says the bridge is open." }] },
       {
@@ -725,7 +725,7 @@ test("a conflicting commit applies no partial entities, history or commit marker
   const { c, s } = await prepared();
   await c.call("debrief_add", {
     session: s.id,
-    lastTime: "At the ferry.",
+    briefing: "At the ferry.",
     changes: [
       npcChange(),
       {
@@ -747,7 +747,7 @@ test("a conflicting commit applies no partial entities, history or commit marker
   };
   await c.call("debrief_add", {
     session: pending.s.id,
-    lastTime: "Uncommitted.",
+    briefing: "Uncommitted.",
     changes: [
       {
         ...npcChange(),
@@ -762,7 +762,7 @@ test("a conflicting commit applies no partial entities, history or commit marker
   });
   await c.call("debrief_add", {
     session: competing.s.id,
-    lastTime: "Competing commit.",
+    briefing: "Competing commit.",
     changes: [relationship],
   });
   await c.call("debrief_commit", { session: competing.s.id });
@@ -774,7 +774,7 @@ test("a conflicting commit applies no partial entities, history or commit marker
   ).toEqual([]);
   const overview = await c.call("get", { ref: "overview" });
   expect(overview.commits).toHaveLength(3);
-  expect(overview.lastTime).toBe("Competing commit.");
+  expect(overview.briefing.text).toBe("Competing commit.");
   const entity = await c.call("get", { ref: npc });
   expect(entity.history.map((h: { session: string }) => h.session)).toEqual([
     s.id,
@@ -832,7 +832,7 @@ test("frame edits preserve omitted intent, append before and after with a reason
   await c.call("debrief_add", {
     session: s.id,
     changes: [npcChange()],
-    lastTime: "Sera waits by the ferry. The gate closes at dusk.",
+    briefing: "Sera waits by the ferry. The gate closes at dusk.",
   });
   await c.call("debrief_commit", { session: s.id });
   const found = await c.call("find", { types: ["entity"] });
@@ -890,7 +890,7 @@ test("frame edits preserve omitted intent, append before and after with a reason
   const overview = await c.call("get", { ref: "overview" });
   expect(overview.frame.fields).toEqual(frame.fields);
   expect(overview.frame.adventure).toBe(overview.currentAdventure);
-  expect(overview.lastTime).toBe(
+  expect(overview.briefing.text).toBe(
     "Sera waits by the ferry. The gate closes at dusk.",
   );
   expect(
@@ -1027,7 +1027,7 @@ test("frame history never displaces the latest debrief from overview", async () 
   await c.call("debrief_add", {
     session: s.id,
     changes: [npcChange()],
-    lastTime: "Sera waits by the ferry.",
+    briefing: "Sera waits by the ferry.",
   });
   await c.call("debrief_commit", { session: s.id });
   for (let i = 0; i < 201; i++)
@@ -1035,7 +1035,7 @@ test("frame history never displaces the latest debrief from overview", async () 
       reason: "Revise intent",
       fields: { timeframe: `Bell ${i}` },
     });
-  expect((await c.call("get", { ref: "overview" })).lastTime).toBe(
+  expect((await c.call("get", { ref: "overview" })).briefing.text).toBe(
     "Sera waits by the ferry.",
   );
 });
@@ -1057,7 +1057,7 @@ test("a deliberate property addition is immediately usable and recorded with its
   expect(changed.schema.kinds.npc.manner).toBe("text");
   const added = await c.call("debrief_add", {
     session: s.id,
-    lastTime: "At the ferry.",
+    briefing: "At the ferry.",
     changes: [
       {
         ...npcChange(),
@@ -1089,7 +1089,7 @@ test("retiring a property rejects new writes and pending commits while preservin
   const { c, s } = await prepared();
   await c.call("debrief_add", {
     session: s.id,
-    lastTime: "At the ferry.",
+    briefing: "At the ferry.",
     changes: [npcChange()],
   });
   await c.call("debrief_commit", { session: s.id });
@@ -1098,7 +1098,7 @@ test("retiring a property rejects new writes and pending commits while preservin
   const pending = await prepared(c);
   await c.call("debrief_add", {
     session: pending.s.id,
-    lastTime: "Pending voice.",
+    briefing: "Pending voice.",
     changes: [
       {
         ...npcChange(),
@@ -1123,7 +1123,7 @@ test("retiring a property rejects new writes and pending commits while preservin
   await c.call("debrief_drop", { session: pending.s.id, changeIds: ["c1"] });
   const added = await c.call("debrief_add", {
     session: pending.s.id,
-    lastTime: "Role kept; old voice remains.",
+    briefing: "Role kept; old voice remains.",
     changes: [
       npcChange("New NPC"),
       {
@@ -1182,7 +1182,7 @@ test("a deliberate relationship type is usable with its labels and allowed endpo
   });
   const added = await c.call("debrief_add", {
     session: s.id,
-    lastTime: "Sera mentors Rowan.",
+    briefing: "Sera mentors Rowan.",
     changes: [
       npcChange(),
       {
@@ -1351,7 +1351,7 @@ test("schema additions validate enum and number writes and remain private to the
   ).toEqual(["seed"]);
   const added = await c.call("debrief_add", {
     session: s.id,
-    lastTime: "Sera is uneasy.",
+    briefing: "Sera is uneasy.",
     changes: [
       {
         ...npcChange(),
@@ -1420,7 +1420,7 @@ test("a retirement-invalidated draft names the pending change and the repair in 
   const { c, s } = await prepared();
   await c.call("debrief_add", {
     session: s.id,
-    lastTime: "At the ferry.",
+    briefing: "At the ferry.",
     changes: [
       npcChange(),
       {
@@ -1470,7 +1470,7 @@ test("overview recalls the last debrief after more schema commits than its recen
   const { c, s } = await prepared();
   await c.call("debrief_add", {
     session: s.id,
-    lastTime: "The ferry awaits at dusk.",
+    briefing: "The ferry awaits at dusk.",
     changes: [npcChange()],
   });
   await c.call("debrief_commit", { session: s.id });
@@ -1495,7 +1495,7 @@ test("overview recalls the last debrief after more schema commits than its recen
       (entry: { kind: string }) => entry.kind === "schema",
     ),
   ).toBe(true);
-  expect(overview.lastTime).toBe("The ferry awaits at dusk.");
+  expect(overview.briefing.text).toBe("The ferry awaits at dusk.");
 }, 30000);
 
 test("the Ledger view is served as an MCP Apps resource that debrief_add and debrief_drop carry", async () => {
@@ -1539,7 +1539,7 @@ test("debrief_add and debrief_drop return Ledger rows with label, subject, befor
   };
   const added = await c.call("debrief_add", {
     session: s.id,
-    lastTime: "At dusk by the ferry.",
+    briefing: "At dusk by the ferry.",
     changes: [
       npcChange(),
       thread,
@@ -1706,7 +1706,7 @@ test("entity history pages preserve every committed debrief with its basis and s
   const { c, s } = await prepared();
   await c.call("debrief_add", {
     session: s.id,
-    lastTime: "The ferry opens.",
+    briefing: "The ferry opens.",
     changes: [npcChange()],
   });
   await c.call("debrief_commit", { session: s.id });
@@ -1717,7 +1717,7 @@ test("entity history pages preserve every committed debrief with its basis and s
     sessions.push(next.s.id);
     await c.call("debrief_add", {
       session: next.s.id,
-      lastTime: `The ferry advances ${i}.`,
+      briefing: `The ferry advances ${i}.`,
       changes: [
         {
           ...npcChange(),
@@ -1894,7 +1894,7 @@ test("more than 2000 changes to one entity remain reachable with distinct histor
   const { c, s } = await prepared();
   await c.call("debrief_add", {
     session: s.id,
-    lastTime: "The ferry opens.",
+    briefing: "The ferry opens.",
     changes: [npcChange()],
   });
   await c.call("debrief_commit", { session: s.id });
@@ -1903,7 +1903,7 @@ test("more than 2000 changes to one entity remain reachable with distinct histor
     const next = await prepared(c);
     const added = await c.call("debrief_add", {
       session: next.s.id,
-      lastTime: "The ferry keeps its messages.",
+      briefing: "The ferry keeps its messages.",
       changes: Array.from({ length: count }, (_, i) => ({
         ...npcChange(),
         change: {

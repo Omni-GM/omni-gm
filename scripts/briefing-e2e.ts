@@ -370,7 +370,7 @@ const river: Scene[] = [
   ),
 ];
 
-const lastTime =
+const briefing =
   "In the mill yard of the tallow mill at Hollin's Weir, end of the first day. Pulling forward: the missing apprentices Pell and Nia (scratched latch, the party will search the cellar), the night barges of Dace slipping past the weir (the party will watch the weir tomorrow night), and Corwin's debt to Dace, so far only Dace's claim. Harvest fair clock: 1/3, shown; at the fair Reeve Holloway closes the mill. Weir flood clock: 2/4, hidden. Also open: the haunted-cellar rumor and Tamsin's unsigned letter.";
 
 try {
@@ -422,7 +422,7 @@ try {
   const added = await call<{ rejected: unknown[] }>("debrief_add", {
     session: session.id,
     changes: [...mill, ...hall, ...river],
-    lastTime,
+    briefing,
   });
   assert.deepEqual(added.rejected, []);
   await call("debrief_commit", { session: session.id });

@@ -48,8 +48,8 @@ An explicit deployment write-rate rejection retries its batch with bounded
 backoff. Other failures keep the earlier transcript and return retry guidance.
 
 `scenes_set` splits the transcript. `debrief_add` accepts changes with a
-scene, basis, source quotes, and why, and stores the plot-first `lastTime`
-block. Invalid changes are rejected individually while valid ones stay in
+scene, basis, source quotes, and why, and stores the draft `briefing`, the
+review the game master reads. Invalid changes are rejected individually while valid ones stay in
 the draft. A basis consisting only of `player_guess` and `player_plan` may
 only touch threads or character goals. Both endpoints of a relationship
 must satisfy that rule. The schema defines all kinds, properties, enums,
@@ -64,9 +64,8 @@ Drop errors name any invalid remaining IDs that also need removal.
 Review `get debrief:<session>`, drop mistakes with `debrief_drop`, and call
 `debrief_commit` only after the game master accepts the draft. In clients
 that render MCP Apps, `debrief_add` and `debrief_drop` carry the Ledger view
-(`ui://omni-gm/draft-debrief`, `_meta.ui`). It shows the "for your session
-note" box with `lastTime`, then one row per change grouped by scene: the
-operation, the subject, before and after, basis, source quotes, and why.
+(`ui://omni-gm/draft-debrief`, `_meta.ui`). It shows the draft `briefing`,
+then one row per change grouped by scene: the operation, the subject, before and after, basis, source quotes, and why.
 Its only write is Drop, which calls `debrief_drop` and re-renders from the
 returned draft. Both tools also return `ledger` rows for the view. State and
 history commit atomically. The committed debrief, transcript, and scenes
@@ -75,7 +74,11 @@ names them by label, subject, and scene, as the Ledger shows them. Drop them
 together, then add replacements in dependency order.
 Later corrections use `story_commit`.
 
-At prep, `get overview` returns the most recently committed `lastTime`.
+`debrief_commit` refuses a draft without a briefing and keeps the briefing
+with the committed session. At prep, `get overview` returns it as `briefing`
+(`session`, `commit`, `text`, and the `story` commits written since as
+`correctionsSince`), or `null` before the first commit with a briefing, and
+the `briefing` skill opens prep with that text instead of regenerating it.
 `find` lists entities and scenes without a query, or searches names,
 aliases, property values, scenes, source quotes, and transcript utterances.
 `get entity:<id>` returns properties such as `playedAs`, relationships, and
@@ -148,7 +151,7 @@ with your reason. Omitted fields stay as they were; an empty string clears
 a field by storing `""`. A reason and at least one field are required. It appends a `frame`
 commit with the full before and after, atomically with the edit. Intent never
 changes story state. `get frame` returns the fields and that adventure's
-history; `get overview` includes the current frame beside `lastTime`.
+history; `get overview` includes the current frame beside the stored briefing.
 Starting another adventure gives it a fresh frame and keeps earlier frames
 and their commits. Each owner's frame remains private.
 
@@ -180,7 +183,7 @@ and guess restrictions as the debrief. The whole batch changes state and
 appends history atomically; a rejection keeps nothing. `$tempKey` resolves
 a new entity from an earlier change in that batch. The current campaign's
 schema applies, including retired properties. It changes neither committed
-debriefs nor frames nor `lastTime`. `get entity:<id>` shows its before/after,
+debriefs nor frames nor the stored briefing. `get entity:<id>` shows its before/after,
 basis, sources and why; `get overview` shows the `story` commit and reason.
 History from a story commit has no session or scene fields.
 
@@ -273,7 +276,7 @@ unique search marker makes the script repeatable on one deployment.
 Its evidence is under `proof/long-transcripts/`.
 
 The initial store supports up to 500 changes and 512 KB per draft, 16 KB
-per proposal or lastTime block, 100 scenes and 64 KB of scene descriptions
+per proposal or briefing, 100 scenes and 64 KB of scene descriptions
 per session, and 2,000 entities or relationships for debrief replay. Overview
 returns up to 200 recent sessions, adventures, and commits. Entity history
 uses an entity-specific index and continues beyond 2,000 changes. Search
@@ -325,7 +328,7 @@ again on the same preview. Its proof bundle is in `proof/schema-change/`.
 Schema changes accept 1 to 100 operations. The reason, operations and
 before/after definitions together must fit within 32 KB per schema commit.
 A rejection changes neither definitions nor history. Overview keeps the
-latest committed `lastTime` even when its debrief is older than the recent
+latest committed briefing even when its debrief is older than the recent
 200-commit history window.
 
 For upload-path proof, run `pnpm exec tsx scripts/e2e-agent-upload.ts` with

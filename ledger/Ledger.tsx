@@ -44,7 +44,7 @@ export function Ledger({
         </p>
       </header>
       <div className="px-5 py-4">
-        <SessionNote lastTime={draft.lastTime} />
+        <DraftBriefing briefing={draft.briefing} />
         {dropProps.dropError && (
           <p
             role="alert"
@@ -80,18 +80,16 @@ export function Ledger({
   );
 }
 
-function SessionNote({ lastTime }: { lastTime: string }) {
+function DraftBriefing({ briefing }: { briefing: string }) {
   return (
     <section className="rounded-lg border border-dashed border-accent bg-background-secondary px-4 py-3">
       <h2 className="text-xs font-semibold tracking-wider text-accent uppercase">
-        For your session note
+        Draft briefing
       </h2>
-      {lastTime ? (
-        <p className="mt-1 whitespace-pre-wrap">{lastTime}</p>
+      {briefing ? (
+        <p className="mt-1 whitespace-pre-wrap">{briefing}</p>
       ) : (
-        <p className="mt-1 text-text-secondary italic">
-          No "what happened last time?" block yet.
-        </p>
+        <p className="mt-1 text-text-secondary italic">No briefing yet.</p>
       )}
     </section>
   );

@@ -34,7 +34,7 @@ type Stored = Entity & {
 };
 type Overview = {
   frame: unknown;
-  lastTime: string;
+  briefing: unknown;
   sessions: { id: string }[];
   commits: { kind: string; id: string; reason: string }[];
 };
@@ -164,7 +164,7 @@ try {
     assert.deepEqual(after.schema, before.schema);
     assert.deepEqual(after.sessions, before.sessions);
     assert.deepEqual(after.overview.frame, before.overview.frame);
-    assert.equal(after.overview.lastTime, before.overview.lastTime);
+    assert.deepEqual(after.overview.briefing, before.overview.briefing);
     assert.equal(
       after.overview.commits.length,
       before.overview.commits.length + 1,

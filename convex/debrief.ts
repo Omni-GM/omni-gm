@@ -40,7 +40,7 @@ export function draftResult(s: Doc<"sessions">): Infer<typeof draft> {
     session: s._id,
     status: s.status,
     changes: s.changes,
-    lastTime: s.lastTime,
+    briefing: s.briefing ?? "",
   };
 }
 export const scenesSet = internalMutation({
@@ -360,7 +360,7 @@ function applyPendingChange(
 export const addArgs = {
   ...sessionArgs,
   changes: v.array(proposed),
-  lastTime: v.optional(v.string()),
+  briefing: v.optional(v.string()),
 };
 export const addResult = v.object({
   draft,
@@ -372,7 +372,7 @@ export const add = internalMutation({
   returns: addResult,
   handler: async (
     ctx,
-    { caller, session, changes, lastTime },
+    { caller, session, changes, briefing },
   ): Promise<Infer<typeof addResult>> => {
     const campaign = await campaignFor(ctx, caller);
     const s = await sessionFor(ctx, campaign._id, session);
@@ -380,8 +380,8 @@ export const add = internalMutation({
     if (!s.scenes.length) throw new ConvexError("Call scenes_set first");
     if (s.changes.length + changes.length > 500)
       throw new ConvexError("Use at most 500 draft changes");
-    if (encodedSize(lastTime ?? s.lastTime) > 16_000)
-      throw new ConvexError("Keep lastTime within 16 KB");
+    if (encodedSize(briefing ?? s.briefing) > 16_000)
+      throw new ConvexError("Keep the briefing within 16 KB");
     const state = await stateFor(ctx, campaign);
     const rows: LedgerRow[] = [];
     for (const p of s.changes)
@@ -419,12 +419,12 @@ export const add = internalMutation({
     const updated = {
       ...s,
       changes: kept,
-      lastTime: lastTime ?? s.lastTime,
+      briefing: briefing ?? s.briefing,
       nextChange,
     };
     await ctx.db.patch(s._id, {
       changes: kept,
-      lastTime: updated.lastTime,
+      briefing: updated.briefing,
       nextChange,
     });
     return {
@@ -575,8 +575,8 @@ export const commit = internalMutation({
     const campaign = await campaignFor(ctx, caller);
     const s = await sessionFor(ctx, campaign._id, session);
     unlocked(s);
-    if (!s.changes.length || !s.lastTime.trim())
-      throw new ConvexError("A commit needs draft changes and lastTime");
+    if (!s.changes.length || !s.briefing?.trim())
+      throw new ConvexError("A commit needs draft changes and a briefing");
     const state = await stateFor(ctx, campaign);
     const records = s.changes.map((p) => {
       return { p, ...applyPendingChange(s, state, p, crypto.randomUUID()) };

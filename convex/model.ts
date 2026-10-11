@@ -152,6 +152,36 @@ export const history = v.object({
   before: v.union(entity, relationship, v.null()),
   after: v.union(entity, relationship, v.null()),
 });
+export const secret = v.object({
+  id: v.string(),
+  text: v.string(),
+  about: v.array(v.string()),
+  status: v.union(
+    v.literal("hidden"),
+    v.literal("partly_revealed"),
+    v.literal("revealed"),
+    v.literal("fixed"),
+    v.literal("dropped"),
+  ),
+});
+export const secretHistory = v.object({
+  commit: v.string(),
+  op: v.union(
+    v.literal("write"),
+    v.literal("change"),
+    v.literal("reveal"),
+    v.literal("fix"),
+    v.literal("drop"),
+  ),
+  reason: v.string(),
+  before: v.union(secret, v.null()),
+  after: secret,
+  session: v.optional(v.string()),
+  scene: v.optional(v.number()),
+  learned: v.optional(v.string()),
+  sources: v.optional(storyChange.fields.sources),
+});
+export type Secret = Infer<typeof secret>;
 export const draft = v.object({
   session: v.string(),
   status: v.union(v.literal("draft"), v.literal("committed")),
@@ -300,12 +330,14 @@ export const schemaChangeRecord = v.object({
 });
 export const commit = v.object({
   id: v.string(),
+  storyCommit: v.optional(v.string()),
   kind: v.union(
     v.literal("seed"),
     v.literal("debrief"),
     v.literal("story"),
     v.literal("schema"),
     v.literal("frame"),
+    v.literal("secret"),
     v.literal("checklist"),
   ),
   reason: v.string(),
@@ -314,9 +346,16 @@ export const commit = v.object({
 });
 export const readValue = v.union(
   v.object({
+    secrets: v.array(secret),
+    writtenSinceDebrief: v.array(v.string()),
+    ...pageInfo,
+  }),
+  v.object({ ...secret.fields, history: v.array(secretHistory), ...pageInfo }),
+  v.object({
     adventures: v.array(adventure),
     sessions: v.array(sessionInfo),
     commits: v.array(commit),
+    openSecrets: v.number(),
     currentAdventure: v.union(v.string(), v.null()),
     frame: v.union(frame, v.null()),
     briefing: v.union(storedBriefing, v.null()),

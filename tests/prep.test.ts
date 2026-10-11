@@ -8,7 +8,7 @@ const answer = (
   change,
   basis: ["game_master"],
   sources: [{ quote }],
-  why: "Record the game master's plank answer",
+  why: "Record the game master's correction",
 });
 async function campaign() {
   const c = client();
@@ -20,7 +20,7 @@ async function campaign() {
   return c;
 }
 
-test("a plank answer commits new entities, aliases and relationships together with sourced history outside a debrief", async () => {
+test("a confirmed table correction commits new entities, aliases and relationships together with sourced history outside a debrief", async () => {
   const c = await campaign();
   await c.call("frame_update", {
     reason: "My intent",
@@ -28,7 +28,7 @@ test("a plank answer commits new entities, aliases and relationships together wi
   });
   const before = await c.call("get", { ref: "overview" });
   const committed = await c.call("story_commit", {
-    reason: "Answer the gap about the keeper",
+    reason: "Correct the keeper record",
     changes: [
       answer({
         op: "new",
@@ -76,7 +76,7 @@ test("a plank answer commits new entities, aliases and relationships together wi
   expect(after.commits[0]).toMatchObject({
     id: committed.commit,
     kind: "story",
-    reason: "Answer the gap about the keeper",
+    reason: "Correct the keeper record",
   });
   expect(after.frame).toEqual(before.frame);
   expect(after.sessions).toEqual(before.sessions);

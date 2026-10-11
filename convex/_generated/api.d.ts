@@ -17,6 +17,7 @@ import type * as oauth from "../oauth.js";
 import type * as pagination from "../pagination.js";
 import type * as schemaChanges from "../schemaChanges.js";
 import type * as search from "../search.js";
+import type * as secrets from "../secrets.js";
 import type * as skills from "../skills.js";
 import type * as store from "../store.js";
 import type * as tools from "../tools.js";
@@ -39,6 +40,7 @@ declare const fullApi: ApiFromModules<{
   pagination: typeof pagination;
   schemaChanges: typeof schemaChanges;
   search: typeof search;
+  secrets: typeof secrets;
   skills: typeof skills;
   store: typeof store;
   tools: typeof tools;

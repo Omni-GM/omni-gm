@@ -173,11 +173,41 @@ question per section. You pick, mix, reshape or ignore; only your picks
 enter the note, shown back in two or three lines, and every section closes
 with numbered next options.
 
-A missing main-plot fact loads `plank-questions`. The AI asks one targeted
-question and explains why, then records your confirmed answer with
-`story_commit`, `basis: ["game_master"]`, your exact words as the source,
-and your reason. A secret does not settle what the players know. Their
-unresolved threads stay open.
+A missing main-plot background answer loads `plank-questions`. The AI asks
+one targeted question and explains why. Your confirmed unplayed answer goes
+to `secret_write` in your words with your reason. It stays apart from entities
+and their history. Only a correction of what the table already saw uses
+`story_commit` with `basis: ["game_master"]`. The briefing and section walk
+read open secrets and mark them "(secret)" with their full ref. A secret does
+not settle what the players know; their unresolved threads stay open.
+
+`secret_write` takes `op`, `reason`, and these fields:
+
+- `write`: `text`, optionally `about` with existing owner-scoped entity ids
+  or `entity:<id>` refs. It returns a stable `secret:<id>` ref, `hidden`
+  status, and a commit id.
+- `change`: `secret` and the changed `text` or `about`. Omitted fields stay
+  as they were.
+- `drop`: `secret`. Its record and history remain readable with status
+  `dropped`.
+- `fix`: `secret` and `storyCommit`. First commit the story-state change
+  through `story_commit`, with `game_master` basis and the secret's exact
+  text as a source quote, or a compact game-master declaration as source and
+  its full secret ref in the change's `why`; pass its returned commit id. The secret becomes
+  `fixed`, and its commit records which story commit fixed it.
+
+Every operation requires a non-empty reason within 2 KB and appends separate
+secret history with `commit`, `op`, `reason`, `before`, and `after`. Text must
+be non-empty and at most 16 KB in UTF-8. `about` accepts at most 50 entity refs,
+200 bytes each. Secret and story-commit refs are also capped at 200 bytes.
+`get secrets` pages through `hidden` and `partly_revealed`
+records only; follow every continuation, including empty pages. Each page
+also returns `writtenSinceDebrief` ids so a stored briefing can add just the
+background written or changed since its debrief.
+`get secret:<id>` reads any status with paginated history, at most ten rows
+per page. `get overview` returns the exact `openSecrets` count. Secret
+writes do not enter entity or source search. Reveals in the debrief are a
+separate v2 ticket; this change includes their record and history fields.
 
 `story_commit` also corrects committed mistakes outside a debrief. Supply
 `reason` and `changes: [{change, basis, sources, why}]`, without a session
@@ -198,7 +228,7 @@ itself a validated fact.
 
 At the end the AI assembles your picks in your template, in your words and
 language, without padding for skipped sections. Your prep stays in your
-session note; it does not become story state. `story_commit` accepts 1 to 500 changes, at most 16 KB
+session note; unplayed background lives in the secret store and does not become story state. `story_commit` accepts 1 to 500 changes, at most 16 KB
 per change and 512 KB for the reason and batch together. The existing
 2,000-entity/relationship replay capacity also applies.
 
@@ -207,6 +237,9 @@ Run `pnpm exec tsx scripts/prep-e2e.ts` on a staging branch preview with
 and can run again on the same preview. Use `--seed-only` for the headless
 sparring fixture. `proof/prep-sparring/` holds the endpoint red/green runs,
 full gate, SDK run, headless conversation and independent readback.
+`proof/secrets/` holds the v2 secret endpoint, populated-store upgrade, and
+headless plank-to-secret-to-briefing proof; reproduce its readback with
+`pnpm exec tsx scripts/verify-secrets.ts`.
 
 `checklist_set` takes `sections: [{name, definition}]`, `template` and a
 non-empty `reason`. It replaces the whole checklist for the owner's campaign,

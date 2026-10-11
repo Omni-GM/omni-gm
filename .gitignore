@@ -3,3 +3,5 @@ node_modules/
 .vitest/
 .codegen/
 .convex/
+.ledger/
+convex/ledgerHtml.generated.ts

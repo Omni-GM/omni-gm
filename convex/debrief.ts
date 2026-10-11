@@ -11,6 +11,8 @@ import {
   type Entity,
   type History,
   kinds,
+  type LedgerRow,
+  ledger,
   type Proposed,
   proposed,
   type Relationship,
@@ -102,6 +104,23 @@ export const scenesSet = internalMutation({
 export function entityText(e: Entity): string {
   return [e.name, ...e.aliases, ...Object.values(e.properties)].join(" ");
 }
+type Applied = {
+  before: Entity | Relationship | null;
+  after: Entity | Relationship | null;
+  ids: string[];
+};
+function fields(entity: Entity | null, keys: string[]): LedgerRow["after"] {
+  const values: LedgerRow["after"] = {};
+  if (!entity) return values;
+  for (const key of keys) {
+    const value =
+      key === "aliases"
+        ? entity.aliases.join(", ") || undefined
+        : entity.properties[key];
+    if (value !== undefined) values[key] = value;
+  }
+  return values;
+}
 class DraftState {
   readonly entities = new Map<string, Entity>();
   readonly temps = new Map<string, string>();
@@ -126,6 +145,9 @@ class DraftState {
       );
     return entity;
   }
+  name(id: string): string {
+    return this.entities.get(id)?.name ?? id;
+  }
   properties(kind: string, properties: Record<string, string | number>): void {
     const fields = kinds[kind];
     if (!Object.hasOwn(kinds, kind))
@@ -146,14 +168,7 @@ class DraftState {
         );
     }
   }
-  apply(
-    p: Proposed,
-    id: string,
-  ): {
-    before: Entity | Relationship | null;
-    after: Entity | Relationship | null;
-    ids: string[];
-  } {
+  apply(p: Proposed, id: string): Applied {
     if (
       !p.basis.length ||
       !p.sources.length ||
@@ -229,6 +244,52 @@ class DraftState {
     return { before: rel, after: null, ids: [from.id, to.id] };
   }
 }
+function changedKeys(change: Proposed["change"], after: Entity): string[] {
+  if (change.op === "new") return ["aliases", ...Object.keys(after.properties)];
+  if (change.op !== "update") return [];
+  return [
+    ...Object.keys(change.properties ?? {}),
+    ...(change.addAliases?.length ? ["aliases"] : []),
+  ];
+}
+function ledgerRow(
+  state: DraftState,
+  id: string,
+  { change }: Proposed,
+  { before, after }: Applied,
+): LedgerRow {
+  if (change.op === "relate" || change.op === "unrelate") {
+    const rel = (after ?? before) as Relationship;
+    const { label } =
+      relationshipTypes[rel.type as keyof typeof relationshipTypes];
+    return {
+      id,
+      label: change.op === "relate" ? "link" : "unlink",
+      subject: `${state.name(rel.from)} ${label} ${state.name(rel.to)}`,
+      before: {},
+      after: {},
+    };
+  }
+  const entity = after as Entity;
+  const keys = changedKeys(change, entity);
+  const closes =
+    change.op === "update" && change.properties?.status === "closed";
+  return {
+    id,
+    label: change.op === "new" ? "new" : closes ? "closed" : "change",
+    subject: entity.name,
+    kind: entity.kind,
+    before: fields(before as Entity | null, keys),
+    after: fields(entity, keys),
+  };
+}
+function scenesOf(s: Doc<"sessions">): Infer<typeof ledger>["scenes"] {
+  return s.scenes.map(({ title, place }, i) => ({
+    ordinal: i + 1,
+    title,
+    place,
+  }));
+}
 async function stateFor(
   ctx: QueryCtx,
   campaign: Id<"campaigns">,
@@ -268,6 +329,7 @@ export const addArgs = {
 };
 export const addResult = v.object({
   draft,
+  ledger,
   rejected: v.array(v.object({ index: v.number(), reason: v.string() })),
 });
 export const add = internalMutation({
@@ -286,9 +348,10 @@ export const add = internalMutation({
     if (encodedSize(lastTime ?? s.lastTime) > 16_000)
       throw new ConvexError("Keep lastTime within 16 KB");
     const state = await stateFor(ctx, campaign._id);
+    const rows: LedgerRow[] = [];
     for (const p of s.changes) {
       validScene(s, p);
-      state.apply(p, `draft-${p.id}`);
+      rows.push(ledgerRow(state, p.id, p, state.apply(p, `draft-${p.id}`)));
     }
     const kept: DraftChange[] = [...s.changes];
     const rejected: { index: number; reason: string }[] = [];
@@ -303,7 +366,7 @@ export const add = internalMutation({
             "Keep the draft within 512 KB; drop or shorten proposals",
           );
         validScene(s, p);
-        state.apply(p, `draft-${id}`);
+        rows.push(ledgerRow(state, id, p, state.apply(p, `draft-${id}`)));
         kept.push({ ...p, id });
         nextChange++;
       } catch (error) {
@@ -324,11 +387,15 @@ export const add = internalMutation({
       lastTime: updated.lastTime,
       nextChange,
     });
-    return { draft: draftResult(updated), rejected };
+    return {
+      draft: draftResult(updated),
+      ledger: { scenes: scenesOf(s), rows },
+      rejected,
+    };
   },
 });
 export const dropArgs = { ...sessionArgs, changeIds: v.array(v.string()) };
-export const draftResponse = v.object({ draft });
+export const draftResponse = v.object({ draft, ledger });
 export const drop = internalMutation({
   args: dropArgs,
   returns: draftResponse,
@@ -344,10 +411,11 @@ export const drop = internalMutation({
     const changes = s.changes.filter((p) => !changeIds.includes(p.id));
     const state = await stateFor(ctx, campaign._id);
     const dependentIds: string[] = [];
+    const rows: LedgerRow[] = [];
     for (const p of changes) {
       try {
         validScene(s, p);
-        state.apply(p, `draft-${p.id}`);
+        rows.push(ledgerRow(state, p.id, p, state.apply(p, `draft-${p.id}`)));
       } catch {
         dependentIds.push(p.id);
       }
@@ -357,7 +425,10 @@ export const drop = internalMutation({
         `Drop also requires dependent changes: ${dependentIds.join(", ")}`,
       );
     await ctx.db.patch(s._id, { changes });
-    return { draft: draftResult({ ...s, changes }) };
+    return {
+      draft: draftResult({ ...s, changes }),
+      ledger: { scenes: scenesOf(s), rows },
+    };
   },
 });
 async function persist(

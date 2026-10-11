@@ -2,6 +2,7 @@ import { httpRouter } from "convex/server";
 import { McpGateway } from "convex-mcp-gateway";
 import { components } from "./_generated/api";
 import { httpAction } from "./_generated/server";
+import { ledgerView } from "./ledger";
 import { instructions } from "./skills";
 import { tools } from "./tools";
 import { download, upload } from "./uploads";
@@ -13,6 +14,7 @@ const mcp = httpAction((ctx, req) =>
     authorize: async (_ctx, { identity }) =>
       identity ? { allowed: true } : { allowed: false, reason: "Unauthorized" },
     tools,
+    resources: [ledgerView],
     initializeInstructions: instructions,
     serverInfo: { name: "omni-gm", version: "0.1.0" },
   }),

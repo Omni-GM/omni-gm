@@ -10,6 +10,7 @@
 
 import type * as debrief from "../debrief.js";
 import type * as http from "../http.js";
+import type * as ledger from "../ledger.js";
 import type * as model from "../model.js";
 import type * as oauth from "../oauth.js";
 import type * as search from "../search.js";
@@ -27,6 +28,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   debrief: typeof debrief;
   http: typeof http;
+  ledger: typeof ledger;
   model: typeof model;
   oauth: typeof oauth;
   search: typeof search;

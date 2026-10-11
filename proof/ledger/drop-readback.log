@@ -1,0 +1,63 @@
+Deployment: https://diligent-okapi-193.convex.cloud (branch preview feat-ledger-view, staging M2M sign-in)
+Seeded by scripts/ledger-host.ts: Seeded draft debrief for session k578warwe552pp1d8603pwsb4h8g2dym
+After clicking Drop on 'Does Sera work for the raiders?' in the Ledger view, get debrief:k578warwe552pp1d8603pwsb4h8g2dym returns:
+{
+  "session": "k578warwe552pp1d8603pwsb4h8g2dym",
+  "status": "draft",
+  "changes": [
+    {
+      "id": "c1",
+      "scene": 1,
+      "op": "new",
+      "name": "Sera Venn",
+      "basis": [
+        "npc_said"
+      ]
+    },
+    {
+      "id": "c2",
+      "scene": 1,
+      "op": "new",
+      "name": "The river gate closes",
+      "basis": [
+        "narrated"
+      ]
+    },
+    {
+      "id": "c3",
+      "scene": 1,
+      "op": "new",
+      "name": "Who broke the seal?",
+      "basis": [
+        "narrated"
+      ]
+    },
+    {
+      "id": "c4",
+      "scene": 1,
+      "op": "relate",
+      "name": "involves",
+      "basis": [
+        "narrated"
+      ]
+    },
+    {
+      "id": "c6",
+      "scene": 2,
+      "op": "update",
+      "name": "$gate",
+      "basis": [
+        "narrated"
+      ]
+    },
+    {
+      "id": "c7",
+      "scene": 2,
+      "op": "update",
+      "name": "$seal",
+      "basis": [
+        "player_plan"
+      ]
+    }
+  ]
+}

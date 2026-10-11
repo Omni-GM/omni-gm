@@ -13,6 +13,7 @@ import {
   dropArgs,
   scenesArgs,
 } from "./debrief";
+import { carriesLedger } from "./ledger";
 import { adventure, sessionInfo } from "./model";
 import { findArgs, findResult } from "./search";
 import { skillArgs, skillResult } from "./skills";
@@ -54,6 +55,7 @@ export const tools: McpToolRegistration[] = [
     identityArg: "caller",
     args: addArgs,
     returns: addResult,
+    _meta: carriesLedger,
   }),
   defineMcpMutation({
     name: "debrief_drop",
@@ -63,6 +65,7 @@ export const tools: McpToolRegistration[] = [
     identityArg: "caller",
     args: dropArgs,
     returns: draftResponse,
+    _meta: carriesLedger,
   }),
   defineMcpMutation({
     name: "debrief_commit",

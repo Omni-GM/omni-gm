@@ -1,10 +1,13 @@
 # Session 2 – The Tallow Mill
+
 ## Strong start
-**The widow goes first.** At grey dawn the cellar door stands open. Widow Ferrant is already halfway down, alone, with a lantern, and she doesn't wait for anyone. Corwin stands at the top of the stairs rubbing flour from his hands and won't follow.
+
+**A boat under the wheel.** The party is still in the yard that night. A shuttered lantern is moving under the mill wheel, where a small boat is tied to the mill's river side, right below the loft window. Someone in it is fumbling with the rope.
 
 ## Secrets and clues
-1. The scratches on the loft latch come from an iron hook, not a knife. They're flecked with rust.
-2. Three barrels are missing from the cellar tally. Corwin has been paying Dace in tallow, not coin.
-3. Sister Ulla lives on a reed island below the weir. You can only reach it by boat, and only a river guide would know the channel.
-4. Dace's barges only pass the weir when the water stands high enough to clear the sill.
-5. The charter article Holloway quotes has closed this mill once before, the year the old miller drowned.
+
+1. A week before she vanished, Nia told the baker's girl that something kept tapping on the loft window at night.
+2. There's an old sluice door from the cellar into the millrace, bricked up after the old miller drowned.
+3. Something is caught in the millrace under the wheel, which is why it turns slow.
+4. Sister Ulla lives in a hut on the far bank that you can only reach by boat.
+5. The gate feud started the night the old miller drowned: the gate was shut, and the widow blamed the reeve's office.

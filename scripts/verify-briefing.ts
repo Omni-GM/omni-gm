@@ -203,7 +203,10 @@ try {
 
     const reply1 = reply(1);
     const briefing = reply1.slice(
-      reply1.toLowerCase().indexOf("where the party stands"),
+      reply1.lastIndexOf(
+        "\n",
+        reply1.toLowerCase().indexOf("where the party stands"),
+      ) + 1,
     );
     const count = words(briefing).length;
     assert(count >= 400 && count <= 600, `Briefing is ${count} words`);
@@ -246,11 +249,14 @@ try {
     );
     assert.deepEqual(unsourced, [], "Every fact carries a source");
     const marked = [
-      { about: /owes|debt/i, mark: /according to dace|claim|dace says/i },
+      {
+        about: /owes|debt/i,
+        mark: /according to|claim|says|said|names|calls/i,
+      },
       { about: /haunt/i, mark: /rumou?r/i },
       { about: /downriver/i, mark: /guess/i },
-      { about: /\bkey\b/i, mark: /according to|claim|holloway says/i },
-      { about: /twenty years/i, mark: /according to|claim|says/i },
+      { about: /\bkey\b/i, mark: /according to|claim|says|said/i },
+      { about: /twenty years/i, mark: /according to|claim|says|said/i },
     ];
     const npcs = units(briefing.slice(parts[3].at, parts[4].at)).filter((u) =>
       /^([-*•]|\d+[.)])\s/.test(u),

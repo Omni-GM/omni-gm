@@ -36,7 +36,7 @@ CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the fut
 - Preparing Convex functions...
 
 Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
-✔ 18:55:58 Convex functions ready! (393.28ms)
+✔ 19:05:38 Convex functions ready! (392ms)
 Finding component definitions...
 Generating server code...
 Bundling component definitions...
@@ -55,6 +55,6 @@ Running TypeScript...
 
  Test Files  5 passed (5)
       Tests  84 passed (84)
-   Start at  18:56:04
-   Duration  10.24s (transform 2.28s, setup 0ms, import 713ms, tests 13.16s, environment 0ms)
+   Start at  19:05:44
+   Duration  10.12s (transform 2.24s, setup 0ms, import 673ms, tests 13.06s, environment 0ms)
 

@@ -1,9 +1,9 @@
-SOURCE COMMIT f9afae9e2a85dd5bcf5b9b3fe69e9b2814c36e54
+SOURCE COMMIT 159b5ad7c45b07a69a8b0f47cb8ed3720ca54b2e
 SOURCE BRANCH feat/v2-briefing
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/feat-v2-briefing-headless-3 (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/neat-anaconda-879)
-▌ └─ https://neat-anaconda-879.convex.cloud
-- Deploying to https://neat-anaconda-879.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/feat-v2-briefing-headless-4 (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/nautical-heron-152)
+▌ └─ https://nautical-heron-152.convex.cloud
+- Deploying to https://nautical-heron-152.convex.cloud...
 
 ✔ Added table indexes:
   [+] adventures.by_campaign   campaign, _creationTime
@@ -33,5 +33,5 @@ SOURCE BRANCH feat/v2-briefing
   [+] utterances.by_session_and_generation_and_seconds   session, transcriptGeneration, seconds, ordinal, _creationTime
   [+] utterances.search_text (text)   searchText, filter on campaign
 ✔ Installed component mcpGateway.
-✔ Deployed Convex functions to https://neat-anaconda-879.convex.cloud
+✔ Deployed Convex functions to https://nautical-heron-152.convex.cloud
 ✔ Finished running function "oauth:configure"

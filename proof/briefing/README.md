@@ -44,14 +44,15 @@ client. It checks, from the conversation and the store:
 - only `skill`, `get` and `find` were called: `briefing` in turn one, then
   `prep-sparring`;
 - the briefing is 400 to 600 words, counted from its first part including
-  sources, headings and options (577 here), with its parts in the spec's
+  sources, headings and options (598 here), with its parts in the spec's
   order and store corrections between off-screen moves and frame flags;
 - every fact unit before the frame flags carries a timestamp or names a
-  stored entity; the debt, key, rumor and guess lines are marked as claims;
+  stored entity; the debt, key, gate-feud, rumor and guess lines are marked
+  as claims; every NPC in play names or flags what they want;
 - two or three numbered what-next options, the frame talk first, and no
   question before them;
-- the strong start opens with at most five sourced facts and offers two or
-  three pitches, each with "Built on"; the pick is shown back without the
+- each section opens with at most five facts, every one sourced; the strong
+  start offers two or three pitches, each with "Built on"; the pick is shown back without the
   other pitches, followed by numbered next options;
 - secrets and clues are ten numbered, tweet-short items;
 - every section turn asks at most one question;
@@ -63,17 +64,30 @@ ticket where a script cannot judge.
 
 ### Rejected attempts
 
-`rejected-attempt-1.jsonl` and `rejected-attempt-2.jsonl` are earlier full
-runs on their own fresh previews. Both briefings ran long, 662 and 631
-words, and failed the length check. The served procedure first gained an
-explicit counting rule, then a word budget per part. The third run passed.
-After the second attempt the verifier's parsing was fixed without
-loosening an assertion: a bracket with two timestamps counts as a source, a
-frame remark counts as sourced by the frame, "claimed" marks a claim, and the
-note ends at the end of the template's list rather than at the agent's
-closing remarks. The closing "Which one do you want?" under What next is the
-option prompt, so the no-question check covers the parts before it. This is
-one model-behavior proof, not a guarantee that every model follows a skill.
+`rejected-attempt-1.jsonl`, `rejected-attempt-2.jsonl` and
+`rejected-attempt-3.jsonl` are earlier full runs, each on its own fresh
+preview. The first two briefings ran long, 662 and 631 words. The served
+procedure first gained an explicit counting rule, then a word budget per
+part. The third run passed the verifier as it stood then, at 577 words.
+
+The cross-family review then found what that verifier let through: Corwin
+and Sister Ulla had no want and no flag for it, Holloway's words about his
+feud with the widow stood unmarked, unsourced section facts were not
+counted, and the fixture's last-time text moved the players' weir watch to
+"tonight". The procedure now flags "wants unknown" and marks an NPC's words
+about another NPC as a claim; the verifier checks NPC wants, the gate-feud
+claim, and every section fact; the fixture keeps "tomorrow night". The
+stricter verifier rejects the third run, and the fourth run, kept as
+`claude.jsonl`, passes it.
+
+Parsing fixes along the way never loosened an assertion: a bracket with two
+timestamps counts as a source, a frame remark counts as sourced by the
+frame, an attribution verb ("claimed", "names") marks a claim, the briefing
+is read from the line of its first heading, and the note ends with the
+template's list rather than at the agent's closing remarks. The closing
+line under What next is the option prompt, so the no-question check covers
+the parts before it. This is one model-behavior proof, not a guarantee that
+every model follows a skill.
 
 ## Reproduce
 

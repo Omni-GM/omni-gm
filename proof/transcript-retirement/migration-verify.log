@@ -1,0 +1,3 @@
+PASS migration preserves exact published Unicode and CRLF bytes for both completed and interrupted chunk uploads
+PASS existing signed upload capability survives staging cleanup and narrowed schema deployment
+TRANSCRIPT RETIREMENT MIGRATION E2E PASSED

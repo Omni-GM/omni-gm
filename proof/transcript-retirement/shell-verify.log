@@ -1,0 +1,4 @@
+PASS shell agent uses curl -T from disk and confirms the stored transcript before scenes
+PASS independent MCP readback confirms exact fixture bytes and saved scenes
+PROOF SESSION k57cce7dy4344ww1etcphyzn3s8g3nqq
+SHELL HEADLESS UPLOAD PROOF PASSED

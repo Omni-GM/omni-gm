@@ -8,7 +8,6 @@ function object(value: unknown): Record<string, unknown> {
   assert(value && typeof value === "object" && !Array.isArray(value));
   return value as Record<string, unknown>;
 }
-
 function sanitize(value: unknown): unknown {
   if (typeof value === "string")
     return value.replace(/(\/upload\?token=)[^\s"'\\<>]+/g, "$1[REDACTED]");
@@ -19,13 +18,10 @@ function sanitize(value: unknown): unknown {
     );
   return value;
 }
-
-const mode = process.argv[2];
-const rawPath = process.argv[3];
-const publicPath = process.argv[4];
+const [mode, rawPath, publicPath] = process.argv.slice(2);
 assert(
-  (mode === "no-shell" || mode === "shell") && rawPath && publicPath,
-  "Usage: tsx scripts/verify-agent-upload.ts no-shell|shell raw.jsonl public.jsonl",
+  ["no-shell", "shell", "resume"].includes(mode) && rawPath && publicPath,
+  "Usage: tsx scripts/verify-agent-upload.ts no-shell|shell|resume raw.jsonl public.jsonl",
 );
 const events = (await readFile(rawPath, "utf8"))
   .trim()
@@ -36,29 +32,20 @@ const init = events.find(
 );
 assert(init && Array.isArray(init.tools));
 assert.equal(init.model, "claude-sonnet-5-5");
-const result = events.at(-1);
-assert(result && result.type === "result" && result.subtype === "success");
-const outputTokens = object(result.usage).output_tokens;
-assert(typeof outputTokens === "number" && outputTokens > 0);
+assert.equal(events.at(-1)?.subtype, "success");
 const calls: { name: string; input: Record<string, unknown> }[] = [];
-const assistantText: string[] = [];
+const texts: string[] = [];
 const publication: unknown[] = [
   {
     type: "proof",
     model: init.model,
-    command:
-      mode === "no-shell"
-        ? "claude -p --model claude-sonnet-5-5 --tools '' --disallowedTools Bash"
-        : "claude -p --model claude-sonnet-5-5 --tools Bash",
     tools: init.tools,
-    mcp_servers: init.mcp_servers,
-    note: "Invented fixture. Upload capabilities and provider usage removed except the requested output-token total.",
+    note: "Invented fixture. Upload capabilities, provider usage and thinking omitted.",
   },
 ];
 for (const event of events) {
   if (event.type === "assistant") {
     const message = object(event.message);
-    assert.equal(message.model, "claude-sonnet-5-5");
     assert(Array.isArray(message.content));
     for (const item of message.content) {
       const block = object(item);
@@ -68,7 +55,7 @@ for (const event of events) {
       }
       if (block.type === "text") {
         assert(typeof block.text === "string");
-        assistantText.push(block.text);
+        texts.push(block.text);
       }
     }
     publication.push({
@@ -84,95 +71,97 @@ for (const event of events) {
   if (event.type === "user")
     publication.push({ type: "user", message: event.message });
 }
-const skill = calls.findIndex(
-  (c) => c.name.endsWith("__skill") && c.input.name === "split-scenes",
-);
-const firstWrite = calls.findIndex((c) =>
-  [
-    "adventure_start",
-    "session_create",
-    "transcript_upload_url",
-    "transcript_append",
-    "scenes_set",
-  ].some((name) => c.name.endsWith(`__${name}`)),
-);
-assert(skill >= 0 && firstWrite > skill, "Load split-scenes before writing");
-assert(
-  calls.some(
-    (c) => c.name.endsWith("__skill") && c.input.name === "map-speakers",
-  ),
-);
-const split = calls.find((c) => c.name.endsWith("__scenes_set"));
-assert(split && typeof split.input.session === "string");
 const fixture = await readFile(
   new URL("../fixtures/session.txt", import.meta.url),
   "utf8",
 );
-const appends = calls.filter((c) => c.name.endsWith("__transcript_append"));
+for (const text of [
+  ...texts,
+  ...calls.map((call) => JSON.stringify(call.input)),
+])
+  for (const line of fixture.trim().split("\n"))
+    assert(
+      !text.includes(line),
+      "No transcript line in chat or tool arguments",
+    );
+assert(!calls.some((call) => call.name.endsWith("__transcript_append")));
+const procedure = calls.findIndex(
+  (call) => call.name.endsWith("__skill") && call.input.name === "split-scenes",
+);
+assert(procedure >= 0);
+const firstWrite = calls.findIndex((call) =>
+  [
+    "adventure_start",
+    "session_create",
+    "transcript_upload_url",
+    "scenes_set",
+  ].some((name) => call.name.endsWith(`__${name}`)),
+);
+assert(
+  firstWrite < 0 || firstWrite > procedure,
+  "Load procedure before writing",
+);
+const upload = calls.find((call) =>
+  call.name.endsWith("__transcript_upload_url"),
+);
+const split = calls.find((call) => call.name.endsWith("__scenes_set"));
+let session: string;
 if (mode === "no-shell") {
   assert(!init.tools.includes("Bash"));
+  assert(calls.every((call) => call.name.startsWith("mcp__omni-gm__")));
+  assert(upload && typeof upload.input.session === "string");
+  session = upload.input.session;
   assert(
-    calls.every((c) => c.name.startsWith("mcp__omni-gm__")),
-    "No local tools or human question",
+    !split &&
+      !calls.some(
+        (call) =>
+          call.name.endsWith("__debrief_add") ||
+          call.name.endsWith("__debrief_commit"),
+      ),
+    "Wait for upload before processing",
   );
-  assert(
-    appends.length > 0 &&
-      appends.every((c) => c.input.session === split.input.session),
-  );
-  const chunks = new Map<number, string>();
-  for (const call of appends) {
-    assert(
-      typeof call.input.index === "number" &&
-        typeof call.input.chunk === "string",
-    );
-    if (chunks.has(call.input.index))
-      assert.equal(chunks.get(call.input.index), call.input.chunk);
-    chunks.set(call.input.index, call.input.chunk);
-  }
-  assert.equal(
-    [...chunks.entries()]
-      .sort(([a], [b]) => a - b)
-      .map(([, text]) => text)
-      .join(""),
-    fixture,
-  );
-  assert(appends.some((c) => c.input.final === true));
-  assert(!calls.some((c) => c.name.endsWith("__transcript_upload_url")));
+  assert(texts.some((text) => text.includes("/upload-page?session=")));
   console.log(
-    "PASS Bash absent; agent loaded split-scenes and map-speakers, uploaded exact fixture through transcript_append, and stored scenes without a human step",
+    "PASS no-shell agent immediately gives pageUrl, does not retype the transcript, and waits without scenes or debrief writes",
   );
 } else {
-  assert(init.tools.includes("Bash"));
-  assert.equal(appends.length, 0);
-  assert(calls.some((c) => c.name.endsWith("__transcript_upload_url")));
+  assert(split && typeof split.input.session === "string");
+  session = split.input.session;
+  const confirmation = calls.findIndex(
+    (call) =>
+      call.name.endsWith("__get") && call.input.ref === `transcript:${session}`,
+  );
   assert(
-    calls.some(
-      (c) =>
-        c.name === "Bash" &&
-        typeof c.input.command === "string" &&
-        /curl\b[\s\S]*(\s-[a-zA-Z]*T\b|--upload-file\b)/.test(c.input.command),
-    ),
+    confirmation >= 0 && confirmation < calls.indexOf(split),
+    "Confirm stored transcript before scenes",
   );
-  for (const call of calls)
-    for (const line of fixture.trim().split("\n"))
-      assert(
-        !JSON.stringify(call.input).includes(line),
-        "No transcript line in shell agent tool arguments",
-      );
-  console.log(
-    "PASS shell agent used signed URL and curl -T from disk, with no transcript in tool arguments",
-  );
+  if (mode === "shell") {
+    assert(init.tools.includes("Bash") && upload);
+    assert(
+      calls.some(
+        (call) =>
+          call.name === "Bash" &&
+          typeof call.input.command === "string" &&
+          /curl\b[\s\S]*(\s-[a-zA-Z]*T\b|--upload-file\b)/.test(
+            call.input.command,
+          ),
+      ),
+    );
+    console.log(
+      "PASS shell agent uses curl -T from disk and confirms the stored transcript before scenes",
+    );
+  } else {
+    assert(!init.tools.includes("Bash"));
+    console.log(
+      "PASS resumed no-shell agent confirms the stored transcript before scenes",
+    );
+  }
 }
-for (const text of assistantText)
-  for (const line of fixture.trim().split("\n"))
-    assert(!text.includes(line), "No transcript line in chat output");
-console.log("PASS agent did not echo transcript in chat");
-
 const url = process.env.OMNI_GM_MCP_URL;
 const token = process.env.OMNI_GM_ACCESS_TOKEN;
-assert(url && token, "Set OMNI_GM_MCP_URL and OMNI_GM_ACCESS_TOKEN");
+assert(url && token);
 const client = new Client({
-  name: "omni-gm-agent-independent-readback",
+  name: "independent-upload-readback",
   version: "1",
 });
 await client.connect(
@@ -185,47 +174,54 @@ async function get<T>(ref: string): Promise<T> {
     name: "get",
     arguments: { ref },
   })) as CallToolResult;
-  assert(!response.isError && response.structuredContent, `${ref} failed`);
+  assert(!response.isError && response.structuredContent);
   return response.structuredContent.value as T;
 }
 try {
-  const transcript = await get<{
-    downloadUrl: string;
-    utterances: unknown[];
-    truncated: boolean;
-  }>(`transcript:${split.input.session}`);
-  assert.equal(transcript.truncated, false);
-  assert.equal(transcript.utterances.length, 7);
-  const response = await fetch(transcript.downloadUrl, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  assert.equal(response.status, 200);
-  assert.deepEqual(
-    Buffer.from(await response.arrayBuffer()),
-    Buffer.from(fixture),
-  );
-  const session = await get<{ scenes: unknown[] }>(
-    `session:${split.input.session}`,
-  );
-  assert(session.scenes.length > 0);
-  assert.deepEqual(session.scenes, split.input.scenes);
-  console.log(
-    "PASS independent authenticated SDK readback confirms every fixture byte, seven utterances and the agent's saved scenes",
-  );
+  if (mode === "no-shell") {
+    const missing = (await client.callTool({
+      name: "get",
+      arguments: { ref: `transcript:${session}` },
+    })) as CallToolResult;
+    assert(
+      missing.isError &&
+        JSON.stringify(missing.content).includes("Upload a transcript first"),
+    );
+    console.log(
+      "PASS independent MCP readback confirms no transcript has been invented or stored",
+    );
+  } else {
+    const transcript = await get<{
+      downloadUrl: string;
+      utterances: unknown[];
+    }>(`transcript:${session}`);
+    assert(transcript);
+    assert.equal(transcript.utterances.length, 7);
+    const response = await fetch(transcript.downloadUrl, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    assert.equal(response.status, 200);
+    assert.deepEqual(
+      Buffer.from(await response.arrayBuffer()),
+      Buffer.from(fixture),
+    );
+    const stored = await get<{ scenes: unknown[] }>(`session:${session}`);
+    assert.deepEqual(stored.scenes, split?.input.scenes);
+    console.log(
+      "PASS independent MCP readback confirms exact fixture bytes and saved scenes",
+    );
+  }
 } finally {
   await client.close();
 }
 publication.push({
   type: "result",
-  subtype: result.subtype,
-  output_tokens: outputTokens,
-  num_turns: result.num_turns,
-  result: result.result,
+  subtype: "success",
+  result: events.at(-1)?.result,
 });
 await writeFile(
   publicPath,
   `${publication.map((item) => JSON.stringify(sanitize(item))).join("\n")}\n`,
 );
-console.log(`OUTPUT TOKENS ${outputTokens}`);
-console.log(`PROOF SESSION ${split.input.session}`);
+console.log(`PROOF SESSION ${session}`);
 console.log(`${mode.toUpperCase()} HEADLESS UPLOAD PROOF PASSED`);

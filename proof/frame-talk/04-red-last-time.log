@@ -29,4 +29,3 @@ AssertionError: expected '' to be 'Sera waits by the ferry.' // Object.is equali
       Tests  1 failed | 24 skipped (25)
    Start at  12:36:37
    Duration  805ms (transform 261ms, setup 0ms, import 116ms, tests 587ms, environment 0ms)
-

@@ -2,25 +2,25 @@
   "found": {
     "hits": [
       {
-        "ref": "entity:3d7104c9-e961-4e5f-bdd3-686c236ac1c5",
+        "ref": "entity:99258f84-8399-4186-b27b-3ededf5dcdd3",
         "snippet": "Sera Venn Sarah Ven Soft voice with a snapped final word Ferry keeper",
         "title": "Sera Venn",
         "type": "entity"
       },
       {
-        "ref": "entity:5efad50f-e0e7-4554-b5ee-52d74f0f7646",
+        "ref": "entity:8d8942f0-c4ed-4a77-a219-3bae01fc5233",
         "snippet": "River gate closes The gate closes 1 4 shown",
         "title": "River gate closes",
         "type": "entity"
       },
       {
-        "ref": "entity:7f336404-c5ef-49d9-b25b-62cef317b03c",
+        "ref": "entity:3c73ffac-c5bf-42c5-bf71-b577b9cafa34",
         "snippet": "Jörg Kühn",
         "title": "Jörg Kühn",
         "type": "entity"
       },
       {
-        "ref": "entity:654099ba-ccd2-44cc-8b16-7440400b7e2b",
+        "ref": "entity:ddd9355d-d13e-4dc2-bd2a-2e442494627b",
         "snippet": "Jara Horn",
         "title": "Jara Horn",
         "type": "entity"
@@ -41,7 +41,7 @@
               "aliases": [
                 "Sarah Ven"
               ],
-              "id": "3d7104c9-e961-4e5f-bdd3-686c236ac1c5",
+              "id": "99258f84-8399-4186-b27b-3ededf5dcdd3",
               "kind": "npc",
               "name": "Sera Venn",
               "properties": {
@@ -66,9 +66,9 @@
               },
               "tempKey": "sera"
             },
-            "commit": "jd70dw1bt4a2tc96jahqbqpydh8g33w2",
+            "commit": "jd77j7rgn0yxrmmzkv9gq987x58g37gj",
             "scene": 1,
-            "session": "k57d4byv0y9g911gcpq7gqar5h8g3ms0",
+            "session": "k57892ezpfyzz6mcjf8fyk1t8s8g2a2w",
             "sources": [
               {
                 "at": "00:01:10",
@@ -78,7 +78,7 @@
             "why": "Remember the voiced NPC"
           }
         ],
-        "id": "3d7104c9-e961-4e5f-bdd3-686c236ac1c5",
+        "id": "99258f84-8399-4186-b27b-3ededf5dcdd3",
         "kind": "npc",
         "name": "Sera Venn",
         "properties": {
@@ -95,7 +95,7 @@
           {
             "after": {
               "aliases": [],
-              "id": "5efad50f-e0e7-4554-b5ee-52d74f0f7646",
+              "id": "8d8942f0-c4ed-4a77-a219-3bae01fc5233",
               "kind": "clock",
               "name": "River gate closes",
               "properties": {
@@ -120,9 +120,9 @@
                 "visibleToPlayers": "shown"
               }
             },
-            "commit": "jd70dw1bt4a2tc96jahqbqpydh8g33w2",
+            "commit": "jd77j7rgn0yxrmmzkv9gq987x58g37gj",
             "scene": 1,
-            "session": "k57d4byv0y9g911gcpq7gqar5h8g3ms0",
+            "session": "k57892ezpfyzz6mcjf8fyk1t8s8g2a2w",
             "sources": [
               {
                 "at": "00:04:00",
@@ -132,7 +132,7 @@
             "why": "Remember the voiced NPC"
           }
         ],
-        "id": "5efad50f-e0e7-4554-b5ee-52d74f0f7646",
+        "id": "8d8942f0-c4ed-4a77-a219-3bae01fc5233",
         "kind": "clock",
         "name": "River gate closes",
         "properties": {
@@ -151,7 +151,7 @@
           {
             "after": {
               "aliases": [],
-              "id": "7f336404-c5ef-49d9-b25b-62cef317b03c",
+              "id": "3c73ffac-c5bf-42c5-bf71-b577b9cafa34",
               "kind": "npc",
               "name": "Jörg Kühn",
               "properties": {}
@@ -165,9 +165,9 @@
               "name": "Jörg Kühn",
               "op": "new"
             },
-            "commit": "jd7954nke5qc1y4z7cx60vpv1h8g2tkf",
+            "commit": "jd7bnkb0agsnp3xgqdknd82e158g2am1",
             "scene": 1,
-            "session": "k579y51jtjxbjgw2gvqwnjsdzs8g2qs4",
+            "session": "k57b1tf9xprcj8qpv5y78qnzas8g2xcp",
             "sources": [
               {
                 "quote": "Jörg Kühn greets Jara Horn."
@@ -176,7 +176,7 @@
             "why": "Keep the named ferrymen"
           }
         ],
-        "id": "7f336404-c5ef-49d9-b25b-62cef317b03c",
+        "id": "3c73ffac-c5bf-42c5-bf71-b577b9cafa34",
         "kind": "npc",
         "name": "Jörg Kühn",
         "properties": {},
@@ -190,7 +190,7 @@
           {
             "after": {
               "aliases": [],
-              "id": "654099ba-ccd2-44cc-8b16-7440400b7e2b",
+              "id": "ddd9355d-d13e-4dc2-bd2a-2e442494627b",
               "kind": "npc",
               "name": "Jara Horn",
               "properties": {}
@@ -204,9 +204,9 @@
               "name": "Jara Horn",
               "op": "new"
             },
-            "commit": "jd7954nke5qc1y4z7cx60vpv1h8g2tkf",
+            "commit": "jd7bnkb0agsnp3xgqdknd82e158g2am1",
             "scene": 1,
-            "session": "k579y51jtjxbjgw2gvqwnjsdzs8g2qs4",
+            "session": "k57b1tf9xprcj8qpv5y78qnzas8g2xcp",
             "sources": [
               {
                 "quote": "Jörg Kühn greets Jara Horn."
@@ -215,7 +215,7 @@
             "why": "Keep the named ferrymen"
           }
         ],
-        "id": "654099ba-ccd2-44cc-8b16-7440400b7e2b",
+        "id": "ddd9355d-d13e-4dc2-bd2a-2e442494627b",
         "kind": "npc",
         "name": "Jara Horn",
         "properties": {},
@@ -226,8 +226,8 @@
   "sessions": [
     {
       "value": {
-        "adventure": "j579sgdjsf5wgd27beas38ja218g35mk",
-        "id": "k579y51jtjxbjgw2gvqwnjsdzs8g2qs4",
+        "adventure": "j571v6jta1wm78hd0cb0t7vxg98g2rb0",
+        "id": "k57b1tf9xprcj8qpv5y78qnzas8g2xcp",
         "lastTime": "The ferrymen meet.",
         "ordinal": 2,
         "playedOn": "2026-01-04",
@@ -244,8 +244,8 @@
     },
     {
       "value": {
-        "adventure": "j579sgdjsf5wgd27beas38ja218g35mk",
-        "id": "k57d4byv0y9g911gcpq7gqar5h8g3ms0",
+        "adventure": "j571v6jta1wm78hd0cb0t7vxg98g2rb0",
+        "id": "k57892ezpfyzz6mcjf8fyk1t8s8g2a2w",
         "lastTime": "At dusk at the ferry landing. Pulling forward: the broken seal and the gatekeeper's red cord. Ticking: gate closes, 1/4, visible. Also open: Rowan's suspicion of raider ties, a guess; the Lantern Widow, a rumor.",
         "ordinal": 1,
         "playedOn": "2026-01-03",

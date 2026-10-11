@@ -37,4 +37,3 @@ AssertionError: promise resolved "{ …(3) }" instead of rejecting
       Tests  1 failed | 22 skipped (23)
    Start at  12:33:28
    Duration  500ms (transform 255ms, setup 0ms, import 110ms, tests 288ms, environment 0ms)
-

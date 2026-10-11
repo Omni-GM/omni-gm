@@ -1,7 +1,8 @@
+SOURCE COMMIT db66b2ccdbdaf8caa437b6c355bf98f3ba8bd6df
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/feat-frame-talk-schema-headless (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/brainy-tortoise-930)
-▌ └─ https://brainy-tortoise-930.convex.cloud
-- Deploying to https://brainy-tortoise-930.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/feat-frame-talk-db66b2c-headless (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/shocking-chihuahua-512)
+▌ └─ https://shocking-chihuahua-512.convex.cloud
+- Deploying to https://shocking-chihuahua-512.convex.cloud...
 
 ✔ Added table indexes:
   [+] adventures.by_campaign   campaign, _creationTime
@@ -26,5 +27,5 @@
   [+] utterances.by_session_and_seconds   session, seconds, _creationTime
   [+] utterances.search_text (text)   searchText, filter on campaign
 ✔ Installed component mcpGateway.
-✔ Deployed Convex functions to https://brainy-tortoise-930.convex.cloud
+✔ Deployed Convex functions to https://shocking-chihuahua-512.convex.cloud
 ✔ Finished running function "oauth:configure"

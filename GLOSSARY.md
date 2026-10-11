@@ -108,6 +108,22 @@ _Avoid_: Recap, minutes
 The step after a session that turns what happened at the table into changes to the story state. Each change carries the scene it happened in and why, and all changes from one session are recorded together.
 _Avoid_: Import, sync, update
 
+**Basis**:
+Where a story-state change comes from: narrated by the game master, said by an NPC, a rumor, a player guess, a player plan, or the game master's own answer. It keeps facts apart from claims and guesses.
+_Avoid_: Source type, confidence
+
+**Frame talk**:
+The conversation at the start of prep in which the AI asks, grounded in the story state, and the game master writes or updates the adventure frame.
+_Avoid_: Planning session, frame interview
+
+**Prep sparring**:
+The rest of prep after the frame talk: the AI walks the game master's own prep checklist with facts, questions, and checks, never drafting prep, and assembles the session note from the game master's decisions.
+_Avoid_: Co-writing, prep assistant
+
+**Plank question**:
+One targeted question the AI asks during prep when the main plot has a gap in the story state. The answer becomes a story-state change with basis game master.
+_Avoid_: Backfill, lore interview
+
 **Recap**:
 The opening text the game master reads to the players at the start of a session to remind them of the story so far.
 _Avoid_: Summary, previously-on

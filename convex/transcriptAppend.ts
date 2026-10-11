@@ -6,7 +6,7 @@ import {
   internalQuery,
 } from "./_generated/server";
 import { callerArgs, campaignFor, sessionFor } from "./store";
-import { storeTranscript } from "./uploads";
+import { isLocked, MAX_BYTES, storeBytes } from "./uploads";
 
 export const appendArgs = {
   ...callerArgs,
@@ -28,12 +28,20 @@ export const receive = internalMutation({
   handler: async (ctx, { caller, session, chunk, index, final, restart }) => {
     const campaign = await campaignFor(ctx, caller);
     const s = await sessionFor(ctx, campaign._id, session);
-    if (s.status === "committed" || s.scenes.length || s.changes.length)
+    if (isLocked(s))
       throw new ConvexError(
         "Transcript is locked once scenes or a debrief exist",
       );
     if (!Number.isInteger(index) || index < 0 || index >= 128)
-      throw new ConvexError("Chunk index must be an integer from 0 to 127");
+      throw new ConvexError(
+        "Chunk index must be an integer from 0 to 127; restart with larger chunks, up to 64000 UTF-8 bytes, if you need more than 128 chunks",
+      );
+    if (
+      /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/.test(
+        chunk,
+      )
+    )
+      throw new ConvexError("Do not split Unicode characters across chunks");
     const bytes = new TextEncoder().encode(chunk).length;
     if (!bytes || bytes > 64_000)
       throw new ConvexError("Send 1 to 64000 UTF-8 bytes per chunk");
@@ -44,9 +52,13 @@ export const receive = internalMutation({
       .unique();
     if (restart) {
       if (index !== 0) throw new ConvexError("Restart must begin at index 0");
-      if (ticket?.storage && !ticket.appendState?.completed)
-        throw new ConvexError("Upload in progress; retry after it finishes");
       if (ticket) {
+        if (ticket.storage && !ticket.appendState?.completed)
+          await ctx.scheduler.runAfter(0, internal.uploads.cleanup, {
+            session: s._id,
+            storage: ticket.storage,
+            generation: ticket.storage,
+          });
         const upload = ticket._id;
         const chunks = await ctx.db
           .query("transcriptChunks")
@@ -72,8 +84,10 @@ export const receive = internalMutation({
     }
     if (!ticket?.appendState) throw new ConvexError("Upload not found");
     const state = ticket.appendState;
-    if (ticket.expires <= Date.now())
-      throw new ConvexError("Chunk upload expired");
+    if (state.completed && ticket.storage !== s.transcript)
+      throw new ConvexError(
+        "This upload was replaced; restart at index 0 to upload again",
+      );
     if (index < state.nextIndex) {
       const previous = await ctx.db
         .query("transcriptChunks")
@@ -85,6 +99,8 @@ export const receive = internalMutation({
         throw new ConvexError(
           "Chunk already received with different content or final flag",
         );
+      if (!state.completed && ticket.expires <= Date.now())
+        throw new ConvexError("Chunk upload expired; restart at index 0");
       return {
         token: ticket.token,
         uploaded: state.completed,
@@ -92,6 +108,8 @@ export const receive = internalMutation({
         bytes: state.bytes,
       };
     }
+    if (ticket.expires <= Date.now())
+      throw new ConvexError("Chunk upload expired; restart at index 0");
     if (state.finalIndex !== undefined)
       throw new ConvexError(
         "Final chunk already received; retry it or restart the upload",
@@ -100,7 +118,7 @@ export const receive = internalMutation({
       throw new ConvexError(
         `Missing or out-of-order chunk; send index ${state.nextIndex}`,
       );
-    if (state.bytes + bytes > 8_000_000)
+    if (state.bytes + bytes > MAX_BYTES)
       throw new ConvexError("Transcript too large; at most 8 MB");
     await ctx.db.insert("transcriptChunks", {
       upload: ticket._id,
@@ -154,18 +172,16 @@ export const append = internalAction({
     const text = await ctx.runQuery(internal.transcriptAppend.assembled, {
       token,
     });
-    const response = await storeTranscript(
+    const response = await storeBytes(
       ctx,
       token,
-      new Request("https://test.convex.site/upload", {
-        method: "PUT",
-        body: text,
-      }),
+      new TextEncoder().encode(text),
       {
         status: 409,
         message:
-          "Upload in progress or transcript locked; retry the final chunk",
+          "Upload in progress or transcript locked; retry the final chunk, or restart at index 0 to cancel an incomplete upload and resend all chunks",
       },
+      "Upload failed; retry the identical final chunk, or restart at index 0 to resend all chunks",
     );
     if (!response.ok) throw new ConvexError(await response.text());
     return { ...result, uploaded: true };

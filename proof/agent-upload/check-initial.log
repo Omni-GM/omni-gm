@@ -9,23 +9,23 @@
 tests/mcp.test.ts:711:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   i Template literals are preferred over string concatenation.
-  
+
     709 │   const failed = await c.t.fetch(path, {
     710 │     method: "PUT",
   > 711 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
         │           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     712 │   });
     713 │   expect(failed.status).toBe(400);
-  
+
   i Unsafe fix: Use a template literal.
-  
+
      709  709 │     const failed = await c.t.fetch(path, {
      710  710 │       method: "PUT",
      711      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
           711 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
      712  712 │     });
      713  713 │     expect(failed.status).toBe(400);
-  
+
 
 Checked 46 files in 48ms. No fixes applied.
 Found 1 info.

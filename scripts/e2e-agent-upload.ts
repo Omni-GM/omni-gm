@@ -35,13 +35,26 @@ type Page = {
 };
 type Reply = { uploaded: boolean; nextIndex: number; bytes: number };
 
+function transcriptText(utterances: TranscriptLine[]): string {
+  return `${utterances.map((u) => `[${u.at}] ${u.speaker}: ${u.text}`).join("\r\n")}\r\n`;
+}
+
 try {
   const fixture = longSession("InventedUploadProof");
   fixture.utterances[0].text += " Café lantern 🕯️.";
-  fixture.text = `${fixture.utterances
-    .map((u) => `[${u.at}] ${u.speaker}: ${u.text}`)
-    .join("\r\n")}\r\n`;
+  const maximum = process.argv.includes("--max-bytes");
+  if (maximum) {
+    const extra =
+      8_000_000 - Buffer.byteLength(transcriptText(fixture.utterances));
+    const each = Math.floor(extra / fixture.utterances.length);
+    const remainder = extra % fixture.utterances.length;
+    fixture.utterances.forEach((u, i) => {
+      u.text += " ".repeat(each + (i < remainder ? 1 : 0));
+    });
+  }
+  fixture.text = transcriptText(fixture.utterances);
   const bytes = Buffer.from(fixture.text);
+  if (maximum) assert.equal(bytes.length, 8_000_000);
   console.log(
     `Invented four-hour fixture: ${fixture.utterances.length} utterances, ${bytes.length} UTF-8 bytes, SHA-256 ${createHash("sha256").update(bytes).digest("hex")}`,
   );

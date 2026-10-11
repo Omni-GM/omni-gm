@@ -1,0 +1,12 @@
+
+> omni-gm@0.1.0 test /tmp/omnigm-impl26
+> vitest run tests/mcp.test.ts -t 'more than 2000 changes to one entity'
+
+
+ RUN  v4.1.0 /tmp/omnigm-impl26
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 43 skipped (44)
+   Start at  13:42:27
+   Duration  5.40s (transform 451ms, setup 0ms, import 144ms, tests 5.16s, environment 0ms)

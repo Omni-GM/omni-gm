@@ -32,7 +32,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpAction({
     name: "transcript_append",
     description:
-      "Without a shell, upload the transcript yourself in exact ordered chunks of at most 64000 UTF-8 bytes. Start index at 0, increase by 1, set final only on the last chunk. Identical retries are safe, including the final chunk. Use nextIndex after an ordering error. To replace bad input or start over, use restart: true at index 0 and resend every chunk. The chunk upload expires after one hour. Preserve all text and line endings; never split a Unicode character. At most 8 MB and 20000 utterances. Never ask the game master to upload when this tool is available. With a shell, use transcript_upload_url and curl -T from disk instead.",
+      "Without a shell, upload the transcript yourself in exact ordered chunks of at most 64000 UTF-8 bytes. At most 128 chunks. Start index at 0, increase by 1, set final only on the last chunk. Identical retries are safe, including the final chunk. Use nextIndex after an ordering error. To replace bad input or cancel an incomplete upload, use restart: true at index 0 and resend every chunk. The chunk upload expires after one hour. Preserve all text and line endings; never split a Unicode character. At most 8 MB and 20000 utterances. Never ask the game master to upload when this tool is available. With a shell, use transcript_upload_url and curl -T from disk instead.",
     fn: internal.transcriptAppend.append,
     identityArg: "caller",
     args: appendArgs,

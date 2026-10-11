@@ -73,7 +73,12 @@ for (const event of events) {
     }
     publication.push({
       type: "assistant",
-      message: { model: message.model, content: message.content },
+      message: {
+        model: message.model,
+        content: message.content.filter((item) =>
+          ["tool_use", "text"].includes(String(object(item).type)),
+        ),
+      },
     });
   }
   if (event.type === "user")

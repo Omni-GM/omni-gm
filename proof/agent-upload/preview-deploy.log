@@ -1,7 +1,7 @@
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/feat-agent-upload (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/dashing-hippopotamus-848)
-▌ └─ https://dashing-hippopotamus-848.convex.cloud
-- Deploying to https://dashing-hippopotamus-848.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/feat-agent-upload (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/glorious-shrimp-619)
+▌ └─ https://glorious-shrimp-619.convex.cloud
+- Deploying to https://glorious-shrimp-619.convex.cloud...
 
 ✔ Added table indexes:
   [+] adventures.by_campaign   campaign, _creationTime
@@ -31,5 +31,5 @@
   [+] utterances.by_session_and_generation_and_seconds   session, transcriptGeneration, seconds, ordinal, _creationTime
   [+] utterances.search_text (text)   searchText, filter on campaign
 ✔ Installed component mcpGateway.
-✔ Deployed Convex functions to https://dashing-hippopotamus-848.convex.cloud
+✔ Deployed Convex functions to https://glorious-shrimp-619.convex.cloud
 ✔ Finished running function "oauth:configure"

@@ -1,5 +1,9 @@
-import { expect, test } from "vitest";
+import { afterEach, expect, test, vi } from "vitest";
 import { client, createTest } from "./mcp-client";
+
+afterEach(() => {
+  vi.useRealTimers();
+});
 
 async function session(c = client()) {
   await c.init();
@@ -107,6 +111,83 @@ test("an invalid final upload leaves the old transcript readable and the agent c
     restart: true,
   });
   expect((await downloaded(c, s.id)).text).toBe(corrected);
+});
+
+test("a final retry cannot claim that a later signed replacement is the appended transcript", async () => {
+  const { c, s } = await session();
+  const upload = {
+    session: s.id,
+    chunk: "[00:00:00] GM: Old lantern.\n",
+    index: 0,
+    final: true,
+  };
+  await c.call("transcript_append", upload);
+  const { url } = await c.call("transcript_upload_url", { session: s.id });
+  const target = new URL(url);
+  const replacement = "[00:00:00] GM: New lantern.\n";
+  expect(
+    (
+      await c.t.fetch(target.pathname + target.search, {
+        method: "PUT",
+        body: replacement,
+      })
+    ).status,
+  ).toBe(200);
+  await expect(c.call("transcript_append", upload)).rejects.toThrow("replaced");
+  expect((await downloaded(c, s.id)).text).toBe(replacement);
+});
+
+test("a chunk cannot split a Unicode character", async () => {
+  const { c, s } = await session();
+  await expect(
+    c.call("transcript_append", {
+      session: s.id,
+      chunk: "[00:00:00] GM: \ud83d",
+      index: 0,
+      final: false,
+    }),
+  ).rejects.toThrow("Unicode");
+});
+
+test("expired staging is cleaned without deleting a completed transcript, and the agent can upload again", async () => {
+  vi.useFakeTimers();
+  const { c, s } = await session();
+  const upload = {
+    session: s.id,
+    chunk: "[00:00:00] GM: The lantern.\n",
+    index: 0,
+    final: true,
+  };
+  await c.call("transcript_append", upload);
+  await c.t.finishAllScheduledFunctions(() => vi.runAllTimers());
+  expect((await downloaded(c, s.id)).text).toBe(upload.chunk);
+  const replacement = "[00:00:00] GM: A different lantern.\n";
+  expect(
+    await c.call("transcript_append", { ...upload, chunk: replacement }),
+  ).toMatchObject({ uploaded: true });
+  expect((await downloaded(c, s.id)).text).toBe(replacement);
+});
+
+test("the agent restarts an expired incomplete upload and stores the transcript", async () => {
+  vi.useFakeTimers();
+  const { c, s } = await session();
+  const upload = {
+    session: s.id,
+    chunk: "[00:00:00] GM: The lantern.\n",
+    index: 0,
+    final: false,
+  };
+  await c.call("transcript_append", upload);
+  vi.setSystemTime(Date.now() + 60 * 60_000 + 1);
+  await expect(c.call("transcript_append", upload)).rejects.toThrow("expired");
+  expect(
+    await c.call("transcript_append", {
+      ...upload,
+      final: true,
+      restart: true,
+    }),
+  ).toMatchObject({ uploaded: true });
+  expect((await downloaded(c, s.id)).text).toBe(upload.chunk);
 });
 
 test("missing and out-of-order chunks cannot publish, and sending the missing index recovers", async () => {

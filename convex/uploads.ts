@@ -12,7 +12,7 @@ import {
 import { seconds, utterance } from "./model";
 import { callerArgs, campaignFor, sessionFor } from "./store";
 
-const MAX_BYTES = 8_000_000;
+export const MAX_BYTES = 8_000_000;
 const MAX_LINES = 20000;
 export const uploadArgs = { ...callerArgs, session: v.string() };
 export const uploadResult = v.object({ url: v.string(), pageUrl: v.string() });
@@ -41,7 +41,7 @@ async function issueToken(
   });
   return { token, session: s._id };
 }
-function isLocked(session: Doc<"sessions">): boolean {
+export function isLocked(session: Doc<"sessions">): boolean {
   return (
     session.status === "committed" ||
     session.scenes.length > 0 ||
@@ -217,7 +217,7 @@ export const abort = internalMutation({
   returns: v.null(),
   handler: async (ctx, { token, storage }) => {
     const ticket = await ticketFor(ctx, token);
-    if (ticket?.storage === storage) {
+    if (ticket?.storage === storage && !ticket.appendState?.completed) {
       await ctx.scheduler.runAfter(0, internal.uploads.cleanup, {
         session: ticket.session,
         storage,
@@ -288,7 +288,20 @@ export async function storeTranscript(
 ): Promise<Response> {
   if (Number(request.headers.get("content-length")) > MAX_BYTES)
     return new Response("Transcript too large", { status: 413 });
-  const body = new Uint8Array(await request.arrayBuffer());
+  return storeBytes(
+    ctx,
+    token,
+    new Uint8Array(await request.arrayBuffer()),
+    refused,
+  );
+}
+export async function storeBytes(
+  ctx: ActionCtx,
+  token: string,
+  body: Uint8Array<ArrayBuffer>,
+  refused: { status: number; message: string },
+  failed = "Upload failed; request a new upload URL or retry from the upload page",
+): Promise<Response> {
   if (body.length > MAX_BYTES)
     return new Response("Transcript too large", { status: 413 });
   let lines: Infer<typeof utterance>[];
@@ -301,7 +314,9 @@ export async function storeTranscript(
     );
   }
   const storage = await ctx.storage.store(
-    new Blob([body], { type: "text/plain;charset=utf-8" }),
+    new Blob([body], {
+      type: "text/plain;charset=utf-8",
+    }),
   );
   let claimed = false;
   try {
@@ -344,10 +359,7 @@ export async function storeTranscript(
       error.data.code === "UPLOAD_CAPABILITY";
     if (capability)
       return new Response(refused.message, { status: refused.status });
-    return new Response(
-      "Upload failed; request a new upload URL or retry from the upload page",
-      { status: 500 },
-    );
+    return new Response(failed, { status: 500 });
   }
   return Response.json({ uploaded: true });
 }

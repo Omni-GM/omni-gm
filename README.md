@@ -34,7 +34,8 @@ transcript is stored. The reply also carries `nextIndex` and accepted
 `bytes`. Out-of-order or missing chunks are rejected with the expected
 index. Identical retries, including the final chunk, are safe; changing an
 accepted chunk or its `final` flag is rejected. After bad input or to replace
-a transcript, send `restart: true` with index zero, then resend every chunk.
+a transcript or cancel an incomplete upload, send `restart: true` with index
+zero, then resend every chunk.
 Chunk uploads expire one hour after the first chunk. There are at most 128
 chunks and the same 8 MB total limit. This path spends model output tokens
 on tool arguments. With a shell, always use the signed URL instead.
@@ -49,6 +50,7 @@ and never ask you to upload when a tool path can access the transcript.
 `transcript_upload_url` also returns `pageUrl`, a fallback when the client
 cannot access the transcript through either automatic path. The page
 requires the same AuthKit sign-in and refuses other owners' sessions.
+
 Use UTF-8 text with timestamped speakers:
 
 ```text
@@ -271,7 +273,6 @@ A rejection changes neither definitions nor history. Overview keeps the
 latest committed `lastTime` even when its debrief is older than the recent
 200-commit history window.
 
-
 For agent upload proof, run `pnpm exec tsx scripts/e2e-agent-upload.ts` with
 the same preview URL and staging token. It uploads an invented four-hour,
 4,801-utterance transcript through `transcript_append`, retries chunks,
@@ -281,3 +282,6 @@ hosted SDK proof, and headless Claude Sonnet 5.5 runs with and without Bash.
 The no-shell run uploads the fixture from its prompt and records output
 tokens. The shell run uploads from disk and puts no transcript in its tool
 arguments or chat. Both are checked by independent hosted readback.
+
+Add `--max-bytes` to that SDK proof to pad each invented utterance with
+whitespace to exactly 8,000,000 UTF-8 bytes and verify the hosted limit.

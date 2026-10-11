@@ -4,7 +4,6 @@ They met Dace at the weir that night. Player plan: "Tomorrow we search the cella
 
 **What pulls**
 - **The missing apprentices:** Pell and Nia vanished from the loft three nights ago, and the latch is "scratched from outside" [00:07:45]. Next step: the cellar.
-  (secret) "Dace secretly shelters Pell and Nia in a dry chamber under the weir to protect them from Holloway." (secret:878f43c9-9097-4941-ae41-1ccd9df4d9bc, Dace / The missing apprentices / Reeve Holloway)
 - **The night barges:** two lantern barges slip past the weir [00:18:00]. Player guess: "the barges carried the children downriver" [00:23:10]. Player plan: watch the weir tomorrow night.
 - **Corwin's debt:** according to Dace, "Corwin is my favorite debtor" [00:20:30]. Nobody has asked Corwin about it yet.
 - **The weir gate:** according to Holloway, the widow keeps the key: "She will tell you otherwise." [00:15:30]
@@ -39,6 +38,9 @@ They met Dace at the weir that night. Player plan: "Tomorrow we search the cella
 
 **Frame flags**
 - The frame is empty: no goal, stakes, timeframe or finale yet.
+
+**Since the debrief**
+- (secret) "Dace secretly shelters Pell and Nia in a dry chamber under the weir to protect them from Holloway." — secret:70f82a7f-04c0-480a-b710-09493e940d1d (Dace, The missing apprentices, Reeve Holloway)
 
 **What next**
 1. A short frame talk to set the goal, stakes and timeframe (recommended).

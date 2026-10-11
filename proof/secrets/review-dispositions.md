@@ -56,3 +56,39 @@ back as owner-scoped entities` and the final pass banner.
 `preview-deploy.log` identifies final source `a9e2269`; the initial headless
 preview deploy is retained as `preview-initial-deploy.log`. No assertion was
 removed, and no code changed after the fixes check.
+
+## Checklist and stored-briefing integration
+
+`opus-checklist-integration-review.md` reviewed the #38 reconciliation.
+Both low findings were fixed:
+
+- The verifier now checks a model `get checklist` after `checklist_set`,
+  zero additional section questions, and the exact stored reason, alongside
+  its existing exact-section/template assertions. The final readback passes.
+- The section walk now separates factual-line citations from pitch sources.
+  A fact may cite a full secret ref; a pitch still needs named story-state
+  facts and may also cite relevant open secrets. This agrees with the
+  standing rule instead of allowing a pitch built only on a secret.
+
+#40 then merged. The briefing now preserves the stored text and adds only
+relevant secrets written/changed since its debrief. A new owner-scoped,
+bounded `writtenSinceDebrief` list accompanies each secret page, with
+endpoint red/green for old, new and edited secrets. The fresh headless run
+preserves every stored line, adds the literal marked secret, and passes
+at 595 words. The current-main populated-store upgrade passes too. The
+full local gate passes 93 tests. Earlier source/deployment references above
+are historical; final artifacts are those currently in the proof bundle.
+
+## Final whole-increment review
+
+`opus-final-integration-review.md` found no product defects after #40.
+Its one low proof finding is fixed. The verifier now requires the exact
+stored body and What next text, with only one Since the debrief heading
+and one literal secret line between them. It no longer applies the new-
+briefing word budget to a stored briefing. The strengthened hosted readback
+passes with 595 words; the full gate passes 93 tests.
+
+The debrief commit is the shared cutoff for corrections and new secrets.
+The reviewer noted that writes from another client between briefing-save
+and debrief-commit share #40's cutoff gap. No change is needed for this
+increment; concurrent debrief behavior remains the existing contract.

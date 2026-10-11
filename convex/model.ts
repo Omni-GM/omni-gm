@@ -345,7 +345,11 @@ export const commit = v.object({
   session: v.optional(v.string()),
 });
 export const readValue = v.union(
-  v.object({ secrets: v.array(secret), ...pageInfo }),
+  v.object({
+    secrets: v.array(secret),
+    writtenSinceDebrief: v.array(v.string()),
+    ...pageInfo,
+  }),
   v.object({ ...secret.fields, history: v.array(secretHistory), ...pageInfo }),
   v.object({
     adventures: v.array(adventure),

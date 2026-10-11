@@ -199,9 +199,34 @@ export async function readSecrets(
         cursor: start.cursor,
         maximumBytesRead: 100_000,
       });
+    const debrief = await ctx.db
+      .query("commits")
+      .withIndex("by_campaign_and_kind", (q) =>
+        q.eq("campaign", campaign._id).eq("kind", "debrief"),
+      )
+      .order("desc")
+      .first();
+    const written = await Promise.all(
+      page.page.map(async (row) => {
+        const latest = await ctx.db
+          .query("secretHistory")
+          .withIndex("by_campaign_and_secret", (q) =>
+            q.eq("campaign", campaign._id).eq("secret", row.id),
+          )
+          .order("desc")
+          .first();
+        return latest &&
+          (!debrief ||
+            (latest.commit !== debrief._id &&
+              latest._creationTime > debrief._creationTime))
+          ? row.id
+          : null;
+      }),
+    );
     const done = page.isDone && start.stream === states.length - 1;
     return {
       secrets: page.page.map(record),
+      writtenSinceDebrief: written.filter((id): id is string => id !== null),
       truncated: !done,
       nextCursor: done
         ? null

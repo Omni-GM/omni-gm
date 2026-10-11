@@ -201,7 +201,9 @@ secret history with `commit`, `op`, `reason`, `before`, and `after`. Text must
 be non-empty and at most 16 KB in UTF-8. `about` accepts at most 50 entity refs,
 200 bytes each. Secret and story-commit refs are also capped at 200 bytes.
 `get secrets` pages through `hidden` and `partly_revealed`
-records only; follow every continuation, including empty pages.
+records only; follow every continuation, including empty pages. Each page
+also returns `writtenSinceDebrief` ids so a stored briefing can add just the
+background written or changed since its debrief.
 `get secret:<id>` reads any status with paginated history, at most ten rows
 per page. `get overview` returns the exact `openSecrets` count. Secret
 writes do not enter entity or source search. Reveals in the debrief are a

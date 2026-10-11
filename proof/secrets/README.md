@@ -1,112 +1,123 @@
 # Secret records and plank-to-briefing proof
 
-All campaign names, transcript lines, and game-master decisions are invented.
-The MCP endpoint seam drives JSON-RPC through the authenticated gateway in
+All campaign names, transcript lines and game-master decisions are invented.
+The MCP endpoint seam drives JSON-RPC through the signed-in gateway in
 `convex-test`. The headless agent seam uses a staging branch preview and
-only the served MCP tools. No test reads tables or calls internal functions.
+only the served MCP tools. Tests never read tables or call internal functions.
 
 ## Endpoint red and green
 
-- `01-red-write.log`: the first write/change/history/separation test fails
-  on the pre-secret tool list with `Unknown tool: secret_write`.
-- `01-green-write.log`: the same assertion set passes after implementing
-  separate records, history, read refs, and the overview count.
-- `02-red-fix-drop.log`: fix/drop are absent from the tool contract.
-- `02-green-fix-drop.log`: fixes need a sourced game-master story commit;
-  fixes and drops close the record and append before/after history. The
-  entity history contains only the explicit story commit.
-- `03-red-validation.log`: a blank secret is wrongly accepted.
-- `03-green-validation.log`: owner isolation and invalid input rejection
-  pass without recording a secret or commit. This also includes the
-  pagination test, which was green when added.
-- `05-red-long-fix.log` and `05-green-long-fix.log`: a near-limit secret can
+- `01-red-write.log` and `01-green-write.log`: write/change with reasoned
+  before/after history, separate from entities and their history. The red
+  run fails with `Unknown tool: secret_write`.
+- `02-red-fix-drop.log` and `02-green-fix-drop.log`: fix/drop operations,
+  closing records with history; fixes require a sourced game-master story
+  commit, which is the only change entering entity history.
+- `03-red-validation.log` and `03-green-validation.log`: the blank secret
+  accepted in red is rejected in green. Owners cannot read/write foreign
+  secrets, link foreign entities or use a foreign fix commit. Invalid and
+  oversized inputs keep neither a secret nor a commit.
+- `04-green-pagination.log`: complete open-secret and history pages, at
+  most ten history rows, bounded limits, and cursors scoped to owner/ref.
+  This test was green when added.
+- `05-red-long-fix.log` and `05-green-long-fix.log`: a 15,960-byte secret can
   be fixed with a compact game-master source and its full ref in the story
   change's why, avoiding a repeated long quote in the 16 KB story payload.
 - `06-red-ref-bounds.log` and `06-green-ref-bounds.log`: secret and story
   commit refs are bounded to 200 bytes before lookup, without writing.
-- `check.log`: the complete local gate, including all endpoint tests.
-  `check-port-collision.log` retains a failed anonymous-local codegen attempt
-  caused by another backend on the default port. This worktree then used
-  its own ports 33939 and 33940; hosted previews were unaffected.
+- `07-red-since-debrief.log` and `07-green-since-debrief.log`: open-secret
+  pages identify only background written or changed since the latest
+  committed debrief, including edits of earlier secrets across one-item
+  pages. This is the integration with #40's stored briefing.
+- `check.log`: the full gate passes 93 tests after integrating #38 and #40.
+  `check-port-collision.log` retains a failed anonymous-local codegen
+  attempt caused by another backend on the default port. This worktree
+  then used ports 33939/33940; hosted previews were unaffected.
 
-`tests/secrets.test.ts` also proves complete open-secret and history
-continuations, ten-history-row pages, bounded limits, and cursors scoped to
-an owner and ref. Validation includes UTF-8 byte limits, blank text/reasons,
-missing or contradictory operation fields, oversized text/reason/link
-arrays, nonexistent or foreign entity links, foreign secret reads/writes,
-and foreign or non-game-master fix commits.
+`tests/secrets.test.ts` covers UTF-8 byte bounds, blank/missing values,
+contradictory operation fields, oversized text/reason/link arrays, missing
+entity links, owner isolation and sourced fix validation. Original red/
+green logs predate sibling merges; the final gate runs every assertion
+against the combined source, without skips.
 
 ## Populated-store upgrade
 
-`upgrade-base-deploy.log` deploys source `94d9e81`, before secrets, to its
-own staging preview. `upgrade-seed.log` writes the existing invented briefing
-fixture. `upgrade/story-before.json` records all entities with their full
-history, sessions, schema, frame and lastTime before deployment.
+`upgrade-base-deploy.log` deploys pre-secret main `37a52f4`, including the
+stored-checklist and stored-briefing changes, to this worker's own staging
+preview. `upgrade-seed.log` writes the invented briefing fixture.
+`upgrade/story-before.json` captures all entities and full histories,
+sessions, schema, frame and the stored briefing before deployment.
 `upgrade-deploy.log` deploys the additive secret schema over those rows.
-`upgrade-readback.log` checks that the same public reads are unchanged, the
+`upgrade-readback.log` checks the same public reads remain unchanged, the
 legacy campaign starts with zero open secrets, and its first secret write
-initializes the count while preserving story state. Existing fields added
-to campaigns and commits are optional; the two secret tables are new.
+initializes the count while preserving story state and the stored briefing.
+New fields on existing campaigns/commits are optional; secret tables are new.
 
 ## Headless agent
 
-`preview-initial-deploy.log` identifies the fresh branch preview;
-`preview-deploy.log` records its final backend update from source `a9e2269`. `seed.log` uses
-`scripts/briefing-e2e.ts` to commit 22 sourced changes from the invented
-`fixtures/briefing-session.txt`. `before.log` and `story-before.json` capture
-its complete story state and entity histories before the conversation.
+`preview-deploy.log` identifies the final staging preview, reset from this
+worker's own earlier preview after #38/#40 merged. No other worker's
+preview was changed. `seed.log` commits 22 sourced changes from the invented
+`fixtures/briefing-session.txt` and the exact approved briefing in
+`fixtures/secrets-stored-briefing.md`, using the seeder's `--briefing` option.
+`before.log` and `story-before.json` capture its public story state and
+full entity histories before the conversation.
 
 `claude.jsonl` is a four-turn Claude Opus 5.5 run. Its inputs are
 `fixtures/secrets-plank-start.md`, `secrets-plank-answer.md`,
-`secrets-briefing.md`, and `secrets-section.md`. They request one plank
-question, answer it with previously unplayed background, open the next
-briefing, and open the Scenes checklist section. The model loads the
-procedures from the server. No procedure text is supplied by the operator.
-The independent SDK verifier `scripts/verify-secrets.ts` reads the actual
-store and conversation. `readback.log` proves:
+`secrets-briefing.md`, and `secrets-section.md`: ask one plank question,
+record the previously unplayed answer, open the next briefing, then open
+the supplied Scenes checklist section. The model loads procedures from
+the server; the operator supplies no procedure text.
 
-- exactly one plank question and one secret write, with no story/frame writes;
-- the game master's exact answer and reason in one hidden secret, with
-  before/after history and owner-scoped entity links;
-- every entity and its full history, the frame, schema, sessions and
-  lastTime are unchanged, and the unresolved search stays open;
-- the next briefing is 400 to 600 words; the briefing and section walk both
-  read open secrets and mark the exact stored answer "(secret)" with its
-  full usable ref.
+The independent MCP SDK verifier `scripts/verify-secrets.ts` checks the
+actual conversation and store. `readback.log` proves:
 
-`briefing.md` and `section-walk.md` are the actual agent output extracted by
-the verifier. This proves this model run, not every model's compliance.
-Provider session ids, usage, thinking, bearer tokens and MCP connection
-metadata are omitted; user inputs, assistant text, tool calls and tool
-results remain.
+- one plank question and one exact hidden secret with the game master's
+  reason, separate history, and all three about links read as the owner;
+- no story/frame writes; every entity and full history, frame, schema,
+  session and stored briefing remain unchanged;
+- the next 595-word briefing preserves every stored line and adds the new
+  secret; briefing and section walk quote it literally, marked "(secret)"
+  with a usable full ref;
+- the section turn stores the supplied checklist once, reads it back after
+  writing, preserves the exact sections/template/reason, and asks no
+  further question.
+
+`briefing.md` and `section-walk.md` are the actual extracted output. This
+proves this model run, not every model's compliance. Provider session ids,
+usage, thinking, credentials and connection metadata are omitted; user
+inputs, assistant text and MCP tool calls/results remain intact.
+`preview-initial-deploy.log` records a superseded earlier preview. The
+commit history keeps the earlier passing pre-integration runs; the current
+artifacts prove the final combined procedures.
 
 ## Retained rejected and incomplete runs
 
-`rejected-attempt-1/` holds the first four-turn run. Its secret was correctly
-stored and marked, but the briefing invented that Dace feared Holloway and
-abbreviated the secret ref. It had 594 words, within the limit.
-`readback-rejected.log` is the stricter verifier rejecting that unsupported
-fear; the log stops at that first failure. The full-ref assertion also rejects
-the abbreviated ref, and the final run passes both. The procedure now quotes stored secrets literally, requires full
-refs, and keeps secrets inside the existing word budgets. Assertions were
-strengthened before rerunning, not weakened to accept the result.
+`rejected-attempt-1/` holds the first four-turn run. It stored and marked the
+secret correctly, but invented that Dace feared Holloway and abbreviated
+its ref. Its briefing was 594 words, within the limit. The stricter
+`readback-rejected.log` stops at the unsupported-fear assertion. The added
+full-ref assertion would also reject the abbreviation. The final run
+passes both. Procedures now quote secrets literally and require usable
+refs; no assertion was weakened.
 
 `baseline/` is an earlier two-turn exploration with the old plank procedure
-but the new secret tool description. The model already inferred the correct
-secret write. It does not prove the briefing or section walk; the incomplete
-readback fails because those turns were not run. It is not a behavior-red
-claim. The endpoint red logs above prove the missing behavior.
+and the new secret tool description. The model inferred the correct secret
+write. The incomplete readback fails because the briefing/section turns
+were not run; it is not a behavior-red claim. The endpoint logs prove red.
 
 ## Reproduce
 
 Load credentials with `~/.config/omni-gm/lib.sh` `load_env`, never source
-`secrets.env` or print a value. Deploy a fresh staging preview with
+`secrets.env` or print a value. Deploy a staging preview with
 `CONVEX_PREVIEW_DEPLOY_KEY` and `convex deploy --preview-create <name>
---preview-run oauth:configure --yes`. Get a staging M2M bearer token and set
-`OMNI_GM_MCP_URL` and `OMNI_GM_ACCESS_TOKEN`.
+--preview-run oauth:configure --yes`. Reset only an owned invented preview.
+Get a staging M2M bearer token and set `OMNI_GM_MCP_URL` and
+`OMNI_GM_ACCESS_TOKEN`.
 
 ```sh
-pnpm exec tsx scripts/briefing-e2e.ts
+pnpm exec tsx scripts/briefing-e2e.ts --briefing fixtures/secrets-stored-briefing.md
 pnpm exec tsx scripts/verify-secrets.ts --before
 ```
 
@@ -121,21 +132,20 @@ claude -p --model claude-opus-5-5 \
   --verbose --output-format stream-json < fixtures/secrets-plank-start.md
 ```
 
-Retain only public conversation events as `claude.jsonl`, tagging each event
-with its fixture turn from 1 to 4, then run
-`pnpm exec tsx scripts/verify-secrets.ts`. Remove the private MCP config
-after use. `OMNI_GM_PROOF_DIR` selects another artifact directory.
+Retain public events as `claude.jsonl`, tagging each with its fixture turn
+1 to 4, then run `pnpm exec tsx scripts/verify-secrets.ts`. Remove the
+private MCP config after use. `OMNI_GM_PROOF_DIR` selects another artifact
+directory. For the upgrade, capture `--before` under pre-secret main,
+deploy this change, then run `--upgrade` in that same proof directory.
 
-## Review
+## Review and later reveals
 
-`opus-review.md` and `opus-fix-review.md` are read-only Claude Opus 5.5
-reviews. `review-dispositions.md` records each finding and its fix or
-rejection. The fixes check confirmed the code changes and rejections; its
-remaining stale-log finding is resolved by the final hosted readback.
+The read-only Opus reviews and each disposition are linked in
+`review-dispositions.md`. CodeRabbit skipped draft review.
 
-## Later reveal integration
-
-The spec's `revealed` and `partly_revealed` statuses and optional history
-`session`, `scene`, `learned`, and `sources` fields are present for #43.
-That ticket must update the campaign's `openSecrets` count atomically when
-a reveal moves an open record to `revealed`; partial reveals remain open.
+The spec's `revealed`/`partly_revealed` statuses and optional history
+`session`, `scene`, `learned`, and `sources` fields are ready for #43.
+That ticket must update `campaign.openSecrets` atomically when a reveal
+closes an open record. Partial reveals stay open. `writtenSinceDebrief`
+excludes history in the latest debrief's own commit, so those reveals will
+not be repeated as post-debrief writes.

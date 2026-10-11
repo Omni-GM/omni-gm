@@ -383,3 +383,70 @@ test("secret and story commit refs are bounded before lookup without recording a
     ).rejects.toThrow("200 bytes");
   expect(await c.call("get", { ref: "overview" })).toEqual(before);
 });
+
+test("open-secret pages distinguish background written since the latest committed debrief, including edits of earlier secrets", async () => {
+  const { c, ref } = await campaign();
+  const old = await c.call("secret_write", {
+    op: "write",
+    text: "Mira shelters the apprentices.",
+    reason: "Earlier background",
+  });
+  const s = await c.call("session_create", { playedOn: "2026-01-03" });
+  const upload = await c.call("transcript_upload_url", { session: s.id });
+  const path = new URL(upload.url);
+  await c.t.fetch(path.pathname + path.search, {
+    method: "PUT",
+    body: "[00:00:00] GM: Mira is alive.\n",
+  });
+  await c.call("scenes_set", {
+    session: s.id,
+    scenes: [
+      {
+        title: "Mira",
+        start: "00:00:00",
+        place: "The ferry",
+        summary: "Mira is alive",
+      },
+    ],
+  });
+  await c.call("debrief_add", {
+    session: s.id,
+    briefing:
+      "The party met Mira at the ferry. Earlier background is already in this briefing.",
+    changes: [
+      {
+        scene: 1,
+        change: { op: "update", entity: ref, properties: { status: "alive" } },
+        basis: ["narrated"],
+        sources: [{ quote: "Mira is alive.", at: "00:00:00" }],
+        why: "Record what the table saw",
+      },
+    ],
+  });
+  await c.call("debrief_commit", { session: s.id });
+  expect((await c.call("get", { ref: "secrets" })).writtenSinceDebrief).toEqual(
+    [],
+  );
+  const recent = await c.call("secret_write", {
+    op: "write",
+    text: "The seal is under the weir.",
+    reason: "New background",
+  });
+  expect((await c.call("get", { ref: "secrets" })).writtenSinceDebrief).toEqual(
+    [recent.secret.id],
+  );
+  await c.call("secret_write", {
+    op: "change",
+    secret: old.secret.id,
+    text: "Mira shelters the apprentices at the weir.",
+    reason: "Change the old background",
+  });
+  const ids: string[] = [];
+  let cursor = null;
+  do {
+    const page = await c.call("get", { ref: "secrets", limit: 1, cursor });
+    ids.push(...page.writtenSinceDebrief);
+    cursor = page.nextCursor;
+  } while (cursor);
+  expect(ids.sort()).toEqual([old.secret.id, recent.secret.id].sort());
+});

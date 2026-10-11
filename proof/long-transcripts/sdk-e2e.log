@@ -1,0 +1,11 @@
+Invented fixture: 4801 utterances, 04:00:00 of play, 564924 bytes, SHA-256 29f1a694c21b4549e6d679b1810301a44fdc68388bfe049ae22ac4aec904250a
+PASS signed upload of 4,801 utterances in bounded batches
+PASS authenticated download preserves exact UTF-8 bytes and CRLF
+PASS four scenes include the true end at 04:00:00
+PASS 25 transcript pages read every utterance with no gaps or duplicates
+PASS 28 scene pages reproduce the complete transcript without overlap
+PASS multi-ref reads expose an independent continuation for each item
+PASS 25 search pages return all 4,800 matching utterances beyond the old 200-candidate cap
+PASS multi-type search reads native paginated indexes through the SDK
+PROOF SESSION k576r862ztntbnp6w8p6tx414x8g225h
+LONG TRANSCRIPT SDK E2E PASSED

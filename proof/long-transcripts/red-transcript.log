@@ -1,0 +1,32 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-impl21
+> vitest run -- -t 'transcript and timestamp-window pages'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-impl21
+
+ ❯ tests/mcp.test.ts (22 tests | 1 failed) 2074ms
+   × transcript and timestamp-window pages continue through repeated timestamps without gaps 12ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > transcript and timestamp-window pages continue through repeated timestamps without gaps
+Error: {"jsonrpc":"2.0","id":5,"result":{"content":[{"type":"text","text":"Tool execution failed"}],"isError":true}}
+ ❯ Object.call tests/mcp.test.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/mcp.test.ts:889:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 21 passed (22)
+   Start at  12:34:06
+   Duration  2.28s (transform 254ms, setup 0ms, import 108ms, tests 2.07s, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

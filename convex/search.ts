@@ -1,6 +1,14 @@
 import { ConvexError, type Infer, v } from "convex/values";
+import { internal } from "./_generated/api";
 import { internalQuery } from "./_generated/server";
 import { kinds as entityKinds } from "./model";
+import {
+  continuation,
+  pageArgs,
+  pageInfo,
+  pageLimit,
+  position,
+} from "./pagination";
 import { callerArgs, campaignFor } from "./store";
 
 const hitType = v.union(
@@ -9,25 +17,28 @@ const hitType = v.union(
   v.literal("scene"),
   v.literal("transcript"),
 );
+const hit = v.object({
+  id: v.string(),
+  ref: v.string(),
+  type: hitType,
+  title: v.string(),
+  snippet: v.optional(v.string()),
+  score: v.optional(v.number()),
+});
 export const findArgs = {
   ...callerArgs,
+  ...pageArgs,
   query: v.optional(v.string()),
   types: v.optional(v.array(hitType)),
   kinds: v.optional(v.array(v.string())),
-  limit: v.optional(v.number()),
 };
 export const findResult = v.object({
   query: v.union(v.string(), v.null()),
   total: v.number(),
-  hits: v.array(
-    v.object({
-      ref: v.string(),
-      type: hitType,
-      title: v.string(),
-      snippet: v.optional(v.string()),
-      score: v.optional(v.number()),
-    }),
-  ),
+  totalIsExact: v.boolean(),
+  order: v.literal("type_then_page_relevance"),
+  hits: v.array(hit),
+  ...pageInfo,
 });
 const stopWords = new Set([
   "a",
@@ -41,165 +52,206 @@ const stopWords = new Set([
   "is",
   "was",
 ]);
+const streamResult = v.object({
+  hits: v.array(hit),
+  cursor: v.string(),
+  done: v.boolean(),
+});
+export const searchPage = internalQuery({
+  args: {
+    campaign: v.id("campaigns"),
+    type: hitType,
+    kind: v.optional(v.string()),
+    text: v.union(v.string(), v.null()),
+    cursor: v.union(v.string(), v.null()),
+    limit: v.number(),
+  },
+  returns: streamResult,
+  handler: async (
+    ctx,
+    { campaign, type, kind, text, cursor, limit },
+  ): Promise<Infer<typeof streamResult>> => {
+    const opts = {
+      numItems: limit,
+      cursor,
+      maximumRowsRead: 200,
+      maximumBytesRead: 500_000,
+    };
+    const words = text?.split(" ") ?? [];
+    function ranked<T extends { searchText: string }>(
+      rows: T[],
+    ): { row: T; score?: number }[] {
+      if (!text) return rows.map((row) => ({ row }));
+      return rows
+        .map((row) => {
+          const tokens = new Set(
+            row.searchText.toLowerCase().split(/[^\p{L}\p{N}]+/u),
+          );
+          return {
+            row,
+            score: words.filter((word) => tokens.has(word)).length,
+          };
+        })
+        .filter((hit) => (hit.score ?? 0) > 0)
+        .sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
+    }
+    if (type === "entity") {
+      const page = await ctx.db
+        .query("entities")
+        .withIndex("by_campaign_and_kind", (q) =>
+          kind === undefined
+            ? q.eq("campaign", campaign)
+            : q.eq("campaign", campaign).eq("kind", kind),
+        )
+        .paginate(opts);
+      return {
+        cursor: page.continueCursor,
+        done: page.isDone,
+        hits: ranked(page.page).map(({ row, score }) => ({
+          id: row._id,
+          ref: `entity:${row.id}`,
+          type,
+          title: row.name,
+          snippet: row.searchText.slice(0, 240),
+          ...(score === undefined ? {} : { score }),
+        })),
+      };
+    }
+    if (type === "scene") {
+      const page = await ctx.db
+        .query("scenes")
+        .withIndex("by_campaign", (q) => q.eq("campaign", campaign))
+        .order("desc")
+        .paginate(opts);
+      return {
+        cursor: page.continueCursor,
+        done: page.isDone,
+        hits: ranked(page.page).map(({ row, score }) => ({
+          id: row._id,
+          ref: `scene:${row.session}/${row.ordinal}`,
+          type,
+          title: row.title,
+          snippet: `${row.place}: ${row.summary}`.slice(0, 240),
+          ...(score === undefined ? {} : { score }),
+        })),
+      };
+    }
+    if (!text) return { cursor: "", done: true, hits: [] };
+    if (type === "source") {
+      const page = await ctx.db
+        .query("history")
+        .withIndex("by_campaign", (q) => q.eq("campaign", campaign))
+        .paginate(opts);
+      return {
+        cursor: page.continueCursor,
+        done: page.isDone,
+        hits: ranked(page.page).map(({ row, score }) => ({
+          id: row._id,
+          ref: `entity:${row.entityIds[0]}`,
+          type,
+          title: row.why,
+          snippet:
+            `${row.basis.join(", ")}: ${row.sources.map((s) => s.quote).join(" ")}`.slice(
+              0,
+              240,
+            ),
+          ...(score === undefined ? {} : { score }),
+        })),
+      };
+    }
+    const page = await ctx.db
+      .query("utterances")
+      .withIndex("by_campaign", (q) => q.eq("campaign", campaign))
+      .paginate(opts);
+    const visible = [];
+    for (const row of page.page) {
+      const session = await ctx.db.get(row.session);
+      if (
+        session?.transcript &&
+        session.transcriptGeneration === row.transcriptGeneration
+      )
+        visible.push(row);
+    }
+    return {
+      cursor: page.continueCursor,
+      done: page.isDone,
+      hits: ranked(visible).map(({ row, score }) => ({
+        id: row._id,
+        ref: `transcript:${row.session}@${row.at}`,
+        type,
+        title: `${row.at} ${row.speaker}`,
+        snippet: row.text.slice(0, 240),
+        ...(score === undefined ? {} : { score }),
+      })),
+    };
+  },
+});
 export const find = internalQuery({
   args: findArgs,
   returns: findResult,
   handler: async (
     ctx,
-    { caller, query, types, kinds, limit },
+    { caller, query, types, kinds, limit, cursor },
   ): Promise<Infer<typeof findResult>> => {
     const campaign = await campaignFor(ctx, caller);
-    const maximum = limit ?? (query === undefined ? 100 : 10);
-    if (!Number.isInteger(maximum) || maximum < 1 || maximum > 200)
-      throw new ConvexError("Use a limit from 1 to 200");
+    const maximum = pageLimit(limit, query === undefined ? 100 : 10);
     if (kinds?.some((kind) => !Object.hasOwn(entityKinds, kind)))
       throw new ConvexError(
         `Allowed kinds: ${Object.keys(entityKinds).join(", ")}`,
       );
+    if (query && query.length > 1024)
+      throw new ConvexError("Keep the search query within 1024 characters");
     const words = (query ?? "")
       .toLowerCase()
       .split(/[^\p{L}\p{N}]+/u)
       .filter((w) => w && !stopWords.has(w));
     if (words.length > 8)
       throw new ConvexError("Use at most 8 search keywords");
-    const hits = new Map<string, Infer<typeof findResult>["hits"][number]>();
-    const wants = (type: Infer<typeof hitType>): boolean =>
-      !types || types.includes(type);
-    const add = (
-      hit: Infer<typeof findResult>["hits"][number],
-      key = `${hit.type}:${hit.ref}`,
-    ): void => {
-      const old = hits.get(key);
-      hits.set(key, {
-        ...hit,
-        ...(query !== undefined ? { score: (old?.score ?? 0) + 1 } : {}),
-      });
-    };
-    if (query !== undefined && !words.length)
-      return { query, total: 0, hits: [] };
-    if (wants("entity")) {
-      const batches = words.length
-        ? await Promise.all(
-            words.map(async (word) =>
-              (
-                await Promise.all(
-                  (kinds ? [...new Set(kinds)] : [undefined]).map((kind) =>
-                    ctx.db
-                      .query("entities")
-                      .withSearchIndex("search_text", (q) => {
-                        const search = q
-                          .search("searchText", word)
-                          .eq("campaign", campaign._id);
-                        return kind === undefined
-                          ? search
-                          : search.eq("kind", kind);
-                      })
-                      .take(200),
-                  ),
-                )
-              ).flat(),
-            ),
-          )
-        : [
-            await ctx.db
-              .query("entities")
-              .withIndex("by_campaign", (q) => q.eq("campaign", campaign._id))
-              .take(2000),
-          ];
-      for (const [wordIndex, rows] of batches.entries())
-        for (const [rank, row] of rows.entries())
-          if (!kinds || kinds.includes(row.kind)) {
-            const ref = `entity:${row.id}`;
-            const old = hits.get(`entity:${ref}`);
-            hits.set(`entity:${ref}`, {
-              ref,
-              type: "entity",
-              title: row.name,
-              snippet: row.searchText.slice(0, 240),
-              ...(words.length
-                ? {
-                    score:
-                      (old?.score ?? 0) +
-                      1 / (rank + 1) +
-                      (wordIndex === 0 ? 0.001 : 0),
-                  }
-                : {}),
-            });
-          }
+    const streams: { type: Infer<typeof hitType>; kind?: string }[] = [];
+    for (const type of ["entity", "source", "scene", "transcript"] as const) {
+      if (types && !types.includes(type)) continue;
+      if (query === undefined && type !== "entity" && type !== "scene")
+        continue;
+      if (type === "entity" && kinds)
+        for (const kind of [...new Set(kinds)].sort())
+          streams.push({ type, kind });
+      else streams.push({ type });
     }
-    if (wants("scene")) {
-      if (words.length) {
-        for (const word of words)
-          for (const row of await ctx.db
-            .query("scenes")
-            .withSearchIndex("search_text", (q) =>
-              q.search("searchText", word).eq("campaign", campaign._id),
-            )
-            .take(200))
-            add({
-              ref: `scene:${row.session}/${row.ordinal}`,
-              type: "scene",
-              title: row.title,
-              snippet: `${row.place}: ${row.summary}`,
-            });
-      } else {
-        const sessions = await ctx.db
-          .query("sessions")
-          .withIndex("by_campaign", (q) => q.eq("campaign", campaign._id))
-          .order("desc")
-          .take(200);
-        for (const s of sessions)
-          for (const [i, sc] of s.scenes.entries())
-            add({
-              ref: `scene:${s._id}/${i + 1}`,
-              type: "scene",
-              title: sc.title,
-              snippet: `${sc.place}: ${sc.summary}`,
-            });
+    const scope = JSON.stringify([campaign._id, query ?? null, streams]);
+    let start = position(scope, cursor);
+    if (start.stream > streams.length)
+      throw new ConvexError("Cursor stream is invalid");
+    const hits: Infer<typeof hit>[] = [];
+    if (query === undefined || words.length) {
+      while (start.stream < streams.length && hits.length < maximum) {
+        const page: Infer<typeof streamResult> = await ctx.runQuery(
+          internal.search.searchPage,
+          {
+            campaign: campaign._id,
+            ...streams[start.stream],
+            text: query === undefined ? null : words.join(" "),
+            cursor: start.cursor,
+            limit: maximum - hits.length,
+          },
+        );
+        hits.push(...page.hits);
+        start = {
+          stream: start.stream + (page.done ? 1 : 0),
+          cursor: page.done ? null : page.cursor,
+          seen: start.seen + page.hits.length,
+        };
+        if (!page.done) break;
       }
-    }
-    if (words.length && wants("source"))
-      for (const word of words)
-        for (const row of await ctx.db
-          .query("history")
-          .withSearchIndex("search_text", (q) =>
-            q.search("searchText", word).eq("campaign", campaign._id),
-          )
-          .take(200)) {
-          add(
-            {
-              ref: `entity:${row.entityIds[0]}`,
-              type: "source",
-              title: row.why,
-              snippet: `${row.basis.join(", ")}: ${row.sources.map((s) => s.quote).join(" ")}`,
-            },
-            `source:${row._id}`,
-          );
-        }
-    if (words.length && wants("transcript"))
-      for (const word of words)
-        for (const row of await ctx.db
-          .query("utterances")
-          .withSearchIndex("search_text", (q) =>
-            q.search("searchText", word).eq("campaign", campaign._id),
-          )
-          .take(200))
-          add({
-            ref: `transcript:${row.session}@${row.at}`,
-            type: "transcript",
-            title: `${row.at} ${row.speaker}`,
-            snippet: row.text.slice(0, 240),
-          });
-    const ranked = [...hits.values()];
-    if (query !== undefined)
-      ranked.sort(
-        (a, b) =>
-          (b.score ?? 0) - (a.score ?? 0) || a.title.localeCompare(b.title),
-      );
+    } else start = { ...start, stream: streams.length };
+    const truncated = start.stream < streams.length;
     return {
       query: query ?? null,
-      total: ranked.length,
-      hits: ranked.slice(0, maximum),
+      total: start.seen,
+      totalIsExact: !truncated,
+      order: "type_then_page_relevance",
+      hits,
+      truncated,
+      nextCursor: truncated ? continuation(scope, start) : null,
     };
   },
 });

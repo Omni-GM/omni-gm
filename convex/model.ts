@@ -1,4 +1,5 @@
 import { ConvexError, type Infer, v } from "convex/values";
+import { pageInfo } from "./pagination";
 export const propertyValues = v.record(
   v.string(),
   v.union(v.string(), v.number()),
@@ -213,16 +214,19 @@ export const readValue = v.union(
       }),
     ),
     history: v.array(history),
+    ...pageInfo,
   }),
   v.object({
     session: v.string(),
     ordinal: v.number(),
     ...scene.fields,
     utterances: v.array(utterance),
+    ...pageInfo,
   }),
   v.object({
     session: v.string(),
     utterances: v.array(utterance),
+    ...pageInfo,
     downloadUrl: v.string(),
   }),
 );

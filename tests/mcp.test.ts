@@ -2,6 +2,7 @@ import { register } from "convex-mcp-gateway/test";
 import { convexTest } from "convex-test";
 import { expect, test } from "vitest";
 import schema from "../convex/schema";
+import { longSession } from "../fixtures/long-session";
 
 const modules = import.meta.glob("../convex/**/*.ts");
 function createTest() {
@@ -563,8 +564,14 @@ test("list mode shows committed entities before scenes at a small limit", async 
   });
   await c.call("debrief_commit", { session: s.id });
   const result = await c.call("find", { limit: 1 });
-  expect(result.total).toBe(2);
+  expect(result.total).toBe(1);
+  expect(result.totalIsExact).toBe(false);
   expect(result.hits[0].type).toBe("entity");
+  const rest = await c.call("find", { limit: 1, cursor: result.nextCursor });
+  expect(rest.hits[0].type).toBe("scene");
+  expect(rest.total).toBe(2);
+  expect(rest.totalIsExact).toBe(true);
+  expect(rest.nextCursor).toBeNull();
 });
 
 test("an entity history remains readable after more than 2000 unrelated campaign changes", async () => {
@@ -872,4 +879,342 @@ test("the advertised basis schema repeats the guess rule, and private identity i
   ).toContain("player_guess");
   expect(tool.inputSchema.properties.caller).toBeUndefined();
   expect(tool.outputSchema.type).toBe("object");
+});
+
+test("transcript and timestamp-window pages continue through repeated timestamps without gaps", async () => {
+  const c = client();
+  await c.init();
+  await c.call("adventure_start", {
+    name: "Lantern road",
+    reason: "Invented pagination proof",
+  });
+  const s = await c.call("session_create", { playedOn: "2026-01-03" });
+  const { url } = await c.call("transcript_upload_url", { session: s.id });
+  const upload = await c.t.fetch(new URL(url).pathname + new URL(url).search, {
+    method: "PUT",
+    body: "[00:00:00] GM: First lantern.\n[00:00:00] Rowan: Second lantern.\n[00:00:30] Sera: Third lantern.\n[00:04:00] GM: Last lantern.",
+  });
+  expect(upload.status).toBe(200);
+  const ref = `transcript:${s.id}`;
+  const first = await c.call("get", { ref, limit: 2 });
+  expect(first.utterances.map((u: { text: string }) => u.text)).toEqual([
+    "First lantern.",
+    "Second lantern.",
+  ]);
+  expect(first.truncated).toBe(true);
+  expect(first.nextCursor).toEqual(expect.any(String));
+  const last = await c.call("get", { ref, limit: 2, cursor: first.nextCursor });
+  expect(last.utterances.map((u: { text: string }) => u.text)).toEqual([
+    "Third lantern.",
+    "Last lantern.",
+  ]);
+  expect(last.truncated).toBe(false);
+  expect(last.nextCursor).toBeNull();
+  const windowRef = `${ref}@00:00:20`;
+  const window = await c.call("get", { ref: windowRef, limit: 2 });
+  const windowEnd = await c.call("get", {
+    ref: windowRef,
+    limit: 2,
+    cursor: window.nextCursor,
+  });
+  expect(windowEnd.utterances.map((u: { text: string }) => u.text)).toEqual([
+    "Third lantern.",
+  ]);
+  expect(windowEnd.truncated).toBe(false);
+  await expect(
+    c.call("get", { ref: windowRef, cursor: first.nextCursor }),
+  ).rejects.toThrow("Cursor");
+});
+
+test("entity history pages preserve every committed debrief with its basis and source", async () => {
+  const { c, s } = await prepared();
+  await c.call("debrief_add", {
+    session: s.id,
+    lastTime: "The ferry opens.",
+    changes: [npcChange()],
+  });
+  await c.call("debrief_commit", { session: s.id });
+  const ref = (await c.call("find", { types: ["entity"] })).hits[0].ref;
+  const sessions = [s.id];
+  for (let i = 1; i <= 3; i++) {
+    const next = await prepared(c);
+    sessions.push(next.s.id);
+    await c.call("debrief_add", {
+      session: next.s.id,
+      lastTime: `The ferry advances ${i}.`,
+      changes: [
+        {
+          ...npcChange(),
+          change: {
+            op: "update",
+            entity: ref,
+            properties: { knows: `Message ${i}` },
+          },
+          why: `Remember message ${i}`,
+        },
+      ],
+    });
+    await c.call("debrief_commit", { session: next.s.id });
+  }
+  const first = await c.call("get", { ref, limit: 2 });
+  expect(first.history.map((h: { session: string }) => h.session)).toEqual(
+    sessions.slice(0, 2),
+  );
+  expect(first.truncated).toBe(true);
+  const second = await c.call("get", {
+    ref,
+    limit: 2,
+    cursor: first.nextCursor,
+  });
+  expect(second.history.map((h: { session: string }) => h.session)).toEqual(
+    sessions.slice(2),
+  );
+  expect(second.history.map((h: { why: string }) => h.why)).toEqual([
+    "Remember message 2",
+    "Remember message 3",
+  ]);
+  expect(second.history[0].basis).toEqual(["npc_said"]);
+  expect(second.history[0].sources).toEqual([
+    { quote: "Mind the stones, dear.", at: "00:01:10" },
+  ]);
+  expect(second.properties.knows).toBe("Message 3");
+  expect(second.truncated).toBe(false);
+  expect(second.nextCursor).toBeNull();
+});
+
+test("find continues past its old candidate cap and keeps utterances at the same timestamp distinct", async () => {
+  const c = client();
+  await c.init();
+  await c.call("adventure_start", {
+    name: "Lantern road",
+    reason: "Invented search proof",
+  });
+  const s = await c.call("session_create", { playedOn: "2026-01-03" });
+  const { url } = await c.call("transcript_upload_url", { session: s.id });
+  const lines = Array.from(
+    { length: 205 },
+    (_, i) => `[00:00:00] GM: Lantern marker ${i}.`,
+  );
+  expect(
+    (
+      await c.t.fetch(new URL(url).pathname + new URL(url).search, {
+        method: "PUT",
+        body: lines.join("\n"),
+      })
+    ).status,
+  ).toBe(200);
+  const first = await c.call("find", {
+    query: "lantern marker",
+    types: ["transcript"],
+    limit: 100,
+  });
+  expect(first.hits).toHaveLength(100);
+  expect(first.truncated).toBe(true);
+  expect(first.totalIsExact).toBe(false);
+  const second = await c.call("find", {
+    query: "lantern marker",
+    types: ["transcript"],
+    limit: 100,
+    cursor: first.nextCursor,
+  });
+  const third = await c.call("find", {
+    query: "lantern marker",
+    types: ["transcript"],
+    limit: 100,
+    cursor: second.nextCursor,
+  });
+  expect(third.truncated).toBe(false);
+  expect(third.nextCursor).toBeNull();
+  expect(third.total).toBe(205);
+  expect(third.totalIsExact).toBe(true);
+  const hits = [...first.hits, ...second.hits, ...third.hits];
+  expect(new Set(hits.map((h: { id: string }) => h.id)).size).toBe(205);
+  expect(hits.map((h: { snippet: string }) => h.snippet)).toEqual(
+    expect.arrayContaining(["Lantern marker 0.", "Lantern marker 204."]),
+  );
+  await expect(
+    c.call("find", {
+      query: "different",
+      types: ["transcript"],
+      cursor: first.nextCursor,
+    }),
+  ).rejects.toThrow("Cursor");
+});
+
+test("a four-hour transcript uploads, splits at its true end, and reads back completely through pages", async () => {
+  const c = client();
+  await c.init();
+  await c.call("adventure_start", {
+    name: "Lantern road",
+    reason: "Invented four-hour proof",
+  });
+  const s = await c.call("session_create", { playedOn: "2026-01-03" });
+  const fixture = longSession();
+  const { url } = await c.call("transcript_upload_url", { session: s.id });
+  const upload = await c.t.fetch(new URL(url).pathname + new URL(url).search, {
+    method: "PUT",
+    body: fixture.text,
+  });
+  expect(upload.status).toBe(200);
+  await c.call("scenes_set", {
+    session: s.id,
+    scenes: [
+      {
+        title: "Causeway",
+        start: "00:00:00",
+        place: "Road",
+        summary: "The party follows the river.",
+      },
+      {
+        title: "Return",
+        start: "03:59:30",
+        end: "04:00:00",
+        place: "Gate",
+        summary: "The party returns at dawn.",
+      },
+    ],
+  });
+  const lines: unknown[] = [];
+  let cursor: string | null = null;
+  do {
+    const page = await c.call("get", {
+      ref: `transcript:${s.id}`,
+      limit: 200,
+      cursor,
+    });
+    lines.push(...page.utterances);
+    expect(page.truncated).toBe(page.nextCursor !== null);
+    cursor = page.nextCursor;
+  } while (cursor);
+  expect(lines).toEqual(fixture.utterances);
+  const finalScene = await c.call("get", { ref: `scene:${s.id}/2` });
+  expect(finalScene.utterances).toHaveLength(11);
+  expect(finalScene.utterances.at(-1).text).toBe(
+    "The party returns to the lantern gate at dawn.",
+  );
+  const first = await c.call("get", { ref: `transcript:${s.id}` });
+  expect(
+    await (await c.owner.fetch(new URL(first.downloadUrl).pathname)).text(),
+  ).toBe(fixture.text);
+});
+
+test("scene pages follow their continuation without spilling into the next scene", async () => {
+  const { c, s } = await prepared();
+  const ref = `scene:${s.id}/1`;
+  const first = await c.call("get", { ref, limit: 1 });
+  expect(first.utterances).toHaveLength(1);
+  expect(first.truncated).toBe(true);
+  const second = await c.call("get", {
+    ref,
+    limit: 1,
+    cursor: first.nextCursor,
+  });
+  expect(second.utterances[0].text).toBe("I bet she works for the raiders.");
+  expect(second.truncated).toBe(false);
+  expect(second.nextCursor).toBeNull();
+});
+
+test("more than 2000 changes to one entity remain reachable with distinct history and source hits", async () => {
+  const { c, s } = await prepared();
+  await c.call("debrief_add", {
+    session: s.id,
+    lastTime: "The ferry opens.",
+    changes: [npcChange()],
+  });
+  await c.call("debrief_commit", { session: s.id });
+  const ref = (await c.call("find", { types: ["entity"] })).hits[0].ref;
+  for (const count of [500, 500, 500, 500, 4]) {
+    const next = await prepared(c);
+    const added = await c.call("debrief_add", {
+      session: next.s.id,
+      lastTime: "The ferry keeps its messages.",
+      changes: Array.from({ length: count }, (_, i) => ({
+        ...npcChange(),
+        change: {
+          op: "update",
+          entity: ref,
+          properties: { knows: `Message ${next.s.id}/${i}` },
+        },
+        sources: [{ quote: "A lantern message arrives." }],
+        why: `Remember ${next.s.id}/${i}`,
+      })),
+    });
+    expect(added.rejected).toEqual([]);
+    await c.call("debrief_commit", { session: next.s.id });
+  }
+  const history: { why: string }[] = [];
+  let cursor: string | null = null;
+  do {
+    const page = await c.call("get", { ref, cursor });
+    history.push(...page.history);
+    cursor = page.nextCursor;
+  } while (cursor);
+  expect(history).toHaveLength(2005);
+  expect(new Set(history.map((h) => h.why)).size).toBe(2005);
+  const hits: { id: string }[] = [];
+  do {
+    const page = await c.call("find", {
+      query: "lantern",
+      types: ["source"],
+      limit: 200,
+      cursor,
+    });
+    hits.push(...page.hits);
+    cursor = page.nextCursor;
+  } while (cursor);
+  expect(hits).toHaveLength(2004);
+  expect(new Set(hits.map((h) => h.id)).size).toBe(2004);
+});
+
+test("replacing a long transcript hides the old generation and invalidates its continuation", async () => {
+  const c = client();
+  await c.init();
+  await c.call("adventure_start", {
+    name: "Lantern road",
+    reason: "Invented replacement proof",
+  });
+  const s = await c.call("session_create", { playedOn: "2026-01-03" });
+  const first = await c.call("transcript_upload_url", { session: s.id });
+  const oldBody = longSession().text;
+  expect(
+    (
+      await c.t.fetch(new URL(first.url).pathname + new URL(first.url).search, {
+        method: "PUT",
+        body: oldBody,
+      })
+    ).status,
+  ).toBe(200);
+  const oldPage = await c.call("get", { ref: `transcript:${s.id}`, limit: 1 });
+  expect(oldPage.truncated).toBe(true);
+  const next = await c.call("transcript_upload_url", { session: s.id });
+  expect(
+    (
+      await c.t.fetch(new URL(next.url).pathname + new URL(next.url).search, {
+        method: "PUT",
+        body: "[00:00:00] GM: Replacement.",
+      })
+    ).status,
+  ).toBe(200);
+  const now = await c.call("get", { ref: `transcript:${s.id}` });
+  expect(now.utterances).toEqual([
+    { at: "00:00:00", seconds: 0, speaker: "GM", text: "Replacement." },
+  ]);
+  expect(now.truncated).toBe(false);
+  await expect(
+    c.call("get", { ref: `transcript:${s.id}`, cursor: oldPage.nextCursor }),
+  ).rejects.toThrow("Cursor");
+  let cursor: string | null = null;
+  do {
+    const result = await c.call("find", {
+      query: "lantern",
+      types: ["transcript"],
+      limit: 200,
+      cursor,
+    });
+    expect(result.hits).toEqual([]);
+    cursor = result.nextCursor;
+  } while (cursor);
+  expect(
+    await (await c.owner.fetch(new URL(now.downloadUrl).pathname)).text(),
+  ).toBe("[00:00:00] GM: Replacement.");
 });

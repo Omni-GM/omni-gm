@@ -1,0 +1,154 @@
+
+> omni-gm@0.1.0 test /tmp/omnigm-map/impl21-red-tree
+> vitest run
+
+
+ RUN  v4.1.0 /tmp/omnigm-map/impl21-red-tree
+
+ ❯ tests/mcp.test.ts (28 tests | 8 failed) 3678ms
+   × list mode shows committed entities before scenes at a small limit 19ms
+   × transcript and timestamp-window pages continue through repeated timestamps without gaps 10ms
+   × entity history pages preserve every committed debrief with its basis and source 42ms
+   × find continues past its old candidate cap and keeps utterances at the same timestamp distinct 16ms
+   × a four-hour transcript uploads, splits at its true end, and reads back completely through pages 14ms
+   × scene pages follow their continuation without spilling into the next scene 12ms
+   × more than 2000 changes to one entity remain reachable with distinct history and source hits 1495ms
+   × replacing a long transcript hides the old generation and invalidates its continuation 14ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > list mode shows committed entities before scenes at a small limit
+AssertionError: expected 2 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ tests/mcp.test.ts:567:24
+    565|   await c.call("debrief_commit", { session: s.id });
+    566|   const result = await c.call("find", { limit: 1 });
+    567|   expect(result.total).toBe(1);
+       |                        ^
+    568|   expect(result.totalIsExact).toBe(false);
+    569|   expect(result.hits[0].type).toBe("entity");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  tests/mcp.test.ts > transcript and timestamp-window pages continue through repeated timestamps without gaps
+Error: {"jsonrpc":"2.0","id":5,"result":{"content":[{"type":"text","text":"Tool execution failed"}],"isError":true}}
+ ❯ Object.call tests/mcp.test.ts:46:13
+     44|     const response = await rpc("tools/call", { name, arguments: args }…
+     45|     if (response.error || response.result?.isError)
+     46|       throw new Error(JSON.stringify(response));
+       |             ^
+     47|     expect(response.result.structuredContent).toBeDefined();
+     48|     return name === "get"
+ ❯ tests/mcp.test.ts:899:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  tests/mcp.test.ts > entity history pages preserve every committed debrief with its basis and source
+Error: {"jsonrpc":"2.0","id":30,"result":{"content":[{"type":"text","text":"Tool execution failed"}],"isError":true}}
+ ❯ Object.call tests/mcp.test.ts:46:13
+     44|     const response = await rpc("tools/call", { name, arguments: args }…
+     45|     if (response.error || response.result?.isError)
+     46|       throw new Error(JSON.stringify(response));
+       |             ^
+     47|     expect(response.result.structuredContent).toBeDefined();
+     48|     return name === "get"
+ ❯ tests/mcp.test.ts:959:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  tests/mcp.test.ts > find continues past its old candidate cap and keeps utterances at the same timestamp distinct
+AssertionError: expected [ { …(5) } ] to have a length of 100 but got 1
+
+- Expected
++ Received
+
+- 100
++ 1
+
+ ❯ tests/mcp.test.ts:1011:22
+    1009|     limit: 100,
+    1010|   });
+    1011|   expect(first.hits).toHaveLength(100);
+       |                      ^
+    1012|   expect(first.truncated).toBe(true);
+    1013|   expect(first.totalIsExact).toBe(false);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  tests/mcp.test.ts > a four-hour transcript uploads, splits at its true end, and reads back completely through pages
+AssertionError: expected 400 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 400
+
+ ❯ tests/mcp.test.ts:1058:25
+    1056|     body: fixture.text,
+    1057|   });
+    1058|   expect(upload.status).toBe(200);
+       |                         ^
+    1059|   await c.call("scenes_set", {
+    1060|     session: s.id,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  tests/mcp.test.ts > scene pages follow their continuation without spilling into the next scene
+Error: {"jsonrpc":"2.0","id":6,"result":{"content":[{"type":"text","text":"Tool execution failed"}],"isError":true}}
+ ❯ Object.call tests/mcp.test.ts:46:13
+     44|     const response = await rpc("tools/call", { name, arguments: args }…
+     45|     if (response.error || response.result?.isError)
+     46|       throw new Error(JSON.stringify(response));
+       |             ^
+     47|     expect(response.result.structuredContent).toBeDefined();
+     48|     return name === "get"
+ ❯ tests/mcp.test.ts:1104:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  tests/mcp.test.ts > more than 2000 changes to one entity remain reachable with distinct history and source hits
+Error: {"jsonrpc":"2.0","id":44,"result":{"content":[{"type":"text","text":"Tool execution failed"}],"isError":true}}
+ ❯ Object.call tests/mcp.test.ts:46:13
+     44|     const response = await rpc("tools/call", { name, arguments: args }…
+     45|     if (response.error || response.result?.isError)
+     46|       throw new Error(JSON.stringify(response));
+       |             ^
+     47|     expect(response.result.structuredContent).toBeDefined();
+     48|     return name === "get"
+ ❯ tests/mcp.test.ts:1148:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  tests/mcp.test.ts > replacing a long transcript hides the old generation and invalidates its continuation
+AssertionError: expected 400 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 400
+
+ ❯ tests/mcp.test.ts:1186:5
+    1184|       })
+    1185|     ).status,
+    1186|   ).toBe(200);
+       |     ^
+    1187|   const oldPage = await c.call("get", { ref: `transcript:${s.id}`, lim…
+    1188|   expect(oldPage.truncated).toBe(true);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed | 20 passed (28)
+   Start at  13:01:10
+   Duration  3.90s (transform 268ms, setup 0ms, import 122ms, tests 3.68s, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

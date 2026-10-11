@@ -22,6 +22,7 @@ export default defineSchema({
     changes: v.array(draftChange),
     nextChange: v.number(),
     transcript: v.optional(v.id("_storage")),
+    transcriptGeneration: v.optional(v.id("_storage")),
   })
     .index("by_campaign", ["campaign"])
     .index("by_campaign_and_ordinal", ["campaign", "ordinal"]),
@@ -32,6 +33,7 @@ export default defineSchema({
   })
     .index("by_campaign", ["campaign"])
     .index("by_campaign_and_id", ["campaign", "id"])
+    .index("by_campaign_and_kind", ["campaign", "kind"])
     .searchIndex("search_text", {
       searchField: "searchText",
       filterFields: ["campaign", "kind"],
@@ -69,17 +71,28 @@ export default defineSchema({
     token: v.string(),
     session: v.id("sessions"),
     expires: v.number(),
+    storage: v.optional(v.id("_storage")),
+    count: v.optional(v.number()),
   }).index("by_token", ["token"]),
   utterances: defineTable({
     campaign: v.id("campaigns"),
     session: v.id("sessions"),
+    transcriptGeneration: v.optional(v.id("_storage")),
+    ordinal: v.optional(v.number()),
     at: v.string(),
     seconds: v.number(),
     speaker: v.string(),
     text: v.string(),
     searchText: v.string(),
   })
+    .index("by_campaign", ["campaign"])
     .index("by_session_and_seconds", ["session", "seconds"])
+    .index("by_session_and_generation_and_seconds", [
+      "session",
+      "transcriptGeneration",
+      "seconds",
+      "ordinal",
+    ])
     .searchIndex("search_text", {
       searchField: "searchText",
       filterFields: ["campaign"],
@@ -92,6 +105,7 @@ export default defineSchema({
     searchText: v.string(),
   })
     .index("by_session", ["session"])
+    .index("by_campaign", ["campaign"])
     .searchIndex("search_text", {
       searchField: "searchText",
       filterFields: ["campaign"],

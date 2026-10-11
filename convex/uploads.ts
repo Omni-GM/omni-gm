@@ -1,15 +1,17 @@
 import { ConvexError, type Infer, v } from "convex/values";
 import { internal } from "./_generated/api";
+import type { Doc, Id } from "./_generated/dataModel";
 import {
   httpAction,
   internalMutation,
   internalQuery,
+  type MutationCtx,
 } from "./_generated/server";
 import { seconds, utterance } from "./model";
 import { callerArgs, campaignFor, sessionFor } from "./store";
 
-const MAX_BYTES = 2_000_000;
-const MAX_LINES = 2000;
+const MAX_BYTES = 8_000_000;
+const MAX_LINES = 20000;
 export const uploadArgs = { ...callerArgs, session: v.string() };
 export const uploadResult = v.object({ url: v.string() });
 export const uploadUrl = internalMutation({
@@ -39,57 +41,158 @@ export const uploadUrl = internalMutation({
     };
   },
 });
+function checkUpload(
+  ticket: Doc<"uploads"> | null,
+  storage?: Id<"_storage">,
+): Doc<"uploads"> {
+  if (
+    !ticket ||
+    ticket.expires <= Date.now() ||
+    (storage ? ticket.storage !== storage : ticket.storage !== undefined)
+  )
+    throw new ConvexError({
+      code: "UPLOAD_CAPABILITY",
+      message: "Upload URL expired or used",
+    });
+  return ticket;
+}
+async function ticketFor(
+  ctx: MutationCtx,
+  token: string,
+): Promise<Doc<"uploads"> | null> {
+  return ctx.db
+    .query("uploads")
+    .withIndex("by_token", (q) => q.eq("token", token))
+    .unique();
+}
+function checkSession(session: Doc<"sessions"> | null): Doc<"sessions"> {
+  if (
+    !session ||
+    session.status === "committed" ||
+    session.scenes.length ||
+    session.changes.length
+  )
+    throw new ConvexError({
+      code: "UPLOAD_CAPABILITY",
+      message: "Transcript is locked",
+    });
+  return session;
+}
+export const cleanup = internalMutation({
+  args: {
+    session: v.id("sessions"),
+    storage: v.id("_storage"),
+    generation: v.union(v.id("_storage"), v.null()),
+  },
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    const rows = await ctx.db
+      .query("utterances")
+      .withIndex("by_session_and_generation_and_seconds", (q) =>
+        q
+          .eq("session", args.session)
+          .eq("transcriptGeneration", args.generation ?? undefined),
+      )
+      .take(100);
+    for (const row of rows) await ctx.db.delete(row._id);
+    if (rows.length === 100)
+      await ctx.scheduler.runAfter(0, internal.uploads.cleanup, args);
+    else await ctx.storage.delete(args.storage);
+    return null;
+  },
+});
 export const expire = internalMutation({
   args: { ticket: v.id("uploads") },
   returns: v.null(),
   handler: async (ctx, { ticket }) => {
-    if (await ctx.db.get(ticket)) await ctx.db.delete(ticket);
+    const row = await ctx.db.get(ticket);
+    if (row) {
+      if (row.storage)
+        await ctx.scheduler.runAfter(0, internal.uploads.cleanup, {
+          session: row.session,
+          storage: row.storage,
+          generation: row.storage,
+        });
+      await ctx.db.delete(ticket);
+    }
+    return null;
+  },
+});
+export const begin = internalMutation({
+  args: { token: v.string(), storage: v.id("_storage") },
+  returns: v.null(),
+  handler: async (ctx, { token, storage }) => {
+    const ticket = checkUpload(await ticketFor(ctx, token));
+    checkSession(await ctx.db.get(ticket.session));
+    await ctx.db.patch(ticket._id, { storage, count: 0 });
+    return null;
+  },
+});
+export const append = internalMutation({
+  args: {
+    token: v.string(),
+    storage: v.id("_storage"),
+    start: v.number(),
+    utterances: v.array(utterance),
+  },
+  returns: v.null(),
+  handler: async (ctx, { token, storage, start, utterances }) => {
+    const ticket = checkUpload(await ticketFor(ctx, token), storage);
+    const session = checkSession(await ctx.db.get(ticket.session));
+    if (
+      start !== ticket.count ||
+      !utterances.length ||
+      utterances.length > 200 ||
+      start + utterances.length > MAX_LINES
+    )
+      throw new ConvexError("Upload batch is out of order or too large");
+    for (const [i, line] of utterances.entries())
+      await ctx.db.insert("utterances", {
+        campaign: session.campaign,
+        session: session._id,
+        transcriptGeneration: storage,
+        ordinal: start + i,
+        ...line,
+        searchText: line.speaker + " " + line.text,
+      });
+    await ctx.db.patch(ticket._id, { count: start + utterances.length });
     return null;
   },
 });
 export const finish = internalMutation({
-  args: {
-    token: v.string(),
-    storage: v.id("_storage"),
-    utterances: v.array(utterance),
-  },
+  args: { token: v.string(), storage: v.id("_storage"), count: v.number() },
   returns: v.null(),
-  handler: async (ctx, { token, storage, utterances }) => {
-    const ticket = await ctx.db
-      .query("uploads")
-      .withIndex("by_token", (q) => q.eq("token", token))
-      .unique();
-    if (!ticket || ticket.expires <= Date.now())
-      throw new ConvexError({
-        code: "UPLOAD_CAPABILITY",
-        message: "Upload URL expired or used",
-      });
-    const session = await ctx.db.get(ticket.session);
-    if (
-      !session ||
-      session.status === "committed" ||
-      session.scenes.length ||
-      session.changes.length
-    )
-      throw new ConvexError({
-        code: "UPLOAD_CAPABILITY",
-        message: "Transcript is locked",
-      });
-    if (session.transcript) await ctx.storage.delete(session.transcript);
-    const old = await ctx.db
-      .query("utterances")
-      .withIndex("by_session_and_seconds", (q) => q.eq("session", session._id))
-      .take(MAX_LINES + 1);
-    for (const line of old) await ctx.db.delete(line._id);
-    for (const line of utterances)
-      await ctx.db.insert("utterances", {
-        campaign: session.campaign,
-        session: session._id,
-        ...line,
-        searchText: `${line.speaker} ${line.text}`,
-      });
-    await ctx.db.patch(session._id, { transcript: storage });
+  handler: async (ctx, { token, storage, count }) => {
+    const ticket = checkUpload(await ticketFor(ctx, token), storage);
+    const session = checkSession(await ctx.db.get(ticket.session));
+    if (count !== ticket.count) throw new ConvexError("Upload is incomplete");
+    await ctx.db.patch(session._id, {
+      transcript: storage,
+      transcriptGeneration: storage,
+    });
     await ctx.db.delete(ticket._id);
+    if (session.transcript)
+      await ctx.scheduler.runAfter(0, internal.uploads.cleanup, {
+        session: session._id,
+        storage: session.transcript,
+        generation: session.transcriptGeneration ?? null,
+      });
+    return null;
+  },
+});
+export const abort = internalMutation({
+  args: { token: v.string(), storage: v.id("_storage") },
+  returns: v.null(),
+  handler: async (ctx, { token, storage }) => {
+    const ticket = await ticketFor(ctx, token);
+    if (ticket?.storage === storage) {
+      await ctx.scheduler.runAfter(0, internal.uploads.cleanup, {
+        session: ticket.session,
+        storage,
+        generation: storage,
+      });
+      await ctx.db.delete(ticket._id);
+    }
     return null;
   },
 });
@@ -101,7 +204,7 @@ export const valid = internalQuery({
       .query("uploads")
       .withIndex("by_token", (q) => q.eq("token", token))
       .unique();
-    return !!ticket && ticket.expires > Date.now();
+    return !!ticket && ticket.expires > Date.now() && !ticket.storage;
   },
 });
 function parse(text: string): Infer<typeof utterance>[] {
@@ -156,14 +259,39 @@ export const upload = httpAction(async (ctx, request) => {
   const storage = await ctx.storage.store(
     new Blob([body], { type: "text/plain;charset=utf-8" }),
   );
+  let claimed = false;
   try {
+    await ctx.runMutation(internal.uploads.begin, { token, storage });
+    claimed = true;
+    let start = 0;
+    while (start < lines.length) {
+      let end = start;
+      let bytes = 0;
+      while (end < lines.length && end - start < 200) {
+        const size = new TextEncoder().encode(
+          JSON.stringify(lines[end]),
+        ).length;
+        if (bytes + size > 250_000) break;
+        bytes += size;
+        end++;
+      }
+      await ctx.runMutation(internal.uploads.append, {
+        token,
+        storage,
+        start,
+        utterances: lines.slice(start, end),
+      });
+      start = end;
+    }
     await ctx.runMutation(internal.uploads.finish, {
       token,
       storage,
-      utterances: lines,
+      count: lines.length,
     });
   } catch (error) {
-    await ctx.storage.delete(storage);
+    if (claimed)
+      await ctx.runMutation(internal.uploads.abort, { token, storage });
+    else await ctx.storage.delete(storage);
     const capability =
       error instanceof ConvexError &&
       typeof error.data === "object" &&

@@ -1,0 +1,9 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-impl21
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 24 skipped (25)
+   Start at  12:40:58
+   Duration  1.34s (transform 278ms, setup 0ms, import 124ms, tests 1.12s, environment 0ms)
+

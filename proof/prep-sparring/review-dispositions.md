@@ -92,3 +92,12 @@ conversation retains that turn, and only the corrected note is acceptance
 proof. Mira's motivation remains unanswered because the GM supplied her
 want and then stopped; the client records that answer without inventing why.
 CodeRabbit skipped the draft PR. The required cross-family reviews ran.
+
+## CI timeout
+
+The final documentation push's CI run `38144557459` timed out in the
+inherited 2,005-change history test at the default 5,000 ms. The runner
+reported 5,313 ms for that test, while 68 other tests passed.
+The bulk test now has a scoped 15,000 ms timeout. Its fixture sizes and all
+history/source count and uniqueness assertions are unchanged. The workflow
+and other tests keep their existing limits; no production code changed.

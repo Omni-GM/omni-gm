@@ -213,9 +213,9 @@ try {
   const found = await call<{ hits: { ref: string }[] }>("find", {
     query: "Sarah Ven",
     types: ["entity"],
+    limit: 200,
   });
-  assert.equal(found.hits.length, 1);
-  const npc = await call<{
+  type Npc = {
     value: {
       properties: Record<string, string | number>;
       history: {
@@ -226,7 +226,15 @@ try {
         why: string;
       }[];
     };
-  }>("get", { ref: found.hits[0].ref });
+  };
+  const candidates = await Promise.all(
+    found.hits.map((hit) => call<Npc>("get", { ref: hit.ref })),
+  );
+  const matching = candidates.filter((npc) =>
+    npc.value.history.some((h) => h.session === session.id),
+  );
+  assert.equal(matching.length, 1);
+  const npc = matching[0];
   assert.equal(
     npc.value.properties.playedAs,
     "Soft voice with a snapped final word",
@@ -246,6 +254,54 @@ try {
   assert.equal(overview.value.lastTime, lastTime);
   console.log(
     "PASS alias lookup, playedAs, history with basis and sources, lastTime read back",
+  );
+  const unicode = await call<{ id: string }>("session_create", {
+    playedOn: "2026-01-04",
+  });
+  const unicodeUpload = await call<{ url: string }>("transcript_upload_url", {
+    session: unicode.id,
+  });
+  assert.equal(
+    (
+      await fetch(unicodeUpload.url, {
+        method: "PUT",
+        body: "[00:00:00] GM: Jörg Kühn greets Jara Horn.",
+      })
+    ).status,
+    200,
+  );
+  await call("scenes_set", {
+    session: unicode.id,
+    scenes: [
+      {
+        title: "Greeting",
+        start: "00:00:00",
+        place: "Ferry",
+        summary: "The ferrymen meet.",
+      },
+    ],
+  });
+  await call("debrief_add", {
+    session: unicode.id,
+    lastTime: "The ferrymen meet.",
+    changes: ["Jörg Kühn", "Jara Horn"].map((name) => ({
+      scene: 1,
+      change: { op: "new", kind: "npc", name },
+      basis: ["narrated"],
+      sources: [{ quote: "Jörg Kühn greets Jara Horn." }],
+      why: "Keep the named ferrymen",
+    })),
+  });
+  await call("debrief_commit", { session: unicode.id });
+  const unicodeFound = await call<{ hits: { title: string }[] }>("find", {
+    query: "Jörg",
+    types: ["entity"],
+    limit: 200,
+  });
+  assert(unicodeFound.hits.length > 0);
+  assert(unicodeFound.hits.every((hit) => hit.title === "Jörg Kühn"));
+  console.log(
+    "PASS hosted Unicode name lookup excludes unrelated prefix matches",
   );
   console.log(`PROOF SESSION ${session.id}`);
   console.log("SDK E2E PASSED");

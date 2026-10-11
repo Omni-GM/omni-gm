@@ -52,6 +52,10 @@ function client(
   return {
     t,
     owner,
+    sessionId: () => session,
+    borrowSession: (value: string | null) => {
+      session = value;
+    },
     rpc,
     call,
     async init() {
@@ -371,7 +375,7 @@ test("schema rules reject each invalid change with allowed values and keep valid
   });
 });
 
-test("dropping a new entity leaves its dependants uncommittable and applies no partial state or history", async () => {
+test("dropping a parent refuses to break dependants and the retained draft can still accept and commit changes", async () => {
   const { c, s } = await prepared();
   const r = await c.call("debrief_add", {
     session: s.id,
@@ -392,13 +396,12 @@ test("dropping a new entity leaves its dependants uncommittable and applies no p
       },
     ],
   });
-  await c.call("debrief_drop", {
-    session: s.id,
-    changeIds: [r.draft.changes[0].id],
-  });
-  await expect(c.call("debrief_commit", { session: s.id })).rejects.toThrow(
-    "Entity not found",
-  );
+  await expect(
+    c.call("debrief_drop", {
+      session: s.id,
+      changeIds: [r.draft.changes[0].id],
+    }),
+  ).rejects.toThrow("c2");
   expect((await c.call("find", { types: ["entity", "source"] })).hits).toEqual(
     [],
   );
@@ -410,9 +413,27 @@ test("dropping a new entity leaves its dependants uncommittable and applies no p
   expect((await c.call("get", { ref: `debrief:${s.id}` })).status).toBe(
     "draft",
   );
+  const next = await c.call("debrief_add", {
+    session: s.id,
+    changes: [
+      {
+        ...npcChange(),
+        change: { op: "new", kind: "thread", name: "Another valid proposal" },
+      },
+    ],
+  });
+  expect(next.rejected).toEqual([]);
+  expect(next.draft.changes).toHaveLength(4);
+  await c.call("debrief_drop", { session: s.id, changeIds: ["c1", "c2"] });
+  await c.call("debrief_commit", { session: s.id });
+  expect(
+    (await c.call("find", { types: ["entity"] })).hits
+      .map((h: { title: string }) => h.title)
+      .sort(),
+  ).toEqual(["Another valid proposal", "Keep only in draft"]);
 });
 
-test("another owner cannot read, edit, upload or download the campaign and cannot borrow an MCP session", async () => {
+test("another owner stays scoped when reusing an MCP transport session and cannot read, edit, upload or download the campaign", async () => {
   const { c, s } = await prepared();
   await c.call("debrief_add", {
     session: s.id,
@@ -423,11 +444,20 @@ test("another owner cannot read, edit, upload or download the campaign and canno
   const entity = (await c.call("find", { types: ["entity"] })).hits[0].ref;
   const other = client("other-invented-gm", c.t);
   await other.init();
+  other.borrowSession(c.sessionId());
   await other.call("adventure_start", {
     name: "A separate adventure",
     reason: "Test privacy",
   });
   expect((await other.call("find", {})).hits).toEqual([]);
+  expect(
+    (
+      await other.call("find", {
+        query: "Sera",
+        types: ["entity", "source", "scene", "transcript"],
+      })
+    ).hits,
+  ).toEqual([]);
   for (const ref of [
     `session:${s.id}`,
     `debrief:${s.id}`,
@@ -442,6 +472,14 @@ test("another owner cannot read, edit, upload or download the campaign and canno
   await expect(
     other.call("debrief_drop", { session: s.id, changeIds: ["c1"] }),
   ).rejects.toThrow("not found");
+  for (const [name, args] of [
+    ["debrief_add", { changes: [npcChange()] }],
+    ["debrief_commit", {}],
+    ["scenes_set", { scenes: [] }],
+  ] as const)
+    await expect(other.call(name, { session: s.id, ...args })).rejects.toThrow(
+      "not found",
+    );
   expect((await other.owner.fetch(`/transcripts/${s.id}`)).status).toBe(404);
   expect((await c.t.fetch(`/transcripts/${s.id}`)).status).toBe(401);
   const anonymous = await c.t.fetch("/mcp", {
@@ -514,6 +552,284 @@ test("find returns both an entity hit and a source hit when their get ref is the
     "source",
   ]);
   expect(results.hits[0].ref).toBe(results.hits[1].ref);
+});
+
+test("list mode shows committed entities before scenes at a small limit", async () => {
+  const { c, s } = await prepared();
+  await c.call("debrief_add", {
+    session: s.id,
+    changes: [npcChange()],
+    lastTime: "At the ferry.",
+  });
+  await c.call("debrief_commit", { session: s.id });
+  const result = await c.call("find", { limit: 1 });
+  expect(result.total).toBe(2);
+  expect(result.hits[0].type).toBe("entity");
+});
+
+test("an entity history remains readable after more than 2000 unrelated campaign changes", async () => {
+  const { c, s } = await prepared();
+  await c.call("debrief_add", {
+    session: s.id,
+    lastTime: "At the ferry.",
+    changes: [
+      npcChange(),
+      {
+        ...npcChange(),
+        change: { op: "new", kind: "thread", name: "Busy thread" },
+      },
+    ],
+  });
+  await c.call("debrief_commit", { session: s.id });
+  const npcRef = (await c.call("find", { types: ["entity"], kinds: ["npc"] }))
+    .hits[0].ref;
+  const threadRef = (
+    await c.call("find", { types: ["entity"], kinds: ["thread"] })
+  ).hits[0].ref;
+  for (let i = 0; i < 4; i++) {
+    const next = await prepared(c);
+    await c.call("debrief_add", {
+      session: next.s.id,
+      lastTime: "Still at the ferry.",
+      changes: Array.from({ length: 500 }, (_, n) => ({
+        scene: 1,
+        change: {
+          op: "update",
+          entity: threadRef,
+          properties: { whatIsOpen: `Question ${i * 500 + n}` },
+        },
+        basis: ["narrated"],
+        sources: [{ quote: "The question remains open." }],
+        why: "Track the question",
+      })),
+    });
+    await c.call("debrief_commit", { session: next.s.id });
+  }
+  const result = await c.call("get", { ref: npcRef });
+  expect(result.history).toHaveLength(1);
+  expect(result.history[0].session).toBe(s.id);
+}, 30000);
+
+test("find bounds query work and validates kind filters", async () => {
+  const { c } = await prepared();
+  await expect(
+    c.call("find", { query: "one two three four five six seven eight nine" }),
+  ).rejects.toThrow("8");
+  await expect(c.call("find", { kinds: ["dragon"] })).rejects.toThrow(
+    "Allowed kinds",
+  );
+});
+
+test("find looks up Unicode names without unrelated prefix matches", async () => {
+  const { c, s } = await prepared();
+  await c.call("debrief_add", {
+    session: s.id,
+    lastTime: "At the ferry.",
+    changes: [
+      npcChange("Jörg Kühn"),
+      { ...npcChange(), change: { op: "new", kind: "npc", name: "Jara Horn" } },
+    ],
+  });
+  await c.call("debrief_commit", { session: s.id });
+  const result = await c.call("find", { query: "Jörg", types: ["entity"] });
+  expect(result.hits.map((h: { title: string }) => h.title)).toEqual([
+    "Jörg Kühn",
+  ]);
+});
+
+test("oversized proposals are rejected individually and temporary entities require tempKey references", async () => {
+  const { c, s } = await prepared();
+  const result = await c.call("debrief_add", {
+    session: s.id,
+    lastTime: "At the ferry.",
+    changes: [
+      { ...npcChange(), why: "x".repeat(17000) },
+      npcChange(),
+      {
+        ...npcChange(),
+        change: {
+          op: "update",
+          entity: "entity:draft-c1",
+          properties: { status: "alive" },
+        },
+      },
+      {
+        ...npcChange(),
+        change: { op: "new", kind: "thread", name: "Keep this" },
+      },
+    ],
+  });
+  expect(result.rejected.map((r: { index: number }) => r.index)).toEqual([
+    0, 2,
+  ]);
+  expect(result.rejected[0].reason).toContain("16");
+  expect(result.rejected[1].reason).toContain("$tempKey");
+  expect(result.draft.changes).toHaveLength(2);
+  await c.call("debrief_commit", { session: s.id });
+});
+
+test("adjacent scenes do not repeat the next scene's first utterance and session ordinal refs work", async () => {
+  const { c, s } = await prepared();
+  await c.call("scenes_set", {
+    session: s.id,
+    scenes: [
+      {
+        title: "First",
+        start: "00:01:10",
+        place: "Ferry",
+        summary: "First exchange",
+      },
+      {
+        title: "Second",
+        start: "00:02:20",
+        place: "Ferry",
+        summary: "Second exchange",
+      },
+    ],
+  });
+  const first = await c.call("get", { ref: `scene:${s.id}/1` });
+  expect(first.utterances.map((u: { at: string }) => u.at)).toEqual([
+    "00:01:10",
+  ]);
+  const second = await c.call("get", { ref: `scene:${s.id}/2` });
+  expect(second.utterances.map((u: { at: string }) => u.at)).toEqual([
+    "00:02:20",
+  ]);
+  expect((await c.call("get", { ref: "session:1" })).id).toBe(s.id);
+});
+
+test("overview recalls the latest commit even when sessions are debriefed out of creation order", async () => {
+  const { c, s } = await prepared();
+  const later = await prepared(c);
+  await c.call("debrief_add", {
+    session: later.s.id,
+    lastTime: "Newer-created session.",
+    changes: [npcChange()],
+  });
+  await c.call("debrief_commit", { session: later.s.id });
+  await c.call("debrief_add", {
+    session: s.id,
+    lastTime: "Most recently committed session.",
+    changes: [npcChange()],
+  });
+  await c.call("debrief_commit", { session: s.id });
+  const overview = await c.call("get", { ref: "overview" });
+  expect(overview.lastTime).toBe("Most recently committed session.");
+  expect(overview.commits[0].session).toBe(s.id);
+});
+
+test("source search keeps distinct claims about one entity with their own basis", async () => {
+  const { c, s } = await prepared();
+  await c.call("debrief_add", {
+    session: s.id,
+    lastTime: "At the ferry.",
+    changes: [
+      { ...npcChange(), sources: [{ quote: "Sera says the bridge is open." }] },
+      {
+        ...npcChange(),
+        change: {
+          op: "update",
+          entity: "$sera",
+          properties: { knows: "A bridge rumor" },
+        },
+        basis: ["rumor"],
+        sources: [{ quote: "A rumor says the bridge is watched." }],
+      },
+    ],
+  });
+  await c.call("debrief_commit", { session: s.id });
+  const result = await c.call("find", { query: "bridge", types: ["source"] });
+  expect(result.hits).toHaveLength(2);
+  expect(result.hits.map((h: { snippet: string }) => h.snippet)).toEqual(
+    expect.arrayContaining([
+      "npc_said: Sera says the bridge is open.",
+      "rumor: A rumor says the bridge is watched.",
+    ]),
+  );
+});
+
+test("a huge continuation utterance is rejected as content and its upload URL can still be used", async () => {
+  const c = client();
+  await c.init();
+  await c.call("adventure_start", { name: "Ferry", reason: "Invented proof" });
+  const s = await c.call("session_create", { playedOn: "2026-01-03" });
+  const { url } = await c.call("transcript_upload_url", { session: s.id });
+  const path = new URL(url).pathname + new URL(url).search;
+  const failed = await c.t.fetch(path, {
+    method: "PUT",
+    body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
+  });
+  expect(failed.status).toBe(400);
+  expect(await failed.text()).toContain("32 KB");
+  const retry = await c.t.fetch(path, {
+    method: "PUT",
+    body: "[00:00:00] GM: Hello",
+  });
+  expect(retry.status).toBe(200);
+});
+
+test("a conflicting commit applies no partial entities, history or commit marker", async () => {
+  const { c, s } = await prepared();
+  await c.call("debrief_add", {
+    session: s.id,
+    lastTime: "At the ferry.",
+    changes: [
+      npcChange(),
+      {
+        ...npcChange(),
+        change: { op: "new", kind: "place", name: "Ferry landing" },
+      },
+    ],
+  });
+  await c.call("debrief_commit", { session: s.id });
+  const npc = (await c.call("find", { types: ["entity"], kinds: ["npc"] }))
+    .hits[0].ref;
+  const place = (await c.call("find", { types: ["entity"], kinds: ["place"] }))
+    .hits[0].ref;
+  const pending = await prepared(c);
+  const competing = await prepared(c);
+  const relationship = {
+    ...npcChange(),
+    change: { op: "relate", type: "last_seen_at", from: npc, to: place },
+  };
+  await c.call("debrief_add", {
+    session: pending.s.id,
+    lastTime: "Uncommitted.",
+    changes: [
+      {
+        ...npcChange(),
+        change: {
+          op: "new",
+          kind: "thread",
+          name: "Must remain only in draft",
+        },
+      },
+      relationship,
+    ],
+  });
+  await c.call("debrief_add", {
+    session: competing.s.id,
+    lastTime: "Competing commit.",
+    changes: [relationship],
+  });
+  await c.call("debrief_commit", { session: competing.s.id });
+  await expect(
+    c.call("debrief_commit", { session: pending.s.id }),
+  ).rejects.toThrow("Relationship already exists");
+  expect(
+    (await c.call("find", { types: ["entity"], kinds: ["thread"] })).hits,
+  ).toEqual([]);
+  const overview = await c.call("get", { ref: "overview" });
+  expect(overview.commits).toHaveLength(3);
+  expect(overview.lastTime).toBe("Competing commit.");
+  const entity = await c.call("get", { ref: npc });
+  expect(entity.history.map((h: { session: string }) => h.session)).toEqual([
+    s.id,
+    competing.s.id,
+  ]);
+  expect((await c.call("get", { ref: `debrief:${pending.s.id}` })).status).toBe(
+    "draft",
+  );
 });
 
 test("schema and skill names cannot borrow JavaScript prototype properties", async () => {

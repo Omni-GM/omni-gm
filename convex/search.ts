@@ -1,5 +1,6 @@
 import { ConvexError, type Infer, v } from "convex/values";
 import { internalQuery } from "./_generated/server";
+import { kinds as entityKinds } from "./model";
 import { callerArgs, campaignFor } from "./store";
 
 const hitType = v.union(
@@ -51,18 +52,27 @@ export const find = internalQuery({
     const maximum = limit ?? (query === undefined ? 100 : 10);
     if (!Number.isInteger(maximum) || maximum < 1 || maximum > 200)
       throw new ConvexError("Use a limit from 1 to 200");
+    if (kinds?.some((kind) => !Object.hasOwn(entityKinds, kind)))
+      throw new ConvexError(
+        `Allowed kinds: ${Object.keys(entityKinds).join(", ")}`,
+      );
     const words = (query ?? "")
       .toLowerCase()
-      .split(/\W+/)
+      .split(/[^\p{L}\p{N}]+/u)
       .filter((w) => w && !stopWords.has(w));
+    if (words.length > 8)
+      throw new ConvexError("Use at most 8 search keywords");
     const hits = new Map<string, Infer<typeof findResult>["hits"][number]>();
     const wants = (type: Infer<typeof hitType>): boolean =>
       !types || types.includes(type);
-    const add = (hit: Infer<typeof findResult>["hits"][number]): void => {
-      const old = hits.get(`${hit.type}:${hit.ref}`);
-      hits.set(`${hit.type}:${hit.ref}`, {
+    const add = (
+      hit: Infer<typeof findResult>["hits"][number],
+      key = `${hit.type}:${hit.ref}`,
+    ): void => {
+      const old = hits.get(key);
+      hits.set(key, {
         ...hit,
-        score: (old?.score ?? 0) + 1,
+        ...(query !== undefined ? { score: (old?.score ?? 0) + 1 } : {}),
       });
     };
     if (query !== undefined && !words.length)
@@ -70,13 +80,24 @@ export const find = internalQuery({
     if (wants("entity")) {
       const batches = words.length
         ? await Promise.all(
-            words.map((word) =>
-              ctx.db
-                .query("entities")
-                .withSearchIndex("search_text", (q) =>
-                  q.search("searchText", word).eq("campaign", campaign._id),
+            words.map(async (word) =>
+              (
+                await Promise.all(
+                  (kinds ? [...new Set(kinds)] : [undefined]).map((kind) =>
+                    ctx.db
+                      .query("entities")
+                      .withSearchIndex("search_text", (q) => {
+                        const search = q
+                          .search("searchText", word)
+                          .eq("campaign", campaign._id);
+                        return kind === undefined
+                          ? search
+                          : search.eq("kind", kind);
+                      })
+                      .take(200),
+                  ),
                 )
-                .take(200),
+              ).flat(),
             ),
           )
         : [
@@ -145,12 +166,15 @@ export const find = internalQuery({
             q.search("searchText", word).eq("campaign", campaign._id),
           )
           .take(200)) {
-          add({
-            ref: `entity:${row.entityIds[0]}`,
-            type: "source",
-            title: row.why,
-            snippet: `${row.basis.join(", ")}: ${row.sources.map((s) => s.quote).join(" ")}`,
-          });
+          add(
+            {
+              ref: `entity:${row.entityIds[0]}`,
+              type: "source",
+              title: row.why,
+              snippet: `${row.basis.join(", ")}: ${row.sources.map((s) => s.quote).join(" ")}`,
+            },
+            `source:${row._id}`,
+          );
         }
     if (words.length && wants("transcript"))
       for (const word of words)
@@ -166,10 +190,12 @@ export const find = internalQuery({
             title: `${row.at} ${row.speaker}`,
             snippet: row.text.slice(0, 240),
           });
-    const ranked = [...hits.values()].sort(
-      (a, b) =>
-        (b.score ?? 0) - (a.score ?? 0) || a.title.localeCompare(b.title),
-    );
+    const ranked = [...hits.values()];
+    if (query !== undefined)
+      ranked.sort(
+        (a, b) =>
+          (b.score ?? 0) - (a.score ?? 0) || a.title.localeCompare(b.title),
+      );
     return {
       query: query ?? null,
       total: ranked.length,

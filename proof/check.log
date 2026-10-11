@@ -1,8 +1,30 @@
 
 > omni-gm@0.1.0 check /home/coder/dev/omni-gm-debrief
-> pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit && pnpm test
+> pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test
 
-Checked 20 files in 13ms. No fixes applied.
+tests/mcp.test.ts:760:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+
+    758 │   const failed = await c.t.fetch(path, {
+    759 │     method: "PUT",
+  > 760 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
+        │           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    761 │   });
+    762 │   expect(failed.status).toBe(400);
+
+  i Unsafe fix: Use a template literal.
+
+    758 758 │     const failed = await c.t.fetch(path, {
+    759 759 │       method: "PUT",
+    760     │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
+        760 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
+    761 761 │     });
+    762 762 │     expect(failed.status).toBe(400);
+
+
+Checked 20 files in 19ms. No fixes applied.
+Found 1 info.
 CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
 ▌ Developing against deployment:
 ▌ [Local] Port 3212 • No Convex account (run npx convex login to link to a project)
@@ -10,7 +32,7 @@ CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the fut
 - Preparing Convex functions...
 
 Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
-✔ 12:02:15 Convex functions ready! (345.57ms)
+✔ 12:22:39 Convex functions ready! (338.89ms)
 Finding component definitions...
 Generating server code...
 Bundling component definitions...
@@ -28,6 +50,6 @@ Running TypeScript...
 
 
  Test Files  1 passed (1)
-      Tests  11 passed (11)
-   Start at  12:02:19
-   Duration  703ms (transform 250ms, setup 0ms, import 97ms, tests 509ms, environment 0ms)
+      Tests  21 passed (21)
+   Start at  12:22:44
+   Duration  2.29s (transform 254ms, setup 0ms, import 105ms, tests 2.08s, environment 0ms)

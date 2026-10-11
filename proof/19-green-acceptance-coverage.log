@@ -1,0 +1,12 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run -- -t 'conflicting commit|another owner|schema rules'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+
+ Test Files  1 passed (1)
+      Tests  21 passed (21)
+   Start at  12:17:57
+   Duration  2.29s (transform 248ms, setup 0ms, import 101ms, tests 2.09s, environment 0ms)

@@ -1,0 +1,35 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run -- -t 'list mode shows'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+ ❯ tests/mcp.test.ts (12 tests | 1 failed) 545ms
+   × list mode shows committed entities before scenes at a small limit 17ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > list mode shows committed entities before scenes at a small limit
+AssertionError: expected 'scene' to be 'entity' // Object.is equality
+
+Expected: "entity"
+Received: "scene"
+
+ ❯ tests/mcp.test.ts:530:31
+    528|   const result=await c.call("find",{limit:1});
+    529|   expect(result.total).toBe(2);
+    530|   expect(result.hits[0].type).toBe("entity");
+       |                               ^
+    531| });
+    532|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 11 passed (12)
+   Start at  12:13:03
+   Duration  744ms (transform 252ms, setup 0ms, import 99ms, tests 545ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

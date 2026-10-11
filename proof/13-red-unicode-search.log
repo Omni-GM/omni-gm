@@ -1,0 +1,40 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run -- -t 'Unicode names'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+ ❯ tests/mcp.test.ts (15 tests | 1 failed) 1669ms
+   × find looks up Unicode names without unrelated prefix matches 19ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > find looks up Unicode names without unrelated prefix matches
+AssertionError: expected [ 'Jörg Kühn', 'Jara Horn' ] to deeply equal [ 'Jörg Kühn' ]
+
+- Expected
++ Received
+
+  [
+    "Jörg Kühn",
++   "Jara Horn",
+  ]
+
+ ❯ tests/mcp.test.ts:567:56
+    565|   await c.call("debrief_commit",{session:s.id});
+    566|   const result=await c.call("find",{query:"Jörg",types:["entity"]});
+    567|   expect(result.hits.map((h:{title:string})=>h.title)).toEqual(["Jörg …
+       |                                                        ^
+    568| });
+    569|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 14 passed (15)
+   Start at  12:14:27
+   Duration  1.87s (transform 258ms, setup 0ms, import 101ms, tests 1.67s, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

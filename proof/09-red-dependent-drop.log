@@ -1,0 +1,87 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run -- -t 'dropping a parent'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+ ❯ tests/mcp.test.ts (11 tests | 1 failed) 526ms
+   × dropping a parent refuses to break dependants and the retained draft can still accept and commit changes 20ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > dropping a parent refuses to break dependants and the retained draft can still accept and commit changes
+AssertionError: promise resolved "{ draft: { changes: [ …(2) ], …(3) } }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "draft": {
++     "changes": [
++       {
++         "basis": [
++           "npc_said",
++         ],
++         "change": {
++           "entity": "$sera",
++           "op": "update",
++           "properties": {
++             "status": "alive",
++           },
++         },
++         "id": "c2",
++         "scene": 1,
++         "sources": [
++           {
++             "at": "00:01:10",
++             "quote": "Mind the stones, dear.",
++           },
++         ],
++         "why": "Keep the voice for next prep",
++       },
++       {
++         "basis": [
++           "npc_said",
++         ],
++         "change": {
++           "kind": "thread",
++           "name": "Keep only in draft",
++           "op": "new",
++         },
++         "id": "c3",
++         "scene": 1,
++         "sources": [
++           {
++             "at": "00:01:10",
++             "quote": "Mind the stones, dear.",
++           },
++         ],
++         "why": "Keep the voice for next prep",
++       },
++     ],
++     "lastTime": "The ferry waits.",
++     "session": "000000000000000000010003sessions",
++     "status": "draft",
++   },
+  }
+
+ ❯ tests/mcp.test.ts:398:6
+    396|     session: s.id,
+    397|     changeIds: [r.draft.changes[0].id],
+    398|   })).rejects.toThrow("c2");
+       |      ^
+    399|   expect((await c.call("find", { types: ["entity", "source"] })).hits)…
+    400|     [],
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 passed (11)
+   Start at  12:12:45
+   Duration  724ms (transform 256ms, setup 0ms, import 99ms, tests 526ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

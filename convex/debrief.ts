@@ -22,6 +22,9 @@ import {
 import { callerArgs, campaignFor, sessionFor, sessionResult } from "./store";
 export const sessionArgs = { ...callerArgs, session: v.string() };
 export const scenesArgs = { ...sessionArgs, scenes: v.array(scene) };
+function encodedSize(value: unknown): number {
+  return new TextEncoder().encode(JSON.stringify(value)).length;
+}
 function unlocked(s: Doc<"sessions">): void {
   if (s.status === "committed")
     throw new ConvexError(
@@ -49,6 +52,8 @@ export const scenesSet = internalMutation({
     if (!s.transcript) throw new ConvexError("Upload a transcript first");
     if (!scenes.length || scenes.length > 100)
       throw new ConvexError("Use 1 to 100 scenes");
+    if (encodedSize(scenes) > 64_000)
+      throw new ConvexError("Keep scene descriptions within 64 KB per session");
     if (s.changes.length)
       throw new ConvexError("Drop draft changes before replacing their scenes");
     const utterances = await ctx.db
@@ -106,6 +111,11 @@ class DraftState {
     this.relationships = [...relationships];
   }
   resolve(ref: string): Entity {
+    if (
+      !ref.startsWith("$") &&
+      ref.replace(/^entity:/, "").startsWith("draft-")
+    )
+      throw new ConvexError("Use $tempKey for an entity created in this draft");
     const id = ref.startsWith("$")
       ? this.temps.get(ref.slice(1))
       : ref.replace(/^entity:/, "");
@@ -273,6 +283,8 @@ export const add = internalMutation({
     if (!s.scenes.length) throw new ConvexError("Call scenes_set first");
     if (s.changes.length + changes.length > 500)
       throw new ConvexError("Use at most 500 draft changes");
+    if (encodedSize(lastTime ?? s.lastTime) > 16_000)
+      throw new ConvexError("Keep lastTime within 16 KB");
     const state = await stateFor(ctx, campaign._id);
     for (const p of s.changes) {
       validScene(s, p);
@@ -284,6 +296,12 @@ export const add = internalMutation({
     for (const [index, p] of changes.entries()) {
       const id = `c${nextChange}`;
       try {
+        if (encodedSize(p) > 16_000)
+          throw new ConvexError("Keep each proposed change within 16 KB");
+        if (encodedSize([...kept, { ...p, id }]) > 512_000)
+          throw new ConvexError(
+            "Keep the draft within 512 KB; drop or shorten proposals",
+          );
         validScene(s, p);
         state.apply(p, `draft-${id}`);
         kept.push({ ...p, id });
@@ -324,6 +342,20 @@ export const drop = internalMutation({
     if (changeIds.some((id) => !s.changes.some((p) => p.id === id)))
       throw new ConvexError("Change not found in this draft");
     const changes = s.changes.filter((p) => !changeIds.includes(p.id));
+    const state = await stateFor(ctx, campaign._id);
+    const dependentIds: string[] = [];
+    for (const p of changes) {
+      try {
+        validScene(s, p);
+        state.apply(p, `draft-${p.id}`);
+      } catch {
+        dependentIds.push(p.id);
+      }
+    }
+    if (dependentIds.length)
+      throw new ConvexError(
+        `Drop also requires dependent changes: ${dependentIds.join(", ")}`,
+      );
     await ctx.db.patch(s._id, { changes });
     return { draft: draftResult({ ...s, changes }) };
   },
@@ -366,12 +398,14 @@ async function persist(
     if (after) await ctx.db.insert("relationships", { campaign, ...rel });
     else if (existing) await ctx.db.delete(existing._id);
   }
-  await ctx.db.insert("history", {
+  const history = await ctx.db.insert("history", {
     campaign,
     ...record,
     entityIds: ids,
     searchText: `${record.sources.map((s) => s.quote).join(" ")} ${record.why} ${record.basis.join(" ")}`,
   });
+  for (const entityId of new Set(ids))
+    await ctx.db.insert("entityHistory", { campaign, entityId, history });
 }
 export const commitResult = v.object({ commit: v.string(), draft });
 export const commit = internalMutation({

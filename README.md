@@ -27,7 +27,7 @@ Use UTF-8 text with timestamped speakers:
 ```
 
 Continuation lines belong to the preceding utterance. Timestamps must be in
-order. Uploads allow at most 2 MB and 2,000 utterances. Re-upload before
+order. Uploads allow at most 2 MB and 2,000 utterances, with 32 KB per utterance including continuations. Re-upload before
 creating scenes or draft changes. The original bytes are kept in file storage;
 only their parsed utterances go into the story-state queries.
 
@@ -42,8 +42,8 @@ and relationship endpoints.
 Review `get debrief:<session>`, drop mistakes with `debrief_drop`, and call
 `debrief_commit` only after the game master accepts the draft. State and
 history commit atomically. The committed debrief, transcript, and scenes
-stay closed. If dropping a new entity leaves dependent changes, drop or
-replace those too before committing. Later corrections, the adventure
+stay closed. Dropping a parent refuses to break retained dependent changes and lists
+their IDs. Drop them together, then add replacements in dependency order. Later corrections, the adventure
 frame, the signed-in upload page, and the Ledger view are later slices.
 
 At prep, `get overview` returns the most recently committed `lastTime`.
@@ -95,12 +95,17 @@ variants, a voiced NPC, a rumor figure, a player guess, and a clock.
 `proof/` holds red/green endpoint runs, the local gate, SDK e2e, and the
 Claude fixture transcript with upload capabilities and provider usage
 removed. `scripts/verify-claude.ts` checks procedure ordering and reads
-back the committed store independently.
+back the committed store independently. Per-branch previews replace the
+spec's second project as resolved in #12. Deployment logs identify each
+proof target. The SDK proof can run again on the same preview; it locates
+its NPC by the current session's history.
 
-The initial store supports up to 500 changes per draft, 100 scenes per
-session, and 2,000 entities or relationships for debrief replay. Overview
+The initial store supports up to 500 changes and 512 KB per draft, 16 KB
+per proposal or lastTime block, 100 scenes and 64 KB of scene descriptions
+per session, and 2,000 entities or relationships for debrief replay. Overview
 returns up to 200 recent sessions, adventures, and commits. Entity history
-currently reads up to 2,000 campaign changes and reports an error beyond
-that, rather than returning a partial history. Search uses up to 200
+uses an entity-specific index and allows up to 2,000 changes per entity,
+reporting an error beyond that rather than returning partial history.
+Search accepts up to eight keywords and uses up to 200
 candidates per keyword and type, and returns up to 200 hits; `total` is the
 number of matching candidates. Larger campaigns need paginated read paths.

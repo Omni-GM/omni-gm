@@ -33,8 +33,9 @@ export async function sessionFor(
   campaign: Id<"campaigns">,
   ref: string,
 ): Promise<Doc<"sessions">> {
-  const ordinal = Number(ref.replace(/^s/, ""));
-  const id = ctx.db.normalizeId("sessions", ref.replace(/^session:/, ""));
+  const sessionRef = ref.replace(/^session:/, "");
+  const ordinal = Number(sessionRef.replace(/^s/, ""));
+  const id = ctx.db.normalizeId("sessions", sessionRef);
   const session = id
     ? await ctx.db.get(id)
     : await ctx.db
@@ -156,11 +157,14 @@ async function read(
     const adventures = await ctx.db
       .query("adventures")
       .withIndex("by_campaign", (q) => q.eq("campaign", campaign._id))
+      .order("desc")
       .take(200);
     const commits = await ctx.db
       .query("commits")
       .withIndex("by_campaign", (q) => q.eq("campaign", campaign._id))
+      .order("desc")
       .take(200);
+    const latestSession = commits.find((c) => c.kind === "debrief")?.session;
     return {
       adventures: adventures.map((a) => ({
         id: a._id,
@@ -175,7 +179,9 @@ async function read(
         ...(c.session ? { session: c.session } : {}),
       })),
       currentAdventure: campaign.currentAdventure ?? null,
-      lastTime: sessions.find((s) => s.status === "committed")?.lastTime ?? "",
+      lastTime: latestSession
+        ? (await sessionFor(ctx, campaign._id, latestSession)).lastTime
+        : "",
     };
   }
   if (ref.startsWith("transcript:")) {
@@ -213,12 +219,19 @@ async function read(
       )
       .unique();
     if (!e) throw new ConvexError("Entity not found");
-    const history = await ctx.db
-      .query("history")
-      .withIndex("by_campaign", (q) => q.eq("campaign", campaign._id))
+    const links = await ctx.db
+      .query("entityHistory")
+      .withIndex("by_campaign_and_entity", (q) =>
+        q.eq("campaign", campaign._id).eq("entityId", id),
+      )
       .take(2001);
-    if (history.length > 2000)
-      throw new ConvexError("History exceeds v1 read capacity");
+    if (links.length > 2000)
+      throw new ConvexError(
+        "Entity history exceeds v1 read capacity of 2000 changes",
+      );
+    const history = await Promise.all(
+      links.map((link) => ctx.db.get(link.history)),
+    );
     const from = await ctx.db
       .query("relationships")
       .withIndex("by_campaign_and_from", (q) =>
@@ -250,7 +263,7 @@ async function read(
         }),
       ),
       history: history
-        .filter((h) => h.entityIds.includes(id))
+        .filter((h): h is Doc<"history"> => h !== null)
         .map(
           ({
             campaign: _campaign,
@@ -284,14 +297,15 @@ async function read(
       : s.scenes[ordinal]
         ? seconds(s.scenes[ordinal].start)
         : Number.MAX_SAFE_INTEGER;
+    const exclusive =
+      s.scenes[ordinal] !== undefined &&
+      end === seconds(s.scenes[ordinal].start);
     const rows = await ctx.db
       .query("utterances")
-      .withIndex("by_session_and_seconds", (q) =>
-        q
-          .eq("session", s._id)
-          .gte("seconds", seconds(sc.start))
-          .lte("seconds", end),
-      )
+      .withIndex("by_session_and_seconds", (q) => {
+        const range = q.eq("session", s._id).gte("seconds", seconds(sc.start));
+        return exclusive ? range.lt("seconds", end) : range.lte("seconds", end);
+      })
       .take(2000);
     return {
       session: s._id,

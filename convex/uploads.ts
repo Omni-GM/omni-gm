@@ -26,14 +26,25 @@ export const uploadUrl = internalMutation({
         "Transcript is locked once scenes or a debrief exist",
       );
     const token = crypto.randomUUID();
-    await ctx.db.insert("uploads", {
+    const ticket = await ctx.db.insert("uploads", {
       token,
       session: s._id,
       expires: Date.now() + 10 * 60_000,
     });
+    await ctx.scheduler.runAfter(10 * 60_000, internal.uploads.expire, {
+      ticket,
+    });
     return {
       url: `${process.env.CONVEX_SITE_URL ?? "https://test.convex.site"}/upload?token=${token}`,
     };
+  },
+});
+export const expire = internalMutation({
+  args: { ticket: v.id("uploads") },
+  returns: v.null(),
+  handler: async (ctx, { ticket }) => {
+    if (await ctx.db.get(ticket)) await ctx.db.delete(ticket);
+    return null;
   },
 });
 export const finish = internalMutation({
@@ -49,7 +60,10 @@ export const finish = internalMutation({
       .withIndex("by_token", (q) => q.eq("token", token))
       .unique();
     if (!ticket || ticket.expires <= Date.now())
-      throw new ConvexError("Upload URL expired or used");
+      throw new ConvexError({
+        code: "UPLOAD_CAPABILITY",
+        message: "Upload URL expired or used",
+      });
     const session = await ctx.db.get(ticket.session);
     if (
       !session ||
@@ -57,7 +71,10 @@ export const finish = internalMutation({
       session.scenes.length ||
       session.changes.length
     )
-      throw new ConvexError("Transcript is locked");
+      throw new ConvexError({
+        code: "UPLOAD_CAPABILITY",
+        message: "Transcript is locked",
+      });
     if (session.transcript) await ctx.storage.delete(session.transcript);
     const old = await ctx.db
       .query("utterances")
@@ -106,6 +123,14 @@ function parse(text: string): Infer<typeof utterance>[] {
   }
   if (!result.length || result.length > MAX_LINES)
     throw new ConvexError(`Use 1 to ${MAX_LINES} utterances`);
+  if (
+    result.some(
+      (line) => new TextEncoder().encode(JSON.stringify(line)).length > 32_000,
+    )
+  )
+    throw new ConvexError(
+      "Keep each utterance, including continuations, within 32 KB",
+    );
   if (result.some((line, i) => i > 0 && line.seconds < result[i - 1].seconds))
     throw new ConvexError("Transcript timestamps must be in order");
   return result;
@@ -137,9 +162,20 @@ export const upload = httpAction(async (ctx, request) => {
       storage,
       utterances: lines,
     });
-  } catch {
+  } catch (error) {
     await ctx.storage.delete(storage);
-    return new Response("Expired, used or locked URL", { status: 403 });
+    const capability =
+      error instanceof ConvexError &&
+      typeof error.data === "object" &&
+      error.data !== null &&
+      "code" in error.data &&
+      error.data.code === "UPLOAD_CAPABILITY";
+    return new Response(
+      capability
+        ? "Expired, used or locked URL"
+        : "Upload failed; retry the same URL",
+      { status: capability ? 403 : 500 },
+    );
   }
   return Response.json({ uploaded: true });
 });

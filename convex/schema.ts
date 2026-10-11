@@ -60,6 +60,11 @@ export default defineSchema({
       searchField: "searchText",
       filterFields: ["campaign"],
     }),
+  entityHistory: defineTable({
+    campaign: v.id("campaigns"),
+    entityId: v.string(),
+    history: v.id("history"),
+  }).index("by_campaign_and_entity", ["campaign", "entityId"]),
   uploads: defineTable({
     token: v.string(),
     session: v.id("sessions"),

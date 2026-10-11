@@ -31,7 +31,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpQuery({
     name: "find",
     description:
-      "With no query lists entities and scenes. Search names, aliases, properties, scenes, sources with basis, and transcript utterances by ranked keywords. Each ref feeds get. Limit 1 to 200; defaults 10 search, 100 list.",
+      "With no query lists entities and scenes. Search names, aliases, properties, scenes, sources with basis, and transcript utterances by ranked keywords. Each ref feeds get. Up to 8 keywords. kinds filters entity hits only. Limit 1 to 200; defaults 10 search, 100 list.",
     fn: internal.search.find,
     identityArg: "caller",
     args: findArgs,
@@ -58,7 +58,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "debrief_drop",
     description:
-      "Drop rejected changes from a draft by changeIds. Returns the draft.",
+      "Drop kept changes from a draft by changeIds. Refuses a drop that breaks retained dependants and lists their ids. Returns the draft.",
     fn: internal.debrief.drop,
     identityArg: "caller",
     args: dropArgs,

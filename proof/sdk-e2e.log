@@ -1,9 +1,4 @@
-▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/feat-debrief-slice (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/limitless-flamingo-526)
-▌ └─ https://limitless-flamingo-526.convex.cloud
-- Deploying to https://limitless-flamingo-526.convex.cloud...
-
-✔ Deployed Convex functions to https://limitless-flamingo-526.convex.cloud
+Branch preview, staging M2M authentication: https://rapid-trout-215.convex.site/mcp
 
 > omni-gm@0.1.0 e2e /home/coder/dev/omni-gm-debrief
 > tsx scripts/e2e.ts
@@ -15,5 +10,22 @@ PASS invented property and NPC player guess rejected independently
 PASS drop returns the updated draft
 PASS atomic commit
 PASS alias lookup, playedAs, history with basis and sources, lastTime read back
-PROOF SESSION k174h85d0bgrpbcr05mj755axx8g3en2
+PASS hosted Unicode name lookup excludes unrelated prefix matches
+PROOF SESSION k578bcwcthy6zfr706p9bk2vah8g2fxm
+SDK E2E PASSED
+
+Repeat on the same deployment:
+
+> omni-gm@0.1.0 e2e /home/coder/dev/omni-gm-debrief
+> tsx scripts/e2e.ts
+
+PASS anonymous endpoint requires auth
+PASS byte-exact signed upload, parsed utterances, single use
+PASS scenes stored
+PASS invented property and NPC player guess rejected independently
+PASS drop returns the updated draft
+PASS atomic commit
+PASS alias lookup, playedAs, history with basis and sources, lastTime read back
+PASS hosted Unicode name lookup excludes unrelated prefix matches
+PROOF SESSION k570bstrg251hgz32kzez5dy3s8g3dsw
 SDK E2E PASSED

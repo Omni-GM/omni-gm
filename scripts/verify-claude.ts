@@ -54,7 +54,10 @@ const fixture = await readFile(
   new URL("../fixtures/session.txt", import.meta.url),
   "utf8",
 );
-for (const text of assistantText) {
+for (const text of [
+  ...assistantText,
+  ...calls.map((call) => JSON.stringify(call.input)),
+]) {
   assert(
     !text.includes(fixture.trim()),
     "Assistant echoed the full transcript",
@@ -62,7 +65,7 @@ for (const text of assistantText) {
   for (const line of fixture.trim().split("\n"))
     assert(!text.includes(line), "Assistant echoed a transcript line");
 }
-console.log("PASS no transcript reproduction in assistant text");
+console.log("PASS no transcript reproduction in assistant text or tool inputs");
 const commit = calls.find((c) => c.name.endsWith("__debrief_commit"));
 assert(commit && typeof commit.input.session === "string");
 const url = process.env.OMNI_GM_MCP_URL;
@@ -96,15 +99,23 @@ try {
     query: "Sera Venn",
     types: ["entity"],
     kinds: ["npc"],
+    limit: 200,
   });
-  assert.equal(found.hits.length, 1);
-  const npc = await call<{
+  type Npc = {
     value: {
       properties: { playedAs: string };
       aliases: string[];
-      history: { basis: string[] }[];
+      history: { basis: string[]; session: string }[];
     };
-  }>("get", { ref: found.hits[0].ref });
+  };
+  const candidates = await Promise.all(
+    found.hits.map((hit) => call<Npc>("get", { ref: hit.ref })),
+  );
+  const matching = candidates.filter((npc) =>
+    npc.value.history.some((h) => h.session === commit.input.session),
+  );
+  assert.equal(matching.length, 1);
+  const npc = matching[0];
   assert(npc.value.properties.playedAs.length > 0);
   assert(npc.value.aliases.includes("Sarah Ven"));
   for (const h of npc.value.history)

@@ -1,0 +1,71 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run -- -t 'overview recalls'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+ ❯ tests/mcp.test.ts (21 tests | 3 failed) 2109ms
+   × an entity history remains readable after more than 2000 unrelated campaign changes 1425ms
+   × adjacent scenes do not repeat the next scene's first utterance and session ordinal refs work 14ms
+   × overview recalls the latest commit even when sessions are debriefed out of creation order 24ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > an entity history remains readable after more than 2000 unrelated campaign changes
+Error: {"jsonrpc":"2.0","id":38,"result":{"content":[{"type":"text","text":"History exceeds v1 read capacity"}],"isError":true}}
+ ❯ Object.call tests/mcp.test.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/mcp.test.ts:559:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/mcp.test.ts > adjacent scenes do not repeat the next scene's first utterance and session ordinal refs work
+AssertionError: expected [ '00:01:10', '00:02:20' ] to deeply equal [ '00:01:10' ]
+
+- Expected
++ Received
+
+  [
+    "00:01:10",
++   "00:02:20",
+  ]
+
+ ❯ tests/mcp.test.ts:602:55
+    600|   ]});
+    601|   const first=await c.call("get",{ref:`scene:${s.id}/1`});
+    602|   expect(first.utterances.map((u:{at:string})=>u.at)).toEqual(["00:01:…
+       |                                                       ^
+    603|   const second=await c.call("get",{ref:`scene:${s.id}/2`});
+    604|   expect(second.utterances.map((u:{at:string})=>u.at)).toEqual(["00:02…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/mcp.test.ts > overview recalls the latest commit even when sessions are debriefed out of creation order
+AssertionError: expected 'Newer-created session.' to be 'Most recently committed session.' // Object.is equality
+
+Expected: "Most recently committed session."
+Received: "Newer-created session."
+
+ ❯ tests/mcp.test.ts:616:29
+    614|   await c.call("debrief_commit",{session:s.id});
+    615|   const overview=await c.call("get",{ref:"overview"});
+    616|   expect(overview.lastTime).toBe("Most recently committed session.");
+       |                             ^
+    617|   expect(overview.commits[0].session).toBe(s.id);
+    618| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 18 passed (21)
+   Start at  12:19:17
+   Duration  2.31s (transform 247ms, setup 0ms, import 103ms, tests 2.11s, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

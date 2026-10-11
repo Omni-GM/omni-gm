@@ -1,0 +1,40 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run -- -t 'adjacent scenes'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+ ❯ tests/mcp.test.ts (17 tests | 1 failed) 1948ms
+   × adjacent scenes do not repeat the next scene's first utterance and session ordinal refs work 17ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > adjacent scenes do not repeat the next scene's first utterance and session ordinal refs work
+AssertionError: expected [ '00:01:10', '00:02:20' ] to deeply equal [ '00:01:10' ]
+
+- Expected
++ Received
+
+  [
+    "00:01:10",
++   "00:02:20",
+  ]
+
+ ❯ tests/mcp.test.ts:592:55
+    590|   ]});
+    591|   const first=await c.call("get",{ref:`scene:${s.id}/1`});
+    592|   expect(first.utterances.map((u:{at:string})=>u.at)).toEqual(["00:01:…
+       |                                                       ^
+    593|   const second=await c.call("get",{ref:`scene:${s.id}/2`});
+    594|   expect(second.utterances.map((u:{at:string})=>u.at)).toEqual(["00:02…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 16 passed (17)
+   Start at  12:15:17
+   Duration  2.15s (transform 254ms, setup 0ms, import 100ms, tests 1.95s, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

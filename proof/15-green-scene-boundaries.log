@@ -1,0 +1,12 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run -- -t 'adjacent scenes'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+
+ Test Files  1 passed (1)
+      Tests  17 passed (17)
+   Start at  12:15:45
+   Duration  2.18s (transform 260ms, setup 0ms, import 105ms, tests 1.97s, environment 0ms)

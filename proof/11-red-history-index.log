@@ -1,0 +1,32 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run -- -t 'entity history remains'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+ ❯ tests/mcp.test.ts (13 tests | 1 failed) 1392ms
+   × an entity history remains readable after more than 2000 unrelated campaign changes 848ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > an entity history remains readable after more than 2000 unrelated campaign changes
+Error: {"jsonrpc":"2.0","id":38,"result":{"content":[{"type":"text","text":"History exceeds v1 read capacity"}],"isError":true}}
+ ❯ Object.call tests/mcp.test.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/mcp.test.ts:549:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 12 passed (13)
+   Start at  12:13:27
+   Duration  1.59s (transform 258ms, setup 0ms, import 102ms, tests 1.39s, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

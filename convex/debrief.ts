@@ -10,14 +10,14 @@ import {
   draft,
   type Entity,
   type History,
-  kinds,
   type LedgerRow,
   ledger,
   type Proposed,
   proposed,
   type Relationship,
-  relationshipTypes,
+  type SchemaInfo,
   scene,
+  schemaFor,
   seconds,
   sessionInfo,
 } from "./model";
@@ -121,7 +121,11 @@ class DraftState {
   readonly entities = new Map<string, Entity>();
   readonly temps = new Map<string, string>();
   readonly relationships: Relationship[];
-  constructor(entities: Entity[], relationships: Relationship[]) {
+  constructor(
+    entities: Entity[],
+    relationships: Relationship[],
+    readonly schema: SchemaInfo,
+  ) {
     for (const entity of entities) this.entities.set(entity.id, entity);
     this.relationships = [...relationships];
   }
@@ -145,6 +149,7 @@ class DraftState {
     return this.entities.get(id)?.name ?? id;
   }
   properties(kind: string, properties: Record<string, string | number>): void {
+    const kinds = this.schema.kinds;
     const fields = kinds[kind];
     if (!Object.hasOwn(kinds, kind))
       throw new ConvexError(`Allowed kinds: ${Object.keys(kinds).join(", ")}`);
@@ -213,7 +218,8 @@ class DraftState {
       this.entities.set(before.id, after);
       return { before, after, ids: [before.id] };
     }
-    const type = relationshipTypes[op.type as keyof typeof relationshipTypes];
+    const relationshipTypes = this.schema.relationshipTypes;
+    const type = relationshipTypes[op.type];
     if (!Object.hasOwn(relationshipTypes, op.type))
       throw new ConvexError(
         `Allowed relationship types: ${Object.keys(relationshipTypes).join(", ")}`,
@@ -248,8 +254,7 @@ function ledgerRow(
 ): LedgerRow {
   if (change.op === "relate" || change.op === "unrelate") {
     const rel = (after ?? before) as Relationship;
-    const { label } =
-      relationshipTypes[rel.type as keyof typeof relationshipTypes];
+    const { label } = state.schema.relationshipTypes[rel.type];
     return {
       id,
       label: change.op === "relate" ? "link" : "unlink",
@@ -297,15 +302,15 @@ function scenesOf(s: Doc<"sessions">): Infer<typeof ledger>["scenes"] {
 }
 async function stateFor(
   ctx: QueryCtx,
-  campaign: Id<"campaigns">,
+  campaign: Doc<"campaigns">,
 ): Promise<DraftState> {
   const entities = await ctx.db
     .query("entities")
-    .withIndex("by_campaign", (q) => q.eq("campaign", campaign))
+    .withIndex("by_campaign", (q) => q.eq("campaign", campaign._id))
     .take(2001);
   const relationships = await ctx.db
     .query("relationships")
-    .withIndex("by_campaign", (q) => q.eq("campaign", campaign))
+    .withIndex("by_campaign", (q) => q.eq("campaign", campaign._id))
     .take(2001);
   if (entities.length > 2000 || relationships.length > 2000)
     throw new ConvexError(
@@ -320,12 +325,29 @@ async function stateFor(
       properties: e.properties,
     })),
     relationships.map((r) => ({ type: r.type, from: r.from, to: r.to })),
+    schemaFor(campaign),
   );
 }
 function validScene(s: Doc<"sessions">, p: Proposed): void {
   if (!Number.isInteger(p.scene) || p.scene < 1 || p.scene > s.scenes.length)
     throw new ConvexError("Use an existing scene ordinal");
   for (const source of p.sources) if (source.at) seconds(source.at);
+}
+function applyPendingChange(
+  session: Doc<"sessions">,
+  state: DraftState,
+  proposal: DraftChange,
+  id: string,
+): ReturnType<DraftState["apply"]> {
+  try {
+    validScene(session, proposal);
+    return state.apply(proposal, id);
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : "Invalid change";
+    throw new ConvexError(
+      `Pending change ${proposal.id} is no longer valid: ${reason}. Use debrief_drop to remove it first.`,
+    );
+  }
 }
 export const addArgs = {
   ...sessionArgs,
@@ -352,12 +374,17 @@ export const add = internalMutation({
       throw new ConvexError("Use at most 500 draft changes");
     if (encodedSize(lastTime ?? s.lastTime) > 16_000)
       throw new ConvexError("Keep lastTime within 16 KB");
-    const state = await stateFor(ctx, campaign._id);
+    const state = await stateFor(ctx, campaign);
     const rows: LedgerRow[] = [];
-    for (const p of s.changes) {
-      validScene(s, p);
-      rows.push(ledgerRow(state, p.id, p, state.apply(p, `draft-${p.id}`)));
-    }
+    for (const p of s.changes)
+      rows.push(
+        ledgerRow(
+          state,
+          p.id,
+          p,
+          applyPendingChange(s, state, p, `draft-${p.id}`),
+        ),
+      );
     const kept: DraftChange[] = [...s.changes];
     const rejected: { index: number; reason: string }[] = [];
     let nextChange = s.nextChange;
@@ -414,20 +441,29 @@ export const drop = internalMutation({
     if (changeIds.some((id) => !s.changes.some((p) => p.id === id)))
       throw new ConvexError("Change not found in this draft");
     const changes = s.changes.filter((p) => !changeIds.includes(p.id));
-    const state = await stateFor(ctx, campaign._id);
-    const dependentIds: string[] = [];
+    const state = await stateFor(ctx, campaign);
+    const invalid: { id: string; reason: string }[] = [];
     const rows: LedgerRow[] = [];
     for (const p of changes) {
       try {
-        validScene(s, p);
-        rows.push(ledgerRow(state, p.id, p, state.apply(p, `draft-${p.id}`)));
-      } catch {
-        dependentIds.push(p.id);
+        rows.push(
+          ledgerRow(
+            state,
+            p.id,
+            p,
+            applyPendingChange(s, state, p, `draft-${p.id}`),
+          ),
+        );
+      } catch (error) {
+        invalid.push({
+          id: p.id,
+          reason: error instanceof Error ? error.message : "Invalid change",
+        });
       }
     }
-    if (dependentIds.length)
+    if (invalid.length)
       throw new ConvexError(
-        `Drop also requires dependent changes: ${dependentIds.join(", ")}`,
+        `Drop also requires invalid remaining changes: ${invalid.map((entry) => entry.id).join(", ")}. ${invalid.map((entry) => entry.reason).join(" ")}`,
       );
     await ctx.db.patch(s._id, { changes });
     return {
@@ -496,10 +532,9 @@ export const commit = internalMutation({
     unlocked(s);
     if (!s.changes.length || !s.lastTime.trim())
       throw new ConvexError("A commit needs draft changes and lastTime");
-    const state = await stateFor(ctx, campaign._id);
+    const state = await stateFor(ctx, campaign);
     const records = s.changes.map((p) => {
-      validScene(s, p);
-      return { p, ...state.apply(p, crypto.randomUUID()) };
+      return { p, ...applyPendingChange(s, state, p, crypto.randomUUID()) };
     });
     const id = await ctx.db.insert("commits", {
       campaign: campaign._id,

@@ -177,12 +177,6 @@ export const ledger = v.object({
   ),
   rows: v.array(ledgerRow),
 });
-export const commit = v.object({
-  id: v.string(),
-  kind: v.union(v.literal("seed"), v.literal("debrief")),
-  reason: v.string(),
-  session: v.optional(v.string()),
-});
 export const adventure = v.object({
   id: v.string(),
   name: v.string(),
@@ -198,6 +192,10 @@ export const sessionInfo = v.object({
   lastTime: v.string(),
 });
 export const schemaInfo = v.object({
+  retiredProperties: v.record(
+    v.string(),
+    v.record(v.string(), v.union(v.string(), v.array(v.string()))),
+  ),
   kinds: v.record(
     v.string(),
     v.record(v.string(), v.union(v.string(), v.array(v.string()))),
@@ -211,6 +209,42 @@ export const schemaInfo = v.object({
       inverseLabel: v.string(),
     }),
   ),
+});
+export const schemaOp = v.union(
+  v.object({
+    op: v.literal("add_property"),
+    kind: v.string(),
+    key: v.string(),
+    type: v.union(v.literal("text"), v.literal("number"), v.literal("enum")),
+    enumValues: v.optional(v.array(v.string())),
+    description: v.string(),
+  }),
+  v.object({
+    op: v.literal("retire_property"),
+    kind: v.string(),
+    key: v.string(),
+  }),
+  v.object({
+    op: v.literal("add_relationship_type"),
+    type: v.string(),
+    label: v.string(),
+    inverseLabel: v.string(),
+    from: v.array(v.string()),
+    to: v.array(v.string()),
+    description: v.string(),
+  }),
+);
+export const schemaChangeRecord = v.object({
+  ops: v.array(schemaOp),
+  before: schemaInfo,
+  after: schemaInfo,
+});
+export const commit = v.object({
+  id: v.string(),
+  kind: v.union(v.literal("seed"), v.literal("debrief"), v.literal("schema")),
+  reason: v.string(),
+  schemaChange: v.optional(schemaChangeRecord),
+  session: v.optional(v.string()),
 });
 export const readValue = v.union(
   v.object({
@@ -246,6 +280,11 @@ export const readValue = v.union(
     downloadUrl: v.string(),
   }),
 );
+export type SchemaInfo = Infer<typeof schemaInfo>;
+export type SchemaOp = Infer<typeof schemaOp>;
+export function schemaFor(campaign: { schema?: SchemaInfo }): SchemaInfo {
+  return campaign.schema ?? { kinds, relationshipTypes, retiredProperties: {} };
+}
 export type Proposed = Infer<typeof proposed>;
 export type Entity = Infer<typeof entity>;
 export type Relationship = Infer<typeof relationship>;

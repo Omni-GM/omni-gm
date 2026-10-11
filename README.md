@@ -55,8 +55,9 @@ operation, the subject, before and after, basis, source quotes, and why.
 Its only write is Drop, which calls `debrief_drop` and re-renders from the
 returned draft. Both tools also return `ledger` rows for the view. State and
 history commit atomically. The committed debrief, transcript, and scenes
-stay closed. Dropping a parent refuses to break retained dependent changes and lists
-their IDs. Drop them together, then add replacements in dependency order.
+stay closed. Dropping a parent refuses to break retained dependent changes and
+names them by label, subject, and scene, as the Ledger shows them. Drop them
+together, then add replacements in dependency order.
 Later corrections remain a later slice.
 
 At prep, `get overview` returns the most recently committed `lastTime`.

@@ -1,0 +1,30 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-impl27
+
+ ❯ tests/mcp.test.ts (32 tests | 1 failed | 31 skipped) 485ms
+   × dropping a parent refuses to break dependants and the retained draft can still accept and commit changes 484ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > dropping a parent refuses to break dependants and the retained draft can still accept and commit changes
+AssertionError: expected [Function] to throw error including '"text":"Drop the dependent changes fi…' but got '{"jsonrpc":"2.0","id":7,"result":{"co…'
+
+Expected: ""text":"Drop the dependent changes first: change Sera Venn (scene 1).""
+Received: "{"jsonrpc":"2.0","id":7,"result":{"content":[{"type":"text","text":"Drop also requires invalid remaining changes: c2. Pending change c2 is no longer valid: Entity not found: $sera. Use find or an earlier $tempKey.. Use debrief_drop to remove it first."}],"isError":true}}"
+
+ ❯ tests/mcp.test.ts:338:4
+    336|       changeIds: [r.draft.changes[0].id],
+    337|     }),
+    338|   ).rejects.toThrow(
+       |    ^
+    339|     '"text":"Drop the dependent changes first: change Sera Venn (scene…
+    340|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 skipped (2)
+      Tests  1 failed | 35 skipped (36)
+   Start at  13:04:44
+   Duration  730ms (transform 502ms, setup 0ms, import 241ms, tests 485ms, environment 0ms)
+

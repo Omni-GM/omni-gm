@@ -242,16 +242,3 @@ test("too many sections and a malformed section leave an unset checklist and com
   });
   expect(await c.call("get", { ref: "overview" })).toEqual(before);
 });
-
-test("a section walk reads the stored checklist first and stores a missing one before starting", async () => {
-  const c = client();
-  await c.init();
-  const procedure = (await c.call("skill", { name: "prep-sparring" }))
-    .procedure;
-  expect(procedure).toContain("get checklist");
-  expect(procedure).toContain("checklist_set");
-  expect(procedure).toContain("Do not ask again");
-  expect(procedure).not.toContain(
-    "Take the checklist, each section's definition and the session-note template from the game master's notes vault",
-  );
-});

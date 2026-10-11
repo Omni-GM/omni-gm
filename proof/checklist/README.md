@@ -23,15 +23,18 @@ reads tables.
 - [Size red](05-red-bounds.log) and [green](05-green-bounds.log): exactly
   32,000 UTF-8 JSON bytes are accepted; one more byte, oversized multibyte
   markdown, definitions or reason are rejected without writing.
-- [Procedure red](06-red-procedure.log) and
-  [green with isolation](06-green-procedure-isolation.log): the served walk
-  reads `get checklist` first, stores it when missing, and does not ask again.
-  Another owner has a separate checklist and history, cannot use a foreign
+- [Green isolation](06-green-procedure-isolation.log): another owner has a
+  separate checklist and history, cannot use a foreign
   continuation, and cannot spoof the authenticated caller. An extra `caller`
   argument is overwritten by the gateway, so it writes only the sender's
   own campaign. Too many sections and malformed sections leave an unset
   checklist and its commits untouched. This isolation and validator coverage
   is green-only because the reused gateway rules already worked.
+
+[06-red-procedure.log](06-red-procedure.log) and the corresponding green log
+also contain the initial procedure-wording test. Review found it contrary
+to spec #35, so that test was removed. The headless conversation and SDK
+readback below prove the procedure's behavior; no new wording test remains.
 
 [check.log](check.log) is the full local gate: Ledger build, Biome, isolated
 anonymous-local Convex codegen, both TypeScript projects, and all endpoint
@@ -103,7 +106,8 @@ reads the store through a fresh SDK connection:
   Discoveries gives ten short sourced clues, and the mechanical Supplies
   section has no pitches and uses the game master's materials;
 - a fresh client reads the stored checklist, starts Launch with its two
-  pitches, and never asks for the checklist or template again;
+  pitches, limits unused history to one version, and never asks for the
+  checklist or template again;
 - [the checklist readback](headless-checklist.json) keeps the supplied
   definitions, case, internal line breaks and template, with one history
   record; all earlier story state, frame, schema and sessions are unchanged;
@@ -113,6 +117,12 @@ reads the store through a fresh SDK connection:
 This proves checklist reuse across clients, not persistent note entries or
 resume progress. Those belong to the session-note ticket. It proves one
 model run, not that every model always follows a procedure.
+
+Review tightened the first-heading order check and changed the served walk
+to read `get checklist` with `limit: 1`. The first seven turns already prove
+the setup and complete walk; the fresh-client eighth turn was rerun against
+the updated procedure and verifies that limit. The earlier eighth turn is
+retained in `fresh-client-before-review.jsonl`.
 
 `readback-batch-parser-error.log` and `readback-phrase-parser-error.log` retain
 two verifier errors on the final conversation. A batched `get` containing

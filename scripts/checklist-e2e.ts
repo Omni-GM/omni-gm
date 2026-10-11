@@ -180,11 +180,26 @@ async function verifyHeadless() {
       /(?:paste|provide|send|give me|what is|what's).{0,60}(?:checklist|template)/i,
       "Stored checklist and template are never requested again",
     );
-  assert.match(reply(2), /launch/i);
-  assert.doesNotMatch(
-    reply(2),
-    /#{1,3}\s+Discoveries/i,
-    "Launch is walked before Discoveries",
+  const firstHeadings = new Map<string, number>();
+  for (const turn of [2, 3, 4, 5, 6]) {
+    for (const heading of reply(turn).matchAll(
+      /^#{1,3}\s+(?:\d+[.·]\s*)?(Launch|Discoveries|Supplies)\b/gm,
+    )) {
+      if (!firstHeadings.has(heading[1])) firstHeadings.set(heading[1], turn);
+    }
+  }
+  assert.deepEqual(
+    [...firstHeadings],
+    [
+      ["Launch", 2],
+      ["Discoveries", 4],
+      ["Supplies", 6],
+    ],
+    "Each section first opens in checklist order on its expected turn",
+  );
+  assert(
+    checkReads.filter((c) => c.turn === 8).every((c) => c.input.limit === 1),
+    "Fresh client limits unused checklist history to one version",
   );
   assert.equal(
     (reply(2).match(/built on/gi) ?? []).length,

@@ -1,9 +1,9 @@
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/feat-upload-page (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/cheerful-duck-685)
-▌ └─ https://cheerful-duck-685.convex.cloud
-- Deploying to https://cheerful-duck-685.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/feat-upload-page (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/bold-stoat-539)
+▌ └─ https://bold-stoat-539.convex.cloud
+- Deploying to https://bold-stoat-539.convex.cloud...
 
 ✔ Added table indexes:
 ✔ Installed component mcpGateway.
-✔ Deployed Convex functions to https://cheerful-duck-685.convex.cloud
+✔ Deployed Convex functions to https://bold-stoat-539.convex.cloud
 ✔ Finished running function "oauth:configure"

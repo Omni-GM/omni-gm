@@ -1,7 +1,7 @@
-Upload page proof against https://cheerful-duck-685.convex.site (955bc4c), 2026-10-11T12:51:43Z
+Upload page proof against https://bold-stoat-539.convex.site (b0f135a, merged with main), 2026-10-11T12:53:15Z
 
 == Second owner creates a session through MCP
-other owner's page: https://cheerful-duck-685.convex.site/upload-page?session=k577a1qfmkxm8q6nwnbb3rfdj98g20yz
+other owner's page: https://bold-stoat-539.convex.site/upload-page?session=k573f0947rh18918dj86krbg398g399d
 
 == Anonymous visitor, fresh browser
 waiting for --text Sign in to upload
@@ -14,18 +14,18 @@ waiting for --url **authkit.app/**
 waiting for input[type="email"]
 screenshot proof/upload-page/screenshots/02-authkit-email.png
 waiting for input[type="password"]
-waiting for --fn location.origin === 'https://cheerful-duck-685.convex.site' || document.body.innerText.includes('Allow access')
+waiting for --fn location.origin === 'https://bold-stoat-539.convex.site' || document.body.innerText.includes('Allow access')
 screenshot proof/upload-page/screenshots/03-authkit-consent.png
-waiting for --url https://cheerful-duck-685.convex.site/upload-page?session=*
+waiting for --url https://bold-stoat-539.convex.site/upload-page?session=*
 waiting for --text not in your campaign
-URL after sign-in: https://cheerful-duck-685.convex.site/upload-page?session=k577a1qfmkxm8q6nwnbb3rfdj98g20yz
+URL after sign-in: https://bold-stoat-539.convex.site/upload-page?session=k573f0947rh18918dj86krbg398g399d
 
 == Signed in, another owner's session is refused
 "This session is not in your campaign. Sign in with the account your AI client uses, or ask it for a new link.\n\nSign out"
 screenshot proof/upload-page/screenshots/04-other-owner-refused.png
 
 == The test user creates their own session through MCP
-own page: https://cheerful-duck-685.convex.site/upload-page?session=k57bzarke6ztbdxyeqw3kck9fd8g2f43
+own page: https://bold-stoat-539.convex.site/upload-page?session=k57c11yjyrcs5eqnvwb8h877bn8g20ty
 
 == Own session is ready for a file
 waiting for --text Drop the transcript file here

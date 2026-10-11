@@ -57,9 +57,9 @@ async function seedPlayedSession() {
   const stored = await call<{ value: { utterances: unknown[] } }>("get", {
     ref: `transcript:${session.id}`,
   });
-  assert.equal(stored.value.utterances.length, 31);
+  assert.equal(stored.value.utterances.length, 30);
   console.log(
-    `PASS seeded session ${session.id} with the invented 31-line transcript, no scenes and no draft`,
+    `PASS seeded session ${session.id} with the invented 30-line transcript, no scenes and no draft`,
   );
 }
 

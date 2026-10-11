@@ -186,13 +186,15 @@ not settle what the players know; their unresolved threads stay open.
   `dropped`.
 - `fix`: `secret` and `storyCommit`. First commit the story-state change
   through `story_commit`, with `game_master` basis and the secret's exact
-  text as a source quote; pass its returned commit id. The secret becomes
+  text as a source quote, or a compact game-master declaration as source and
+  its full secret ref in the change's `why`; pass its returned commit id. The secret becomes
   `fixed`, and its commit records which story commit fixed it.
 
 Every operation requires a non-empty reason within 2 KB and appends separate
 secret history with `commit`, `op`, `reason`, `before`, and `after`. Text must
 be non-empty and at most 16 KB in UTF-8. `about` accepts at most 50 entity refs,
-200 bytes each. `get secrets` pages through `hidden` and `partly_revealed`
+200 bytes each. Secret and story-commit refs are also capped at 200 bytes.
+`get secrets` pages through `hidden` and `partly_revealed`
 records only; follow every continuation, including empty pages.
 `get secret:<id>` reads any status with paginated history, at most ten rows
 per page. `get overview` returns the exact `openSecrets` count. Secret

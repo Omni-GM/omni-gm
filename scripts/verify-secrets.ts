@@ -176,6 +176,23 @@ try {
     assert.equal(secrets.length, 1);
     assert.equal(secrets[0].text, expected);
     assert.equal(secrets[0].status, "hidden");
+    assert(
+      secrets[0].about.length > 0,
+      "The answer links to existing entities",
+    );
+    for (const id of secrets[0].about) {
+      const linked = (
+        await call<{ value: { id: string } }>("get", { ref: `entity:${id}` })
+      ).value;
+      assert.equal(
+        linked.id,
+        id,
+        "Every about link reads back as this owner's entity",
+      );
+    }
+    console.log(
+      `PASS all ${secrets[0].about.length} about links read back as owner-scoped entities`,
+    );
     const secret = (
       await call<{
         value: {

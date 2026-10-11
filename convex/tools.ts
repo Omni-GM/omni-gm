@@ -33,7 +33,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "secret_write",
     description:
-      "Write or change the game master's unplayed background with a reason. Secrets live apart from story state. op write needs text and optional about entity refs; change needs secret and text and/or about. fix needs secret and storyCommit from story_commit with game_master basis and the secret's exact text as a source quote; drop needs secret. Each write appends before/after history. Text at most 16 KB, reason 2 KB, about at most 50 owner-scoped entity refs.",
+      "Write or change the game master's unplayed background with a reason. Secrets live apart from story state. op write needs text and optional about entity refs; change needs secret and text and/or about. fix needs secret and storyCommit from story_commit with game_master basis and either the secret's exact text as a source quote or its full ref in the change's why; drop needs secret. Each write appends before/after history. Text at most 16 KB, reason 2 KB, about at most 50 owner-scoped entity refs; all refs at most 200 bytes.",
     fn: internal.secrets.write,
     identityArg: "caller",
     args: secretArgs,

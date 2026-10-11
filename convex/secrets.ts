@@ -44,6 +44,14 @@ export const write = internalMutation({
   returns: secretResult,
   handler: async (ctx, args): Promise<Infer<typeof secretResult>> => {
     const bytes = (text: string) => new TextEncoder().encode(text).length;
+    if (
+      [args.secret, args.storyCommit].some(
+        (ref) => ref !== undefined && bytes(ref) > 200,
+      )
+    )
+      throw new ConvexError(
+        "Keep secret and story commit refs within 200 bytes",
+      );
     if (!args.reason.trim() || bytes(args.reason) > 2_000)
       throw new ConvexError("Use a non-empty reason within 2 KB");
     if (
@@ -102,7 +110,7 @@ export const write = internalMutation({
       const story = commitId ? await ctx.db.get(commitId) : null;
       if (!story || story.campaign !== campaign._id || story.kind !== "story")
         throw new ConvexError(
-          "Fix requires a story_commit with basis game_master and the secret's text as its source quote",
+          "Fix requires a story_commit with basis game_master and the secret's text as its source quote or its full ref in why",
         );
       const changes = await ctx.db
         .query("history")
@@ -113,12 +121,14 @@ export const write = internalMutation({
       if (
         !changes.some(
           (h) =>
+            before !== null &&
             h.basis.includes("game_master") &&
-            h.sources.some((s) => s.quote === before?.text),
+            (h.sources.some((s) => s.quote === before.text) ||
+              h.why.includes(before.id)),
         )
       )
         throw new ConvexError(
-          "Fix requires a story_commit with basis game_master and the secret's text as its source quote",
+          "Fix requires a story_commit with basis game_master and the secret's text as its source quote or its full ref in why",
         );
     }
     const after: Secret = {

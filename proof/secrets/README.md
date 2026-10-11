@@ -19,7 +19,15 @@ only the served MCP tools. No test reads tables or calls internal functions.
 - `03-green-validation.log`: owner isolation and invalid input rejection
   pass without recording a secret or commit. This also includes the
   pagination test, which was green when added.
+- `05-red-long-fix.log` and `05-green-long-fix.log`: a near-limit secret can
+  be fixed with a compact game-master source and its full ref in the story
+  change's why, avoiding a repeated long quote in the 16 KB story payload.
+- `06-red-ref-bounds.log` and `06-green-ref-bounds.log`: secret and story
+  commit refs are bounded to 200 bytes before lookup, without writing.
 - `check.log`: the complete local gate, including all endpoint tests.
+  `check-port-collision.log` retains a failed anonymous-local codegen attempt
+  caused by another backend on the default port. This worktree then used
+  its own ports 33939 and 33940; hosted previews were unaffected.
 
 `tests/secrets.test.ts` also proves complete open-secret and history
 continuations, ten-history-row pages, bounded limits, and cursors scoped to
@@ -77,7 +85,8 @@ results remain.
 stored and marked, but the briefing invented that Dace feared Holloway and
 abbreviated the secret ref. It had 594 words, within the limit.
 `readback-rejected.log` is the stricter verifier rejecting that unsupported
-fear. The procedure now quotes stored secrets literally, requires full
+fear; the log stops at that first failure. The full-ref assertion also rejects
+the abbreviated ref, and the final run passes both. The procedure now quotes stored secrets literally, requires full
 refs, and keeps secrets inside the existing word budgets. Assertions were
 strengthened before rerunning, not weakened to accept the result.
 

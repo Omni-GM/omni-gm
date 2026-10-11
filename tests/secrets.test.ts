@@ -319,3 +319,67 @@ test("open-secret and secret-history pages are complete, bounded, and cursors ca
       "limit",
     );
 });
+
+test("a near-limit secret can be declared fixed with a compact game-master source and its explicit secret ref", async () => {
+  const { c, ref } = await campaign();
+  const text = "Mira guards the amber seal. ".repeat(570);
+  const written = await c.call("secret_write", {
+    op: "write",
+    text,
+    about: [ref],
+    reason: "An invented long background answer",
+  });
+  const story = await c.call("story_commit", {
+    reason: "Declare the secret fixed",
+    changes: [
+      {
+        change: {
+          op: "update",
+          entity: ref,
+          properties: { knows: "Mira guards the amber seal." },
+        },
+        basis: ["game_master"],
+        sources: [{ quote: "I declare this background fixed." }],
+        why: `Declare ${written.secret.id} fixed`,
+      },
+    ],
+  });
+  const fixed = await c.call("secret_write", {
+    op: "fix",
+    secret: written.secret.id,
+    storyCommit: story.commit,
+    reason: "Make my background fixed truth",
+  });
+  expect(fixed.secret).toMatchObject({ text, status: "fixed" });
+  expect(
+    (await c.call("get", { ref: written.secret.id })).history[1],
+  ).toMatchObject({
+    op: "fix",
+    before: { status: "hidden" },
+    after: { status: "fixed" },
+  });
+  const overview = await c.call("get", { ref: "overview" });
+  expect(overview.openSecrets).toBe(0);
+  expect(overview.commits[0]).toMatchObject({
+    id: fixed.commit,
+    storyCommit: story.commit,
+  });
+});
+
+test("secret and story commit refs are bounded before lookup without recording a write", async () => {
+  const { c } = await campaign();
+  const written = await c.call("secret_write", {
+    op: "write",
+    text: "Mira guards the seal.",
+    reason: "Background",
+  });
+  const before = await c.call("get", { ref: "overview" });
+  for (const args of [
+    { op: "change", secret: "x".repeat(201), text: "Cannot write" },
+    { op: "fix", secret: written.secret.id, storyCommit: "x".repeat(201) },
+  ])
+    await expect(
+      c.call("secret_write", { ...args, reason: "Invalid ref" }),
+    ).rejects.toThrow("200 bytes");
+  expect(await c.call("get", { ref: "overview" })).toEqual(before);
+});

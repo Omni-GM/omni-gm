@@ -49,3 +49,15 @@ Write in the game master's language. One page: 400 to 600 words, the What-next o
 > 1. Confirm the corrections, then your checklist from *Characters* (recommended).
 > 2. A short frame talk first: goal, stakes, timeframe.
 > 3. Pick an off-screen move and go straight to the strong start.
+
+## The briefing as the debrief's review
+
+When the briefing closes a debrief, it carries at most five review questions, each with a transcript timestamp, aimed at what this briefing needs and the debrief could not settle alone:
+
+- a deadline the table named that has no clock, and what happens when it runs out;
+- a tie between two NPCs in play;
+- a condition an NPC set on a thread;
+- an NPC's role when the transcript leaves it unclear;
+- a player character who stayed silent: were they there, and what do they know?
+
+The answers fix the briefing and become story state with basis `game_master`; then the game master commits, and the same briefing opens the next prep.

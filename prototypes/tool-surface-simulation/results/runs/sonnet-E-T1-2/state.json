@@ -80,7 +80,46 @@
    "ordinal": 3,
    "adventureId": "a1",
    "playedOn": "2026-10-10",
-   "scenes": []
+   "scenes": [
+    {
+     "title": "Sela Thorn at pier four",
+     "start": "0:00:05",
+     "end": "0:01:39",
+     "place": "Gullwick, pier four",
+     "summary": "The party meets Sela Thorn, a tide-reader who mends nets, and hires her to row them out for two silver, but never at night. She says Saltmere flooded the night the bell first rang forty years ago, and the water came up warm.",
+     "ordinal": 1
+    },
+    {
+     "title": "Saltmere Mine",
+     "start": "0:05:48",
+     "end": "0:07:28",
+     "place": "Saltmere Mine, cliff path above Gullwick",
+     "summary": "The mine is warm and smells of candle wax. Thirty paces in the tunnel is flooded with warm black water, and hymn-book pages float on it. One page is marked in pencil \"M. Brand\", and Teo recognises his sister Mira's handwriting. Dana and Priya guess that harbor-master Maren is in the cult. Oren takes 2 damage from the bad air.",
+     "ordinal": 2
+    },
+    {
+     "title": "Midnight at the drowned chapel",
+     "start": "0:13:40",
+     "end": "0:15:45",
+     "place": "Shore below the old chapel ruins, Gullwick bay",
+     "summary": "At dusk the party goes to the shore despite Sela's warning. Fishermen warn them about the Kelp Mother and leave. At midnight the bell rings twelve times under the water, the humming is much louder, and pale shapes stand in rows on the chapel floor. The party flees. The GM notes privately that the choir clock is at three of six.",
+     "ordinal": 3
+    },
+    {
+     "title": "Stew and a plan at the Tarred Gull",
+     "start": "0:19:50",
+     "end": "0:21:15",
+     "place": "The Tarred Gull tavern, Gullwick docks",
+     "summary": "The party plans to have Sela row them out at first light tomorrow and dive to the chapel at low tide. Innkeeper Bram feeds them and says he has known Maren for thirty years and that she lost a brother to the bay. The party takes a long rest.",
+     "ordinal": 4
+    }
+   ],
+   "transcript": {
+    "text": "# Session 3 – transcript\n\nInvented example data for a prototype. 0:25:40 · speakers as labeled by the transcription service.\n\n| Speaker | Talk time |\n|---|---:|\n| GM | 9 min |\n| Speaker 1 | 5 min |\n| Jonas (Teo) | 4 min |\n| Dana (Vessa) | 4 min |\n| Priya (Oren) | 3 min |\n\n---\n\n**GM** _[0:00:05]_\nMorning in Gullwick. The fog is still sitting on the docks, gulls everywhere, and you're standing at the end of pier four looking for a boat.\n\n**Jonas (Teo)** _[0:00:14]_\nAnyone around who could row us out past the breakwater?\n\n**GM** _[0:00:19]_\nThere's a woman sitting on an upturned skiff, mending a net. Grey braid, salt-stained coat. She doesn't look up.\n\n**Speaker 1** _[0:00:27]_\nYou want the old chapel. Everyone who comes here wants the old chapel.\n\n**Dana (Vessa)** _[0:00:33]_\nAnd who are you?\n\n**Speaker 1** _[0:00:36]_\nSela Thorn. I read the tides. I'll row you, but not at night. Never at night.\n\n**GM** _[0:00:42]_\nShe talks in a whisper, like the water might hear her, and she never once looks you in the eye. She keeps her gaze on the tide line.\n\n**Priya (Oren)** _[0:00:51]_\nCan I roll persuasion to get a better price?\n\n**GM** _[0:00:54]_\nSure, go.\n\n**Priya (Oren)** _[0:00:57]_\nFourteen.\n\n**GM** _[0:01:00]_\nFine, she'll do it for two silver.\n\n**Speaker 1** _[0:01:06]_\nSella's boat is the only one that goes near the bell water. The others are scared.\n\n**Dana (Vessa)** _[0:01:12]_\nDid she just call herself Sella?\n\n**GM** _[0:01:14]_\nSela, Sella, the dockhands say it both ways.\n\n**Jonas (Teo)** _[0:01:20]_\nAsk her about the mine. Somebody said the Saltmere Mine closed.\n\n**Speaker 1** _[0:01:26]_\nSaltmere flooded the same night the bell first rang. Forty years ago. My grandmother said the water came up warm.\n\n**Dana (Vessa)** _[0:01:35]_\nWarm water in a salt mine. That's not creepy at all.\n\n**GM** _[0:01:39]_\nShe shrugs and goes back to her net. She says she'll be at pier four tomorrow at first light if you want the ride.\n\n**GM** _[0:05:48]_\nOkay, you decide to look at the mine first since it's on the way. You walk up the cliff path for about an hour.\n\n**GM** _[0:06:02]_\nThe Saltmere Mine entrance is a black mouth in the chalk, timber frame half rotted. A rusted cart lies on its side. The air coming out of it is warm and smells like a church, like old candle wax.\n\n**Priya (Oren)** _[0:06:20]_\nI light a lantern and go in first.\n\n**GM** _[0:06:24]_\nAbout thirty paces in, the tunnel floods. Black water, and it's warm to the touch. Floating on it, stuck to the walls, there are pages. Wet pages from a hymn book.\n\n**Jonas (Teo)** _[0:06:40]_\nI fish one out. What's on it?\n\n**GM** _[0:06:44]_\nA hymn about the sea giving back what it takes. And in the margin, in pencil, someone wrote \"M. Brand\".\n\n**Jonas (Teo)** _[0:06:55]_\nThat's Mira. That's my sister's handwriting. She was here.\n\n**Dana (Vessa)** _[0:07:03]_\nOkay, I bet the harbor-master is behind all this. Maren wanted us gone from day one. She's in the cult, I'm calling it.\n\n**Priya (Oren)** _[0:07:12]_\nYeah, Maren is totally running the choir.\n\n**GM** _[0:07:15]_\nYou can think that. Roll investigation if you want to search the rest.\n\n**Dana (Vessa)** _[0:07:20]_\nNine.\n\n**GM** _[0:07:23]_\nYou don't find anything else. Oren, take two damage from the bad air.\n\n**Priya (Oren)** _[0:07:28]_\nOuch. Okay, down to eleven.\n\n**GM** _[0:13:40]_\nYou get back to Gullwick by dusk, and you decide to go down to the shore below the old chapel ruins anyway, Sela's warning or not.\n\n**GM** _[0:14:02]_\nThe drowned chapel's roof sticks out of the bay at low water, just the bell tower and two broken arches. Seaweed hangs from the stones.\n\n**Dana (Vessa)** _[0:14:15]_\nAre there people around?\n\n**GM** _[0:14:18]_\nTwo fishermen hauling their boat up. One of them sees you looking at the water.\n\n**Speaker 1** _[0:14:24]_\nDon't stand that close. The Kelp Mother takes children who stand that close. Pulls them down by the ankles. Everyone knows that.\n\n**Priya (Oren)** _[0:14:33]_\nThe Kelp Mother. Great. Is that real?\n\n**GM** _[0:14:36]_\nThat's what the fishermen say. They pull their boat up and leave.\n\n**GM** _[0:15:10]_\nAnd then, right at midnight, the bell rings again under the water. Twelve times. And the humming is back, but louder. Much louder than two nights ago. You can feel it in your teeth.\n\n**GM** _[0:15:24]_\n(to himself) That's the choir clock at three of six.\n\n**Jonas (Teo)** _[0:15:30]_\nDo we see anything in the water?\n\n**GM** _[0:15:33]_\nShapes. Pale shapes, standing on the chapel floor under the water, in rows. Like a congregation. Then the bell stops and they're gone.\n\n**Dana (Vessa)** _[0:15:45]_\nNope. Nope nope nope. We're leaving.\n\n**GM** _[0:19:50]_\nYou end up back at the Tarred Gull, the tavern by the docks. Fire going, it smells of tar and fish stew.\n\n**Jonas (Teo)** _[0:20:05]_\nOkay, plan. Mira wrote in that hymn book. The chapel is where the hymns came from. We go down to the chapel.\n\n**Priya (Oren)** _[0:20:14]_\nAt low tide, during the day. Not at night, Sela was right about that.\n\n**Dana (Vessa)** _[0:20:20]_\nSo tomorrow, first light, Sela rows us out and we dive to the chapel at low tide. I'll buy rope and a second lantern tonight.\n\n**Jonas (Teo)** _[0:20:31]_\nAgreed. Tomorrow we dive.\n\n**GM** _[0:20:35]_\nThe innkeeper, Bram, sets down three bowls of stew without being asked.\n\n**Speaker 1** _[0:20:41]_\nYou lot went to the shore at midnight? Brave or stupid. On the house, either way.\n\n**GM** _[0:20:48]_\nBram is huge, red beard, laughs at his own jokes, and he wipes the same mug the whole time he talks to you.\n\n**Dana (Vessa)** _[0:20:58]_\nBram, do you know the harbor-master well?\n\n**Speaker 1** _[0:21:02]_\nMaren? Thirty years I've known her. Sharp tongue. Good heart. She lost a brother to that bay.\n\n**Jonas (Teo)** _[0:21:12]_\nLong rest at the inn?\n\n**GM** _[0:21:15]_\nYes, long rest, you're all back to full. And that's where we stop for tonight.\n",
+    "bytes": 5895,
+    "via": "signed-url",
+    "uploadedAt": "2026-10-11T07:11:29.314Z"
+   }
   }
  ],
  "schema": {
@@ -1683,6 +1722,8 @@
    }
   }
  ],
- "uploads": {},
+ "uploads": {
+  "722f6e49e362573445505b0b": "s3"
+ },
  "nextId": 40
 }

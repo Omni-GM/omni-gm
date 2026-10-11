@@ -1,0 +1,67 @@
+{
+ "id": "sol-E-T5-2",
+ "client": "sol",
+ "surface": "E",
+ "task": "T5",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "timeframe: spring tide, three sessions",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "finale: chapel at low tide, choir walks out",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "other fields untouched",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no invented frame fields",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "story state untouched",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 5,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 557,
+ "toolSequence": [
+  "skill",
+  "skill:frame-talk",
+  "get",
+  "frame_update",
+  "get"
+ ],
+ "skillsLoaded": [
+  "frame-talk"
+ ],
+ "expectedSkill": "frame-talk",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 150803,
+  "cachedInput": 129152,
+  "output": 497
+ },
+ "ms": 23814,
+ "errors": [],
+ "answer": "Updated The Drowned Bell frame:\n\n- Timeframe: “before the spring tide, about three sessions”\n- Finale: “the drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick.”\n\nVerified that every other field is unchanged. Nothing left to do."
+}

@@ -1,0 +1,104 @@
+{
+ "id": "sonnet-E-T2-3",
+ "client": "sonnet",
+ "surface": "E",
+ "task": "T2",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 7,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 9766,
+ "toolSequence": [
+  "skill:debrief",
+  "get",
+  "get",
+  "find",
+  "get",
+  "debrief_add",
+  "debrief_commit"
+ ],
+ "skillsLoaded": [
+  "debrief"
+ ],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 284773,
+  "cachedInput": 231190,
+  "output": 14914
+ },
+ "ms": 51287,
+ "errors": [],
+ "answer": "I drafted the session 3 debrief and accepted all 22 changes, but I haven't committed it. I'm waiting for you to say the draft is right.\n\n**What the draft contains**\n- **New NPCs:**\n  - **Sela Thorn** (alias \"Sella\"): a tide-reader who whispers and never meets anyone's eyes. She won't row at night. She says Saltmere flooded the night the bell first rang, forty years ago.\n  - **Bram**: innkeeper at the Tarred Gull, with the red beard and the mug he keeps wiping.\n- **New places:** The Tarred Gull.\n- **Updated places:**\n  - **Saltmere Mine:** I added your descriptions (warm flooded tunnel, hymn-book pages).\n  - **The drowned chapel:** I added the bell tower, the broken arches and the pale shapes in rows.\n- **Clock:** The Hollow Choir goes from 2 to 3 of 6, from your aside \"That's the choir clock at three of six.\"\n- **New world facts:**\n  - **Narrated:** the Saltmere flood and the hymn page marked \"M. Brand\".\n  - **Said by an NPC:** Maren lost a brother to the bay.\n  - **Rumor:** the Kelp Mother. I didn't make it an NPC.\n- **Player material (threads and goals only):**\n  - **New thread:** \"Is Maren part of the cult?\", from Vessa and Oren's guess.\n  - **Bell thread:** its next step is the party's plan to dive to the chapel at first light with Sela.\n  - **Teo's goal:** I recorded his belief that the handwriting is Mira's, and his plan to go to the chapel.\n- **Left out:** the persuasion roll and the 2 silver price, the damage to Oren, the long rest, and the rope and lantern purchase. These are mechanics or inventory.\n\n**Where the plots stand**\n- **Drowned bell:** the humming is louder, the shapes are visible, and the party dives at first light.\n- **Mira's trail:** the hymn page puts the name \"M. Brand\" at Saltmere, but the handwriting is only Teo's claim so far.\n- **Saltmere:** the mine now has a warm-water flood tied to the bell's first ringing, and the earlier bell-metal link.\n- **Maren:** the players suspect her. Bram's account (a brother lost to the bay) is the only counterweight so far.\n- **Pale Abbot:** nothing new this session.\n\n**Open questions only you can answer**\n1. The transcript labels Sela, the fishermen and Bram all as \"Speaker 1\". I attributed lines by context. Is that right?\n2. You said \"Sela, Sella, the dockhands say it both ways.\" Should \"Sella\" stay as an alias, or should one spelling win?\n3. Sela's \"forty years ago\" is when the bell first rang. Session 1 treated the bell as new. Is it an old bell that has rung before?\n4. Did the hymn page's \"M. Brand\" really mean Mira, or is that still open?\n5. Should the \"Is Maren part of the cult?\" thread stay as a thread, or do you want it dropped?\n\nI haven't touched the frame, and I haven't asked anything about what happens next. Tell me what to correct. Once you say it's right, I'll commit.\n\nI committed the session 3 debrief as k62, and all 22 changes were applied.\n\nThe five open questions from the draft are still unanswered. They're the \"Speaker 1\" attributions, the Sela/Sella spelling, whether the bell is an old one, what \"M. Brand\" means, and whether the Maren thread stays. I committed the draft as it was, so tell me if you want any of those corrected."
+}

@@ -1,0 +1,56 @@
+{
+ "id": "sonnet-E-T7-1",
+ "client": "sonnet",
+ "surface": "E",
+ "task": "T7",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 8,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1579,
+ "toolSequence": [
+  "skill",
+  "get",
+  "find",
+  "find",
+  "get",
+  "find",
+  "get",
+  "story_commit"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 96360,
+  "cachedInput": 77832,
+  "output": 2311
+ },
+ "ms": 20430,
+ "errors": [],
+ "answer": "Dana's theory is saved, but as a new thread rather than on Maren's entry. I committed it as k59.\n\n- **Where it went:** the thread is called \"Is Maren Vosk running the Hollow Choir?\". It is open and linked to Maren and to the \"Hollow Choir rises\" clock.\n- **Why a thread:** Omni-GM only lets a player guess touch a thread or a character goal. Putting it on Maren's entry would have made it look like a fact about her. Maren's entry is unchanged.\n- **Source:** it comes from session 3 (0:07:03), where Dana says \"She's in the cult, I'm calling it.\" Priya (Oren) agreed at 0:07:12 (\"Maren is totally running the choir\"), so I noted that too. The thread says it is unconfirmed, because you only answered \"You can think that.\"\n- **Left blank:** I left next step and deadline empty, since adding either would be prep and that's yours to write.\n\nI didn't need anything from you. If you want the thread to record only Dana's guess and not Priya's agreement, tell me and I'll change it."
+}

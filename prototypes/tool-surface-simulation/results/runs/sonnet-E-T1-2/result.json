@@ -1,0 +1,77 @@
+{
+ "id": "sonnet-E-T1-2",
+ "client": "sonnet",
+ "surface": "E",
+ "task": "T1",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 8,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1807,
+ "toolSequence": [
+  "skill",
+  "get",
+  "skill:split-scenes",
+  "skill:map-speakers",
+  "session_create",
+  "transcript_upload_url",
+  "get",
+  "scenes_set"
+ ],
+ "skillsLoaded": [
+  "split-scenes",
+  "map-speakers"
+ ],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 122639,
+  "cachedInput": 114338,
+  "output": 2478
+ },
+ "ms": 20953,
+ "errors": [],
+ "answer": "Session 3 (played 2026-10-10) is created, and the transcript is uploaded (5,895 bytes) and split into 4 scenes. I haven't started a debrief, since you only asked for the upload and split.\n\n**Scenes**\n1. **Sela Thorn at pier four** (0:00:05): The party hires Sela to row them out, but never at night. She says Saltmere flooded the night the bell first rang, 40 years ago.\n2. **Saltmere Mine** (0:05:48): The tunnel is flooded with warm water and hymn-book pages. One page is signed \"M. Brand\", and Teo recognises Mira's handwriting. Dana and Priya guess Maren is in the cult.\n3. **Midnight at the drowned chapel** (0:13:40): Fishermen warn them about the Kelp Mother. At midnight the bell rings twelve times and pale shapes stand in rows under the water. The party flees.\n4. **Stew and a plan at the Tarred Gull** (0:19:50): The party plans to dive to the chapel at low tide with Sela tomorrow. Bram says Maren lost a brother to the bay. The party takes a long rest.\n\n**Speakers**\n- The GM and the players are clear. Jonas plays Teo, Dana plays Vessa and Priya plays Oren.\n- \"Speaker 1\" is three NPC voices:\n  - Sela Thorn at 0:00:27–0:01:26.\n  - An unnamed fisherman at 0:14:24.\n  - Bram the innkeeper at 0:20:41 and 0:21:02.\n- I assigned these from context, and they are clear.\n- The 0:15:24 line (\"choir clock at three of six\") is the GM talking to themselves. I put it in scene 3's summary as a private note.\n\n**Left for you**\n- **Debrief:** Not started. Tell me when you want it. The drafted changes will need your review before anything is committed.\n- **Sela's name:** The transcript has \"Sela\" and \"Sella\". The GM said the dockhands use both, so I used \"Sela\", which is the spelling in her own introduction.\n- **Gaps in the recording:** The recording jumps over about 4 minutes before the mine, 6 minutes before the shore and 4 minutes before the tavern. I treated each gap as a time skip and a scene break."
+}

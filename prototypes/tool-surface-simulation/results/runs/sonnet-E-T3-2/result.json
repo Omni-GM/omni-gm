@@ -1,0 +1,65 @@
+{
+ "id": "sonnet-E-T3-2",
+ "client": "sonnet",
+ "surface": "E",
+ "task": "T3",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "mine: at least two facts",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela: whisper and gaze",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Hesk: 'river's angry since the bell'",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no writes",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Sela's flood story marked as her claim",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 6,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 223,
+ "toolSequence": [
+  "skill",
+  "get",
+  "find",
+  "find",
+  "find",
+  "get"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "prep-sparring",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 50514,
+  "cachedInput": 35668,
+  "output": 1776
+ },
+ "ms": 14797,
+ "errors": [],
+ "answer": "Everything below comes from the committed story state for sessions 1–3. I changed nothing.\n\n## 1. What the players know about the Saltmere Mine\n**Seen at the table (session 3, scene 2):**\n- The mine is up the cliff path, about an hour's walk from Gullwick.\n- The entrance is a black mouth in the chalk with a half-rotted timber frame and a rusted cart on its side. The air coming out is warm and smells of old candle wax.\n- The tunnel floods about thirty paces in. The water is black and warm.\n- Wet hymn-book pages float on the water and stick to the walls. Teo fished one out. It has a hymn about \"the sea giving back what it takes\", and \"M. Brand\" is pencilled in the margin.\n- Teo recognised the handwriting as his sister Mira's, so the party knows she was there. This feeds his goal \"Find out why Mira left the Archive\".\n- Vessa's investigation roll of 9 found nothing else. Oren took 2 damage from the bad air and is at 11.\n\n**Told to them (NPC statements):**\n- The archivist said the chapel's bell metal came from Saltmere (session 2). The mine was described as closed for forty years.\n- Sela said the mine flooded the night the bell first rang, forty years ago. She added, \"My grandmother said the water came up warm.\" That is her claim, secondhand.\n\n**Player guess, not fact:** Vessa and Oren think Maren, the harbor-master, is behind it and in the cult. Nothing at the table supports that yet.\n\n## 2. How you played Sela Thorn\n- **Look:** She is a grey-braided woman in a salt-stained coat, sitting on an upturned skiff and mending a net.\n- **Voice and manner:** She whispers \"like the water might hear her\". She never looks anyone in the eye and keeps her gaze on the tide line. She doesn't look up when first approached.\n- **Role:** She is a tide-reader and the only boatwoman who goes near the bell water. The others are scared.\n- **Terms:** She won't row at night (\"Never at night\"). Priya's persuasion roll of 14 got the price down to two silver.\n- **Quirk:** She refers to herself in the third person as \"Sella\". You said the dockhands use both \"Sela\" and \"Sella\".\n- **Last seen:** At pier four. She'll be there at first light for the dive to the drowned chapel.\n\n## 3. What Old Hesk said about the river\nThe first meeting was session 2, scene 1, on the estuary ferry. His only line about it was: **\"Hold the rail. River's angry since the bell.\"** (0:00:14)\n\nThe transcript labels that line \"Speaker 1\", not Hesk. I attributed it to Hesk because you introduced him in the preceding line. You also narrated that he hums shanties out of tune and calls everyone \"lamb\". Later in that scene he went overboard, and the party left him grey, cold and apparently dead with the ferry-house keeper. His status is recorded as dead.\n\n## What's left\nNothing blocks these answers. One small item is open: \"Speaker 1\" isn't mapped to your NPC voices. I didn't map it, because that changes the record and you're away. When you're back, the `map-speakers` procedure would fix it."
+}

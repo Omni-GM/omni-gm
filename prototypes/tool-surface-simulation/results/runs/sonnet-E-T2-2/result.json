@@ -1,0 +1,104 @@
+{
+ "id": "sonnet-E-T2-2",
+ "client": "sonnet",
+ "surface": "E",
+ "task": "T2",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 7,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 12437,
+ "toolSequence": [
+  "skill:debrief",
+  "get",
+  "get",
+  "find",
+  "get",
+  "debrief_add",
+  "debrief_commit"
+ ],
+ "skillsLoaded": [
+  "debrief"
+ ],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 279042,
+  "cachedInput": 224585,
+  "output": 18372
+ },
+ "ms": 64558,
+ "errors": [],
+ "answer": "The draft for session 3 is in Omni-GM with 27 changes, all accepted. I have **not committed** it, because commits wait for your OK.\n\n## What the draft records\n\n**Scene 1, A boat at pier four**\n- **Sela Thorn:** new NPC, also heard as \"Sella\". She whispers, never meets anyone's eye, and watches the tide line. She rows only by day, and she is at Gullwick Docks.\n- **Gullwick Docks:** the description now includes pier four and the fog.\n- **World fact (Sela's account):** Saltmere flooded the night the bell first rang, forty years ago, and the water came up warm. I tagged it as something she said.\n\n**Scene 2, Saltmere Mine**\n- **Saltmere Mine:** the description now has the entrance, the candle-wax smell, and the warm flooded tunnel 30 paces in.\n- **Hymn page:** a new world fact. The page is narrated, with \"M. Brand\" in the margin.\n- **Teo's goal:** it now notes the page. Teo's claim that it's Mira's handwriting is tagged as a player guess.\n- **New thread, \"Is Maren Vosk in the cult?\":** this is Vessa and Oren's theory, tagged as a player guess. Maren's own entry is unchanged.\n\n**Scene 3, The shore at midnight**\n- **The drowned chapel:** the description now has the bell tower, two broken arches, and the seaweed.\n- **The Kelp Mother:** recorded as a rumor from the fishermen, not as a fact.\n- **Pale congregation:** a world fact. The pale shapes stood in rows under the water and vanished when the bell stopped.\n- **Hollow Choir clock:** 2 → 3 of 6, based on your aside \"That's the choir clock at three of six.\"\n\n**Scene 4, The Tarred Gull**\n- **The Tarred Gull:** new place.\n- **Bram:** new NPC, the innkeeper. He's huge and red-bearded, laughs at his own jokes, and wipes the same mug. He's at the Tarred Gull.\n- **Maren's brother:** a world fact, said by Bram, that she lost a brother to the bay.\n- **New thread, \"Dive to the drowned chapel\":** it comes from the party's plan, with Sela confirming she'll be at pier four at first light.\n\nI left out rolls, damage, prices and the long rest.\n\n## Where the plots stand\n- **Bell and Hollow Choir:** the clock is at 3 of 6 and the humming is louder. The congregation is now seen under the water.\n- **Mira and the Archive:** a hymn page marked \"M. Brand\" turned up in the mine, but only Teo says it's Mira's.\n- **Saltmere and the bell:** the mine flooded the night the bell first rang, and the bell metal came from Saltmere. These are linked only by what NPCs said.\n- **Maren:** the party suspects her, and Bram vouches for her. Neither side is settled.\n- **Chapel dive:** planned with Sela for first light at low tide.\n\n## Open questions for you\n1. Is the \"M. Brand\" page really in Mira's hand, or only Teo's belief?\n2. Is the Kelp Mother real, or only local legend?\n3. Do you want the clock's third tick recorded as I did, from your aside, or should it have been 3 earlier?\n4. Is there anything behind Sela never meeting anyone's eye, or her \"never at night\"? Right now it's only how you played her.\n5. Should the Pale Abbot thread or the bell thread change status after the shapes appeared? I left both as they were.\n\nTell me what to correct, or say it's right and I'll commit.\n\nI committed the session 3 debrief as k67, with all 27 changes applied.\n\nThe five open questions from the draft are still unanswered. Whenever you have answers, I'll record them as corrections (basis game_master)."
+}

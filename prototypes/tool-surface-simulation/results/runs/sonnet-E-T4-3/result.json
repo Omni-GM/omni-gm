@@ -1,0 +1,65 @@
+{
+ "id": "sonnet-E-T4-3",
+ "client": "sonnet",
+ "surface": "E",
+ "task": "T4",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Ivo recorded on the existing Pale Abbot",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "committed with basis game_master",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate NPC for Brother Ivo",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "what he wants recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "players' thread left open",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 5,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 935,
+ "toolSequence": [
+  "skill",
+  "find",
+  "skill:plank-questions",
+  "get",
+  "story_commit"
+ ],
+ "skillsLoaded": [
+  "plank-questions"
+ ],
+ "expectedSkill": "plank-questions",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 64742,
+  "cachedInput": 52261,
+  "output": 1443
+ },
+ "ms": 12712,
+ "errors": [],
+ "answer": "I recorded it in Omni-GM (commit `k59`). Everything went onto the existing entity, The Pale Abbot (e36), with basis `game_master`:\n\n- **Alias:** Brother Ivo.\n- **Role:** the drowned chapel's last priest, painted in the mural holding the bell rope. I marked this as a GM secret that the table doesn't know.\n- **Wants:** for the choir to rise, so he can finally leave the water.\n- **Knows:** the bell keeps him alive under the bay.\n\nI left the thread \"Who is the Pale Abbot?\" (e37) open, because the players still don't know. His status stays `unknown`, since that field reflects what the table knows.\n\nTwo things I didn't do:\n- **No link to the drowned chapel:** you said \"under the bay\", not that he is at the chapel, so I didn't add an `is_at` relation. Tell me if you want one.\n- **No `played_as`:** you haven't voiced him at the table yet, so that field is empty.\n\nNothing else is waiting on you."
+}

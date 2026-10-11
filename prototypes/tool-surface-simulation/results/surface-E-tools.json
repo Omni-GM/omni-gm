@@ -2,13 +2,13 @@
  {
   "name": "find",
   "write": false,
-  "description": "Search the whole store: entities (names, aliases, properties), change sources, scene summaries, and transcripts.\nReturns ranked hits, each with a ref to pass to get. Use it first for any prep question or before creating an entity.",
+  "description": "Search the whole store: entities (names, aliases, properties), change sources, scene summaries, and transcripts. Returns ranked hits, each with a ref for get.\nWith no query it lists instead: all entities (optionally only some kinds) and scenes, with their refs. Use that to see what exists before a debrief.",
   "inputSchema": {
    "type": "object",
    "properties": {
     "query": {
-     "type": "string",
-     "description": "Words to look for, e.g. 'Saltmere mine'."
+     "description": "Words to look for, e.g. 'Saltmere mine'. Omit to list.",
+     "type": "string"
     },
     "types": {
      "type": "array",
@@ -30,31 +30,33 @@
      }
     },
     "limit": {
+     "description": "Default 10 for a search, 100 for a list.",
      "type": "integer",
      "minimum": -9007199254740991,
-     "maximum": 30
+     "maximum": 200
     }
    },
-   "required": [
-    "query"
-   ],
    "additionalProperties": false
   }
  },
  {
   "name": "get",
   "write": false,
-  "description": "Read one thing by ref:\noverview | schema | frame | entity:<id> (with history) | session:<id> | scene:<session>/<n> (with its transcript) | transcript:<session>[@<timestamp>] | debrief:<session> (the draft).",
+  "description": "Read one or more things by ref (pass refs to read several at once):\noverview | schema | frame | entity:<id> (with history) | session:<id> | scene:<session>/<n> (with its transcript) | transcript:<session>[@<timestamp>] | debrief:<session> (the draft).",
   "inputSchema": {
    "type": "object",
    "properties": {
     "ref": {
      "type": "string"
+    },
+    "refs": {
+     "maxItems": 25,
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
     }
    },
-   "required": [
-    "ref"
-   ],
    "additionalProperties": false
   }
  },
@@ -149,7 +151,7 @@
  {
   "name": "debrief_add",
   "write": true,
-  "description": "Add changes to a session's debrief draft (opens it if needed). Each change has scene, change (new/update/relate/unrelate), basis, sources, and why. Invalid changes are rejected one by one with the reason; the others are kept.",
+  "description": "Add changes to a session's debrief draft (opens it if needed). Each change has scene, change (new/update/relate/unrelate), basis, sources, and why. Invalid changes are rejected one by one with the reason; the others are kept. Basis rule: a player_guess or player_plan only touches a thread or character_goal. Never draft prep.",
   "inputSchema": {
    "type": "object",
    "properties": {
@@ -415,7 +417,7 @@
  {
   "name": "story_commit",
   "write": true,
-  "description": "Commit changes outside a debrief, with the GM's reason: a fix to a committed mistake, or the GM's answer to a background question (basis game_master). All or nothing.",
+  "description": "Commit changes outside a debrief, with the GM's reason: a fix to a committed mistake, or the GM's answer to a background question (basis game_master). All or nothing. Basis rule: a player_guess or player_plan only touches a thread or character_goal. Never draft prep.",
   "inputSchema": {
    "type": "object",
    "properties": {
@@ -629,7 +631,7 @@
  {
   "name": "frame_update",
   "write": true,
-  "description": "Change only the given fields of the current adventure frame, with the GM's reason. The frame is intent, never story state.",
+  "description": "Change only the given fields of the current adventure frame, with the GM's reason. The frame is intent, never story state. Basis rule: a player_guess or player_plan only touches a thread or character_goal. Never draft prep.",
   "inputSchema": {
    "type": "object",
    "properties": {
@@ -808,7 +810,7 @@
  {
   "name": "skill",
   "write": false,
-  "description": "The procedures for Omni-GM work. Call without a name to list them; call with a name to load one. Load the matching procedure before you start a workflow (transcript upload and scenes, debrief, frame talk, prep, plank answers).",
+  "description": "The procedures for Omni-GM work, each with the standing rules. Call without a name to list them; call with a name to load one. Load the matching procedure before you start a workflow (transcript upload and scenes, debrief, frame talk, prep, plank answers).",
   "inputSchema": {
    "type": "object",
    "properties": {

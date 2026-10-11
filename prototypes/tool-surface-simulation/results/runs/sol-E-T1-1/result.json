@@ -1,0 +1,77 @@
+{
+ "id": "sol-E-T1-1",
+ "client": "sol",
+ "surface": "E",
+ "task": "T1",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 8,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1961,
+ "toolSequence": [
+  "skill",
+  "skill:split-scenes",
+  "get",
+  "skill:map-speakers",
+  "session_create",
+  "transcript_upload_url",
+  "scenes_set",
+  "get"
+ ],
+ "skillsLoaded": [
+  "split-scenes",
+  "map-speakers"
+ ],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 192532,
+  "cachedInput": 172160,
+  "output": 1352
+ },
+ "ms": 44614,
+ "errors": [],
+ "answer": "Imported and verified session 3 in Omni-GM for The Lantern Coast, dated 2026-10-10, with the full transcript and five scenes:\n\n1. A boat at pier four\n2. Hymn pages in the mine\n3. The fishermen’s warning\n4. The midnight bell\n5. Tomorrow’s dive\n\nNothing remains for the requested import and split. One “Speaker 1” line has uncertain attribution, which I left unresolved. No debrief was created."
+}

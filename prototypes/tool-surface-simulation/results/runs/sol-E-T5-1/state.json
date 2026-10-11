@@ -8,9 +8,9 @@
    "frame": {
     "goal": "Find out who rings the drowned bell and stop the Hollow Choir before it rises.",
     "stakes": "Fail: the drowned congregation walks into Gullwick. Win: Teo learns where Mira went.",
-    "timeframe": "Before the choir clock fills.",
+    "timeframe": "before the spring tide, about three sessions",
     "pressure": "The bell rings every second night and the humming grows louder.",
-    "finale": "Under the bay, in the drowned chapel.",
+    "finale": "the drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick",
     "moves_main_plot": "Shows that the Archive hid what the bell is.",
     "pulls_in": "Teo's sister Mira; Vessa's harbor debt."
    }
@@ -1438,6 +1438,11 @@
    "id": "k53",
    "kind": "debrief",
    "reason": "Debrief of session 3"
+  },
+  {
+   "id": "k59",
+   "kind": "frame",
+   "reason": "The GM requested: \"Frame update for The Drowned Bell: the timeframe is now \\\"before the spring tide, about three sessions\\\". And the finale: the drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick. Leave the rest as it is.\""
   }
  ],
  "history": [
@@ -2472,8 +2477,22 @@
    "commitId": "k53",
    "entityId": "e57",
    "sessionId": "s3"
+  },
+  {
+   "commitId": "k59",
+   "change": {
+    "frame": {
+     "timeframe": "before the spring tide, about three sessions",
+     "finale": "the drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick"
+    }
+   },
+   "before": {
+    "timeframe": "Before the choir clock fills.",
+    "finale": "Under the bay, in the drowned chapel."
+   },
+   "why": "The GM requested: \"Frame update for The Drowned Bell: the timeframe is now \\\"before the spring tide, about three sessions\\\". And the finale: the drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick. Leave the rest as it is.\""
   }
  ],
  "uploads": {},
- "nextId": 59
+ "nextId": 60
 }

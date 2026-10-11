@@ -506,10 +506,13 @@
    "id": "e36",
    "kind": "npc",
    "name": "The Pale Abbot",
-   "aliases": [],
+   "aliases": [
+    "Brother Ivo"
+   ],
    "properties": {
-    "role": "Figure in the chapel mural holding the bell rope; nobody knows who he was",
-    "status": "unknown"
+    "role": "Brother Ivo, the drowned chapel's last priest; depicted in the chapel mural holding the bell rope. The bell keeps him alive under the bay.",
+    "status": "unknown",
+    "wants": "He wants the choir to rise so he can finally leave the water."
    }
   },
   {
@@ -1438,6 +1441,11 @@
    "id": "k53",
    "kind": "debrief",
    "reason": "Debrief of session 3"
+  },
+  {
+   "id": "k59",
+   "kind": "correction",
+   "reason": "The GM answered the background question about who the Pale Abbot really is and asked to record the answer in Omni-GM."
   }
  ],
  "history": [
@@ -2472,8 +2480,35 @@
    "commitId": "k53",
    "entityId": "e57",
    "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "update",
+    "entity": "e36",
+    "properties": {
+     "role": "Brother Ivo, the drowned chapel's last priest; depicted in the chapel mural holding the bell rope. The bell keeps him alive under the bay.",
+     "wants": "He wants the choir to rise so he can finally leave the water."
+    },
+    "addAliases": [
+     "Brother Ivo"
+    ]
+   },
+   "basis": [
+    "game_master"
+   ],
+   "sources": [
+    {
+     "quote": "he's Brother Ivo, the drowned chapel's last priest. The bell keeps him alive under the bay, and he wants the choir to rise so he can finally leave the water."
+    }
+   ],
+   "why": "The GM establishes the Pale Abbot's true identity, what keeps him alive, and his motive.",
+   "commitId": "k59",
+   "entityId": "e36",
+   "before": {
+    "role": "Figure in the chapel mural holding the bell rope; nobody knows who he was"
+   }
   }
  ],
  "uploads": {},
- "nextId": 59
+ "nextId": 60
 }

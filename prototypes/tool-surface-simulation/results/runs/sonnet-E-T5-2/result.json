@@ -1,0 +1,65 @@
+{
+ "id": "sonnet-E-T5-2",
+ "client": "sonnet",
+ "surface": "E",
+ "task": "T5",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "timeframe: spring tide, three sessions",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "finale: chapel at low tide, choir walks out",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "other fields untouched",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no invented frame fields",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "story state untouched",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 3,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 307,
+ "toolSequence": [
+  "skill:frame talk",
+  "get",
+  "frame_update"
+ ],
+ "skillsLoaded": [
+  "frame talk"
+ ],
+ "expectedSkill": "frame-talk",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 38564,
+  "cachedInput": 32239,
+  "output": 580
+ },
+ "ms": 6282,
+ "errors": [],
+ "answer": "I updated the frame for The Drowned Bell. I changed only the two fields you gave me:\n\n- **Timeframe:** \"Before the spring tide, about three sessions.\"\n- **Finale:** \"The drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick.\"\n\nGoal, stakes, pressure, moves_main_plot and pulls_in are as they were. `next_session_starts` isn't set. I didn't fill it, since you didn't give it.\n\nNothing is waiting on you.\n\nThe new finale names the Pale Abbot. I did not check whether the Pale Abbot already exists as an entity in the story state. A frame is only intent, so I changed no entities. If the Pale Abbot isn't recorded yet, it can be added at the next debrief."
+}

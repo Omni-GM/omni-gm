@@ -1,0 +1,67 @@
+{
+ "id": "sol-E-T3-1",
+ "client": "sol",
+ "surface": "E",
+ "task": "T3",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "mine: at least two facts",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela: whisper and gaze",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Hesk: 'river's angry since the bell'",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no writes",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Sela's flood story marked as her claim",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 6,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 207,
+ "toolSequence": [
+  "skill",
+  "skill:prep-sparring",
+  "find",
+  "find",
+  "find",
+  "get"
+ ],
+ "skillsLoaded": [
+  "prep-sparring"
+ ],
+ "expectedSkill": "prep-sparring",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 133467,
+  "cachedInput": 113024,
+  "output": 631
+ },
+ "ms": 26111,
+ "errors": [],
+ "answer": "1. **Saltmere Mine:** The party heard from the archivist that it supplied the chapel bell's metal and had been closed for forty years. Sela said it flooded the night the bell first rang, and her grandmother said the water rose warm. They personally found warm, candle-wax-smelling air, warm black water thirty paces inside, and floating hymn-book pages. One hymn described the sea giving back what it takes, with “M. Brand” pencilled in the margin. Teo recognized Mira's handwriting. The bad air hurt Oren. Vessa and Oren suspected Maren was behind the cult/choir, but that remains their guess. *Sources: session 2, 0:08:40–0:08:50; session 3, 0:01:26 and 0:06:02–0:07:28.*\n\n2. **Sela Thorn:** You played her whispering “like the water might hear her,” avoiding eye contact and watching the tide line. She had a grey braid and salt-stained coat, and mended a net without looking up. Her firm boundary was: “I'll row you, but not at night. Never at night.” *Source: session 3, scene 1, 0:00:19–0:00:42.*\n\n3. **Old Hesk's exact words:** “Hold the rail. River's angry since the bell.” *Source: session 2, first ferry encounter, 0:00:14.*\n\nAll three answers are recorded in Omni-GM. What remains unconfirmed is the truth behind the NPC claims and the players' suspicion of Maren."
+}

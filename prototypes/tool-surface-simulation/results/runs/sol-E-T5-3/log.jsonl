@@ -1,0 +1,6 @@
+{"t":1791702746224,"surface":"E","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791702759672,"surface":"E","tool":"skill","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":1165}
+{"t":1791702762079,"surface":"E","tool":"skill","args":{"name":"frame-talk"},"argsBytes":21,"outcome":"ok","partialRejections":0,"resultBytes":1531}
+{"t":1791702764624,"surface":"E","tool":"get","args":{"ref":"frame"},"argsBytes":15,"outcome":"ok","partialRejections":0,"resultBytes":551}
+{"t":1791702768964,"surface":"E","tool":"frame_update","args":{"fields":{"timeframe":"before the spring tide, about three sessions","finale":"the drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick."},"reason":"The GM directed this frame update for The Drowned Bell: \"the timeframe is now \\\"before the spring tide, about three sessions\\\". And the finale: the drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick. Leave the rest as it is.\""},"argsBytes":505,"outcome":"ok","partialRejections":0,"resultBytes":646}
+{"t":1791702768968,"surface":"E","tool":"get","args":{"ref":"frame"},"argsBytes":15,"outcome":"ok","partialRejections":0,"resultBytes":646}

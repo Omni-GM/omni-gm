@@ -1,0 +1,67 @@
+{
+ "id": "sol-E-T3-3",
+ "client": "sol",
+ "surface": "E",
+ "task": "T3",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "mine: at least two facts",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela: whisper and gaze",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Hesk: 'river's angry since the bell'",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no writes",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Sela's flood story marked as her claim",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 6,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 235,
+ "toolSequence": [
+  "skill",
+  "skill:prep-sparring",
+  "find",
+  "find",
+  "find",
+  "get"
+ ],
+ "skillsLoaded": [
+  "prep-sparring"
+ ],
+ "expectedSkill": "prep-sparring",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 135769,
+  "cachedInput": 114176,
+  "output": 680
+ },
+ "ms": 25173,
+ "errors": [],
+ "answer": "1. **Saltmere Mine:** They were told it lies up the cliff path, has been closed for forty years, and supplied the chapel bell’s metal. Sela claimed it flooded the night the bell first rang, with warm water, citing her grandmother. They personally found warm, candle-wax-smelling air, warm black water thirty paces inside, and floating hymn-book pages. One bore “M. Brand,” which Teo recognized as Mira’s handwriting. The bad air hurt Oren. Their suspicion that Maren runs the cult remains a player guess. *Sources: S2, 0:08:40–0:08:50; S3, 0:01:26 and 0:06:02–0:07:28.*\n\n2. **Sela Thorn:** You played her whispering “like the water might hear her,” avoiding eye contact and watching the tide line. Grey braid, salt-stained coat, mending a net; she shrugs and returns to it. Her firm boundary: “I’ll row you, but not at night. Never at night.” Dockhands use both Sela and Sella. *Source: S3, scene 1, 0:00:19–0:01:39; NPC e54.*\n\n3. **Old Hesk’s exact words:** “Hold the rail. River’s angry since the bell.” *Source: first ferry meeting, S2, 0:00:14.*\n\nNothing remains to retrieve for these questions. Omni-GM records the accounts linking the mine and river to the bell, but doesn’t establish their cause."
+}

@@ -1,0 +1,67 @@
+{
+ "id": "sol-E-T4-1",
+ "client": "sol",
+ "surface": "E",
+ "task": "T4",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Ivo recorded on the existing Pale Abbot",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "committed with basis game_master",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate NPC for Brother Ivo",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "what he wants recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "players' thread left open",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 7,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 889,
+ "toolSequence": [
+  "skill",
+  "skill:plank-questions",
+  "find",
+  "get",
+  "get",
+  "story_commit",
+  "get"
+ ],
+ "skillsLoaded": [
+  "plank-questions"
+ ],
+ "expectedSkill": "plank-questions",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 187962,
+  "cachedInput": 158464,
+  "output": 708
+ },
+ "ms": 27671,
+ "errors": [],
+ "answer": "Recorded and verified in Omni-GM on the existing Pale Abbot entry:\n\n- Added “Brother Ivo” as an alias and identified him as the drowned chapel’s last priest.\n- Recorded that the bell keeps him alive under the bay.\n- Recorded his desire for the choir to rise so he can leave the water.\n\nYour words are saved as the GM source. The players’ identity mystery remains open. Nothing else is needed."
+}

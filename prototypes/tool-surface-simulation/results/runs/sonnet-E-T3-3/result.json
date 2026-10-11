@@ -1,0 +1,64 @@
+{
+ "id": "sonnet-E-T3-3",
+ "client": "sonnet",
+ "surface": "E",
+ "task": "T3",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "mine: at least two facts",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela: whisper and gaze",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Hesk: 'river's angry since the bell'",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no writes",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Sela's flood story marked as her claim",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 5,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 189,
+ "toolSequence": [
+  "skill",
+  "find",
+  "find",
+  "find",
+  "get"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "prep-sparring",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 50955,
+  "cachedInput": 36479,
+  "output": 1605
+ },
+ "ms": 13257,
+ "errors": [],
+ "answer": "Here are the answers, all from Omni-GM.\n\n**1. What the players know about the Saltmere Mine**\n- **Session 2:** The archivist said the chapel's bell metal came from Saltmere (npc_said). The mine is \"up the cliff path, closed for forty years\" (narrated).\n- **Session 3, with Sela Thorn:** She said \"Saltmere flooded the same night the bell first rang. Forty years ago. My grandmother said the water came up warm.\" That is her claim (npc_said), and her grandmother's word is secondhand.\n- **Session 3, at the mine:**\n  - The entrance is a black mouth in the chalk, with a half-rotted timber frame and a rusted cart on its side.\n  - The air is warm and smells of old candle wax.\n  - The tunnel floods about thirty paces in, with warm black water.\n  - Wet hymn-book pages float on the water. Teo fished one out. It carries a hymn about the sea giving back what it takes, with \"M. Brand\" in pencil in the margin.\n  - Teo recognized the handwriting as his sister Mira's, so she was there.\n  - Vessa's investigation roll (9) found nothing else. Oren took 2 damage from the bad air and is down to 11.\n- **Guess, not fact:** Vessa and Oren suspect Maren, the harbor-master, of being in the cult. That is only a player guess, and the mine itself gives no evidence for it.\n\n**2. How you played Sela Thorn**\n- She whispers \"like the water might hear her.\"\n- She never looks anyone in the eye and keeps her gaze on the tide line.\n- She is a grey-braided tide-reader in a salt-stained coat, mending a net on an upturned skiff.\n- She rows the party only by day: \"Never at night.\"\n- She referred to herself as \"Sella\" once. You covered it with \"Sela, Sella, the dockhands say it both ways.\" Omni-GM stores \"Sella\" as an alias.\n- She settled on two silver after Oren's persuasion roll of 14.\n- She said hers is the only boat that goes near the bell water, because the others are scared.\n- Her last-seen place is Gullwick Docks, pier four. She told the party she'd be there at first light.\n\n**3. What Old Hesk said about the river**\n- In session 2, on the ferry, the only line is \"Hold the rail. River's angry since the bell.\"\n- You also played him as an out-of-tune shanty hummer who calls everyone \"lamb.\"\n- He went overboard halfway across and was pulled out by Oren. He was grey, cold and not visibly breathing, and was left with the ferry-house keeper. He is recorded as dead.\n\n**What's left**\n- The transcript labels the \"river's angry\" line as \"Speaker 1\", not as Hesk. I attributed it to him because it's his scene. If you want it confirmed, the speaker mapping would need checking.\n- Hesk's death is only \"seems dead\" in the scene summary, and the entity says dead. I can't tell from the record whether you meant that to stay ambiguous.\n\nI changed nothing in the story state."
+}

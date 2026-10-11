@@ -1,6 +1,7 @@
 // PROTOTYPE — throwaway. Aggregates results/runs/*/result.json into results/scorecard.md and results/summary.json.
 import { readdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join, resolve } from "node:path";
+import { WRITE_TOOLS } from "./tasks";
 
 const ROOT = resolve(import.meta.dir, "..");
 const RUNS = join(ROOT, "results", "runs");
@@ -80,11 +81,17 @@ for (const [client, label] of CLIENTS)
 out();
 out("## Skill loading on surfaces C and E (expected procedure loaded before the first write, unprompted)");
 out();
+const slug = (name: string) => name.toLowerCase().trim().replace(/[\s_]+/g, "-");
+function loadedBeforeWrite(r: any) {
+  const seq: string[] = r.toolSequence;
+  const firstWrite = seq.findIndex((step) => WRITE_TOOLS.has(step.split(/[:!]/)[0]!));
+  return seq.slice(0, firstWrite < 0 ? undefined : firstWrite).some((step) => step.startsWith("skill:") && slug(step.slice(6).split("!")[0]!) === r.expectedSkill);
+}
 const SKILL_TASKS = TASKS.filter((t) => !["T6", "T7"].includes(t));
 out(`| Client | Surface | ${SKILL_TASKS.map((t) => `${t} (${TASK_TITLES[t]})`).join(" | ")} |`);
 out(`|---|---|${SKILL_TASKS.map(() => "---:").join("|")}|`);
 for (const [client, label] of CLIENTS) for (const surface of ["C", "E"])
-  out(`| ${label} | ${surface} | ${SKILL_TASKS.map((task) => { const rs = pick({ client, surface, task } as any); return rs.length ? `${rs.filter((r) => r.skillBeforeWrite || (task === "T3" && r.skillsLoaded.includes(r.expectedSkill!))).length}/${rs.length}` : "–"; }).join(" | ")} |`);
+  out(`| ${label} | ${surface} | ${SKILL_TASKS.map((task) => { const rs = pick({ client, surface, task } as any); return rs.length ? `${rs.filter((r) => loadedBeforeWrite(r)).length}/${rs.length}` : "–"; }).join(" | ")} |`);
 out();
 out("## Upload paths per client");
 out();
@@ -113,6 +120,7 @@ const CAUSES: [string, RegExp][] = [
   ["input schema (wrong type, limit, missing field)", /Invalid input|needs /],
   ["get or entity: unknown ref", /No entity|No session|No scene|No adventure/],
   ["skill: unknown procedure name", /No procedure/],
+  ["reused tempKey in one draft", /tempKey/],
 ];
 const rejections = new Map<string, Map<string, number>>();
 for (const r of runs) {

@@ -1,0 +1,63 @@
+{
+ "id": "sol-E-T7-1",
+ "client": "sol",
+ "surface": "E",
+ "task": "T7",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 12,
+ "rejected": 1,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 2862,
+ "toolSequence": [
+  "skill",
+  "skill:debrief",
+  "find",
+  "find",
+  "get",
+  "find",
+  "skill:map-speakers",
+  "get",
+  "find",
+  "debrief_add!rejected",
+  "story_commit",
+  "get"
+ ],
+ "skillsLoaded": [
+  "debrief",
+  "map-speakers"
+ ],
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 206265,
+  "cachedInput": 178560,
+  "output": 1360
+ },
+ "ms": 43593,
+ "errors": [],
+ "answer": "Saved Dana’s suspicion that Maren secretly runs the Hollow Choir as an unconfirmed player theory on the bell mystery thread, linked to Maren’s entry. Verified it’s saved. Nothing left to do."
+}

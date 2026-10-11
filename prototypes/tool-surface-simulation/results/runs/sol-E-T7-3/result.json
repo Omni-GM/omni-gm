@@ -1,0 +1,63 @@
+{
+ "id": "sol-E-T7-3",
+ "client": "sol",
+ "surface": "E",
+ "task": "T7",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 12,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1562,
+ "toolSequence": [
+  "skill",
+  "skill:debrief",
+  "get",
+  "find",
+  "find",
+  "get",
+  "find",
+  "skill:plank-questions",
+  "get",
+  "story_commit",
+  "get",
+  "find"
+ ],
+ "skillsLoaded": [
+  "debrief",
+  "plank-questions"
+ ],
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 210241,
+  "cachedInput": 175360,
+  "output": 1165
+ },
+ "ms": 36960,
+ "errors": [],
+ "answer": "Saved in Omni-GM as “Dana suspects Maren runs the Hollow Choir,” linked to Maren’s entry and marked as an unconfirmed player theory. Verified the link. Nothing left to do."
+}

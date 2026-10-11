@@ -1,0 +1,7 @@
+{"t":1791702733388,"surface":"E","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791702739442,"surface":"E","tool":"skill","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":1165}
+{"t":1791702742440,"surface":"E","tool":"skill","args":{"name":"prep-sparring"},"argsBytes":24,"outcome":"ok","partialRejections":0,"resultBytes":1465}
+{"t":1791702746116,"surface":"E","tool":"find","args":{"query":"Saltmere","limit":20},"argsBytes":31,"outcome":"ok","partialRejections":0,"resultBytes":3914}
+{"t":1791702746119,"surface":"E","tool":"find","args":{"query":"Sela Thorn","limit":20},"argsBytes":33,"outcome":"ok","partialRejections":0,"resultBytes":2713}
+{"t":1791702746120,"surface":"E","tool":"find","args":{"query":"Old Hesk","limit":20},"argsBytes":31,"outcome":"ok","partialRejections":0,"resultBytes":4466}
+{"t":1791702748877,"surface":"E","tool":"get","args":{"refs":["entity:e38","entity:e39","entity:e55","entity:e54","scene:s3/1","scene:s3/2","scene:s2/1","scene:s2/2"]},"argsBytes":114,"outcome":"ok","partialRejections":0,"resultBytes":10301}

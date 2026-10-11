@@ -1,0 +1,106 @@
+{
+ "id": "sonnet-E-T2-1",
+ "client": "sonnet",
+ "surface": "E",
+ "task": "T2",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 8,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 9513,
+ "toolSequence": [
+  "skill:debrief",
+  "get",
+  "get",
+  "find",
+  "skill:map-speakers",
+  "get",
+  "debrief_add",
+  "debrief_commit"
+ ],
+ "skillsLoaded": [
+  "debrief",
+  "map-speakers"
+ ],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 293404,
+  "cachedInput": 225023,
+  "output": 14678
+ },
+ "ms": 52303,
+ "errors": [],
+ "answer": "The draft for session 3 is in Omni-GM, and I haven't committed it. All 20 changes were accepted. They are in the draft, so you can ask me to show them in full.\n\n**Speakers**\n- Jonas is Teo, Dana is Vessa, and Priya is Oren.\n- \"Speaker 1\" is three different NPCs, which I told apart by content:\n  - Sela Thorn at the docks.\n  - An unnamed fisherman at the shore.\n  - Bram at the inn.\n- I kept the spelling \"Sela\". You said the dockhands use both Sela and Sella, so Sella is an alias.\n\n**What's in the draft**\n- **New NPCs:** Sela Thorn and Bram, each with `played_as` from how you voiced them.\n- **New place:** The Tarred Gull. Bram is at the Gull, and Sela was last seen at the Docks.\n- **Updated places:** Saltmere Mine (warm flooded tunnel, floating hymn pages) and the drowned chapel (bell tower and arches, pale shapes in rows).\n- **Clock:** The Hollow Choir rises goes from 2 to 3 of 6. The source is your aside, \"That's the choir clock at three of six.\"\n- **World facts:**\n  - Saltmere flooded the night the bell first rang, forty years ago (`npc_said`).\n  - Maren lost a brother to the bay (`npc_said`).\n  - The Kelp Mother is recorded as a rumor, not an NPC.\n- **Teo's goal:** The \"M. Brand\" margin note is narrated. That it's Mira's handwriting is Teo's claim, so it's marked as a player guess on his goal.\n- **Threads, both from player statements:**\n  - \"Is Maren in the cult?\" is a `player_guess` from Vessa and Oren. It doesn't touch the Maren NPC.\n  - \"Dive to the drowned chapel\" is a `player_plan`: Sela rows them out at first light and they dive at low tide.\n- I left out the rolls, damage, price haggling and the long rest.\n\n**Where the plots stand**\n- **Bell and choir:** The bell rang again, louder, and the congregation shapes appeared. The clock is at 3/6.\n- **Mira:** The hymn page puts her at Saltmere, but only Teo says it's her handwriting. The chapel is where the party wants to go next.\n- **Saltmere and the bell:** Sela's account ties the flood to the bell's first ringing. This builds on the archivist's line that the bell metal came from Saltmere.\n- **Maren:** Two players suspect her, while Bram says she lost a brother to the bay. The draft records both as separate claims and links nothing.\n- **Pale Abbot:** Nothing new this session. The thread is still open.\n\n**Open questions only you can answer**\n1. Is the clock at 3 meant as a change from 2 (one tick for tonight's ringing)? I took your aside as the new value.\n2. Do you want the \"Dive to the drowned chapel\" thread to stay a player plan, or is it a lead you've decided to keep open yourself?\n3. Should the Kelp Mother stay a pure rumor, or is she something real?\n4. Was Sela's remark that her grandmother said the water came up warm meant as a lead? I recorded it inside the Saltmere flood fact.\n\nI didn't wait for answers, as you asked. Nothing will be committed until you say the draft is right, and I'll apply any corrections first.\n\nThe session 3 debrief is committed as k60, with all 20 changes applied.\n\nMy four open questions are still unanswered. I recorded things as they were played: the clock moved from 2 to 3, the dive stays a player plan, the Kelp Mother stays a rumor, and Sela's grandmother remark sits inside the flood fact. Tell me if any of those should change. I'll apply the fix as a correction (basis game_master)."
+}

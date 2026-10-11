@@ -1,0 +1,6 @@
+{"t":1791702709788,"surface":"E","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791702711435,"surface":"E","tool":"skill","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":1165}
+{"t":1791702711437,"surface":"E","tool":"find","args":{"query":"Hesk"},"argsBytes":16,"outcome":"ok","partialRejections":0,"resultBytes":1194}
+{"t":1791702712491,"surface":"E","tool":"get","args":{"refs":["entity:e34","scene:s2/1","overview","schema"]},"argsBytes":56,"outcome":"ok","partialRejections":0,"resultBytes":8075}
+{"t":1791702714268,"surface":"E","tool":"find","args":{"query":"ferryman drowned ferry-house keeper","limit":20},"argsBytes":58,"outcome":"ok","partialRejections":0,"resultBytes":4444}
+{"t":1791702716928,"surface":"E","tool":"story_commit","args":{"reason":"Correct a committed mistake: Hesk only passed out in the water in session 2 and was revived by the ferry-house keeper; he is not dead.","changes":[{"change":{"op":"update","entity":"e34","properties":{"status":"alive"}},"basis":["game_master"],"sources":[{"quote":"Old Hesk isn't dead. He only passed out in the water in session 2, and the ferry-house keeper revived him."}],"why":"The session 2 debrief recorded him as dead, but he only passed out and was revived."}]},"argsBytes":480,"outcome":"ok","partialRejections":0,"resultBytes":37}

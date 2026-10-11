@@ -1,0 +1,77 @@
+{
+ "id": "sonnet-E-T1-3",
+ "client": "sonnet",
+ "surface": "E",
+ "task": "T1",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 8,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1607,
+ "toolSequence": [
+  "skill",
+  "find",
+  "skill:split-scenes",
+  "skill:map-speakers",
+  "get",
+  "session_create",
+  "transcript_upload_url",
+  "scenes_set"
+ ],
+ "skillsLoaded": [
+  "split-scenes",
+  "map-speakers"
+ ],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 128716,
+  "cachedInput": 115586,
+  "output": 2615
+ },
+ "ms": 23463,
+ "errors": [],
+ "answer": "I created session 3 (played 2026-10-10), uploaded the transcript (5,895 bytes), and stored four scenes. I haven't started a debrief.\n\n**Scenes**\n1. **Sela Thorn at pier four** (0:00:05): The party meets Sela, who offers a row for two silver but not at night. She says Saltmere flooded with warm water the night the bell first rang.\n2. **The flooded Saltmere Mine** (0:05:48): The party finds hymn-book pages in warm black water. One is marked \"M. Brand\", which Teo recognises as his sister Mira's handwriting. Oren takes 2 damage.\n3. **Midnight at the drowned chapel** (0:13:40): The bell rings twelve times, the humming is louder, and pale shapes stand in rows under the water. The party flees.\n4. **Stew and a plan at the Tarred Gull** (0:19:50): The party plans to dive to the chapel at low tide tomorrow. Bram talks about Maren, and the party takes a long rest.\n\n**Speaker mapping**\n- **Players:** Jonas plays Teo, Dana plays Vessa, and Priya plays Oren. The GM narrates.\n- **\"Speaker 1\":** The transcription service files every NPC voice under this label. From context, the voices are:\n  - Sela Thorn (0:00:27–0:01:39).\n  - A fishermen's voice (0:14:24).\n  - Bram the innkeeper (0:20:41, 0:21:02).\n- **Spelling:** I kept \"Sela\", which the GM uses. At 0:01:06 the NPC and the GM both say \"Sella\".\n\n**What's left**\n- **Upload URL:** The tool's `uploadUrl` field and the token in its example command didn't match. I used the `uploadUrl` field, and the upload succeeded.\n- **Speaker 1 at 0:01:06:** This line (\"Sella's boat is the only one…\") is spoken by Sela, but she refers to herself in the third person. That could be a transcription slip or her manner. I left it as is.\n- **Scene gaps:** The transcript jumps from 0:01:39 to 0:05:48, from 0:07:28 to 0:13:40, and from 0:15:45 to 0:19:50. The scenes cover only what's transcribed.\n- **Debrief:** I haven't drafted one. The notes below are for when you ask for it.\n  - Dana and Priya guess Maren is in the cult. That is a player guess and can only touch a thread or goal.\n  - The party's plan to dive tomorrow with Sela is a player plan.\n  - At 0:15:24 the GM says \"(to himself) That's the choir clock at three of six.\" That looks like GM-only information, so I'd confirm it with you before it's recorded."
+}

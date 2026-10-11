@@ -591,6 +591,16 @@
     "played_as": "Huge, red beard, laughs at his own jokes, wipes the same mug while he talks",
     "status": "alive"
    }
+  },
+  {
+   "id": "e60",
+   "kind": "thread",
+   "name": "Is Maren Vosk running the Hollow Choir?",
+   "aliases": [],
+   "properties": {
+    "what_is_open": "Dana (Vessa) guesses the harbor-master Maren Vosk is in the cult and runs the Hollow Choir. Priya (Oren) agreed. Unconfirmed; the GM answered only \"You can think that.\"",
+    "status": "open"
+   }
   }
  ],
  "relationships": [
@@ -623,6 +633,16 @@
    "type": "is_at",
    "from": "e58",
    "to": "e57"
+  },
+  {
+   "type": "involves",
+   "from": "e60",
+   "to": "e19"
+  },
+  {
+   "type": "involves",
+   "from": "e60",
+   "to": "e23"
   }
  ],
  "debriefs": [
@@ -1438,6 +1458,11 @@
    "id": "k53",
    "kind": "debrief",
    "reason": "Debrief of session 3"
+  },
+  {
+   "id": "k59",
+   "kind": "correction",
+   "reason": "GM asked to keep Dana's session 3 theory about Maren on record; it was missed in the s3 debrief. Recorded as a thread because a player guess may not touch an NPC."
   }
  ],
  "history": [
@@ -2472,8 +2497,116 @@
    "commitId": "k53",
    "entityId": "e57",
    "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "new",
+    "tempKey": "marenguess",
+    "kind": "thread",
+    "name": "Is Maren Vosk running the Hollow Choir?",
+    "properties": {
+     "what_is_open": "Dana (Vessa) guesses the harbor-master Maren Vosk is in the cult and runs the Hollow Choir. Priya (Oren) agreed. Unconfirmed; the GM answered only \"You can think that.\"",
+     "status": "open"
+    }
+   },
+   "basis": [
+    "player_guess"
+   ],
+   "sources": [
+    {
+     "quote": "Okay, I bet the harbor-master is behind all this. Maren wanted us gone from day one. She's in the cult, I'm calling it.",
+     "at": "0:07:03"
+    },
+    {
+     "quote": "Yeah, Maren is totally running the choir.",
+     "at": "0:07:12"
+    }
+   ],
+   "why": "Dana's theory about Maren needs to be remembered as a player guess, not a fact.",
+   "commitId": "k59",
+   "entityId": "e60"
+  },
+  {
+   "change": {
+    "op": "relate",
+    "type": "involves",
+    "from": "$marenguess",
+    "to": "e19"
+   },
+   "basis": [
+    "player_guess"
+   ],
+   "sources": [
+    {
+     "quote": "Okay, I bet the harbor-master is behind all this. Maren wanted us gone from day one.",
+     "at": "0:07:03"
+    }
+   ],
+   "why": "The thread is about Maren.",
+   "commitId": "k59",
+   "entityId": "e60"
+  },
+  {
+   "change": {
+    "op": "relate",
+    "type": "involves",
+    "from": "$marenguess",
+    "to": "e19"
+   },
+   "basis": [
+    "player_guess"
+   ],
+   "sources": [
+    {
+     "quote": "Okay, I bet the harbor-master is behind all this. Maren wanted us gone from day one.",
+     "at": "0:07:03"
+    }
+   ],
+   "why": "The thread is about Maren.",
+   "commitId": "k59",
+   "entityId": "e19"
+  },
+  {
+   "change": {
+    "op": "relate",
+    "type": "involves",
+    "from": "$marenguess",
+    "to": "e23"
+   },
+   "basis": [
+    "player_guess"
+   ],
+   "sources": [
+    {
+     "quote": "Yeah, Maren is totally running the choir.",
+     "at": "0:07:12"
+    }
+   ],
+   "why": "The thread is about who is behind the Hollow Choir.",
+   "commitId": "k59",
+   "entityId": "e60"
+  },
+  {
+   "change": {
+    "op": "relate",
+    "type": "involves",
+    "from": "$marenguess",
+    "to": "e23"
+   },
+   "basis": [
+    "player_guess"
+   ],
+   "sources": [
+    {
+     "quote": "Yeah, Maren is totally running the choir.",
+     "at": "0:07:12"
+    }
+   ],
+   "why": "The thread is about who is behind the Hollow Choir.",
+   "commitId": "k59",
+   "entityId": "e23"
   }
  ],
  "uploads": {},
- "nextId": 59
+ "nextId": 61
 }

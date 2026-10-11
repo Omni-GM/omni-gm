@@ -1,0 +1,77 @@
+{
+ "id": "sonnet-E-T1-1",
+ "client": "sonnet",
+ "surface": "E",
+ "task": "T1",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 8,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1764,
+ "toolSequence": [
+  "skill",
+  "get",
+  "skill:split-scenes",
+  "skill:map-speakers",
+  "session_create",
+  "transcript_upload_url",
+  "get",
+  "scenes_set"
+ ],
+ "skillsLoaded": [
+  "split-scenes",
+  "map-speakers"
+ ],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 122785,
+  "cachedInput": 103244,
+  "output": 2519
+ },
+ "ms": 24859,
+ "errors": [],
+ "answer": "Session 3 (2026-10-10) is now in Omni-GM as `s3`. The transcript is uploaded (5,895 bytes) and split into 4 scenes. I haven't started the debrief.\n\n**Scenes**\n1. **Sela Thorn at pier four** (0:00:05): the party meets Sela, who will row them but never at night.\n2. **Hymn pages in the Saltmere Mine** (0:05:48): the party finds a hymn-book page with \"M. Brand\" in the margin.\n3. **Midnight bell at the drowned chapel** (0:13:40): the bell rings twelve times, pale shapes appear under the water, and the party flees.\n4. **Plan for the dive at the Tarred Gull** (0:19:50): the party plans to dive to the chapel at first light, talks with Bram, and takes a long rest.\n\n**Speakers**\n- Jonas plays Teo, Dana plays Vessa and Priya plays Oren.\n- \"Speaker 1\" is three NPC voices, which I assigned from context:\n  - Sela Thorn at 0:00:27–0:01:26.\n  - An unnamed fisherman at 0:14:24 (the Kelp Mother warning).\n  - Bram the innkeeper at 0:20:41–0:21:02.\n- I kept \"Sela\" as the spelling. The GM says the dockhands use \"Sela\" and \"Sella\" both ways.\n- The GM's aside at 0:15:24, \"that's the choir clock at three of six\", is a clock reference for the debrief.\n\n**Still open**\n- **Debrief:** you asked only for the upload and scene split, so I didn't start it. It needs your review before anything is committed.\n- **Possible conflict for the debrief:** Dana and Priya's guess that Maren leads the cult is a player guess, which can only touch a thread or goal. Bram's remarks about Maren point the other way.\n- **Upload URL:** the tool returned two different URLs, one in `uploadUrl` and one in the `howTo` example. I used `uploadUrl`, and the server confirmed \"Stored 5895 bytes for s3.\""
+}

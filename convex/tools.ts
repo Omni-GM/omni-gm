@@ -70,7 +70,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "debrief_drop",
     description:
-      "Drop kept changes from a draft by changeIds. Refuses a drop that leaves invalid retained changes and lists their ids and reasons. Returns the draft.",
+      "Drop kept changes from a draft by changeIds. Refuses a drop that leaves invalid retained changes and names them by scene and subject. Returns the draft.",
     fn: internal.debrief.drop,
     identityArg: "caller",
     args: dropArgs,

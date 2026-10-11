@@ -335,7 +335,9 @@ test("dropping a parent refuses to break dependants and the retained draft can s
       session: s.id,
       changeIds: [r.draft.changes[0].id],
     }),
-  ).rejects.toThrow("c2");
+  ).rejects.toThrow(
+    '"text":"Drop the dependent changes first: change Sera Venn (scene 1)."',
+  );
   expect((await c.call("find", { types: ["entity", "source"] })).hits).toEqual(
     [],
   );

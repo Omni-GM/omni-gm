@@ -1,0 +1,33 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-upload-page
+
+ ❯ tests/upload-page.test.ts (4 tests | 1 failed) 346ms
+   × the page exchanges its sign-in code through the site with its own client and returns only the access token 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/upload-page.test.ts > the page exchanges its sign-in code through the site with its own client and returns only the access token
+AssertionError: expected 404 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 404
+
+ ❯ tests/upload-page.test.ts:102:28
+    100|     }),
+    101|   });
+    102|   expect(exchanged.status).toBe(200);
+       |                            ^
+    103|   expect(await exchanged.json()).toEqual({
+    104|     access_token: "invented-access-token",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed (4)
+   Start at  12:38:22
+   Duration  549ms (transform 259ms, setup 0ms, import 91ms, tests 346ms, environment 0ms)
+

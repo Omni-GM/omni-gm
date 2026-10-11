@@ -4,7 +4,7 @@ import { components } from "./_generated/api";
 import { httpAction } from "./_generated/server";
 import { instructions } from "./skills";
 import { tools } from "./tools";
-import { client, page } from "./uploadPage";
+import { client, page, token } from "./uploadPage";
 import { download, pageSessionApi, upload } from "./uploads";
 
 const gateway = new McpGateway(components.mcpGateway);
@@ -38,6 +38,7 @@ for (const path of [
 http.route({ path: "/upload", method: "PUT", handler: upload });
 http.route({ path: "/upload", method: "POST", handler: upload });
 http.route({ path: "/upload-page", method: "GET", handler: page });
+http.route({ path: "/upload-page/token", method: "POST", handler: token });
 http.route({
   path: "/upload-page/client.json",
   method: "GET",

@@ -1,4 +1,4 @@
-import { expect, test } from "vitest";
+import { afterEach, expect, test, vi } from "vitest";
 import { client } from "./mcp-client";
 
 async function sessionWithLinks(c = client()) {
@@ -73,4 +73,52 @@ test("split-scenes and the upload tool tell a client without a shell to hand ove
     (t: { name: string }) => t.name === "transcript_upload_url",
   );
   expect(upload.description).toContain("pageUrl");
+});
+
+afterEach(() => {
+  vi.unstubAllGlobals();
+  vi.unstubAllEnvs();
+});
+
+test("the page exchanges its sign-in code through the site with its own client and returns only the access token", async () => {
+  vi.stubEnv("WORKOS_AUTHKIT_DOMAIN", "https://authkit.example.com");
+  const authkit = vi.fn(async (_url: string, _init: RequestInit) =>
+    Response.json({
+      access_token: "invented-access-token",
+      refresh_token: "invented-refresh-token",
+      user: { email: "gm@example.com" },
+    }),
+  );
+  vi.stubGlobal("fetch", authkit);
+  const c = client();
+  const exchanged = await c.t.fetch("/upload-page/token", {
+    method: "POST",
+    body: new URLSearchParams({
+      code: "invented-code",
+      code_verifier: "invented-verifier",
+      client_id: "https://attacker.example.com/client.json",
+    }),
+  });
+  expect(exchanged.status).toBe(200);
+  expect(await exchanged.json()).toEqual({
+    access_token: "invented-access-token",
+  });
+  const [url, init] = authkit.mock.calls[0];
+  expect(url).toBe("https://authkit.example.com/oauth2/token");
+  expect(Object.fromEntries(new URLSearchParams(String(init.body)))).toEqual({
+    grant_type: "authorization_code",
+    code: "invented-code",
+    code_verifier: "invented-verifier",
+    client_id: "https://test.convex.site/upload-page/client.json",
+    redirect_uri: "https://test.convex.site/upload-page",
+  });
+
+  authkit.mockResolvedValueOnce(
+    Response.json({ error: "invalid_grant" }, { status: 400 }),
+  );
+  const refused = await c.t.fetch("/upload-page/token", {
+    method: "POST",
+    body: new URLSearchParams({ code: "used", code_verifier: "x" }),
+  });
+  expect(refused.status).toBe(400);
 });

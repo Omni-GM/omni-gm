@@ -15,11 +15,14 @@ function clientMetadata() {
   };
 }
 
+function authkit(): string {
+  return process.env.WORKOS_AUTHKIT_DOMAIN ?? "";
+}
+
 function pageConfig() {
-  const authkit = process.env.WORKOS_AUTHKIT_DOMAIN ?? "";
   return {
-    authorize: `${authkit}/oauth2/authorize`,
-    token: `${authkit}/oauth2/token`,
+    authorize: `${authkit()}/oauth2/authorize`,
+    token: `${siteUrl()}${pagePath}/token`,
     clientId: `${siteUrl()}${clientPath}`,
     redirectUri: `${siteUrl()}${pagePath}`,
     api: `${siteUrl()}${pagePath}/session`,
@@ -30,6 +33,7 @@ const script = `
 const params = new URLSearchParams(location.search);
 const tokenKey = "omni-gm-upload-token";
 const pkceKey = "omni-gm-upload-pkce";
+const switchKey = "omni-gm-upload-switch-account";
 let session = params.get("session");
 
 function show(view, message) {
@@ -57,10 +61,11 @@ async function signIn() {
     client_id: config.clientId,
     redirect_uri: config.redirectUri,
     response_type: "code",
-    scope: "openid profile email",
+    scope: "openid",
     code_challenge: challenge,
     code_challenge_method: "S256",
     state,
+    ...(sessionStorage.getItem(switchKey) ? { prompt: "login" } : {}),
   }).toString();
   location.assign(url.toString());
 }
@@ -73,20 +78,19 @@ async function finishSignIn() {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
-      grant_type: "authorization_code",
       code: params.get("code"),
-      redirect_uri: config.redirectUri,
-      client_id: config.clientId,
       code_verifier: saved.verifier,
     }),
   });
   if (!response.ok) throw new Error("The sign-in failed. Sign in again.");
   sessionStorage.setItem(tokenKey, (await response.json()).access_token);
+  sessionStorage.removeItem(switchKey);
   session = saved.session;
   history.replaceState(null, "", config.redirectUri + "?session=" + encodeURIComponent(session));
 }
 function signOut() {
   sessionStorage.removeItem(tokenKey);
+  sessionStorage.setItem(switchKey, "1");
   show("signin", "Sign in to upload this session's transcript.");
 }
 async function request(method, body) {
@@ -122,7 +126,8 @@ async function upload(file) {
 }
 
 document.getElementById("signin-button").addEventListener("click", signIn);
-document.getElementById("signout-button").addEventListener("click", signOut);
+for (const button of document.querySelectorAll(".signout"))
+  button.addEventListener("click", signOut);
 const drop = document.getElementById("drop");
 const input = document.getElementById("file");
 input.addEventListener("change", () => upload(input.files[0]));
@@ -136,6 +141,10 @@ drop.addEventListener("drop", (event) => {
 
 (async () => {
   try {
+    if (params.has("error")) {
+      session = JSON.parse(sessionStorage.getItem(pkceKey) || "{}").session ?? session;
+      return show("signin", "The sign-in did not finish. Sign in again.");
+    }
     if (params.has("code")) await finishSignIn();
     if (!session) return show("refused", "This link has no session. Ask your AI client for a new upload link.");
     if (!sessionStorage.getItem(tokenKey)) return show("signin", "Sign in to upload this session's transcript.");
@@ -155,6 +164,8 @@ p { margin: 0; line-height: 1.5; }
 button, label.button { justify-self: start; font: inherit; padding: 0.5rem 1rem; border-radius: 0.5rem; border: 1px solid currentColor; background: none; color: inherit; cursor: pointer; }
 #drop { display: grid; gap: 0.75rem; place-items: center; padding: 2.5rem 1rem; border: 2px dashed GrayText; border-radius: 0.75rem; text-align: center; }
 #drop.over { border-color: Highlight; }
+#drop .button { justify-self: center; }
+section { display: grid; gap: 1rem; }
 #file { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .muted { color: GrayText; font-size: 0.875rem; }
 [hidden] { display: none !important; }
@@ -179,7 +190,10 @@ function html(): string {
     <p id="signin-message"></p>
     <button id="signin-button" type="button">Sign in</button>
   </section>
-  <section data-view="refused" hidden><p id="refused-message"></p></section>
+  <section data-view="refused" hidden>
+    <p id="refused-message"></p>
+    <button class="signout" type="button">Sign out</button>
+  </section>
   <section data-view="ready" hidden>
     <div id="drop">
       <p id="ready-message"></p>
@@ -188,7 +202,7 @@ function html(): string {
       <input id="file" type="file" accept=".txt,text/plain">
       <p class="muted">UTF-8 lines like [00:01:10] Speaker: text, at most 2 MB.</p>
     </div>
-    <button id="signout-button" type="button">Sign out</button>
+    <button class="signout" type="button">Sign out</button>
   </section>
   <section data-view="busy" hidden><p id="busy-message"></p></section>
   <section data-view="done" hidden><p id="done-message"></p></section>
@@ -208,3 +222,24 @@ export const page = httpAction(async () => {
 });
 
 export const client = httpAction(async () => Response.json(clientMetadata()));
+
+export const token = httpAction(async (_ctx, request) => {
+  const form = new URLSearchParams(await request.text());
+  const response = await fetch(`${authkit()}/oauth2/token`, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      grant_type: "authorization_code",
+      code: form.get("code") ?? "",
+      code_verifier: form.get("code_verifier") ?? "",
+      client_id: `${siteUrl()}${clientPath}`,
+      redirect_uri: `${siteUrl()}${pagePath}`,
+    }),
+  });
+  if (!response.ok) return new Response("Sign-in failed", { status: 400 });
+  const { access_token } = await response.json();
+  return Response.json(
+    { access_token },
+    { headers: { "Cache-Control": "no-store" } },
+  );
+});

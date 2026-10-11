@@ -18,5 +18,6 @@ The prototype is a procedure, not code: two prompts the game master runs in thei
 2. Give it `debrief.md`, `story-state-changes.md`, the session transcript, and the story state before the session. Without a store, the story state before the session is the previous session note.
 3. Review the draft scene by scene and correct it by talking to the AI. Then call it committed.
 4. In the same or a new conversation, give it `frame-talk.md` and the committed debrief, and answer its questions.
+5. Give it `prep-sparring.md` and your session-note template, and prep the session with it. It ends with your session note, assembled from your own decisions.
 
 Real session material and the drafts it produces stay in the game master's private notes, never in this repository.

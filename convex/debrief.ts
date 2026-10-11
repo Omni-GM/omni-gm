@@ -10,12 +10,12 @@ import {
   draft,
   type Entity,
   type History,
-  kinds,
   type Proposed,
   proposed,
   type Relationship,
-  relationshipTypes,
+  type SchemaInfo,
   scene,
+  schemaFor,
   seconds,
   sessionInfo,
 } from "./model";
@@ -106,7 +106,11 @@ class DraftState {
   readonly entities = new Map<string, Entity>();
   readonly temps = new Map<string, string>();
   readonly relationships: Relationship[];
-  constructor(entities: Entity[], relationships: Relationship[]) {
+  constructor(
+    entities: Entity[],
+    relationships: Relationship[],
+    readonly schema: SchemaInfo,
+  ) {
     for (const entity of entities) this.entities.set(entity.id, entity);
     this.relationships = [...relationships];
   }
@@ -127,6 +131,7 @@ class DraftState {
     return entity;
   }
   properties(kind: string, properties: Record<string, string | number>): void {
+    const kinds = this.schema.kinds;
     const fields = kinds[kind];
     if (!Object.hasOwn(kinds, kind))
       throw new ConvexError(`Allowed kinds: ${Object.keys(kinds).join(", ")}`);
@@ -202,7 +207,8 @@ class DraftState {
       this.entities.set(before.id, after);
       return { before, after, ids: [before.id] };
     }
-    const type = relationshipTypes[op.type as keyof typeof relationshipTypes];
+    const relationshipTypes = this.schema.relationshipTypes;
+    const type = relationshipTypes[op.type];
     if (!Object.hasOwn(relationshipTypes, op.type))
       throw new ConvexError(
         `Allowed relationship types: ${Object.keys(relationshipTypes).join(", ")}`,
@@ -231,15 +237,15 @@ class DraftState {
 }
 async function stateFor(
   ctx: QueryCtx,
-  campaign: Id<"campaigns">,
+  campaign: Doc<"campaigns">,
 ): Promise<DraftState> {
   const entities = await ctx.db
     .query("entities")
-    .withIndex("by_campaign", (q) => q.eq("campaign", campaign))
+    .withIndex("by_campaign", (q) => q.eq("campaign", campaign._id))
     .take(2001);
   const relationships = await ctx.db
     .query("relationships")
-    .withIndex("by_campaign", (q) => q.eq("campaign", campaign))
+    .withIndex("by_campaign", (q) => q.eq("campaign", campaign._id))
     .take(2001);
   if (entities.length > 2000 || relationships.length > 2000)
     throw new ConvexError(
@@ -254,6 +260,7 @@ async function stateFor(
       properties: e.properties,
     })),
     relationships.map((r) => ({ type: r.type, from: r.from, to: r.to })),
+    schemaFor(campaign),
   );
 }
 function validScene(s: Doc<"sessions">, p: Proposed): void {
@@ -285,7 +292,7 @@ export const add = internalMutation({
       throw new ConvexError("Use at most 500 draft changes");
     if (encodedSize(lastTime ?? s.lastTime) > 16_000)
       throw new ConvexError("Keep lastTime within 16 KB");
-    const state = await stateFor(ctx, campaign._id);
+    const state = await stateFor(ctx, campaign);
     for (const p of s.changes) {
       validScene(s, p);
       state.apply(p, `draft-${p.id}`);
@@ -342,7 +349,7 @@ export const drop = internalMutation({
     if (changeIds.some((id) => !s.changes.some((p) => p.id === id)))
       throw new ConvexError("Change not found in this draft");
     const changes = s.changes.filter((p) => !changeIds.includes(p.id));
-    const state = await stateFor(ctx, campaign._id);
+    const state = await stateFor(ctx, campaign);
     const dependentIds: string[] = [];
     for (const p of changes) {
       try {
@@ -420,7 +427,7 @@ export const commit = internalMutation({
     unlocked(s);
     if (!s.changes.length || !s.lastTime.trim())
       throw new ConvexError("A commit needs draft changes and lastTime");
-    const state = await stateFor(ctx, campaign._id);
+    const state = await stateFor(ctx, campaign);
     const records = s.changes.map((p) => {
       validScene(s, p);
       return { p, ...state.apply(p, crypto.randomUUID()) };

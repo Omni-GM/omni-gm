@@ -873,3 +873,380 @@ test("the advertised basis schema repeats the guess rule, and private identity i
   expect(tool.inputSchema.properties.caller).toBeUndefined();
   expect(tool.outputSchema.type).toBe("object");
 });
+
+test("a deliberate property addition is immediately usable and recorded with its reason", async () => {
+  const { c, s } = await prepared();
+  const ops = [
+    {
+      op: "add_property",
+      kind: "npc",
+      key: "manner",
+      type: "text",
+      description: "How the NPC greets strangers",
+    },
+  ];
+  const changed = await c.call("schema_change", {
+    reason: "Remember greetings at the game master's request",
+    ops,
+  });
+  expect(changed.schema.kinds.npc.manner).toBe("text");
+  const added = await c.call("debrief_add", {
+    session: s.id,
+    lastTime: "At the ferry.",
+    changes: [
+      {
+        ...npcChange(),
+        change: {
+          ...npcChange().change,
+          properties: { manner: "Bows before speaking" },
+        },
+      },
+    ],
+  });
+  expect(added.rejected).toEqual([]);
+  await c.call("debrief_commit", { session: s.id });
+  const ref = (await c.call("find", { types: ["entity"], kinds: ["npc"] }))
+    .hits[0].ref;
+  expect((await c.call("get", { ref })).properties.manner).toBe(
+    "Bows before speaking",
+  );
+  const entry = (await c.call("get", { ref: "overview" })).commits.find(
+    (entry: { id: string }) => entry.id === changed.commit,
+  );
+  expect(entry.kind).toBe("schema");
+  expect(entry.reason).toBe("Remember greetings at the game master's request");
+  expect(entry.schemaChange.ops).toEqual(ops);
+  expect(entry.schemaChange.before.kinds.npc.manner).toBeUndefined();
+  expect(entry.schemaChange.after.kinds.npc.manner).toBe("text");
+});
+
+test("retiring a property rejects new writes and pending commits while preserving old records", async () => {
+  const { c, s } = await prepared();
+  await c.call("debrief_add", {
+    session: s.id,
+    lastTime: "At the ferry.",
+    changes: [npcChange()],
+  });
+  await c.call("debrief_commit", { session: s.id });
+  const ref = (await c.call("find", { types: ["entity"] })).hits[0].ref;
+  const original = await c.call("get", { ref });
+  const pending = await prepared(c);
+  await c.call("debrief_add", {
+    session: pending.s.id,
+    lastTime: "Pending voice.",
+    changes: [
+      {
+        ...npcChange(),
+        change: {
+          op: "update",
+          entity: ref,
+          properties: { playedAs: "Whispers" },
+        },
+      },
+    ],
+  });
+  const retired = await c.call("schema_change", {
+    reason: "The game master no longer records voices",
+    ops: [{ op: "retire_property", kind: "npc", key: "playedAs" }],
+  });
+  expect(retired.schema.kinds.npc.playedAs).toBeUndefined();
+  expect(retired.schema.retiredProperties.npc.playedAs).toBe("text");
+  expect(await c.call("get", { ref })).toEqual(original);
+  await expect(
+    c.call("debrief_commit", { session: pending.s.id }),
+  ).rejects.toThrow("Allowed properties");
+  await c.call("debrief_drop", { session: pending.s.id, changeIds: ["c1"] });
+  const added = await c.call("debrief_add", {
+    session: pending.s.id,
+    lastTime: "Role kept; old voice remains.",
+    changes: [
+      npcChange("New NPC"),
+      {
+        ...npcChange(),
+        change: {
+          op: "update",
+          entity: ref,
+          properties: { playedAs: "Whispers" },
+        },
+      },
+      {
+        ...npcChange(),
+        change: {
+          op: "update",
+          entity: ref,
+          properties: { role: "Ferry keeper" },
+        },
+      },
+    ],
+  });
+  expect(added.rejected.map((r: { index: number }) => r.index)).toEqual([0, 1]);
+  expect(added.rejected[0].reason).toContain("Allowed properties");
+  expect(added.rejected[0].reason).not.toContain("playedAs");
+  await c.call("debrief_commit", { session: pending.s.id });
+  const updated = await c.call("get", { ref });
+  expect(updated.properties).toEqual({
+    playedAs: "Softly, with a snapped final word",
+    role: "Ferry keeper",
+  });
+  expect(updated.history[0]).toEqual(original.history[0]);
+  const history = (await c.call("get", { ref: "overview" })).commits.find(
+    (entry: { id: string }) => entry.id === retired.commit,
+  );
+  expect(history.reason).toBe("The game master no longer records voices");
+  expect(history.schemaChange.ops).toEqual([
+    { op: "retire_property", kind: "npc", key: "playedAs" },
+  ]);
+});
+
+test("a deliberate relationship type is usable with its labels and allowed endpoints", async () => {
+  const { c, s } = await prepared();
+  const ops = [
+    {
+      op: "add_relationship_type",
+      type: "mentors",
+      from: ["npc"],
+      to: ["player_character"],
+      label: "mentors",
+      inverseLabel: "mentored by",
+      description: "Who taught the character",
+    },
+  ];
+  const changed = await c.call("schema_change", {
+    reason: "The game master wants to remember teachers",
+    ops,
+  });
+  const added = await c.call("debrief_add", {
+    session: s.id,
+    lastTime: "Sera mentors Rowan.",
+    changes: [
+      npcChange(),
+      {
+        ...npcChange(),
+        change: {
+          op: "new",
+          tempKey: "rowan",
+          kind: "player_character",
+          name: "Rowan",
+        },
+      },
+      {
+        ...npcChange(),
+        change: { op: "relate", type: "mentors", from: "$sera", to: "$rowan" },
+      },
+      {
+        ...npcChange(),
+        change: { op: "relate", type: "mentors", from: "$rowan", to: "$sera" },
+      },
+    ],
+  });
+  expect(added.rejected).toHaveLength(1);
+  expect(added.rejected[0].reason).toContain(
+    "Allowed endpoints for mentors: npc -> player_character",
+  );
+  await c.call("debrief_commit", { session: s.id });
+  const found = await c.call("find", {
+    types: ["entity"],
+    kinds: ["player_character"],
+  });
+  const rowan = await c.call("get", { ref: found.hits[0].ref });
+  expect(rowan.relationships).toEqual([
+    expect.objectContaining({
+      type: "mentors",
+      label: "mentors",
+      inverseLabel: "mentored by",
+      to: rowan.id,
+    }),
+  ]);
+  expect(rowan.history).toHaveLength(2);
+  const entry = (await c.call("get", { ref: "overview" })).commits.find(
+    (entry: { id: string }) => entry.id === changed.commit,
+  );
+  expect(entry.reason).toBe("The game master wants to remember teachers");
+  expect(entry.schemaChange.ops).toEqual(ops);
+});
+
+test("retired property names cannot be reused for a different definition", async () => {
+  const { c } = await prepared();
+  await c.call("schema_change", {
+    reason: "Retire the old voice field",
+    ops: [{ op: "retire_property", kind: "npc", key: "playedAs" }],
+  });
+  const before = await c.call("get", { refs: ["schema", "overview"] });
+  await expect(
+    c.call("schema_change", {
+      reason: "Try to reuse it",
+      ops: [
+        {
+          op: "add_property",
+          kind: "npc",
+          key: "playedAs",
+          type: "number",
+          description: "Different meaning",
+        },
+      ],
+    }),
+  ).rejects.toThrow("retired");
+  expect(await c.call("get", { refs: ["schema", "overview"] })).toEqual(before);
+});
+
+test("schema operations reject invalid definitions atomically and cannot borrow prototype names", async () => {
+  const { c } = await prepared();
+  const before = await c.call("get", { refs: ["schema", "overview"] });
+  const property = {
+    op: "add_property",
+    kind: "npc",
+    key: "greeting",
+    type: "text",
+    description: "Greeting",
+  };
+  const invalid = [
+    { ...property, key: "constructor" },
+    { ...property, key: "name" },
+    { ...property, key: "mood", type: "enum", enumValues: ["calm", "calm"] },
+    { ...property, key: "mood", type: "enum", enumValues: [" "] },
+    { ...property, key: "mood", type: "enum", enumValues: [] },
+    { ...property, key: "mood", enumValues: ["calm"] },
+    { ...property, key: " ", description: "Blank" },
+    { ...property, key: "valid", description: " " },
+    { ...property, kind: "new_kind" },
+    { op: "retire_property", kind: "npc", key: "missing" },
+    {
+      op: "add_relationship_type",
+      type: "constructor",
+      from: ["npc"],
+      to: ["place"],
+      label: "here",
+      inverseLabel: "there",
+      description: "Invalid name",
+    },
+    {
+      op: "add_relationship_type",
+      type: "visits",
+      from: ["npc"],
+      to: ["new_kind"],
+      label: "visits",
+      inverseLabel: "visited by",
+      description: "Unknown endpoint",
+    },
+  ];
+  for (const op of invalid) {
+    await expect(
+      c.call("schema_change", {
+        reason: "Invented invalid definition",
+        ops: [property, op],
+      }),
+    ).rejects.toThrow();
+    expect(await c.call("get", { refs: ["schema", "overview"] })).toEqual(
+      before,
+    );
+  }
+  await expect(
+    c.call("schema_change", { reason: " ", ops: [property] }),
+  ).rejects.toThrow("reason");
+  await expect(
+    c.call("schema_change", { reason: "No operations", ops: [] }),
+  ).rejects.toThrow("operation");
+});
+
+test("schema additions validate enum and number writes and remain private to the caller", async () => {
+  const { c, s } = await prepared();
+  const other = client("other-invented-gm", c.t);
+  await other.init();
+  await other.call("adventure_start", {
+    name: "Other campaign",
+    reason: "Owner isolation proof",
+  });
+  await c.call("schema_change", {
+    reason: "Track patience on the game master's request",
+    ops: [
+      {
+        op: "add_property",
+        kind: "npc",
+        key: "patience",
+        type: "number",
+        description: "Story clock for patience",
+      },
+      {
+        op: "add_property",
+        kind: "npc",
+        key: "mood",
+        type: "enum",
+        enumValues: ["calm", "uneasy"],
+        description: "Mood in the scene",
+      },
+    ],
+  });
+  expect(
+    (await other.call("get", { ref: "schema" })).kinds.npc.patience,
+  ).toBeUndefined();
+  expect(
+    (await other.call("get", { ref: "overview" })).commits.map(
+      (entry: { kind: string }) => entry.kind,
+    ),
+  ).toEqual(["seed"]);
+  const added = await c.call("debrief_add", {
+    session: s.id,
+    lastTime: "Sera is uneasy.",
+    changes: [
+      {
+        ...npcChange(),
+        change: {
+          ...npcChange().change,
+          properties: { patience: 3, mood: "uneasy" },
+        },
+      },
+      {
+        ...npcChange(),
+        change: {
+          op: "update",
+          entity: "$sera",
+          properties: { mood: "angry" },
+        },
+      },
+      {
+        ...npcChange(),
+        change: {
+          op: "update",
+          entity: "$sera",
+          properties: { patience: "three" },
+        },
+      },
+    ],
+  });
+  expect(added.rejected.map((r: { index: number }) => r.index)).toEqual([1, 2]);
+  expect(added.rejected[0].reason).toContain("calm, uneasy");
+  expect(added.rejected[1].reason).toContain("number");
+  await c.call("debrief_commit", { session: s.id });
+  const ref = (await c.call("find", { types: ["entity"] })).hits[0].ref;
+  expect((await c.call("get", { ref })).properties).toEqual({
+    patience: 3,
+    mood: "uneasy",
+  });
+  const listed = await c.rpc("tools/list");
+  const tool = listed.result.tools.find(
+    (tool: { name: string }) => tool.name === "schema_change",
+  );
+  expect(tool.description).toContain("explicit request");
+  expect(tool.inputSchema.properties.caller).toBeUndefined();
+  expect(tool.outputSchema.type).toBe("object");
+});
+
+test("oversized schema changes fail without altering the definitions or history", async () => {
+  const { c } = await prepared();
+  const before = await c.call("get", { refs: ["schema", "overview"] });
+  await expect(
+    c.call("schema_change", {
+      reason: "Invented size proof",
+      ops: [
+        {
+          op: "add_property",
+          kind: "npc",
+          key: "greeting",
+          type: "text",
+          description: "x".repeat(33000),
+        },
+      ],
+    }),
+  ).rejects.toThrow("32 KB");
+  expect(await c.call("get", { refs: ["schema", "overview"] })).toEqual(before);
+});

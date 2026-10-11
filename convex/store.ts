@@ -8,10 +8,9 @@ import {
 } from "./_generated/server";
 import {
   adventure,
-  kinds,
   type ReadValue,
   readValue,
-  relationshipTypes,
+  schemaFor,
   seconds,
   sessionInfo,
 } from "./model";
@@ -147,7 +146,7 @@ async function read(
   campaign: Doc<"campaigns">,
   ref: string,
 ): Promise<ReadValue> {
-  if (ref === "schema") return { kinds, relationshipTypes };
+  if (ref === "schema") return schemaFor(campaign);
   if (ref === "overview") {
     const sessions = await ctx.db
       .query("sessions")
@@ -177,6 +176,7 @@ async function read(
         kind: c.kind,
         reason: c.reason,
         ...(c.session ? { session: c.session } : {}),
+        ...(c.schemaChange ? { schemaChange: c.schemaChange } : {}),
       })),
       currentAdventure: campaign.currentAdventure ?? null,
       lastTime: latestSession
@@ -255,11 +255,9 @@ async function read(
           type,
           from,
           to,
-          label:
-            relationshipTypes[type as keyof typeof relationshipTypes].label,
+          label: schemaFor(campaign).relationshipTypes[type].label,
           inverseLabel:
-            relationshipTypes[type as keyof typeof relationshipTypes]
-              .inverseLabel,
+            schemaFor(campaign).relationshipTypes[type].inverseLabel,
         }),
       ),
       history: history

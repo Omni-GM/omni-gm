@@ -1,0 +1,7 @@
+PREVIEW TARGET https://shiny-mink-854.convex.site
+PASS added text, enum, number and relationship definitions are immediately usable; invalid writes rejected
+PASS retirement rejects new and pending writes, preserves old values and history, permits unrelated updates
+PASS schema operations and reasons share the commit history with before/after definitions
+PASS invalid batch leaves no partial schema or history; retired names cannot be reused
+PROOF SESSION k57602vs8dh70qz3y5rn11k73x8g2ckc
+SCHEMA SDK E2E PASSED

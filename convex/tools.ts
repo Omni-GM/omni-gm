@@ -14,11 +14,21 @@ import {
   scenesArgs,
 } from "./debrief";
 import { adventure, sessionInfo } from "./model";
+import { schemaChangeArgs, schemaChangeResult } from "./schemaChanges";
 import { findArgs, findResult } from "./search";
 import { skillArgs, skillResult } from "./skills";
 import { adventureArgs, getArgs, getResult, sessionArgs } from "./store";
 import { uploadArgs, uploadResult } from "./uploads";
 export const tools: McpToolRegistration[] = [
+  defineMcpMutation({
+    name: "schema_change",
+    description:
+      "Change the campaign schema only on the game master’s explicit request. Add or retire a property, or add a relationship type. Every change records its reason; no new kinds, deletes or renames.",
+    fn: internal.schemaChanges.changeSchema,
+    identityArg: "caller",
+    args: schemaChangeArgs,
+    returns: schemaChangeResult,
+  }),
   defineMcpQuery({
     name: "skill",
     description:

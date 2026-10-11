@@ -1,9 +1,18 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
-import { draftChange, entity, history, relationship, scene } from "./model";
+import {
+  commit,
+  draftChange,
+  entity,
+  history,
+  relationship,
+  scene,
+  schemaInfo,
+} from "./model";
 export default defineSchema({
   campaigns: defineTable({
     owner: v.string(),
+    schema: v.optional(schemaInfo),
     currentAdventure: v.optional(v.id("adventures")),
   }).index("by_owner", ["owner"]),
   adventures: defineTable({
@@ -45,9 +54,10 @@ export default defineSchema({
     .index("by_campaign_and_to", ["campaign", "to"]),
   commits: defineTable({
     campaign: v.id("campaigns"),
-    kind: v.union(v.literal("seed"), v.literal("debrief")),
+    kind: commit.fields.kind,
     reason: v.string(),
     session: v.optional(v.string()),
+    schemaChange: commit.fields.schemaChange,
   }).index("by_campaign", ["campaign"]),
   history: defineTable({
     campaign: v.id("campaigns"),

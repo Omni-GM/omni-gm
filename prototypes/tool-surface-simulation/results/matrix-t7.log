@@ -1,0 +1,20 @@
+24 runs planned, 0 already done.
+sonnet-B-T7-1: PASS score=1.00 calls=7 rejected=0 tokens=62976/1777 
+sonnet-A-T7-1: PASS score=1.00 calls=6 rejected=0 tokens=56930/2205 
+sol-B-T7-1: PASS score=1.00 calls=10 rejected=0 tokens=148482/750 
+sol-A-T7-1: PASS score=1.00 calls=12 rejected=1 tokens=159463/1073 
+sonnet-C-T7-1: PASS score=1.00 calls=10 rejected=1 tokens=100959/3487 
+sonnet-D-T7-1: PASS score=1.00 calls=9 rejected=0 tokens=117050/2135 
+sonnet-A-T7-2: PASS score=1.00 calls=10 rejected=0 tokens=92454/3047 
+sol-D-T7-1: PASS score=1.00 calls=11 rejected=0 tokens=193071/929 
+sol-C-T7-1: PASS score=1.00 calls=17 rejected=1 tokens=260750/1545 
+sonnet-B-T7-2: PASS score=1.00 calls=6 rejected=0 tokens=64363/1833 
+sol-A-T7-2: PASS score=1.00 calls=11 rejected=1 tokens=155462/1094 
+sonnet-C-T7-2: PASS score=1.00 calls=9 rejected=0 tokens=76352/2367 
+sol-B-T7-2: PASS score=1.00 calls=9 rejected=0 tokens=146986/741 
+sonnet-D-T7-2: PASS score=1.00 calls=6 rejected=0 tokens=89099/2066 
+sonnet-A-T7-3: PASS score=1.00 calls=11 rejected=1 tokens=95124/3244 
+sol-C-T7-2: PASS score=1.00 calls=18 rejected=1 tokens=219828/1449 
+sonnet-B-T7-3: PASS score=1.00 calls=9 rejected=0 tokens=84166/2132 
+sol-D-T7-2: PASS score=1.00 calls=13 rejected=1 tokens=234149/1153 {"type":"error","message":"Reconnecting... 1/5 (stream disconnected before completion: stream error: stream disconnected before completion: stream closed before response.completed)"}
+sol-A-T7-3: PASS score=1.00 calls=13 rejected=1 tokens=192953/1314 

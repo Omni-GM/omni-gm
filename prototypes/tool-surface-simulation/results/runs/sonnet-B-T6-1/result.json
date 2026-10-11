@@ -1,0 +1,68 @@
+{
+ "id": "sonnet-B-T6-1",
+ "client": "sonnet",
+ "surface": "B",
+ "task": "T6",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Hesk alive",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "one correction commit with a reason",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate Hesk",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "nothing else changed",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "basis game_master",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 11,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 586,
+ "toolSequence": [
+  "list_entities",
+  "list_sessions",
+  "get_schema",
+  "get_entity",
+  "get_entity_history",
+  "search_transcripts",
+  "read_transcript",
+  "list_entities",
+  "search_transcripts",
+  "correct_story",
+  "search_transcripts"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 82665,
+  "cachedInput": 71622,
+  "output": 1233
+ },
+ "ms": 12492,
+ "errors": [],
+ "answer": "I changed Old Hesk's status from dead to alive (commit k59), recorded as your correction. Nothing else in the story state treated him as dead, and no transcript line says he died. The only line is Priya's \"Is he dead?\" in session 2.\n\nTwo things I left alone:\n- **Ferry-house keeper:** They aren't an entity in the story state. I didn't make one up, since you didn't describe them. If you want them recorded, tell me their name and how you played them.\n- **Hesk's location:** He has no \"last seen at\" place, and the ferry-house isn't a place entity either. If you want one, give me the details and I'll add it."
+}

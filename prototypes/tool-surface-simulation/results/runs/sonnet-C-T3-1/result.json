@@ -1,0 +1,75 @@
+{
+ "id": "sonnet-C-T3-1",
+ "client": "sonnet",
+ "surface": "C",
+ "task": "T3",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "mine: at least two facts",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela: whisper and gaze",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Hesk: 'river's angry since the bell'",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no writes",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Sela's flood story marked as her claim",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 14,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 298,
+ "toolSequence": [
+  "skill",
+  "find",
+  "find",
+  "find",
+  "skill:prep-sparring",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "find"
+ ],
+ "skillsLoaded": [
+  "prep-sparring"
+ ],
+ "expectedSkill": "prep-sparring",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 67919,
+  "cachedInput": 53171,
+  "output": 2403
+ },
+ "ms": 19141,
+ "errors": [],
+ "answer": "**1. What the players know about the Saltmere Mine**\n\n- **Archive annex, session 2 (0:08:40–0:08:50).** The archivist said the chapel's bell metal came from Saltmere. That is an NPC claim (entity e39). The archivist also said it is up the cliff path and has been closed for forty years.\n- **Sela, session 3 (0:01:26).** Sela claims Saltmere flooded the same night the bell first rang, forty years ago. She also says her grandmother told her the water came up warm (e55). It is only her claim and a family story.\n- **The mine, session 3 (0:06:02–0:06:55).**\n  - The entrance is a black mouth in the chalk with rotting timber and a rusted cart. Warm air comes out of it, smelling of old candle wax.\n  - The tunnel floods about thirty paces in, with warm black water. Hymn-book pages float on it and stick to the walls.\n  - Teo fished out a page with a hymn about the sea giving back what it takes. In the margin, in pencil, it says \"M. Brand\". Teo says it's Mira's handwriting, so the players believe she was there (e24).\n  - Oren took 2 damage from the bad air and is down to 11.\n  - Vessa's search roll of 9 found nothing more.\n- **Player guess, not fact.** Vessa and Oren suspect Maren, the harbor-master, of being in the cult and \"running the choir\" (0:07:03–0:07:12). You answered only \"You can think that.\" Nothing in the store backs it.\n\n**2. How you played Sela Thorn**\n\n- **Voice and manner.** She whispers, as if the water might hear her. She never looks anyone in the eye and keeps her gaze on the tide line (0:00:42, e54).\n- **Look.** She sits on an upturned skiff mending a net. She has a grey braid and a salt-stained coat, and she doesn't look up at first.\n- **What she does.**\n  - She says she'll row the party, but \"not at night. Never at night.\"\n  - She comes down to two silver after Oren's persuasion roll of 14.\n  - She calls herself \"Sella\" once, and you said the dockhands say it both ways. The store has \"Sella\" as an alias.\n  - She says hers is the only boat that goes near the bell water, because the others are scared.\n  - She shrugs and goes back to her net, and says she'll be at pier four at first light.\n- **Status.** She is alive and was last seen at Gullwick Docks. The party's plan is to have her row them out at first light to dive to the drowned chapel.\n\n**3. What Old Hesk said about the river**\n\n- **What he said.** Session 2, 0:00:14: \"Hold the rail. River's angry since the bell.\"\n- **Speaker label.** The transcript tags the line \"Speaker 1\", not \"GM\". The speaker mapping seems to be unresolved there. I'm assuming it is you voicing Hesk, since the line sits between your Hesk narration.\n- **Where it sits.** It is the only thing he says about the river in the store. This is the ferry scene (s2/1), in which a wave knocks him overboard.\n- **First meeting.** The store has nothing on Hesk before this scene. If you met him in session 1, that isn't in what I can see.\n- **What happened to him.** Oren pulled him out. He was grey, cold and not breathing \"that you can tell\". The party left him with the ferry-house keeper, and the store lists him as dead. It is unclear whether he is actually dead.\n\n**What's left**\n\n- Nothing needs your answer to finish these three. I didn't write anything to the store.\n- If you want the \"Speaker 1\" lines tied to you as GM, run the speaker-mapping step for sessions 2 and 3."
+}

@@ -1,0 +1,59 @@
+{
+ "id": "sonnet-A-T7-3",
+ "client": "sonnet",
+ "surface": "A",
+ "task": "T7",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 11,
+ "rejected": 1,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1964,
+ "toolSequence": [
+  "story_read:entities",
+  "story_read:schema",
+  "story_read:entities",
+  "story_read:entity",
+  "story_read:entities",
+  "story_read:entities",
+  "story_read:overview",
+  "story_read:transcript",
+  "story_read:transcript",
+  "debrief:open!rejected",
+  "story_correct"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 95124,
+  "cachedInput": 82771,
+  "output": 3244
+ },
+ "ms": 25320,
+ "errors": [],
+ "answer": "I recorded Dana's theory in Omni-GM, but as a new thread rather than a note on Maren herself. Omni-GM only lets a player guess go on a thread or a character goal, not on an NPC. The thread is \"Is Maren Vosk running the Hollow Choir?\" (status open). It's linked to Maren Vosk and raised by Vessa Quill, who is Dana's character.\n\n- **Source:** It's marked as a player guess, not a fact. The sources are Dana's line at 0:07:03 (\"She's in the cult, I'm calling it\") and Priya's agreement at 0:07:12. Priya (Oren) backed it, so the theory isn't Dana's alone.\n- **Contradicting NPC line:** At 0:21:02 an NPC says Maren has a good heart and lost a brother to the bay. I did not record that against the thread, because you didn't ask for it.\n- **Applied without review:** Session 3's debrief was already committed, so I couldn't draft it for your review. I applied it as a correction (commit k59), which takes effect immediately. If you'd rather have it worded differently or dropped, tell me and I'll change it.\n- **Left blank:** I left `next_step` and `deadline` empty. I also didn't link the thread to the \"Hollow Choir rises\" clock, because you didn't say they're connected."
+}

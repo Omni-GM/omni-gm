@@ -1,0 +1,146 @@
+{
+ "id": "sol-B-T2-1",
+ "client": "sol",
+ "surface": "B",
+ "task": "T2",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 51,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 15549,
+ "toolSequence": [
+  "get_frame",
+  "list_sessions",
+  "get_schema",
+  "list_entities",
+  "read_transcript",
+  "draft_show",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "draft_new_entity:Sela Thorn",
+  "draft_relate",
+  "draft_new_entity:Sela's offer of passage",
+  "draft_relate",
+  "draft_new_entity:Sela's account of Saltmere's flooding",
+  "draft_relate",
+  "draft_update_entity",
+  "draft_new_entity:Hymn page marked M. Brand at Saltmere",
+  "draft_relate",
+  "draft_update_entity",
+  "draft_new_entity:Is Maren involved with the Hollow Choir?",
+  "draft_update_entity",
+  "draft_new_entity:Unnamed fisherman at the chapel shore",
+  "draft_new_entity:The fishermen's Kelp Mother warning",
+  "draft_relate",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_new_entity:The Tarred Gull",
+  "draft_new_entity:Bram",
+  "draft_relate",
+  "draft_new_entity:Bram's account of Maren's brother",
+  "draft_relate",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_show",
+  "read_transcript",
+  "draft_commit",
+  "list_sessions"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 779989,
+  "cachedInput": 679168,
+  "output": 13239
+ },
+ "ms": 158859,
+ "errors": [],
+ "answer": "Session 3’s debrief is saved in Omni-GM as a draft: 27 changes across four scenes, with all 51 source quotes verified.\n\n[Read the full draft with sources and reasons](debrief-session-3.md)\n\n1. **A boat at pier four.** Add Sela Thorn, with “Sella” as an alias, and her whispered, wary manner. Record her offer of passage for two silver tomorrow at first light. Preserve her account of Saltmere’s flooding as attributed testimony.\n\n2. **Saltmere Mine.** Update the mine with its warm air, flooded tunnel, and hymn pages. Record the page marked “M. Brand.” Advance Teo’s goal with his identification of Mira’s handwriting, while keeping that identification unconfirmed. Add the players’ suspicion about Maren as an open thread.\n\n3. **The shore at midnight.** Record the exposed chapel ruins, twelve bell strokes, louder humming, and pale shapes that vanish when the bell stops. Advance the hidden Hollow Choir clock from **2/6 to 3/6**. Preserve the fisherman’s Kelp Mother warning as a rumor.\n\n4. **The Tarred Gull.** Add the tavern and Bram, including his manner at the table. Record his testimony about Maren’s lost brother. Capture the party’s plan to meet Sela and dive during daylight at low tide. Vessa’s intended purchases remain plans. Record all three characters ending the session at the inn.\n\nWhat’s left is your review and approval before committing. Omni-GM requires the GM to confirm the draft is right; nothing has been committed.\n\nCommitted all 27 changes. Omni-GM confirms session 3’s debrief is committed under `k67`."
+}

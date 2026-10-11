@@ -1,0 +1,3 @@
+{"t":1791702298195,"surface":"B","event":"start","tools":21,"uploadMode":"signed"}
+{"t":1791702299647,"surface":"B","tool":"get_frame","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":551}
+{"t":1791702301135,"surface":"B","tool":"update_frame","args":{"reason":"GM asked to set the timeframe and finale; other fields unchanged.","fields":{"timeframe":"Before the spring tide, about three sessions.","finale":"The drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick."}},"argsBytes":278,"outcome":"ok","partialRejections":0,"resultBytes":647}

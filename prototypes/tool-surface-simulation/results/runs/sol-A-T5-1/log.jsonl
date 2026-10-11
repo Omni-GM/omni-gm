@@ -1,0 +1,5 @@
+{"t":1791702110745,"surface":"A","event":"start","tools":5,"uploadMode":"signed"}
+{"t":1791702120562,"surface":"A","tool":"story_read","args":{"view":"overview"},"argsBytes":19,"outcome":"ok","partialRejections":0,"resultBytes":773}
+{"t":1791702120567,"surface":"A","tool":"adventure","args":{"action":"show"},"argsBytes":17,"outcome":"ok","partialRejections":0,"resultBytes":551}
+{"t":1791702124751,"surface":"A","tool":"adventure","args":{"action":"update","fields":{"timeframe":"before the spring tide, about three sessions","finale":"The drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick."},"reason":"The GM requested: \"the timeframe is now \\\"before the spring tide, about three sessions\\\". And the finale: the drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick. Leave the rest as it is.\""},"argsBytes":485,"outcome":"ok","partialRejections":0,"resultBytes":646}
+{"t":1791702124755,"surface":"A","tool":"adventure","args":{"action":"show"},"argsBytes":17,"outcome":"ok","partialRejections":0,"resultBytes":646}

@@ -1,0 +1,54 @@
+{
+ "id": "sonnet-A-T7-1",
+ "client": "sonnet",
+ "surface": "A",
+ "task": "T7",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 6,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1359,
+ "toolSequence": [
+  "story_read:schema",
+  "story_read:entities",
+  "story_read:entities",
+  "story_read:entity",
+  "story_read:entities",
+  "story_correct"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 56930,
+  "cachedInput": 45540,
+  "output": 2205
+ },
+ "ms": 17392,
+ "errors": [],
+ "answer": "Dana's theory is now saved in Omni-GM (commit `k59`), but as a thread, not on Maren's own entry.\n\n- **Why a thread:** Omni-GM only lets a player guess go on a thread or a character goal. Writing it onto Maren would have made it look like a fact about her.\n- **What I saved:** A new open thread, \"Is Maren Vosk secretly running the Hollow Choir?\". Its text says this is Dana's guess and not established in the story.\n- **Links:** The thread is linked to Maren Vosk and to the \"The Hollow Choir rises\" clock. Opening Maren's entry will show it.\n- **What I left alone:** Maren's own fields are unchanged. I didn't add a next step or a deadline, since I'd only be inventing them.\n\nTwo things are left for you:\n1. **Check the link to the clock.** I linked the thread to \"The Hollow Choir rises\" because the theory names the Hollow Choir. If you'd rather keep it off the clock, say so and I'll remove that link.\n2. **Session and scene.** I recorded this outside a debrief, so it isn't attached to a session or scene. If you want it there, I can add it when you debrief that session. I also only had your note as a source, not a transcript quote."
+}

@@ -1,0 +1,13 @@
+{"t":1791702125128,"surface":"A","event":"start","tools":5,"uploadMode":"signed"}
+{"t":1791702126932,"surface":"A","tool":"story_read","args":{"view":"entities","nameContains":"Hesk"},"argsBytes":41,"outcome":"ok","partialRejections":0,"resultBytes":62}
+{"t":1791702126933,"surface":"A","tool":"story_read","args":{"view":"schema"},"argsBytes":17,"outcome":"ok","partialRejections":0,"resultBytes":5264}
+{"t":1791702128223,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e34","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":816}
+{"t":1791702128476,"surface":"A","tool":"story_read","args":{"view":"entities","nameContains":"ferry"},"argsBytes":42,"outcome":"ok","partialRejections":0,"resultBytes":2}
+{"t":1791702130109,"surface":"A","tool":"story_read","args":{"view":"entities","nameContains":"keeper"},"argsBytes":43,"outcome":"ok","partialRejections":0,"resultBytes":2}
+{"t":1791702130308,"surface":"A","tool":"story_read","args":{"view":"transcript","sessionId":"2","contains":"Hesk"},"argsBytes":55,"outcome":"ok","partialRejections":0,"resultBytes":404}
+{"t":1791702131903,"surface":"A","tool":"story_read","args":{"view":"transcript","sessionId":"2","from":"0:02:40","to":"0:10:00"},"argsBytes":69,"outcome":"ok","partialRejections":0,"resultBytes":876}
+{"t":1791702132060,"surface":"A","tool":"story_read","args":{"view":"overview"},"argsBytes":19,"outcome":"ok","partialRejections":0,"resultBytes":773}
+{"t":1791702134156,"surface":"A","tool":"story_read","args":{"view":"transcript","sessionId":"3","contains":"ferry"},"argsBytes":56,"outcome":"ok","partialRejections":0,"resultBytes":48}
+{"t":1791702134453,"surface":"A","tool":"story_read","args":{"view":"entities","kind":"thread"},"argsBytes":35,"outcome":"ok","partialRejections":0,"resultBytes":160}
+{"t":1791702134687,"surface":"A","tool":"story_read","args":{"view":"entities","kind":"world_fact"},"argsBytes":39,"outcome":"ok","partialRejections":0,"resultBytes":362}
+{"t":1791702137590,"surface":"A","tool":"story_correct","args":{"reason":"The GM says Old Hesk isn't dead. He passed out in the water in session 2 and the ferry-house keeper revived him. The debrief recorded him as dead, which was wrong.","changes":[{"change":{"op":"update","entity":"e34","properties":{"status":"alive"}},"basis":["game_master"],"sources":[{"quote":"Old Hesk isn't dead. He only passed out in the water in session 2, and the ferry-house keeper revived him."}],"why":"Hesk only passed out after going overboard; the keeper revived him, so he is alive."}]},"argsBytes":509,"outcome":"ok","partialRejections":0,"resultBytes":37}

@@ -1,0 +1,10 @@
+{"t":1791702089317,"surface":"C","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791702097719,"surface":"C","tool":"skill","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":1165}
+{"t":1791702100629,"surface":"C","tool":"skill","args":{"name":"plank-questions"},"argsBytes":26,"outcome":"ok","partialRejections":0,"resultBytes":634}
+{"t":1791702103855,"surface":"C","tool":"find","args":{"query":"Pale Abbot"},"argsBytes":22,"outcome":"ok","partialRejections":0,"resultBytes":2472}
+{"t":1791702103856,"surface":"C","tool":"get","args":{"ref":"schema"},"argsBytes":16,"outcome":"ok","partialRejections":0,"resultBytes":5264}
+{"t":1791702109087,"surface":"C","tool":"get","args":{"ref":"entity:e36"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1256}
+{"t":1791702109087,"surface":"C","tool":"get","args":{"ref":"entity:e37"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1173}
+{"t":1791702109088,"surface":"C","tool":"find","args":{"query":"bell choir"},"argsBytes":22,"outcome":"ok","partialRejections":0,"resultBytes":2674}
+{"t":1791702115951,"surface":"C","tool":"story_commit","args":{"changes":[{"basis":["game_master"],"change":{"op":"update","entity":"e36","addAliases":["Brother Ivo"],"properties":{"role":"Brother Ivo, the drowned chapel's last priest, depicted in the chapel mural holding the bell rope. The bell keeps him alive under the bay.","wants":"He wants the choir to rise so he can finally leave the water."}},"sources":[{"quote":"he's Brother Ivo, the drowned chapel's last priest. The bell keeps him alive under the bay, and he wants the choir to rise so he can finally leave the water."}],"why":"The GM supplies the Pale Abbot's true identity, how he remains alive, and his motive."}],"reason":"The GM answered the background question about who the Pale Abbot really is and asked to record the answer in Omni-GM."},"argsBytes":748,"outcome":"ok","partialRejections":0,"resultBytes":37}
+{"t":1791702117754,"surface":"C","tool":"get","args":{"ref":"entity:e36"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":2378}

@@ -1,0 +1,54 @@
+{
+ "id": "sonnet-D-T7-2",
+ "client": "sonnet",
+ "surface": "D",
+ "task": "T7",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 6,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1452,
+ "toolSequence": [
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "story_commit"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 89099,
+  "cachedInput": 75016,
+  "output": 2066
+ },
+ "ms": 17215,
+ "errors": [],
+ "answer": "Dana's theory is saved, but as a thread, not on Maren's own entry. The store doesn't let a player guess change an NPC. The thread is called \"Is Maren Vosk running the Hollow Choir?\", it's open, and it links to Maren and to the Hollow Choir clock. The source is Dana's line from session 3 (0:07:03): \"I bet the harbor-master is behind all this… She's in the cult, I'm calling it.\" Maren's entry is unchanged, so nothing there reads as fact.\n\n- **Priya's agreement:** Priya (Oren) said \"Maren is totally running the choir\" at 0:07:12. I left that out because you only mentioned Dana. I can add it to the thread if you want.\n- **Maren's side:** In session 3, an NPC defends Maren at 0:21:02 (\"Thirty years I've known her… She lost a brother to that bay\"). I haven't linked that to the thread, because it's your call whether it counts as evidence for or against."
+}

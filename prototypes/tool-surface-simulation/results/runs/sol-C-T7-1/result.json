@@ -1,0 +1,68 @@
+{
+ "id": "sol-C-T7-1",
+ "client": "sol",
+ "surface": "C",
+ "task": "T7",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 17,
+ "rejected": 1,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 2638,
+ "toolSequence": [
+  "skill",
+  "skill:debrief",
+  "find",
+  "get",
+  "find",
+  "get",
+  "get",
+  "find",
+  "get",
+  "get",
+  "skill:map-speakers",
+  "find",
+  "get",
+  "debrief_add!rejected",
+  "story_commit",
+  "get",
+  "find"
+ ],
+ "skillsLoaded": [
+  "debrief",
+  "map-speakers"
+ ],
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 260750,
+  "cachedInput": 225536,
+  "output": 1545
+ },
+ "ms": 53872,
+ "errors": [],
+ "answer": "Saved in Omni-GM and verified on Maren’s record: “Dana suspects Maren Vosk is secretly running the Hollow Choir.”\n\nIt’s linked as an open thread and marked as an unconfirmed player theory. Nothing left to do."
+}

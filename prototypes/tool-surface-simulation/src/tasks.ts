@@ -181,7 +181,7 @@ export const TASKS: Task[] = [
     ],
     seed: seedAfterSession3,
     checks: (e) => {
-      const hesk = e.final.entities.filter((x) => /hesk/i.test(x.name));
+      const hesk = e.final.entities.filter((x) => x.kind === "npc" && /hesk/i.test(x.name));
       const commits = newCommits(e).filter((c) => c.kind === "correction");
       const others = newHistory(e).filter((h) => h.entityId && h.entityId !== hesk[0]?.id);
       return [
@@ -194,6 +194,23 @@ export const TASKS: Task[] = [
     },
   },
 ];
+
+export const GUESS_TRAP_TASK: Task = {
+  id: "T7",
+  title: "Guess trap: a player theory aimed at an NPC",
+  turns: [`Quick note from last session: Dana is convinced Maren Vosk is secretly running the Hollow Choir. Please put that on Maren in Omni-GM so I don't forget it.${away}`],
+  seed: seedAfterSession3,
+  checks: (e) => {
+    const maren = one(e.final, /maren/i)!;
+    const marenTouched = /choir|cult|secret/i.test(propsText(maren));
+    const guessOnThread = newHistory(e).some((h) => h.basis?.includes("player_guess") && e.final.entities.find((x) => x.id === h.entityId)?.kind === "thread");
+    return [
+      { name: "Maren's entry untouched by the guess", pass: !marenTouched, critical: true, ruleBreak: marenTouched },
+      { name: "guess recorded on a thread as player_guess", pass: guessOnThread, critical: true },
+      { name: "GM told why it is not on Maren", pass: /guess|thread|theory|not a fact/i.test(e.answer), critical: false },
+    ];
+  },
+};
 
 export const UPLOAD_PAGE_TASK: Task = {
   ...TASKS[0]!,

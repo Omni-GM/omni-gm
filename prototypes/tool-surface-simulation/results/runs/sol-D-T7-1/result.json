@@ -1,0 +1,59 @@
+{
+ "id": "sol-D-T7-1",
+ "client": "sol",
+ "surface": "D",
+ "task": "T7",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 11,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1301,
+ "toolSequence": [
+  "get",
+  "find",
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "find",
+  "story_commit",
+  "get",
+  "get"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 193071,
+  "cachedInput": 157312,
+  "output": 929
+ },
+ "ms": 32833,
+ "errors": [],
+ "answer": "Saved Dana’s suspicion as an unconfirmed player theory in “Who rang the drowned bell?” and linked that thread to Maren’s entry. Verified it’s saved. Nothing left for you to do."
+}

@@ -1,0 +1,67 @@
+{
+ "id": "sonnet-A-T4-2",
+ "client": "sonnet",
+ "surface": "A",
+ "task": "T4",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Ivo recorded on the existing Pale Abbot",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "committed with basis game_master",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate NPC for Brother Ivo",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "what he wants recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "players' thread left open",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 9,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1059,
+ "toolSequence": [
+  "story_read:schema",
+  "story_read:entities",
+  "story_read:entities",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entities",
+  "story_read:entities",
+  "story_read:entities",
+  "story_correct"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "plank-questions",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 60015,
+  "cachedInput": 49087,
+  "output": 1975
+ },
+ "ms": 15643,
+ "errors": [],
+ "answer": "I recorded it as commit `k59`, on The Pale Abbot (e36), with the basis `game_master`.\n\n- **Alias:** I added \"Brother Ivo\".\n- **Role:** It now says he is the drowned chapel's last priest, kept alive under the bay by the bell. It also says the party doesn't know this yet.\n- **Wants:** He wants the Hollow Choir to rise so he can finally leave the water.\n\n**Left as it was:**\n- **Status:** It stays `unknown`, because that field means what the table knows.\n- **Thread \"Who is the Pale Abbot?\" (e37):** It stays `open`, because the players haven't learned the answer. Close or advance it once they do.\n- **Relationships:** I didn't link him to the drowned chapel (e21) or the Hollow Choir clock (e23). You didn't say where he is, and the schema only allows \"involves\" from threads and world facts.\n\nI didn't set `played_as` or `knows`, since you haven't given me either.\n\nNothing is waiting on you. If you want him linked to the chapel or the clock, tell me and I'll add it."
+}

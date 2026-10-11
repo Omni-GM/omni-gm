@@ -1,0 +1,54 @@
+{
+ "id": "sonnet-B-T7-2",
+ "client": "sonnet",
+ "surface": "B",
+ "task": "T7",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 6,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1201,
+ "toolSequence": [
+  "get_schema",
+  "list_entities",
+  "list_entities",
+  "get_entity",
+  "list_entities",
+  "correct_story"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 64363,
+  "cachedInput": 54712,
+  "output": 1833
+ },
+ "ms": 14967,
+ "errors": [],
+ "answer": "I saved Dana's theory as a new open thread, \"Is Maren Vosk running the Hollow Choir?\" (commit k59). It's linked to Maren Vosk (e19) and to the clock \"The Hollow Choir rises\" (e23). It is marked as a player guess, not a fact.\n\nI didn't put it on Maren's own record. Omni-GM only lets a player guess go on a thread or a character goal, so Maren's NPC fields stay as played. The thread shows up as involving her.\n\nTwo things are left for you:\n- **Wrong place?** If you wanted it somewhere else, such as Dana's character goal or an existing thread, tell me and I'll move it. I didn't add `next_step` or `deadline`, because those are yours to set.\n- **Source detail:** The only source quote is your note to me. If you remember what Dana said at the table, or when, I can add it."
+}

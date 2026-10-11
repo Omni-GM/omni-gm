@@ -1,0 +1,60 @@
+{
+ "id": "sol-A-T7-1",
+ "client": "sol",
+ "surface": "A",
+ "task": "T7",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 12,
+ "rejected": 1,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1582,
+ "toolSequence": [
+  "story_read:overview",
+  "story_read:schema",
+  "story_read:entities",
+  "story_read:entities",
+  "story_read:entities",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:transcript",
+  "debrief:open!rejected",
+  "story_correct",
+  "story_read:entities",
+  "story_read:entity"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 159463,
+  "cachedInput": 132096,
+  "output": 1073
+ },
+ "ms": 36905,
+ "errors": [],
+ "answer": "Saved “Dana suspects Maren runs the Hollow Choir” in Omni-GM and linked it to Maren’s record. It’s marked as Dana’s unconfirmed theory, with the session quote as evidence.\n\nNothing left to do."
+}

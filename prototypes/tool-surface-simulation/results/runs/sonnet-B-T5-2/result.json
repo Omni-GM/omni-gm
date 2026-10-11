@@ -1,0 +1,62 @@
+{
+ "id": "sonnet-B-T5-2",
+ "client": "sonnet",
+ "surface": "B",
+ "task": "T5",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "timeframe: spring tide, three sessions",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "finale: chapel at low tide, choir walks out",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "other fields untouched",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no invented frame fields",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "story state untouched",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 2,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 280,
+ "toolSequence": [
+  "get_frame",
+  "update_frame"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "frame-talk",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 42531,
+  "cachedInput": 36249,
+  "output": 472
+ },
+ "ms": 5812,
+ "errors": [],
+ "answer": "I updated the frame for The Drowned Bell. Only the timeframe and the finale changed.\n\n- **Timeframe:** \"Before the spring tide, about three sessions.\"\n- **Finale:** \"The drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick.\"\n\nThe goal, stakes, pressure, moves_main_plot and pulls_in fields are as they were.\n\nNothing is left over from this request.\n\nThe pressure line still says \"the choir clock\", and the old timeframe pointed at it. The new timeframe now uses the spring tide. I didn't change the pressure, since you asked me to leave the rest alone. You may want to check whether it still fits."
+}

@@ -1,0 +1,67 @@
+{
+ "id": "sonnet-C-T3-2",
+ "client": "sonnet",
+ "surface": "C",
+ "task": "T3",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "mine: at least two facts",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela: whisper and gaze",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Hesk: 'river's angry since the bell'",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no writes",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Sela's flood story marked as her claim",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 8,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 173,
+ "toolSequence": [
+  "find",
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "prep-sparring",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 49137,
+  "cachedInput": 35834,
+  "output": 1788
+ },
+ "ms": 14008,
+ "errors": [],
+ "answer": "**1. What the players know about the Saltmere Mine**\n- **Session 2, the Archive annex:** The archivist pointed them to it. The bell metal for the chapel's bell came from there. It's up the cliff path and has been closed for forty years. Vessa raised it as a place to check.\n- **Session 3, Sela at the docks:** She said it flooded the night the bell first rang, forty years ago. Her grandmother told her the water came up warm.\n- **Session 3, the visit:**\n  - The entrance is a black mouth in the chalk, with a half-rotted timber frame and a rusted cart on its side. The air is warm and smells of old candle wax.\n  - The tunnel floods about thirty paces in, with warm black water. Wet hymn-book pages float on it and stick to the walls.\n  - One page carries a hymn about the sea giving back what it takes. In the margin, in pencil, it says \"M. Brand\". Teo says it's his sister Mira's handwriting, so she was there.\n  - Vessa rolled a 9 on investigation and found nothing more. Oren took 2 damage from the bad air and is down to 11.\n- **Guesses, not facts:** Vessa and Oren suspect Maren, the harbor-master, of being in the cult. That is a player guess, and you only answered \"You can think that.\"\n\n**2. How you played Sela Thorn**\n- **Voice and manner:** She whispers as if the water might hear her. She never looks anyone in the eye and keeps her gaze on the tide line.\n- **Look:** She sits on an upturned skiff mending a net. She has a grey braid and a salt-stained coat, and she doesn't look up at first.\n- **What she said:**\n  - She's blunt: \"Everyone who comes here wants the old chapel.\"\n  - She will row them, but never at night.\n  - She refers to herself as \"Sella\", and the dockhands say it both ways.\n  - She said hers is the only boat that goes near the bell water, because the others are scared.\n  - Oren's persuasion roll of 14 got the price down to two silver.\n- **Where it stands:** She shrugged and went back to her net. She'll be at pier four at first light. The party plans to dive to the drowned chapel at low tide with her rowing.\n\n**3. What Old Hesk said about the river**\n- **His line:** \"Hold the rail. River's angry since the bell.\"\n- **Context:** He said it on the ferry at the start of session 2. You described him as ninety if he's a day. He hums sea shanties out of tune and calls everyone \"lamb\".\n- **What happened next:** A wave knocked him overboard halfway across. Oren pulled him out grey, cold and not breathing. They left him with the ferry-house keeper. His status in Omni-GM is \"dead\", but the transcript only shows \"seems dead\", so you may want to check that.\n\n**What's left for you**\n- **Hesk's speaker label:** The transcript labels his line \"Speaker 1\", not GM. I took it as you voicing Hesk. The same label is on Sela's lines, so please confirm.\n- **Hesk's status:** Decide whether he is actually dead or only unconscious. Omni-GM currently says dead.\n- **Mira's handwriting:** Nothing in the story state backs Teo's claim beyond Teo saying so. The page itself does say \"M. Brand\"."
+}

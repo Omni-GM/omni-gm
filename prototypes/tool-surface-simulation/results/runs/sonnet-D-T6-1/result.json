@@ -1,0 +1,65 @@
+{
+ "id": "sonnet-D-T6-1",
+ "client": "sonnet",
+ "surface": "D",
+ "task": "T6",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Hesk alive",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "one correction commit with a reason",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate Hesk",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "nothing else changed",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "basis game_master",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 8,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 844,
+ "toolSequence": [
+  "find",
+  "get",
+  "get",
+  "find",
+  "find",
+  "find",
+  "get",
+  "story_commit"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 86324,
+  "cachedInput": 72930,
+  "output": 1282
+ },
+ "ms": 12249,
+ "errors": [],
+ "answer": "Old Hesk (e34) is now marked `alive` instead of `dead` (commit k59). I recorded your correction as the source, with basis `game_master`. I also cited the session 2 line at 0:02:58, where the party leaves him with the ferry-house keeper.\n\nTwo things are left:\n- **Scene summary:** The session 2, scene 1 summary still says he \"goes overboard and seems dead.\" That wording is accurate for what the table believed, and I can't edit scene summaries with the tools I have. You may want to reword it.\n- **Ferry-house keeper:** I didn't create an entry for them. They were never named or voiced at the table, so the store has nothing to record. If they matter to the story, give me a name and I'll add them.\n\nI checked for other places that treat Hesk as dead. The only other mentions are the transcript lines and that scene summary."
+}

@@ -1,0 +1,70 @@
+{
+ "id": "sonnet-D-T1-2",
+ "client": "sonnet",
+ "surface": "D",
+ "task": "T1",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 4,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1697,
+ "toolSequence": [
+  "get",
+  "session_create",
+  "transcript_upload_url",
+  "scenes_set"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 97230,
+  "cachedInput": 84505,
+  "output": 2546
+ },
+ "ms": 20324,
+ "errors": [],
+ "answer": "Session 3 (2026-10-10) is now in Omni-GM as `s3` under The Drowned Bell. The transcript is uploaded (5,895 bytes) and split into four scenes. I did not start a debrief.\n\n**Scenes**\n1. **Sela Thorn at pier four** (0:00:05): the party meets the tide-reader who will row them out, but never at night. She tells them Saltmere flooded the night the bell first rang.\n2. **Hymn pages in the Saltmere Mine** (0:05:48): they find hymn pages with \"M. Brand\" in the margin, which Teo recognises as his sister Mira's handwriting.\n3. **Midnight bell at the drowned chapel** (0:13:40): the bell rings twelve times, they see pale shapes in the water, and they flee.\n4. **Planning the dive at the Tarred Gull** (0:19:50): they plan to dive to the chapel at low tide. Bram talks about Maren, and the session ends with a long rest.\n\n**Speaker mapping**\n- \"GM\" is the GM.\n- \"Jonas (Teo)\", \"Dana (Vessa)\" and \"Priya (Oren)\" are the three players and their characters.\n- \"Speaker 1\" is the GM voicing NPCs. I decided who from the content:\n  - Sela Thorn at 0:00:27–0:01:26.\n  - A fisherman, unnamed, at 0:14:24.\n  - Bram the innkeeper at 0:20:41–0:21:02.\n\n**What's left for you**\n- **Spelling:** Sela is also said as \"Sella\", and you said the dockhands use both. I used \"Sela Thorn\", the spelling in her introduction. Tell me if you want the other.\n- **Debrief:** not started. Things it will need to cover:\n  - Your aside that the choir clock is at three of six.\n  - Dana and Oren's guess that Maren is in the cult. It can only touch a thread, and it conflicts with Bram's account of her.\n  - The Kelp Mother as a rumor, not an NPC.\n  - Bram and Sela as NPCs (check whether they already exist in the store).\n- **Upload URL:** the upload response gave two different URLs, one in `uploadUrl` and a different one in the `howTo` example. I used `uploadUrl`, and the store confirmed the 5,895 bytes for s3."
+}

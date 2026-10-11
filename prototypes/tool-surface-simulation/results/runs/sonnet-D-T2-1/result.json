@@ -1,0 +1,113 @@
+{
+ "id": "sonnet-D-T2-1",
+ "client": "sonnet",
+ "surface": "D",
+ "task": "T2",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 0.9166666666666666,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": false,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 18,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 9738,
+ "toolSequence": [
+  "get",
+  "get",
+  "get",
+  "get",
+  "find",
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "find",
+  "debrief_add",
+  "get",
+  "debrief_commit"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 411304,
+  "cachedInput": 338355,
+  "output": 19008
+ },
+ "ms": 66886,
+ "errors": [],
+ "answer": "The draft for session 3 is ready: 18 changes across the 4 scenes. It is not committed. You said you're away, and a commit needs your OK.\n\n**Where the plots stand**\n- **Who rang the drowned bell?** (open): The party plans to have Sela row them out at first light and dive to the chapel at low tide, by day. I recorded that as `next_step` with basis player_plan.\n- **Mira's trail:** A hymn-book page in the flooded Saltmere tunnel had \"M. Brand\" in the margin. Teo says it's Mira's handwriting. I marked that as his reading, not as confirmed.\n- **Saltmere and the bell:** Sela says the mine flooded the night the bell first rang, forty years ago, and the water came up warm. That ties the mine to the bell.\n- **Is Maren behind the Hollow Choir?** (new thread, basis player_guess): This is Vessa's and Oren's theory only. It touches no NPC. Bram describes Maren as a good-hearted woman who lost a brother to the bay.\n- **Hollow Choir clock:** It goes from 2 to 3 of 6, based on your aside \"That's the choir clock at three of six.\" It stays hidden from the players.\n\n**Other additions**\n- New NPCs: Sela Thorn (alias \"Sella\") and Bram.\n- New place: The Tarred Gull.\n- Places updated with your descriptions: Gullwick Docks, Saltmere Mine, the drowned chapel.\n- New world facts: the Kelp Mother (rumor), \"Only Sela's boat goes near the bell water\" (npc_said), and \"Maren lost a brother to the bay\" (npc_said).\n\nI left out rolls, damage, the long rest, and the two silver fare. I skipped the two fishermen because they are unnamed extras.\n\n**Open questions for you**\n1. Is Sela's name spelled \"Sela\" or \"Sella\"? You said the dockhands use both. I kept \"Sela\" and added \"Sella\" as an alias.\n2. Bram has no surname, and `wants` was never shown. I wrote \"Not shown\" in his `wants` field, which is filler. Tell me what to put there, or I'll drop it.\n3. Is the handwriting really Mira's, or is \"M. Brand\" someone else? It stays Teo's claim until you say.\n\n**What's left:** I need your corrections, if any, and your word that the draft is right. After that I'll commit it.\n\nThe session 3 debrief is committed as k58, with all 18 changes applied.\n\nTwo things are still open from my questions:\n- **Bram's `wants`:** It still says \"Not shown\", which is filler. Tell me what it should say and I'll fix it.\n- **\"M. Brand\":** The handwriting is still recorded as Teo's reading, not a confirmed fact. I'll update it once you decide who wrote it."
+}

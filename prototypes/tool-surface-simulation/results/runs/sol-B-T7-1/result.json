@@ -1,0 +1,58 @@
+{
+ "id": "sol-B-T7-1",
+ "client": "sol",
+ "surface": "B",
+ "task": "T7",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 10,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1056,
+ "toolSequence": [
+  "list_entities",
+  "get_schema",
+  "list_entities",
+  "list_entities",
+  "get_entity",
+  "list_entities",
+  "search_transcripts",
+  "correct_story",
+  "get_entity",
+  "list_entities"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 148482,
+  "cachedInput": 119552,
+  "output": 750
+ },
+ "ms": 28933,
+ "errors": [],
+ "answer": "Saved in Omni-GM as an open thread linked to Maren: “Dana suspects Maren Vosk runs the Hollow Choir.”\n\nRecorded as Dana’s suspicion, not established fact. Verified the link on Maren. Nothing left to do."
+}

@@ -1,0 +1,57 @@
+{
+ "id": "sonnet-C-T7-2",
+ "client": "sonnet",
+ "surface": "C",
+ "task": "T7",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 9,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1256,
+ "toolSequence": [
+  "skill",
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "story_commit"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 76352,
+  "cachedInput": 59217,
+  "output": 2367
+ },
+ "ms": 20560,
+ "errors": [],
+ "answer": "Dana's theory is now saved in Omni-GM as a new open thread, \"Is Maren Vosk running the Hollow Choir?\" (commit k59). The thread is linked to Maren (e19), so it shows up when you look at her.\n\n- **Why a thread, not a note on Maren:** Omni-GM only lets a player guess go on a thread or a character goal, so I couldn't write it onto the NPC itself. The thread is marked as a player guess, not as fact. Maren's entry is unchanged.\n- **Source:** I used Dana's line from session 3 at 0:07:03: \"Okay, I bet the harbor-master is behind all this… She's in the cult, I'm calling it.\"\n- **Not recorded:** Priya (Oren) agreed at 0:07:12 (\"Maren is totally running the choir\"). You only mentioned Dana, so I left Priya out.\n\nWhat's left for you:\n- Tell me whether you want Priya's agreement added.\n- Tell me whether you want the thread tied to Vessa, Dana's character.\n- The thread has no next step or deadline, because those would be your decisions."
+}

@@ -1,0 +1,119 @@
+{
+ "id": "sol-A-T2-1",
+ "client": "sol",
+ "surface": "A",
+ "task": "T2",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 24,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 17708,
+ "toolSequence": [
+  "story_read:overview",
+  "story_read:schema",
+  "story_read:transcript",
+  "story_read:entities",
+  "story_read:frame",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "debrief:open",
+  "debrief:propose",
+  "debrief:show",
+  "story_read:overview",
+  "debrief:commit",
+  "story_read:overview"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 656261,
+  "cachedInput": 554496,
+  "output": 11016
+ },
+ "ms": 128876,
+ "errors": [],
+ "answer": "Session 3’s debrief is saved in Omni-GM as a **draft**, with 29 proposed changes. Every change has a basis, verbatim source quotes, and a reason.\n\n1. **A boat at pier four.** Add Sela Thorn, also called Sella, as a tide reader and boatwoman. She whispers, avoids eye contact, and watches the tide line. She offers passage for two silver, refuses night travel, and says she will return at first light. Record her account of Saltmere flooding when the bell first rang as an unverified lead.\n\n2. **Saltmere Mine.** Update the mine with its rotted entrance, candle-wax smell, hazardous air, warm black floodwater, and scattered hymn pages. Record the recovered page about the sea giving back what it takes, marked “M. Brand.” Advance Teo’s goal with his identification: “That’s my sister’s handwriting. She was here.” That remains Teo’s inference. Preserve Vessa and Oren’s suspicions about Maren in a speculative thread.\n\n3. **The shore at midnight.** Update the chapel’s description with its exposed tower, broken arches, and seaweed. Record twelve bell strokes, louder humming, and pale shapes standing in rows underwater before disappearing. Advance the bell mystery and update the hidden Hollow Choir clock from **2/6 to 3/6**, supported by the GM’s explicit statement. Keep the Kelp Mother warning as fishermen’s rumor.\n\n4. **The Tarred Gull.** Add the tavern and Bram, the huge, red-bearded innkeeper who laughs at his jokes and keeps wiping one mug. Preserve his account that Maren lost a brother to the bay as an attributed lead. Record that the party ended here after resting. Their next step remains a plan: meet Sela at first light and dive to the chapel at daytime low tide. Vessa’s intended supply purchases are unconfirmed.\n\nWhat’s left is your review and approval before committing. Omni-GM requires the GM to say the draft is right before applying it; the saved debrief remains uncommitted.\n\nCommitted session 3’s debrief in Omni-GM. All 29 changes applied in commit `k69`, and the session is verified as committed."
+}

@@ -1,0 +1,59 @@
+{
+ "id": "sol-A-T7-2",
+ "client": "sol",
+ "surface": "A",
+ "task": "T7",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 11,
+ "rejected": 1,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1743,
+ "toolSequence": [
+  "story_read:overview",
+  "story_read:schema",
+  "story_read:entities",
+  "story_read:entities",
+  "story_read:transcript",
+  "story_read:entities",
+  "story_read:entity",
+  "debrief:open!rejected",
+  "story_correct",
+  "story_read:entity",
+  "story_read:entities"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 155462,
+  "cachedInput": 137856,
+  "output": 1094
+ },
+ "ms": 35597,
+ "errors": [],
+ "answer": "Saved and verified on Maren’s record as a linked thread: “Dana suspects Maren runs the Hollow Choir.” It’s marked as an unconfirmed player theory, with source quotes.\n\nNothing left to do."
+}

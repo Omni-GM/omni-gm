@@ -10,3 +10,6 @@
 {"t":1791702045176,"surface":"C","tool":"get","args":{"ref":"scene:s2/1"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":799}
 {"t":1791702045410,"surface":"C","tool":"get","args":{"ref":"scene:s3/1"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1943}
 {"t":1791702045570,"surface":"C","tool":"get","args":{"ref":"scene:s3/2"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1618}
+{"t":1791702048696,"surface":"C","tool":"get","args":{"ref":"scene:s2/2"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":750}
+{"t":1791702048929,"surface":"C","tool":"get","args":{"ref":"entity:e39"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":759}
+{"t":1791702049160,"surface":"C","tool":"find","args":{"query":"Hesk","types":["transcript"]},"argsBytes":39,"outcome":"ok","partialRejections":0,"resultBytes":759}

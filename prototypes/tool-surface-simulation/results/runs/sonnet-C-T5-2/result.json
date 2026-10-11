@@ -1,0 +1,67 @@
+{
+ "id": "sonnet-C-T5-2",
+ "client": "sonnet",
+ "surface": "C",
+ "task": "T5",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "timeframe: spring tide, three sessions",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "finale: chapel at low tide, choir walks out",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "other fields untouched",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no invented frame fields",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "story state untouched",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 4,
+ "rejected": 1,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 328,
+ "toolSequence": [
+  "skill:frame talk!rejected",
+  "get",
+  "skill:frame-talk",
+  "frame_update"
+ ],
+ "skillsLoaded": [
+  "frame talk",
+  "frame-talk"
+ ],
+ "expectedSkill": "frame-talk",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 52250,
+  "cachedInput": 45392,
+  "output": 780
+ },
+ "ms": 8960,
+ "errors": [],
+ "answer": "I updated the frame for The Drowned Bell. I changed only the two fields you gave me:\n\n- **timeframe:** \"Before the spring tide, about three sessions.\"\n- **finale:** \"The drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick.\"\n\nThe other fields are as they were: goal, stakes, pressure, moves_main_plot and pulls_in. `next_session_starts` isn't set.\n\nNothing is left over from this request, and I had no questions that needed your answer.\n\nI noticed two things and left both alone:\n- The pressure line says \"the humming grows louder\" and the stakes say \"the drowned congregation walks into Gullwick\". Neither mentions the spring tide or the Pale Abbot. They don't conflict with the new fields, but you may want to reword them later.\n- The Pale Abbot is named only in the finale. I didn't create or change any entity for them, because the frame is intent and not story state."
+}

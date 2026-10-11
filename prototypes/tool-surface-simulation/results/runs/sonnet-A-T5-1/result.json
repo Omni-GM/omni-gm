@@ -1,0 +1,62 @@
+{
+ "id": "sonnet-A-T5-1",
+ "client": "sonnet",
+ "surface": "A",
+ "task": "T5",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "timeframe: spring tide, three sessions",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "finale: chapel at low tide, choir walks out",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "other fields untouched",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no invented frame fields",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "story state untouched",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 2,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 463,
+ "toolSequence": [
+  "adventure:show",
+  "adventure:update"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "frame-talk",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 34478,
+  "cachedInput": 27587,
+  "output": 516
+ },
+ "ms": 6053,
+ "errors": [],
+ "answer": "I updated the frame for The Drowned Bell. I changed two fields and left the rest as it was.\n\n- **Timeframe:** \"Before the spring tide, about three sessions.\"\n- **Finale:** \"The drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick.\"\n\nNothing is left over from this change.\n\nThe new timeframe no longer mentions the choir clock, but the pressure line still says \"the humming grows louder\". I didn't touch it. You may want to tie the pressure to the spring tide too."
+}

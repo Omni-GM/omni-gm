@@ -1,0 +1,73 @@
+{
+ "id": "sol-B-T1-2",
+ "client": "sol",
+ "surface": "B",
+ "task": "T1",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 7,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1531,
+ "toolSequence": [
+  "list_sessions",
+  "get_frame",
+  "create_session",
+  "get_upload_url",
+  "set_scenes",
+  "read_transcript",
+  "list_sessions"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 209836,
+  "cachedInput": 158592,
+  "output": 1140
+ },
+ "ms": 42870,
+ "errors": [],
+ "answer": "Imported and verified session 3, dated 2026-10-10, in The Lantern Coast → The Drowned Bell.\n\nSaved four scenes:\n\n1. Sela's offer and warning\n2. Hymn pages in the flooded mine\n3. The midnight bell\n4. Plans for a daylight dive\n\nNothing remains for the requested import and scene split. Story-state debrief updates have not been drafted or committed."
+}

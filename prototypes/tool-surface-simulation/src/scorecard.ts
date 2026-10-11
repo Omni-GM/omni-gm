@@ -16,8 +16,8 @@ const runs: R[] = readdirSync(RUNS)
 
 const CLIENTS = [["sonnet", "Sonnet 5.5 (Claude Code)"], ["sol", "GPT-6.1 Sol (Codex)"]] as const;
 const SURFACES = ["A", "B", "C", "D"];
-const TASKS = ["T1", "T2", "T3", "T4", "T5", "T6"];
-const TASK_TITLES: Record<string, string> = { T1: "upload + scenes", T2: "debrief", T3: "prep questions", T4: "plank answer", T5: "frame update", T6: "fix mistake" };
+const TASKS = ["T1", "T2", "T3", "T4", "T5", "T6", "T7"];
+const TASK_TITLES: Record<string, string> = { T1: "upload + scenes", T2: "debrief", T3: "prep questions", T4: "plank answer", T5: "frame update", T6: "fix mistake", T7: "guess trap" };
 
 const avg = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : NaN);
 const pct = (x: number) => (Number.isNaN(x) ? "–" : `${Math.round(x * 100)}%`);

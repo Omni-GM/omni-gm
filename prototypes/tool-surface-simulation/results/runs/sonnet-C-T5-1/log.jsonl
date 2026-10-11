@@ -1,0 +1,5 @@
+{"t":1791702117997,"surface":"C","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791702120102,"surface":"C","tool":"skill","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":1165}
+{"t":1791702120111,"surface":"C","tool":"get","args":{"ref":"frame"},"argsBytes":15,"outcome":"ok","partialRejections":0,"resultBytes":551}
+{"t":1791702121019,"surface":"C","tool":"skill","args":{"name":"frame-talk"},"argsBytes":21,"outcome":"ok","partialRejections":0,"resultBytes":658}
+{"t":1791702122459,"surface":"C","tool":"frame_update","args":{"reason":"GM dictated new timeframe and finale for The Drowned Bell.","fields":{"timeframe":"Before the spring tide, about three sessions.","finale":"The drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick."}},"argsBytes":271,"outcome":"ok","partialRejections":0,"resultBytes":647}

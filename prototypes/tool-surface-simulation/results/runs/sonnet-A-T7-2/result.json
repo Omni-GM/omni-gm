@@ -1,0 +1,58 @@
+{
+ "id": "sonnet-A-T7-2",
+ "client": "sonnet",
+ "surface": "A",
+ "task": "T7",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 10,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1996,
+ "toolSequence": [
+  "story_read:schema",
+  "story_read:entities",
+  "story_read:entities",
+  "story_read:entity",
+  "story_read:entities",
+  "story_read:entities",
+  "story_read:overview",
+  "story_read:transcript",
+  "story_read:transcript",
+  "story_correct"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 92454,
+  "cachedInput": 80609,
+  "output": 3047
+ },
+ "ms": 23928,
+ "errors": [],
+ "answer": "I recorded Dana's theory in Omni-GM as a new open thread, \"Is Maren Vosk running the Hollow Choir?\" (commit k59). It's not on Maren's own entry, because a player guess can't be stored as a fact on an NPC.\n\n- **Thread:** it says this is a player theory, not established. It names Dana (Vessa) and notes that Priya (Oren) agreed.\n- **Links:** the thread involves Maren Vosk and the \"The Hollow Choir rises\" clock. It was raised by Vessa.\n- **Source:** it comes from session 3 at 0:07:03 and 0:07:12. Dana's words were \"She's in the cult, I'm calling it.\" Priya added \"Maren is totally running the choir.\"\n\nMaren's entry is unchanged. It still says harbor-master, alive, last seen at Gullwick Docks. The theory only shows up when you look at her connections.\n\nWhat's left for you:\n- **Dana's quote:** the theory is in the session 3 transcript but was missed in that debrief. Check whether anything else from that session is missing.\n- **Thread fields:** I left the next step and deadline blank, since those are yours to set.\n- **Maren's side:** a speaker at 0:21:02 says she is \"Sharp tongue. Good heart. She lost a brother to that bay.\" I didn't record it, because the transcript doesn't say who was speaking, and I can't tell if it was an NPC. If it was, you could add it as what Maren is like."
+}

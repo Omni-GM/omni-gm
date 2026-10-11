@@ -1,0 +1,70 @@
+{
+ "id": "sonnet-A-T1-2",
+ "client": "sonnet",
+ "surface": "A",
+ "task": "T1",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 4,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1523,
+ "toolSequence": [
+  "story_read:overview",
+  "debrief:new_session",
+  "debrief:upload_url",
+  "debrief:set_scenes"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 84895,
+  "cachedInput": 74430,
+  "output": 2210
+ },
+ "ms": 19999,
+ "errors": [],
+ "answer": "The transcript for session 3 is uploaded and split into four scenes. I haven't opened a debrief draft or committed any story-state changes.\n\nI created s3 (2026-10-10) in The Drowned Bell and uploaded the transcript (5895 bytes). The scenes are:\n\n1. **Sela Thorn at pier four** (0:00:05): Sela agrees to row the party for two silver, but never at night. She says Saltmere Mine flooded forty years ago, the night the bell first rang.\n2. **The flooded Saltmere Mine** (0:05:48): Teo finds a hymn page signed \"M. Brand\" and recognises his sister Mira's handwriting.\n3. **Midnight at the drowned chapel** (0:13:40): The bell rings twelve times and pale shapes appear under the water.\n4. **The Tarred Gull** (0:19:50): The party plans to dive to the chapel tomorrow. Bram says Maren lost a brother to the bay.\n\nThings I noticed that you'll want to check when you debrief:\n- **Speaker 1** is one unlabeled voice playing Sela, the fisherman and Bram. I split them by context.\n- **Sela's name:** it appears as both \"Sela\" and \"Sella\". You said the dockhands use both, so I'd treat it as one NPC with an alias.\n- **Maren:** \"Maren is in the cult\" is a player guess from Dana and Priya at 0:07:03, not a fact. Bram's account of Maren is the only thing an NPC said about her.\n- **The clock:** at 0:15:24 you said \"that's the choir clock at three of six.\" That looks like a clock advance, but it's an aside, so I'd confirm it's meant to be committed.\n- **Other facts:** the Kelp Mother is a fisherman's rumor. Oren's HP went to 11 and was restored by the long rest.\n\nStill to do, once you're back:\n- Open the debrief draft and propose the changes.\n- Review the draft with you.\n- Commit it once you say it's right."
+}

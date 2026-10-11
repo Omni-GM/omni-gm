@@ -1,0 +1,57 @@
+{
+ "id": "sonnet-B-T7-3",
+ "client": "sonnet",
+ "surface": "B",
+ "task": "T7",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 9,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1537,
+ "toolSequence": [
+  "list_entities",
+  "list_entities",
+  "get_schema",
+  "get_entity",
+  "list_entities",
+  "list_sessions",
+  "search_transcripts",
+  "list_entities",
+  "correct_story"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 84166,
+  "cachedInput": 73371,
+  "output": 2132
+ },
+ "ms": 17587,
+ "errors": [],
+ "answer": "I recorded Dana's theory, but as a new thread, not on Maren Vosk's own entry. Omni-GM only lets a player guess attach to a thread or a character goal, so it couldn't go on Maren's NPC fields. Her entry is unchanged.\n\n- **Thread:** \"Is Maren Vosk running the Hollow Choir?\" (open). It says this is Dana's guess and is unconfirmed, and that Priya agreed. The source is Dana's line at 0:07:03 in session 3, with Priya's agreement at 0:07:12.\n- **Links:** The thread involves Maren (e19) and the \"The Hollow Choir rises\" clock (e23). It was raised by Vessa Quill (e16), the character Dana plays.\n\nNothing is left over, and I didn't write a next step. That's your call if you want one.\n\nThe same session also has an NPC at 0:21:02 saying of Maren, \"Thirty years I've known her. Sharp tongue. Good heart. She lost a brother to that bay.\" I left it out because you didn't ask for it, but you may want it next to the theory."
+}

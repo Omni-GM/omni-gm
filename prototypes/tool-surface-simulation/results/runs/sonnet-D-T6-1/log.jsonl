@@ -1,0 +1,9 @@
+{"t":1791702133743,"surface":"D","event":"start","tools":11,"uploadMode":"signed"}
+{"t":1791702135086,"surface":"D","tool":"find","args":{"query":"Old Hesk"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":2446}
+{"t":1791702135515,"surface":"D","tool":"get","args":{"ref":"schema"},"argsBytes":16,"outcome":"ok","partialRejections":0,"resultBytes":5264}
+{"t":1791702136657,"surface":"D","tool":"get","args":{"ref":"entity:e34"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":816}
+{"t":1791702136992,"surface":"D","tool":"find","args":{"query":"ferry-house keeper"},"argsBytes":30,"outcome":"ok","partialRejections":0,"resultBytes":2404}
+{"t":1791702137180,"surface":"D","tool":"find","args":{"query":"Hesk dead drowned overboard","types":["entity","source"]},"argsBytes":67,"outcome":"ok","partialRejections":0,"resultBytes":1349}
+{"t":1791702139101,"surface":"D","tool":"find","args":{"query":"Hesk","limit":30},"argsBytes":27,"outcome":"ok","partialRejections":0,"resultBytes":1194}
+{"t":1791702139251,"surface":"D","tool":"get","args":{"ref":"scene:s2/1"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":799}
+{"t":1791702142397,"surface":"D","tool":"story_commit","args":{"reason":"Correction by the GM: Old Hesk was recorded dead in the session 2 debrief, but he only passed out in the water and the ferry-house keeper revived him.","changes":[{"change":{"op":"update","entity":"e34","properties":{"status":"alive"}},"basis":["game_master"],"sources":[{"quote":"Old Hesk isn't dead. He only passed out in the water in session 2, and the ferry-house keeper revived him."},{"at":"0:02:58","quote":"He's grey and cold and not breathing that you can tell. You leave him with the ferry-house keeper and go on."}],"why":"The table only believed Hesk was dead; he passed out and was revived by the ferry-house keeper."}]},"argsBytes":644,"outcome":"ok","partialRejections":0,"resultBytes":37}

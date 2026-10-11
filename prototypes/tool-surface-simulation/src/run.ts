@@ -7,7 +7,7 @@ import { join, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import { Store, type State } from "./domain";
 import { transcriptFile } from "./campaign";
-import { TASKS, UPLOAD_PAGE_TASK, WRITE_TOOLS, type CallLog, type Task } from "./tasks";
+import { GUESS_TRAP_TASK, TASKS, UPLOAD_PAGE_TASK, WRITE_TOOLS, type CallLog, type Task } from "./tasks";
 
 const ROOT = resolve(import.meta.dir, "..");
 const SERVER = join(ROOT, "src", "server.ts");
@@ -30,7 +30,7 @@ const { values } = parseArgs({
 
 function jobs(): Job[] {
   const list: Job[] = [];
-  const all = [...TASKS, UPLOAD_PAGE_TASK];
+  const all = [...TASKS, GUESS_TRAP_TASK, UPLOAD_PAGE_TASK];
   for (let rep = 1; rep <= Number(values.reps); rep++)
     for (const taskId of values.tasks!.split(","))
       for (const surface of values.surfaces!.split(","))
@@ -197,7 +197,10 @@ async function runJob(job: Job) {
     const resume = turns.at(-1)?.sessionId;
     const turn = job.client === "sonnet" ? await claudeTurn(dir, prompt, resume) : await codexTurn(dir, prompt, resume);
     turns.push(turn);
-    if (i === 0) afterTurn1 = JSON.parse(readFileSync(join(dir, "state.json"), "utf8"));
+    if (i === 0) {
+      afterTurn1 = JSON.parse(readFileSync(join(dir, "state.json"), "utf8"));
+      copyFileSync(join(dir, "state.json"), join(dir, "state-turn1.json"));
+    }
     if (turn.error) break;
   }
   const calls: (CallLog & { argsBytes?: number })[] = readFileSync(join(dir, "log.jsonl"), "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l));

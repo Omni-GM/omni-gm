@@ -1,0 +1,58 @@
+{
+ "id": "sonnet-C-T7-1",
+ "client": "sonnet",
+ "surface": "C",
+ "task": "T7",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 10,
+ "rejected": 1,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 2785,
+ "toolSequence": [
+  "skill",
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "debrief_add!rejected",
+  "story_commit"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 100959,
+  "cachedInput": 82662,
+  "output": 3487
+ },
+ "ms": 26101,
+ "errors": [],
+ "answer": "I recorded Dana's theory, but as a thread, not as a note on Maren's own entry. Omni-GM only allows a player guess on a thread or a character goal. On Maren's NPC entry it would have read as fact.\n\n- **What I added:** a thread called \"Is Maren Vosk running the Hollow Choir?\", status open. It's linked to Maren (e19) and to the \"The Hollow Choir rises\" clock (e23).\n- **Source:** session 3, scene 2. Dana said \"She's in the cult, I'm calling it\" at 0:07:03. Priya (Oren) agreed at 0:07:12 with \"Maren is totally running the choir.\" The thread notes that Priya agreed as well.\n- **Why a correction:** the session 3 debrief was already committed and had missed this. I saved it as a correction (commit k59), not as part of the debrief.\n\nI did not change Maren's own entry. It has no \"knows\" or \"wants\" fields filled in, and I left them empty because the table hasn't established either.\n\n**What's left for you:**\n- The thread has no \"raised by\" link to Vessa, because I didn't look up her entry.\n- You may want to add a next step, such as what the party could check to test the theory. I didn't draft one, because that's your call.\n- Tell me if you'd rather have this as a character goal for Dana, not a thread."
+}

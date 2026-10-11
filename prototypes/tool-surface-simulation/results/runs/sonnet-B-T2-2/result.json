@@ -1,0 +1,132 @@
+{
+ "id": "sonnet-B-T2-2",
+ "client": "sonnet",
+ "surface": "B",
+ "task": "T2",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 37,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 9065,
+ "toolSequence": [
+  "list_sessions",
+  "get_schema",
+  "get_frame",
+  "list_entities",
+  "read_transcript",
+  "draft_show",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "draft_new_entity:Sela Thorn",
+  "draft_new_entity:The Tarred Gull",
+  "draft_new_entity:Bram",
+  "draft_new_entity:Saltmere flooded the night the bell first rang",
+  "draft_new_entity:The Kelp Mother",
+  "draft_new_entity:Maren Vosk lost a brother to the bay",
+  "draft_new_entity:Is Maren Vosk in the choir?",
+  "draft_new_entity:Dive to the drowned chapel at low tide",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_show",
+  "draft_commit"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 408914,
+  "cachedInput": 350423,
+  "output": 20744
+ },
+ "ms": 64678,
+ "errors": [],
+ "answer": "The session 3 draft is built and not committed. It's waiting for your OK. It has 20 changes across the four scenes, and each one has a basis and verbatim source quotes.\n\n**What's in it**\n- **Scene 1, pier four:**\n  - **Sela Thorn:** a new NPC (alias \"Sella\"), played as whispering, never meeting anyone's eye, and refusing to row at night.\n  - **Saltmere flood:** a new world fact, based on what Sela said. The mine flooded the night the bell first rang, 40 years ago, and the water came up warm.\n  - **Gullwick Docks:** pier four is added to the place.\n- **Scene 2, Saltmere Mine:**\n  - **Mine:** updated with what the party saw there.\n  - **Teo's goal:** the \"M. Brand\" margin note on the hymn page goes on Teo's goal. The note itself is narrated. That it's Mira's handwriting is Teo's claim, and I marked it that way.\n  - **Maren thread:** Vessa and Oren's theory that Maren is in the choir is a thread based on a player guess. Maren's own entry is untouched.\n- **Scene 3, the shore at midnight:**\n  - **Chapel:** updated with what the party saw there.\n  - **Kelp Mother:** a rumor, not a fact.\n  - **Choir clock:** moves from 2 to 3 of 6, based on your aside \"three of six\".\n- **Scene 4, the Tarred Gull:**\n  - **The Tarred Gull and Bram:** a new place and a new NPC, the innkeeper, with the two linked.\n  - **Maren's brother:** a world fact from Bram, who said Maren lost a brother to the bay. It's linked to Maren.\n  - **Dive plan:** a thread based on a player plan. The party will meet Sela at first light and dive to the chapel at low tide, by day only.\n\n**What's left for you**\n1. **Review and commit.** Tell me if the draft is right and I'll commit it.\n2. **Sela's name.** You said \"Sela, Sella, the dockhands say it both ways.\" I kept \"Sela Thorn\" as the name and \"Sella\" as an alias. Say so if you want it the other way.\n3. **Bell metal.** The transcript doesn't touch the existing \"bell metal came from Saltmere\" fact, so I left it alone.\n4. **Left out on purpose:** dice rolls, Oren's HP and the long rest, since they're mechanics and the store tracks story state.\n5. **Missing background (main plot).** Is there a link between the warm water, the church smell and the hymn pages in the mine, and the Archive hiding what the bell is? Nothing at the table says so yet, so I didn't draw one. Your answer would help me link them.\n\nI committed the session 3 draft as k60, and all 20 changes were applied.\n\nOpen question: is the warm water, the church smell and the hymn pages in the mine tied to the Archive hiding what the bell is? I didn't link them because nothing at the table says so."
+}

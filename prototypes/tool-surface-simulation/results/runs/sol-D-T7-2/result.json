@@ -1,0 +1,63 @@
+{
+ "id": "sol-D-T7-2",
+ "client": "sol",
+ "surface": "D",
+ "task": "T7",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 13,
+ "rejected": 1,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1783,
+ "toolSequence": [
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "find!rejected",
+  "get",
+  "get",
+  "find",
+  "get",
+  "story_commit",
+  "get",
+  "find"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 234149,
+  "cachedInput": 209024,
+  "output": 1153
+ },
+ "ms": 49527,
+ "errors": [
+  "{\"type\":\"error\",\"message\":\"Reconnecting... 1/5 (stream disconnected before completion: stream error: stream disconnected before completion: stream closed before response.completed)\"}"
+ ],
+ "answer": "Saved in Omni-GM as “Dana suspects Maren runs the Hollow Choir,” linked to Maren’s entry and marked as an unconfirmed player theory.\n\nVerified the link is there. Nothing left for you to do."
+}

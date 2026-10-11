@@ -1,0 +1,110 @@
+{
+ "id": "sol-A-T2-2",
+ "client": "sol",
+ "surface": "A",
+ "task": "T2",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 15,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 17934,
+ "toolSequence": [
+  "story_read:schema",
+  "story_read:overview",
+  "story_read:entities",
+  "story_read:transcript",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "debrief:open",
+  "debrief:propose",
+  "debrief:show",
+  "debrief:commit"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 503830,
+  "cachedInput": 420608,
+  "output": 10640
+ },
+ "ms": 123790,
+ "errors": [],
+ "answer": "Saved and verified session 3’s draft in Omni-GM. All 30 proposed changes have timestamped source quotes.\n\nThe draft covers:\n\n- **Pier four:** Sela Thorn, also called Sella, offers daylight passage for two silver. She whispers, avoids eye contact, and watches the tide. Her account of Saltmere’s flooding remains attributed testimony.\n- **Saltmere Mine:** Warm black water, candle-wax air, and wet hymn pages. One page bears “M. Brand.” Teo believes it is Mira’s handwriting; that remains his interpretation.\n- **The midnight shore:** The submerged bell rings twelve times with louder humming. Pale shapes appear in rows inside the chapel, then vanish. The hidden Hollow Choir clock advances from **2/6 to 3/6**. The Kelp Mother warning remains a rumor.\n- **The Tarred Gull:** Bram’s manner and testimony about Maren are recorded. The party’s suspicions about her remain unresolved. Everyone ends at the inn, planning first-light passage and a daylight dive at low tide. Vessa’s equipment purchases remain planned.\n\nWhat’s left is your review before committing. Omni-GM requires confirmation that the draft is right. The fisherman’s voice and physical manner weren’t recorded; the draft flags that gap.\n\nCommitted session 3’s debrief in Omni-GM. All 30 changes were applied in commit `k70`."
+}

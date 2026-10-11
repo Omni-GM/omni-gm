@@ -1,0 +1,70 @@
+{
+ "id": "sol-C-T4-2",
+ "client": "sol",
+ "surface": "C",
+ "task": "T4",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Ivo recorded on the existing Pale Abbot",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "committed with basis game_master",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate NPC for Brother Ivo",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "what he wants recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "players' thread left open",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 10,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 907,
+ "toolSequence": [
+  "skill",
+  "skill:plank-questions",
+  "find",
+  "find",
+  "find",
+  "get",
+  "get",
+  "story_commit",
+  "get",
+  "get"
+ ],
+ "skillsLoaded": [
+  "plank-questions"
+ ],
+ "expectedSkill": "plank-questions",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 188127,
+  "cachedInput": 145792,
+  "output": 682
+ },
+ "ms": 25708,
+ "errors": [],
+ "answer": "Recorded and verified in Omni-GM. The Pale Abbot now has the alias Brother Ivo, with his identity, the bell keeping him alive, and his desire for the choir to rise saved as GM facts sourced to your words.\n\nThe players’ identity mystery remains open. Nothing is left for you to do."
+}

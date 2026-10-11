@@ -1,0 +1,70 @@
+{
+ "id": "sonnet-A-T3-2",
+ "client": "sonnet",
+ "surface": "A",
+ "task": "T3",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "mine: at least two facts",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela: whisper and gaze",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Hesk: 'river's angry since the bell'",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no writes",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Sela's flood story marked as her claim",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 11,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 487,
+ "toolSequence": [
+  "story_read:overview",
+  "story_read:entities",
+  "story_read:entities",
+  "story_read:entities",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:transcript",
+  "story_read:transcript"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "prep-sparring",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 58491,
+  "cachedInput": 47346,
+  "output": 2127
+ },
+ "ms": 16020,
+ "errors": [],
+ "answer": "Omni-GM had everything I needed, so nothing is blocked.\n\n**1. What the players know about Saltmere Mine**\n- **Session 2:** Vessa said the archivist told them the chapel's bell metal came from Saltmere. The archivist confirmed the mine is \"up the cliff path, closed for forty years.\" The bell-metal fact is recorded as `npc_said`.\n- **Session 3, Sela's claim:** Sela told them, \"Saltmere flooded the same night the bell first rang. Forty years ago. My grandmother said the water came up warm.\" This is recorded as `npc_said`, so it's her claim passed down from her grandmother, not an established fact.\n- **Session 3, the visit:** They went to the mine. It has a black mouth in the chalk, rotting timber and a rusted cart. The warm air smells of candle wax. About thirty paces in, the tunnel is flooded with warm black water and floating hymn-book pages. The place state is now `flooded`.\n\n**2. How you played Sela Thorn**\n- She is a tide-reader who rows boats near the bell water.\n- You played her whispering \"as if the water might hear,\" and she never looks anyone in the eye. She keeps her gaze on the tide line.\n- She is alive. The party last saw her at Gullwick Docks, where she said she'd be at pier four at first light.\n- \"Sella\" is stored as an alias.\n\n**3. What Old Hesk said about the river**\n- In session 2, on the ferry, he said: \"Hold the rail. River's angry since the bell.\"\n- The transcript labels that line \"Speaker 1,\" not Hesk. I'm treating it as his because it comes right after you introduce him as the ferryman. The story state has no fact for the line, only his role and mannerisms (humming shanties, calling everyone \"lamb\").\n- He's marked `dead` after going overboard. Your narration was \"not breathing that you can tell,\" so the status may be firmer than the table made it.\n\nI changed nothing in the story state.\n\n**What's left:** I didn't need your input on anything. If you want the \"river's angry since the bell\" line recorded as a fact, or Hesk's status softened, tell me and I'll draft it."
+}

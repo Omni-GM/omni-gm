@@ -1,0 +1,6 @@
+{"t":1791702317114,"surface":"C","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791702318799,"surface":"C","tool":"skill","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":1165}
+{"t":1791702318809,"surface":"C","tool":"find","args":{"query":"Old Hesk"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":2446}
+{"t":1791702319931,"surface":"C","tool":"get","args":{"ref":"entity:e34"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":816}
+{"t":1791702320280,"surface":"C","tool":"get","args":{"ref":"scene:s2/1"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":799}
+{"t":1791702320397,"surface":"C","tool":"find","args":{"query":"ferry-house keeper"},"argsBytes":30,"outcome":"ok","partialRejections":0,"resultBytes":2404}

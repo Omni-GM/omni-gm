@@ -1,0 +1,114 @@
+{
+ "id": "sonnet-C-T2-2",
+ "client": "sonnet",
+ "surface": "C",
+ "task": "T2",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 17,
+ "rejected": 1,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 11308,
+ "toolSequence": [
+  "skill:debrief",
+  "get",
+  "get",
+  "get",
+  "get",
+  "find!rejected",
+  "find",
+  "find",
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "get",
+  "find",
+  "debrief_add",
+  "debrief_commit"
+ ],
+ "skillsLoaded": [
+  "debrief"
+ ],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 376658,
+  "cachedInput": 308771,
+  "output": 16724
+ },
+ "ms": 59373,
+ "errors": [],
+ "answer": "I've drafted the session 3 debrief and all 23 changes were accepted. Nothing is committed, because you have to say the draft is right first. Here is the draft.\n\n## Where the plots stand\n\n- **The hymn pages in Saltmere (new thread).** The GM narrated pages with \"M. Brand\" in the margin. That it's Mira's handwriting is Teo's claim, so I recorded it as a player guess. It also updates Teo's goal (\"Find out why Mira left the Archive\").\n- **Who rang the drowned bell? / Hollow Choir clock.** The bell rang a third time, with louder humming and pale shapes in rows under the water. The clock moves from 2 to 3 of 6 (hidden), based on your aside \"That's the choir clock at three of six.\"\n- **Dive to the drowned chapel at low tide (new thread, player plan).** The party plans to go at first light, daytime only, with Sela rowing and Vessa buying rope and a second lantern.\n- **Is Maren behind the choir? (new thread, player guess).** Vessa and Oren suspect Maren. I recorded it only as a thread, and Maren's NPC entry is unchanged. Bram added a counterweight: Maren lost a brother to the bay.\n\n## Other changes\n\n- **New NPCs:** Sela Thorn, with \"Sella\" as an alias, and Bram, both with `played_as`.\n- **New places:** the Tarred Gull.\n- **New world facts:**\n  - Saltmere flooded the night the bell first rang, forty years ago (npc_said).\n  - The Kelp Mother (rumor).\n  - Maren lost a brother to the bay (npc_said).\n- **Updated places:** Gullwick Docks, Saltmere Mine and the drowned chapel got your descriptions in `details_shown`.\n- **Left out:** the persuasion price, the investigation roll, Oren's damage and the long rest, since they're mechanics. I also skipped the unnamed fishermen.\n\n## Open questions for you\n\n1. Is the clock at 3 right? The store had it at 2, and your aside said \"three of six.\"\n2. Is the Kelp Mother only local legend, or something real? I recorded it as a rumor.\n3. Did the \"M. Brand\" page really come from Mira, or is that still Teo's reading? It's currently narrated as the margin note plus Teo's claim.\n4. Is the Sela/Sella double spelling intended, or should I drop the alias?\n5. Do you want Sela's \"never at night\" rule stored as a world fact with a source, or does it stay only in her description?\n\nTell me what to correct. I'll commit once you say the draft is right.\n\nI committed the session 3 debrief as k63, and all 23 changes were applied.\n\nThe five open questions from the draft are still unanswered, so I committed the draft as it stood: the clock at 3 of 6, the Kelp Mother as a rumor, and the \"M. Brand\" page as narrated with Teo's claim attached. The Sela/Sella alias is kept, and Sela's \"never at night\" rule stays in her description only. If any of those is wrong, tell me and I'll correct it with a game_master change."
+}

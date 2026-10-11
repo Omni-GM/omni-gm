@@ -1,0 +1,66 @@
+{
+ "id": "sol-A-T4-1",
+ "client": "sol",
+ "surface": "A",
+ "task": "T4",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Ivo recorded on the existing Pale Abbot",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "committed with basis game_master",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate NPC for Brother Ivo",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "what he wants recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "players' thread left open",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 8,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1740,
+ "toolSequence": [
+  "story_read:overview",
+  "story_read:schema",
+  "story_read:entities",
+  "story_read:entity",
+  "story_read:entity",
+  "story_correct",
+  "story_read:entity",
+  "story_read:entities"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "plank-questions",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 128720,
+  "cachedInput": 102656,
+  "output": 822
+ },
+ "ms": 28882,
+ "errors": [],
+ "answer": "Recorded and verified in Omni-GM as GM-established facts:\n\n- The Pale Abbot is Brother Ivo, the drowned chapel’s last priest.\n- The bell keeps him alive under the bay.\n- He wants the choir to rise so he can finally leave the water.\n\nThe players’ identity mystery remains open. Nothing is left to record."
+}

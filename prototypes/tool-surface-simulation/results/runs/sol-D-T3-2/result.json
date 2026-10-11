@@ -1,0 +1,71 @@
+{
+ "id": "sol-D-T3-2",
+ "client": "sol",
+ "surface": "D",
+ "task": "T3",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "mine: at least two facts",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela: whisper and gaze",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Hesk: 'river's angry since the bell'",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no writes",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Sela's flood story marked as her claim",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 12,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 388,
+ "toolSequence": [
+  "find",
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "prep-sparring",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 162632,
+  "cachedInput": 136064,
+  "output": 766
+ },
+ "ms": 29774,
+ "errors": [],
+ "answer": "1. **Saltmere Mine:** They know it’s up the cliff path and has been closed for forty years. The archivist said the chapel’s bell metal came from there. Sela claimed it flooded the night the bell first rang, with warm water, according to her grandmother. They personally found warm, candle-wax-smelling air, warm black water thirty paces inside, and floating hymn-book pages. One hymn described the sea giving back what it takes and bore “M. Brand”; Teo identified Mira’s handwriting. *Sources: e38; e39, session 2, 0:08:40; session 3, 0:01:26 and 0:06:02–0:06:55.*\n\n2. **Sela Thorn:** You whispered as though the water might hear her, avoided eye contact, and kept her gaze on the tide line. She was mending a net, barely looked up, and firmly refused night crossings: “I'll row you, but not at night. Never at night.” *Source: session 3, scene 1, 0:00:19–0:00:42.*\n\n3. **Old Hesk:** “Hold the rail. River's angry since the bell.” The transcript labels this “Speaker 1,” but the surrounding introduction identifies him as Hesk. This was his claim about the river. *Source: session 2, scene 1, 0:00:14.*\n\nAll three answered from Omni-GM; nothing left pending."
+}

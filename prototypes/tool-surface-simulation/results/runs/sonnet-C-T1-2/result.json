@@ -1,0 +1,77 @@
+{
+ "id": "sonnet-C-T1-2",
+ "client": "sonnet",
+ "surface": "C",
+ "task": "T1",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 8,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1849,
+ "toolSequence": [
+  "skill",
+  "get",
+  "skill:split-scenes",
+  "skill:map-speakers",
+  "session_create",
+  "transcript_upload_url",
+  "get",
+  "scenes_set"
+ ],
+ "skillsLoaded": [
+  "split-scenes",
+  "map-speakers"
+ ],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 113564,
+  "cachedInput": 101849,
+  "output": 2374
+ },
+ "ms": 20504,
+ "errors": [],
+ "answer": "Session 3 is in Omni-GM (s3, played 2026-10-10, adventure The Drowned Bell). The transcript is uploaded (5895 bytes) and split into four scenes.\n\n**Scenes**\n1. Sela Thorn at pier four (0:00:05)\n2. Warm water in the Saltmere Mine (0:05:48)\n3. Midnight bell at the drowned chapel (0:13:40)\n4. Stew and a plan at the Tarred Gull (0:19:50)\n\n**Speaker mapping**\n- Jonas plays Teo, Dana plays Vessa, and Priya plays Oren. The GM narrates.\n- The transcript files the NPC voices under \"Speaker 1\", so I decided each one from the content:\n  - Scene 1: Sela Thorn.\n  - Scene 3: a fisherman, who talks about the Kelp Mother.\n  - Scene 4: Bram, the innkeeper.\n- The GM calls the tide-reader \"Sela\". The dockhands also say \"Sella\", and the transcript has \"Sella\" once at 0:01:06. I kept \"Sela\".\n\n**Left for you**\n- I didn't debrief, because you only asked for the scene split. I haven't drafted or committed any story-state changes.\n- The transcript has two lines I'd want to check at debrief time:\n  - At 0:15:24 the GM says to himself \"That's the choir clock at three of six.\"\n  - At 0:07:03 Dana's guess that Maren is in the cult is a player guess. It should only touch a thread, not become a fact.\n- Two things I couldn't tell from the transcript:\n  - Whether the fisherman is a recurring NPC or a one-off.\n  - Whether \"M. Brand\" is Teo's sister's name. The transcript doesn't show the GM confirming it, so I'd treat it as Teo's claim.\n\nTell me when you want the debrief."
+}

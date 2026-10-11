@@ -1,0 +1,61 @@
+{
+ "id": "sol-A-T7-3",
+ "client": "sol",
+ "surface": "A",
+ "task": "T7",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 13,
+ "rejected": 1,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 2064,
+ "toolSequence": [
+  "story_read:overview",
+  "story_read:schema",
+  "story_read:entities",
+  "story_read:entity",
+  "story_read:entities",
+  "story_read:transcript",
+  "debrief:show",
+  "story_read:transcript",
+  "story_read:entity",
+  "debrief:open!rejected",
+  "story_correct",
+  "story_read:entity",
+  "story_read:entities"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 192953,
+  "cachedInput": 163072,
+  "output": 1314
+ },
+ "ms": 42321,
+ "errors": [],
+ "answer": "Saved Dana’s suspicion as an unconfirmed player theory in a thread linked to Maren Vosk. Verified it appears on Maren’s record in Omni-GM. Nothing left to do."
+}

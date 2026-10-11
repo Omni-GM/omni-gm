@@ -1,0 +1,9 @@
+{"t":1791702313889,"surface":"B","event":"start","tools":21,"uploadMode":"signed"}
+{"t":1791702315266,"surface":"B","tool":"list_entities","args":{"nameContains":"Hesk"},"argsBytes":23,"outcome":"ok","partialRejections":0,"resultBytes":62}
+{"t":1791702315873,"surface":"B","tool":"get_schema","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":5264}
+{"t":1791702315878,"surface":"B","tool":"search_transcripts","args":{"text":"Hesk"},"argsBytes":15,"outcome":"ok","partialRejections":0,"resultBytes":527}
+{"t":1791702317100,"surface":"B","tool":"get_entity","args":{"entityId":"e34"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":245}
+{"t":1791702317308,"surface":"B","tool":"get_entity_history","args":{"entityId":"e34"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":530}
+{"t":1791702317443,"surface":"B","tool":"search_transcripts","args":{"text":"ferry"},"argsBytes":16,"outcome":"ok","partialRejections":0,"resultBytes":572}
+{"t":1791702318936,"surface":"B","tool":"search_transcripts","args":{"text":"keeper"},"argsBytes":17,"outcome":"ok","partialRejections":0,"resultBytes":392}
+{"t":1791702319070,"surface":"B","tool":"list_entities","args":{"kind":"place"},"argsBytes":16,"outcome":"ok","partialRejections":0,"resultBytes":345}

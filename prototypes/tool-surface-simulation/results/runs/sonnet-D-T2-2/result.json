@@ -1,0 +1,115 @@
+{
+ "id": "sonnet-D-T2-2",
+ "client": "sonnet",
+ "surface": "D",
+ "task": "T2",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 20,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 10295,
+ "toolSequence": [
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "find",
+  "find",
+  "find",
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "debrief_add",
+  "debrief_commit"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 357166,
+  "cachedInput": 297357,
+  "output": 17013
+ },
+ "ms": 58445,
+ "errors": [],
+ "answer": "The session 3 debrief draft is ready, with 21 changes across the four scenes. I haven't committed it, because that needs your OK.\n\n## What the draft records\n\n- **Scene 1, boat at pier four:**\n  - Sela Thorn is a new NPC, with \"Sella\" as an alias because you keep \"Sela\". I filled in how you played her: whispering, never meeting anyone's eye, rows by day only.\n  - It adds \"Saltmere flooded the night the bell first rang\" as a fact (Sela said it), linked to the mine.\n  - The docks get the morning description.\n- **Scene 2, Saltmere Mine:**\n  - The mine's description is updated, and its state is now flooded with warm water.\n  - Teo's goal now notes the \"M. Brand\" page. The page is narrated, but the claim that it's Mira's handwriting is Teo's, so that part is marked as a player guess.\n  - Vessa and Oren's theory is a new thread, \"Is Maren Vosk in the cult?\", as a player guess only. Maren herself is unchanged.\n- **Scene 3, the shore at midnight:**\n  - The drowned chapel gets its description, including the pale shapes in rows.\n  - The Kelp Mother is a rumor fact, not an NPC.\n  - The Hollow Choir clock goes from 2 to 3 of 6, based on your aside \"That's the choir clock at three of six.\"\n- **Scene 4, the Tarred Gull:**\n  - The Tarred Gull is a new place, and Bram is a new NPC, with how you played him.\n  - It adds \"Maren lost a brother to the bay\" as a fact (Bram said it), linked to Maren.\n  - A new thread, \"Dive to the drowned chapel\", holds the players' plan: Sela rows them out at first light and they dive at low tide. It is marked as a player plan.\n\nI left out the rolls, Oren's damage, and the long rest, since they're mechanics.\n\n## Where the plots stand\n\n- **Bell and choir:** the clock is at 3 of 6 and the humming is louder. The party has now seen the congregation under the water.\n- **Mira's trail:** her name is on a hymn page at the mine, and Teo ties it to the chapel.\n- **Dive to the chapel:** it starts at first light next session. Sela will only row by day.\n- **Maren:** two players suspect her. Bram's line about her brother points the other way, but nothing at the table settles it.\n- **Pale Abbot:** nothing moved this session.\n\n## What's left for you\n\nI couldn't ask anything while you were away. These need you:\n\n1. **Maren and the cult.** Is the players' theory true, false, or still open? I recorded it only as their guess.\n2. **The hymn page.** Is the handwriting really Mira's? I kept it as Teo's claim.\n3. **Sela.** Should \"Sela Thorn\" stay as the spelling? And does her grandmother's \"warm water\" remark count as established, or only as her story?\n4. **Kelp Mother.** Do you want it kept as a rumor, or is there something real behind it?\n5. **Choir clock.** Does 3 of 6 match your intent? Was the bump from 2 to 3 this session, or had it already moved?\n\nOnce you've answered those, say the draft is right and I'll commit it. I can apply any corrections first.\n\nSession 3's debrief is committed as k61, with all 21 changes applied.\n\nThe five open questions from my last message are still unanswered. Everything is stored as drafted: Maren and the hymn handwriting stay marked as player guesses, and the Kelp Mother stays a rumor. The choir clock is now at 3 of 6. If any of those are wrong, tell me and I'll correct them as GM-basis changes."
+}

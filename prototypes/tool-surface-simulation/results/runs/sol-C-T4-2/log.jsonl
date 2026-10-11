@@ -1,0 +1,11 @@
+{"t":1791702285167,"surface":"C","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791702290454,"surface":"C","tool":"skill","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":1165}
+{"t":1791702293381,"surface":"C","tool":"skill","args":{"name":"plank-questions"},"argsBytes":26,"outcome":"ok","partialRejections":0,"resultBytes":634}
+{"t":1791702296580,"surface":"C","tool":"find","args":{"query":"Pale Abbot"},"argsBytes":22,"outcome":"ok","partialRejections":0,"resultBytes":2472}
+{"t":1791702296581,"surface":"C","tool":"find","args":{"query":"bell"},"argsBytes":16,"outcome":"ok","partialRejections":0,"resultBytes":2709}
+{"t":1791702296582,"surface":"C","tool":"find","args":{"query":"choir"},"argsBytes":17,"outcome":"ok","partialRejections":0,"resultBytes":2028}
+{"t":1791702296583,"surface":"C","tool":"get","args":{"ref":"schema"},"argsBytes":16,"outcome":"ok","partialRejections":0,"resultBytes":5264}
+{"t":1791702298716,"surface":"C","tool":"get","args":{"ref":"entity:e36"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1256}
+{"t":1791702304378,"surface":"C","tool":"story_commit","args":{"changes":[{"basis":["game_master"],"change":{"op":"update","entity":"e36","addAliases":["Brother Ivo"],"properties":{"role":"Brother Ivo, the drowned chapel's last priest; the figure in the chapel mural holding the bell rope. The bell keeps him alive under the bay.","wants":"He wants the choir to rise so he can finally leave the water."}},"sources":[{"quote":"he's Brother Ivo, the drowned chapel's last priest. The bell keeps him alive under the bay, and he wants the choir to rise so he can finally leave the water."}],"why":"The GM establishes the Pale Abbot's identity, what keeps him alive, and his motive."}],"reason":"The GM answered the background question about who the Pale Abbot really is and asked to record the answer in Omni-GM."},"argsBytes":748,"outcome":"ok","partialRejections":0,"resultBytes":37}
+{"t":1791702307003,"surface":"C","tool":"get","args":{"ref":"entity:e36"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":2380}
+{"t":1791702307004,"surface":"C","tool":"get","args":{"ref":"entity:e37"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1173}

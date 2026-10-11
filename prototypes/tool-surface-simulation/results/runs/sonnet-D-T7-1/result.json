@@ -1,0 +1,57 @@
+{
+ "id": "sonnet-D-T7-1",
+ "client": "sonnet",
+ "surface": "D",
+ "task": "T7",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 9,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1752,
+ "toolSequence": [
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "find",
+  "story_commit"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 117050,
+  "cachedInput": 100556,
+  "output": 2135
+ },
+ "ms": 17678,
+ "errors": [],
+ "answer": "I saved Dana's theory in Omni-GM as a new open thread, \"Is Maren Vosk running the Hollow Choir?\" (commit k59). I couldn't put it on Maren herself. The store only lets a player guess touch a thread or a character goal, so Maren's NPC entry is unchanged.\n\n- **Basis:** the thread is marked as a player guess, so it won't read as established fact. It quotes Dana's line from session 3 at 0:07:03 (\"She's in the cult, I'm calling it\") and Priya's agreement at 0:07:12.\n- **Links:** it's linked to Maren Vosk, to the Hollow Choir clock, and to Vessa as the one who raised it. It will show up when you look at Maren.\n- **Priya too:** Priya, playing Oren, agreed with Dana at the table. I noted that in the thread text and the sources.\n\nNothing is left open. If you'd rather keep this as a note on Maren's entry, that would need a GM-basis change from you."
+}

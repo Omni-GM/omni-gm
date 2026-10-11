@@ -415,7 +415,7 @@
    "name": "Gullwick Docks",
    "aliases": [],
    "properties": {
-    "details_shown": "Fog, tar, and gulls; the far piers are rotting."
+    "details_shown": "Fog, tar, and gulls; the far piers are rotting. By morning the fog sits on the docks with gulls everywhere; boats can be found at the end of pier four."
    }
   },
   {
@@ -446,7 +446,7 @@
     "old chapel"
    ],
    "properties": {
-    "details_shown": "Sank into the bay with its bell."
+    "details_shown": "Sank into the bay with its bell. At low water only the bell tower and two broken arches stick out of the bay, with seaweed hanging from the stones. At midnight the bell rings under the water, and pale shapes stand in rows on the chapel floor like a congregation before they vanish."
    }
   },
   {
@@ -456,7 +456,8 @@
    "aliases": [],
    "properties": {
     "what_is_open": "Who or what rings a bell that sank with the old chapel?",
-    "status": "open"
+    "status": "open",
+    "next_step": "Party plan: Sela rows them out at first light, and they dive to the drowned chapel at low tide, by day. Vessa buys rope and a second lantern."
    }
   },
   {
@@ -466,7 +467,7 @@
    "aliases": [],
    "properties": {
     "counts_toward": "The drowned congregation walks out of the bay.",
-    "value": 2,
+    "value": 3,
     "segments": 6,
     "visible_to_players": "no"
    }
@@ -478,7 +479,7 @@
    "aliases": [],
    "properties": {
     "goal": "Learn why my sister Mira walked out of the Archive and never came back.",
-    "what_changed": "Mira heard the bell the night she left."
+    "what_changed": "A hymn-book page in the flooded Saltmere tunnel had \"M. Brand\" pencilled in the margin; Teo says it is Mira's handwriting and that she was there."
    }
   },
   {
@@ -527,8 +528,8 @@
    "name": "Saltmere Mine",
    "aliases": [],
    "properties": {
-    "details_shown": "Up the cliff path, closed for forty years.",
-    "state": "closed"
+    "details_shown": "Up the cliff path, closed for forty years. About an hour's walk. The entrance is a black mouth in the chalk with a half-rotted timber frame and a rusted cart on its side; warm air smelling of church and old candle wax comes out. About thirty paces in the tunnel floods with warm black water, and wet hymn-book pages float on it and stick to the walls.",
+    "state": "Closed. Flooded about thirty paces in with warm black water."
    }
   },
   {
@@ -538,6 +539,89 @@
    "aliases": [],
    "properties": {
     "statement": "The chapel's bell was cast from metal mined at Saltmere."
+   }
+  },
+  {
+   "id": "e59",
+   "kind": "npc",
+   "name": "Sela Thorn",
+   "aliases": [
+    "Sella"
+   ],
+   "properties": {
+    "role": "Tide-reader who rows boats out of Gullwick",
+    "played_as": "Whispers as if the water might hear her, never looks anyone in the eye, keeps her gaze on the tide line; shrugs and goes back to her net",
+    "wants": "To row only by day, never at night; will be at pier four at first light for the ride",
+    "knows": "Saltmere flooded the same night the bell first rang, forty years ago; her grandmother said the water came up warm",
+    "status": "alive"
+   }
+  },
+  {
+   "id": "e60",
+   "kind": "world_fact",
+   "name": "Saltmere flooded the night the bell first rang",
+   "aliases": [],
+   "properties": {
+    "statement": "Sela says Saltmere Mine flooded forty years ago on the same night the bell first rang, and her grandmother said the water came up warm."
+   }
+  },
+  {
+   "id": "e61",
+   "kind": "world_fact",
+   "name": "Only Sela's boat goes near the bell water",
+   "aliases": [],
+   "properties": {
+    "statement": "Sela says hers is the only boat that goes near the bell water; the other boatmen are scared."
+   }
+  },
+  {
+   "id": "e62",
+   "kind": "thread",
+   "name": "Is Maren behind the Hollow Choir?",
+   "aliases": [],
+   "properties": {
+    "what_is_open": "Vessa and Oren suspect the harbor-master Maren Vosk of being in the cult and running the choir. The GM did not confirm it, and the search of the mine turned up nothing more.",
+    "status": "open"
+   }
+  },
+  {
+   "id": "e63",
+   "kind": "world_fact",
+   "name": "The Kelp Mother",
+   "aliases": [],
+   "properties": {
+    "statement": "Local fishermen say the Kelp Mother pulls children who stand close to the water down by the ankles; whether she is real is unconfirmed."
+   }
+  },
+  {
+   "id": "e64",
+   "kind": "place",
+   "name": "The Tarred Gull",
+   "aliases": [],
+   "properties": {
+    "details_shown": "A tavern by the docks. A fire going, and it smells of tar and fish stew. The party can take a long rest there."
+   }
+  },
+  {
+   "id": "e65",
+   "kind": "npc",
+   "name": "Bram",
+   "aliases": [],
+   "properties": {
+    "role": "Innkeeper of the Tarred Gull",
+    "played_as": "Huge man with a red beard who laughs at his own jokes and wipes the same mug the whole time he talks; teases the party (\"Brave or stupid\") and feeds them for free",
+    "wants": "Not shown",
+    "knows": "Has known Maren Vosk for thirty years; says she has a sharp tongue and a good heart and lost a brother to the bay",
+    "status": "alive"
+   }
+  },
+  {
+   "id": "e66",
+   "kind": "world_fact",
+   "name": "Maren lost a brother to the bay",
+   "aliases": [],
+   "properties": {
+    "statement": "Bram says Maren Vosk lost a brother to the bay."
    }
   }
  ],
@@ -561,6 +645,26 @@
    "type": "involves",
    "from": "e37",
    "to": "e36"
+  },
+  {
+   "type": "last_seen_at",
+   "from": "e59",
+   "to": "e18"
+  },
+  {
+   "type": "involves",
+   "from": "e60",
+   "to": "e38"
+  },
+  {
+   "type": "is_at",
+   "from": "e65",
+   "to": "e64"
+  },
+  {
+   "type": "involves",
+   "from": "e66",
+   "to": "e19"
   }
  ],
  "debriefs": [
@@ -1067,7 +1171,7 @@
   {
    "id": "d3",
    "sessionId": "s3",
-   "status": "draft",
+   "status": "committed",
    "changes": [
     {
      "change": {
@@ -1505,7 +1609,8 @@
      "scene": 4,
      "id": "c57"
     }
-   ]
+   ],
+   "commitId": "k58"
   }
  ],
  "commits": [
@@ -1518,6 +1623,11 @@
    "id": "k33",
    "kind": "debrief",
    "reason": "Debrief of session 2"
+  },
+  {
+   "id": "k58",
+   "kind": "debrief",
+   "reason": "Debrief of session 3"
   }
  ],
  "history": [
@@ -2162,8 +2272,607 @@
    "before": {
     "value": 1
    }
+  },
+  {
+   "change": {
+    "op": "new",
+    "tempKey": "sela",
+    "kind": "npc",
+    "name": "Sela Thorn",
+    "aliases": [
+     "Sella"
+    ],
+    "properties": {
+     "role": "Tide-reader who rows boats out of Gullwick",
+     "played_as": "Whispers as if the water might hear her, never looks anyone in the eye, keeps her gaze on the tide line; shrugs and goes back to her net",
+     "wants": "To row only by day, never at night; will be at pier four at first light for the ride",
+     "knows": "Saltmere flooded the same night the bell first rang, forty years ago; her grandmother said the water came up warm",
+     "status": "alive"
+    }
+   },
+   "basis": [
+    "narrated",
+    "npc_said"
+   ],
+   "sources": [
+    {
+     "quote": "She talks in a whisper, like the water might hear her, and she never once looks you in the eye. She keeps her gaze on the tide line.",
+     "at": "0:00:42"
+    },
+    {
+     "quote": "Sela Thorn. I read the tides. I'll row you, but not at night. Never at night.",
+     "at": "0:00:36"
+    }
+   ],
+   "why": "New named NPC the GM voiced; the party's way out to the chapel.",
+   "scene": 1,
+   "id": "c40",
+   "commitId": "k58",
+   "entityId": "e59",
+   "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "relate",
+    "type": "last_seen_at",
+    "from": "$sela",
+    "to": "e18"
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "There's a woman sitting on an upturned skiff, mending a net.",
+     "at": "0:00:19"
+    }
+   ],
+   "why": "Where the table last saw her.",
+   "scene": 1,
+   "id": "c41",
+   "commitId": "k58",
+   "entityId": "e59",
+   "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "relate",
+    "type": "last_seen_at",
+    "from": "$sela",
+    "to": "e18"
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "There's a woman sitting on an upturned skiff, mending a net.",
+     "at": "0:00:19"
+    }
+   ],
+   "why": "Where the table last saw her.",
+   "scene": 1,
+   "id": "c41",
+   "commitId": "k58",
+   "entityId": "e18",
+   "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "new",
+    "tempKey": "flood",
+    "kind": "world_fact",
+    "name": "Saltmere flooded the night the bell first rang",
+    "properties": {
+     "statement": "Sela says Saltmere Mine flooded forty years ago on the same night the bell first rang, and her grandmother said the water came up warm."
+    }
+   },
+   "basis": [
+    "npc_said"
+   ],
+   "sources": [
+    {
+     "quote": "Saltmere flooded the same night the bell first rang. Forty years ago. My grandmother said the water came up warm.",
+     "at": "0:01:26"
+    }
+   ],
+   "why": "Ties the mine's flooding to the bell's first ringing.",
+   "scene": 1,
+   "id": "c42",
+   "commitId": "k58",
+   "entityId": "e60",
+   "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "relate",
+    "type": "involves",
+    "from": "$flood",
+    "to": "e38"
+   },
+   "basis": [
+    "npc_said"
+   ],
+   "sources": [
+    {
+     "quote": "Saltmere flooded the same night the bell first rang.",
+     "at": "0:01:26"
+    }
+   ],
+   "why": "The fact is about the mine.",
+   "scene": 1,
+   "id": "c43",
+   "commitId": "k58",
+   "entityId": "e60",
+   "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "relate",
+    "type": "involves",
+    "from": "$flood",
+    "to": "e38"
+   },
+   "basis": [
+    "npc_said"
+   ],
+   "sources": [
+    {
+     "quote": "Saltmere flooded the same night the bell first rang.",
+     "at": "0:01:26"
+    }
+   ],
+   "why": "The fact is about the mine.",
+   "scene": 1,
+   "id": "c43",
+   "commitId": "k58",
+   "entityId": "e38",
+   "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "new",
+    "tempKey": "boat",
+    "kind": "world_fact",
+    "name": "Only Sela's boat goes near the bell water",
+    "properties": {
+     "statement": "Sela says hers is the only boat that goes near the bell water; the other boatmen are scared."
+    }
+   },
+   "basis": [
+    "npc_said"
+   ],
+   "sources": [
+    {
+     "quote": "Sella's boat is the only one that goes near the bell water. The others are scared.",
+     "at": "0:01:06"
+    }
+   ],
+   "why": "Explains why the party depends on Sela.",
+   "scene": 1,
+   "id": "c44",
+   "commitId": "k58",
+   "entityId": "e61",
+   "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "update",
+    "entity": "e18",
+    "properties": {
+     "details_shown": "Fog, tar, and gulls; the far piers are rotting. By morning the fog sits on the docks with gulls everywhere; boats can be found at the end of pier four."
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "Morning in Gullwick. The fog is still sitting on the docks, gulls everywhere, and you're standing at the end of pier four looking for a boat.",
+     "at": "0:00:05"
+    }
+   ],
+   "why": "The GM's description of the docks by day.",
+   "scene": 1,
+   "id": "c45",
+   "commitId": "k58",
+   "entityId": "e18",
+   "sessionId": "s3",
+   "before": {
+    "details_shown": "Fog, tar, and gulls; the far piers are rotting."
+   }
+  },
+  {
+   "change": {
+    "op": "update",
+    "entity": "e38",
+    "properties": {
+     "details_shown": "Up the cliff path, closed for forty years. About an hour's walk. The entrance is a black mouth in the chalk with a half-rotted timber frame and a rusted cart on its side; warm air smelling of church and old candle wax comes out. About thirty paces in the tunnel floods with warm black water, and wet hymn-book pages float on it and stick to the walls.",
+     "state": "Closed. Flooded about thirty paces in with warm black water."
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "The Saltmere Mine entrance is a black mouth in the chalk, timber frame half rotted. A rusted cart lies on its side. The air coming out of it is warm and smells like a church, like old candle wax.",
+     "at": "0:06:02"
+    },
+    {
+     "quote": "About thirty paces in, the tunnel floods. Black water, and it's warm to the touch.",
+     "at": "0:06:24"
+    }
+   ],
+   "why": "The GM's description of the mine as the party saw it.",
+   "scene": 2,
+   "id": "c46",
+   "commitId": "k58",
+   "entityId": "e38",
+   "sessionId": "s3",
+   "before": {
+    "details_shown": "Up the cliff path, closed for forty years.",
+    "state": "closed"
+   }
+  },
+  {
+   "change": {
+    "op": "update",
+    "entity": "e24",
+    "properties": {
+     "what_changed": "A hymn-book page in the flooded Saltmere tunnel had \"M. Brand\" pencilled in the margin; Teo says it is Mira's handwriting and that she was there."
+    }
+   },
+   "basis": [
+    "narrated",
+    "player_guess"
+   ],
+   "sources": [
+    {
+     "quote": "A hymn about the sea giving back what it takes. And in the margin, in pencil, someone wrote \"M. Brand\".",
+     "at": "0:06:44"
+    },
+    {
+     "quote": "That's Mira. That's my sister's handwriting. She was here.",
+     "at": "0:06:55"
+    }
+   ],
+   "why": "First physical trace of Mira; the handwriting match is Teo's reading, not confirmed by the GM.",
+   "scene": 2,
+   "id": "c47",
+   "commitId": "k58",
+   "entityId": "e24",
+   "sessionId": "s3",
+   "before": {
+    "what_changed": "Mira heard the bell the night she left."
+   }
+  },
+  {
+   "change": {
+    "op": "new",
+    "kind": "thread",
+    "name": "Is Maren behind the Hollow Choir?",
+    "properties": {
+     "what_is_open": "Vessa and Oren suspect the harbor-master Maren Vosk of being in the cult and running the choir. The GM did not confirm it, and the search of the mine turned up nothing more.",
+     "status": "open"
+    }
+   },
+   "basis": [
+    "player_guess"
+   ],
+   "sources": [
+    {
+     "quote": "Okay, I bet the harbor-master is behind all this. Maren wanted us gone from day one. She's in the cult, I'm calling it.",
+     "at": "0:07:03"
+    },
+    {
+     "quote": "Yeah, Maren is totally running the choir.",
+     "at": "0:07:12"
+    }
+   ],
+   "why": "A player theory, recorded as a thread and not as a fact about Maren.",
+   "scene": 2,
+   "id": "c48",
+   "commitId": "k58",
+   "entityId": "e62",
+   "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "update",
+    "entity": "e21",
+    "properties": {
+     "details_shown": "Sank into the bay with its bell. At low water only the bell tower and two broken arches stick out of the bay, with seaweed hanging from the stones. At midnight the bell rings under the water, and pale shapes stand in rows on the chapel floor like a congregation before they vanish."
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "The drowned chapel's roof sticks out of the bay at low water, just the bell tower and two broken arches. Seaweed hangs from the stones.",
+     "at": "0:14:02"
+    },
+    {
+     "quote": "Shapes. Pale shapes, standing on the chapel floor under the water, in rows. Like a congregation. Then the bell stops and they're gone.",
+     "at": "0:15:33"
+    }
+   ],
+   "why": "What the party saw at the chapel.",
+   "scene": 3,
+   "id": "c49",
+   "commitId": "k58",
+   "entityId": "e21",
+   "sessionId": "s3",
+   "before": {
+    "details_shown": "Sank into the bay with its bell."
+   }
+  },
+  {
+   "change": {
+    "op": "new",
+    "kind": "world_fact",
+    "name": "The Kelp Mother",
+    "properties": {
+     "statement": "Local fishermen say the Kelp Mother pulls children who stand close to the water down by the ankles; whether she is real is unconfirmed."
+    }
+   },
+   "basis": [
+    "rumor"
+   ],
+   "sources": [
+    {
+     "quote": "Don't stand that close. The Kelp Mother takes children who stand that close. Pulls them down by the ankles. Everyone knows that.",
+     "at": "0:14:24"
+    },
+    {
+     "quote": "That's what the fishermen say.",
+     "at": "0:14:36"
+    }
+   ],
+   "why": "A local rumor about the bay, not an NPC.",
+   "scene": 3,
+   "id": "c50",
+   "commitId": "k58",
+   "entityId": "e63",
+   "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "update",
+    "entity": "e23",
+    "properties": {
+     "value": 3
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "(to himself) That's the choir clock at three of six.",
+     "at": "0:15:24"
+    }
+   ],
+   "why": "The bell rang again, the humming is louder, and the GM set the clock to three of six.",
+   "scene": 3,
+   "id": "c51",
+   "commitId": "k58",
+   "entityId": "e23",
+   "sessionId": "s3",
+   "before": {
+    "value": 2
+   }
+  },
+  {
+   "change": {
+    "op": "new",
+    "tempKey": "gull",
+    "kind": "place",
+    "name": "The Tarred Gull",
+    "properties": {
+     "details_shown": "A tavern by the docks. A fire going, and it smells of tar and fish stew. The party can take a long rest there."
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "You end up back at the Tarred Gull, the tavern by the docks. Fire going, it smells of tar and fish stew.",
+     "at": "0:19:50"
+    }
+   ],
+   "why": "The party's base in Gullwick.",
+   "scene": 4,
+   "id": "c52",
+   "commitId": "k58",
+   "entityId": "e64",
+   "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "new",
+    "tempKey": "bram",
+    "kind": "npc",
+    "name": "Bram",
+    "properties": {
+     "role": "Innkeeper of the Tarred Gull",
+     "played_as": "Huge man with a red beard who laughs at his own jokes and wipes the same mug the whole time he talks; teases the party (\"Brave or stupid\") and feeds them for free",
+     "wants": "Not shown",
+     "knows": "Has known Maren Vosk for thirty years; says she has a sharp tongue and a good heart and lost a brother to the bay",
+     "status": "alive"
+    }
+   },
+   "basis": [
+    "narrated",
+    "npc_said"
+   ],
+   "sources": [
+    {
+     "quote": "Bram is huge, red beard, laughs at his own jokes, and he wipes the same mug the whole time he talks to you.",
+     "at": "0:20:48"
+    },
+    {
+     "quote": "Maren? Thirty years I've known her. Sharp tongue. Good heart. She lost a brother to that bay.",
+     "at": "0:21:02"
+    }
+   ],
+   "why": "New named NPC the GM voiced.",
+   "scene": 4,
+   "id": "c53",
+   "commitId": "k58",
+   "entityId": "e65",
+   "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "relate",
+    "type": "is_at",
+    "from": "$bram",
+    "to": "$gull"
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "The innkeeper, Bram, sets down three bowls of stew without being asked.",
+     "at": "0:20:35"
+    }
+   ],
+   "why": "He keeps the tavern.",
+   "scene": 4,
+   "id": "c54",
+   "commitId": "k58",
+   "entityId": "e65",
+   "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "relate",
+    "type": "is_at",
+    "from": "$bram",
+    "to": "$gull"
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "The innkeeper, Bram, sets down three bowls of stew without being asked.",
+     "at": "0:20:35"
+    }
+   ],
+   "why": "He keeps the tavern.",
+   "scene": 4,
+   "id": "c54",
+   "commitId": "k58",
+   "entityId": "e64",
+   "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "new",
+    "tempKey": "brother",
+    "kind": "world_fact",
+    "name": "Maren lost a brother to the bay",
+    "properties": {
+     "statement": "Bram says Maren Vosk lost a brother to the bay."
+    }
+   },
+   "basis": [
+    "npc_said"
+   ],
+   "sources": [
+    {
+     "quote": "She lost a brother to that bay.",
+     "at": "0:21:02"
+    }
+   ],
+   "why": "Background on Maren from someone who has known her thirty years.",
+   "scene": 4,
+   "id": "c55",
+   "commitId": "k58",
+   "entityId": "e66",
+   "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "relate",
+    "type": "involves",
+    "from": "$brother",
+    "to": "e19"
+   },
+   "basis": [
+    "npc_said"
+   ],
+   "sources": [
+    {
+     "quote": "Maren? Thirty years I've known her.",
+     "at": "0:21:02"
+    }
+   ],
+   "why": "The fact is about Maren.",
+   "scene": 4,
+   "id": "c56",
+   "commitId": "k58",
+   "entityId": "e66",
+   "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "relate",
+    "type": "involves",
+    "from": "$brother",
+    "to": "e19"
+   },
+   "basis": [
+    "npc_said"
+   ],
+   "sources": [
+    {
+     "quote": "Maren? Thirty years I've known her.",
+     "at": "0:21:02"
+    }
+   ],
+   "why": "The fact is about Maren.",
+   "scene": 4,
+   "id": "c56",
+   "commitId": "k58",
+   "entityId": "e19",
+   "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "update",
+    "entity": "e22",
+    "properties": {
+     "next_step": "Party plan: Sela rows them out at first light, and they dive to the drowned chapel at low tide, by day. Vessa buys rope and a second lantern."
+    }
+   },
+   "basis": [
+    "player_plan"
+   ],
+   "sources": [
+    {
+     "quote": "So tomorrow, first light, Sela rows us out and we dive to the chapel at low tide. I'll buy rope and a second lantern tonight.",
+     "at": "0:20:20"
+    },
+    {
+     "quote": "Agreed. Tomorrow we dive.",
+     "at": "0:20:31"
+    }
+   ],
+   "why": "The party's stated next step on the bell mystery.",
+   "scene": 4,
+   "id": "c57",
+   "commitId": "k58",
+   "entityId": "e22",
+   "sessionId": "s3",
+   "before": {}
   }
  ],
  "uploads": {},
- "nextId": 58
+ "nextId": 67
 }

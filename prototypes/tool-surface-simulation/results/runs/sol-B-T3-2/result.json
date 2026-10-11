@@ -1,0 +1,76 @@
+{
+ "id": "sol-B-T3-2",
+ "client": "sol",
+ "surface": "B",
+ "task": "T3",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "mine: at least two facts",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela: whisper and gaze",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Hesk: 'river's angry since the bell'",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no writes",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Sela's flood story marked as her claim",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 17,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 309,
+ "toolSequence": [
+  "list_entities",
+  "list_entities",
+  "list_entities",
+  "list_sessions",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity_history",
+  "get_entity",
+  "get_entity_history",
+  "get_entity_history",
+  "get_entity_history",
+  "read_transcript",
+  "get_entity_history",
+  "read_transcript",
+  "read_transcript"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "prep-sparring",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 93502,
+  "cachedInput": 62848,
+  "output": 764
+ },
+ "ms": 20987,
+ "errors": [],
+ "answer": "1. **Saltmere Mine:** They know it’s up the cliff path and has been closed for forty years. The archivist said the chapel bell’s metal came from there. Sela claimed it flooded the night the bell first rang, with warm water, citing her grandmother. They personally found warm, candle-wax-smelling air, warm black floodwater thirty paces inside, and hymn-book pages. One hymn described the sea giving back what it takes; its margin read “M. Brand.” Teo identified the handwriting as Mira’s. The bad air hurt Oren.  \n   Sources: session 2, 0:08:40–0:08:50; session 3, 0:01:26 and 0:06:02–0:07:23.\n\n2. **Sela Thorn:** You played her whispering “like the water might hear her,” avoiding eye contact and watching the tide line. Grey braid, salt-stained coat, mending a net on an upturned skiff. Firm about her boundary: “I’ll row you, but not at night. Never at night.” She shrugged and returned to her net after discussing the mine.  \n   Source: session 3, 0:00:19–0:01:39.\n\n3. **Old Hesk’s first river warning:** “Hold the rail. River’s angry since the bell.”  \n   Source: session 2, 0:00:14.\n\nAll three answers are in Omni-GM. Nothing remains to retrieve; Sela’s historical account and Teo’s identification remain attributed claims."
+}

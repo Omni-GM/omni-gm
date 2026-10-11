@@ -1,0 +1,10 @@
+{"t":1791702125847,"surface":"A","event":"start","tools":5,"uploadMode":"signed"}
+{"t":1791702137393,"surface":"A","tool":"story_read","args":{"view":"overview"},"argsBytes":19,"outcome":"ok","partialRejections":0,"resultBytes":773}
+{"t":1791702137400,"surface":"A","tool":"story_read","args":{"view":"schema"},"argsBytes":17,"outcome":"ok","partialRejections":0,"resultBytes":5264}
+{"t":1791702137400,"surface":"A","tool":"story_read","args":{"view":"entities","nameContains":"Hesk"},"argsBytes":41,"outcome":"ok","partialRejections":0,"resultBytes":62}
+{"t":1791702140821,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e34","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":816}
+{"t":1791702140822,"surface":"A","tool":"story_read","args":{"view":"transcript","sessionId":"s2"},"argsBytes":38,"outcome":"ok","partialRejections":0,"resultBytes":1170}
+{"t":1791702140822,"surface":"A","tool":"story_read","args":{"view":"entities","kind":"world_fact"},"argsBytes":39,"outcome":"ok","partialRejections":0,"resultBytes":362}
+{"t":1791702140823,"surface":"A","tool":"story_read","args":{"view":"entities","kind":"thread"},"argsBytes":35,"outcome":"ok","partialRejections":0,"resultBytes":160}
+{"t":1791702147794,"surface":"A","tool":"story_correct","args":{"changes":[{"basis":["game_master"],"change":{"op":"update","entity":"e34","properties":{"status":"alive"}},"sources":[{"quote":"Old Hesk isn't dead. He only passed out in the water in session 2, and the ferry-house keeper revived him."}],"why":"Old Hesk survived session 2: he passed out in the water and the ferry-house keeper revived him; the debrief incorrectly recorded him as dead."}],"reason":"Correct the mistaken session 2 death record using the GM's explicit clarification that Old Hesk passed out and was revived by the ferry-house keeper."},"argsBytes":553,"outcome":"ok","partialRejections":0,"resultBytes":37}
+{"t":1791702151189,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e34","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":1494}

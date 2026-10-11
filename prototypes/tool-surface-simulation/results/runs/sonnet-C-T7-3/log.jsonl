@@ -1,0 +1,9 @@
+{"t":1791702308753,"surface":"C","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791702310954,"surface":"C","tool":"skill","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":1165}
+{"t":1791702311150,"surface":"C","tool":"find","args":{"query":"Maren Vosk"},"argsBytes":22,"outcome":"ok","partialRejections":0,"resultBytes":2305}
+{"t":1791702311693,"surface":"C","tool":"find","args":{"query":"Hollow Choir"},"argsBytes":24,"outcome":"ok","partialRejections":0,"resultBytes":2035}
+{"t":1791702311716,"surface":"C","tool":"get","args":{"ref":"schema"},"argsBytes":16,"outcome":"ok","partialRejections":0,"resultBytes":5264}
+{"t":1791702313830,"surface":"C","tool":"get","args":{"ref":"entity:e22"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":2329}
+{"t":1791702314101,"surface":"C","tool":"get","args":{"ref":"entity:e19"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1368}
+{"t":1791702314410,"surface":"C","tool":"find","args":{"query":"Maren suspect cult harbor-master","kinds":["thread"]},"argsBytes":63,"outcome":"ok","partialRejections":0,"resultBytes":2452}
+{"t":1791702318616,"surface":"C","tool":"get","args":{"ref":"overview"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":773}

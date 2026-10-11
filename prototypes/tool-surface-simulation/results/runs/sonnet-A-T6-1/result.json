@@ -1,0 +1,69 @@
+{
+ "id": "sonnet-A-T6-1",
+ "client": "sonnet",
+ "surface": "A",
+ "task": "T6",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Hesk alive",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "one correction commit with a reason",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate Hesk",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "nothing else changed",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "basis game_master",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 12,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 978,
+ "toolSequence": [
+  "story_read:entities",
+  "story_read:schema",
+  "story_read:entity",
+  "story_read:entities",
+  "story_read:entities",
+  "story_read:transcript",
+  "story_read:transcript",
+  "story_read:overview",
+  "story_read:transcript",
+  "story_read:entities",
+  "story_read:entities",
+  "story_correct"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 100926,
+  "cachedInput": 90453,
+  "output": 1822
+ },
+ "ms": 16232,
+ "errors": [],
+ "answer": "Old Hesk (e34) is now marked **alive**. The change is committed as k59, with your statement as the source.\n\n- **Why it was wrong:** the session 2 debrief took \"grey and cold and not breathing that you can tell\" as a death. In the transcript, Oren only asks \"Is he dead?\" and the GM leaves him with the ferry-house keeper. No one ever confirms a death.\n- **Nothing else needed fixing:** no thread or world fact mentions Hesk, and session 3 never mentions the ferry.\n\nTwo things are left, both small:\n1. **Ferry-house keeper:** there's no entity for them, so I didn't create one. I only have your word that they revived Hesk, and I don't know their name or how you played them. If you want them recorded, say so and give me those details.\n2. **Where Hesk is now:** he has no \"last seen at\" or \"is at\" link to a place, and there's no ferry-house place entity either. I left that alone rather than guess."
+}

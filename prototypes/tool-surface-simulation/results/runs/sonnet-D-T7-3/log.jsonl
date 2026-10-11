@@ -1,0 +1,7 @@
+{"t":1791702312773,"surface":"D","event":"start","tools":11,"uploadMode":"signed"}
+{"t":1791702314965,"surface":"D","tool":"find","args":{"query":"Maren Vosk"},"argsBytes":22,"outcome":"ok","partialRejections":0,"resultBytes":2305}
+{"t":1791702315179,"surface":"D","tool":"find","args":{"query":"Hollow Choir"},"argsBytes":24,"outcome":"ok","partialRejections":0,"resultBytes":2035}
+{"t":1791702315521,"surface":"D","tool":"get","args":{"ref":"schema"},"argsBytes":16,"outcome":"ok","partialRejections":0,"resultBytes":5264}
+{"t":1791702317277,"surface":"D","tool":"get","args":{"ref":"entity:e19"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1368}
+{"t":1791702317579,"surface":"D","tool":"get","args":{"ref":"entity:e22"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":2329}
+{"t":1791702317923,"surface":"D","tool":"find","args":{"query":"Maren suspect cult harbor-master","kinds":["thread","character_goal"]},"argsBytes":80,"outcome":"ok","partialRejections":0,"resultBytes":2452}

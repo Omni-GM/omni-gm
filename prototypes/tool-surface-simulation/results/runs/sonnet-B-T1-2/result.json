@@ -1,0 +1,70 @@
+{
+ "id": "sonnet-B-T1-2",
+ "client": "sonnet",
+ "surface": "B",
+ "task": "T1",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 4,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1788,
+ "toolSequence": [
+  "list_sessions",
+  "create_session",
+  "get_upload_url",
+  "set_scenes"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 96721,
+  "cachedInput": 86052,
+  "output": 2268
+ },
+ "ms": 20720,
+ "errors": [],
+ "answer": "Session 3 (2026-10-10) is now in Omni-GM as `s3`. The transcript is uploaded (5,895 bytes) and split into four scenes. The debrief is not started.\n\n**Scenes**\n1. **Sela at pier four** (0:00:05): the party meets Sela Thorn and hires her to row them out.\n2. **Saltmere Mine** (0:05:48): the flooded tunnel, the hymn pages, and the \"M. Brand\" margin note.\n3. **Midnight at the drowned chapel** (0:13:40): the fishermen's Kelp Mother warning, the bell rings twelve times, and the pale shapes appear.\n4. **Stew at the Tarred Gull** (0:19:50): the party plans to dive tomorrow, Bram talks about Maren, and the party takes a long rest.\n\n**Left for you**\n- **Debrief:** I haven't drafted any story-state changes. Those need your review before anything is committed, so I stopped at the scenes.\n- **Speaker 1:** the transcription service labels every NPC voice \"Speaker 1\". I read the speaker from context: Sela, the fisherman, and Bram, plus Sela's slip \"Sella\" at 0:01:06. Please check that reading.\n- **Gaps in the transcript:** it jumps from 0:01:39 to 0:05:48, from 0:07:28 to 0:13:40, and from 0:15:45 to 0:19:50. I assumed those stretches weren't played or recorded. If something important happened in them, tell me.\n- **GM aside at 0:15:24:** you said \"(to himself) That's the choir clock at three of six.\" I put it in the scene 3 summary as a private GM note. Whether it's a fact that moves the existing clock is for the debrief.\n- **Player guess:** at 0:07:03 Dana and Priya guess that Maren is in the cult. That's a player guess, so the debrief can only attach it to a thread, not record it as a fact about Maren. Bram's account of Maren at 0:21:02 points the other way.\n- **Upload URL:** the `howTo` text in the upload response showed a different URL token from the `uploadUrl` field. I used the `uploadUrl` field, and the upload succeeded."
+}

@@ -1,0 +1,143 @@
+{
+ "id": "sol-C-T2-1",
+ "client": "sol",
+ "surface": "C",
+ "task": "T2",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 45,
+ "rejected": 2,
+ "partialRejections": 0,
+ "invalid": 1,
+ "argsBytes": 17589,
+ "toolSequence": [
+  "skill:debrief",
+  "skill:map-speakers",
+  "get",
+  "get",
+  "get",
+  "get",
+  "find!invalid",
+  "get",
+  "find!rejected",
+  "find",
+  "find",
+  "find",
+  "find",
+  "find",
+  "find",
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "find",
+  "find",
+  "find",
+  "find",
+  "get",
+  "find",
+  "debrief_add",
+  "get",
+  "get",
+  "get",
+  "debrief_commit",
+  "get",
+  "get"
+ ],
+ "skillsLoaded": [
+  "debrief",
+  "map-speakers"
+ ],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 916600,
+  "cachedInput": 828800,
+  "output": 15182
+ },
+ "ms": 163266,
+ "errors": [],
+ "answer": "Session 3’s draft is saved in Omni-GM: 26 sourced changes across all four scenes. I checked every quote and timestamp against the transcript.\n\nThe draft leaves the story here:\n\n- **The drowned bell:** It rang twelve times at midnight. The humming was louder, and pale shapes stood in rows on the submerged chapel floor before vanishing. The party plans to have Sela row them out at first light, then dive at low tide. Sources: 0:15:10–0:15:33; 0:20:14–0:20:31.\n- **Mira’s trail:** Saltmere’s warm, flooded tunnel contained hymn-book pages. One bore “M. Brand.” Teo identifies the handwriting as Mira’s and believes the hymns came from the chapel. Those remain his conclusions. Sources: 0:06:24–0:06:55; 0:20:05.\n- **Saltmere’s flooding:** Sela says the mine flooded the night the bell first rang, forty years ago. Her grandmother’s account of warm water remains secondhand. Source: 0:01:26.\n- **Suspicion of Maren:** Vessa suspects cult involvement; Oren suspects she runs the choir. Neither is confirmed. Bram says Maren has a good heart and lost a brother to the bay. Sources: 0:07:03–0:07:15; 0:21:02.\n- **The Pale Abbot:** The existing identity mystery remains open, with no new evidence this session.\n\nThe hidden **Hollow Choir rises** clock advances from **2/6 to 3/6**, toward the drowned congregation walking out of the bay. The GM explicitly states the new value at 0:15:24.\n\nThe draft also records Sela’s whispered delivery and avoidance of eye contact, with “Sella” as an alias; Bram’s laughter and habitual mug-wiping; Mira as a named, unvoiced NPC; and the places’ descriptions. The Kelp Mother is recorded only as a fishermen’s rumor.\n\nFor your later review, the transcript leaves these unresolved:\n\n- Is Teo’s handwriting identification correct, and did the hymns originate in the chapel?\n- Is Sela’s historical account accurate?\n- What, if anything, connects Maren to the choir?\n- Is the Kelp Mother more than local folklore?\n\nNothing is waiting on an answer now. Only your review and approval remain before committing. Omni-GM’s loaded `debrief` procedure says, “Commit only when the GM says the draft is right,” so the changes remain a draft.\n\nCommitted session 3’s debrief in Omni-GM. All 26 changes applied in commit `k66`; verified the session is committed and the Hollow Choir clock is at 3/6."
+}

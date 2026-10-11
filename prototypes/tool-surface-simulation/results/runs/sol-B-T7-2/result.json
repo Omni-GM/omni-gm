@@ -1,0 +1,57 @@
+{
+ "id": "sol-B-T7-2",
+ "client": "sol",
+ "surface": "B",
+ "task": "T7",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 9,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 986,
+ "toolSequence": [
+  "get_schema",
+  "list_entities",
+  "list_entities",
+  "list_entities",
+  "search_transcripts",
+  "get_entity",
+  "list_entities",
+  "correct_story",
+  "get_entity"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 146986,
+  "cachedInput": 127744,
+  "output": 741
+ },
+ "ms": 25108,
+ "errors": [],
+ "answer": "Saved and verified a thread linked to Maren Vosk: “Dana is convinced Maren Vosk is secretly running the Hollow Choir.”\n\nIt’s recorded as Dana’s unconfirmed suspicion. Nothing left to do."
+}

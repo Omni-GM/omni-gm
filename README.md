@@ -49,6 +49,12 @@ only touch threads or character goals. Both endpoints of a relationship
 must satisfy that rule. The schema defines all kinds, properties, enums,
 and relationship endpoints.
 
+Omit a source's `at` when it has no timestamp; a supplied value must be a
+valid timestamp, including in an older pending draft. If an old draft has
+`at: ""`, read its IDs with `get debrief:<session>`, drop those changes and
+their dependents together, then re-add them with `at` omitted or corrected.
+Drop errors name any invalid remaining IDs that also need removal.
+
 Review `get debrief:<session>`, drop mistakes with `debrief_drop`, and call
 `debrief_commit` only after the game master accepts the draft. In clients
 that render MCP Apps, `debrief_add` and `debrief_drop` carry the Ledger view

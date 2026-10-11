@@ -109,6 +109,7 @@ local fixture-state file for each preview hostname.
 `opus-native-review.md` is the T3-owned read-only other-family review.
 `opus-cli-review.md` is the literal read-only CLI review with only Read,
 Glob and Grep tools. `review-dispositions.md` records every finding and its
-resolution or reason for rejection. The final review includes the updated
-main and completed acceptance proof. CI and deploy-main links are recorded
+resolution or reason for rejection. `opus-final-review.md` includes the
+updated main and completed acceptance proof and finds no remaining blockers.
+CI and deploy-main links are recorded
 on the ticket after merge.

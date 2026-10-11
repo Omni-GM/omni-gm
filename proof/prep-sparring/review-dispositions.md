@@ -61,3 +61,34 @@ It changed the adventure and used the wrong language. The procedure now
 front-loads reading the existing intent, forbids starting an adventure in
 sparring, and follows the GM's explicitly requested language. The fresh
 Opus proof and independent before/after comparison exercise these rules.
+
+## Final combined-tree review
+
+`opus-final-review.md` is the second native T3 Opus 5.5 review, against
+current main at `d3e5d1e`. It found no remaining blockers, ran all 69 tests,
+and confirmed that the deployed Convex code equals the reviewed code.
+
+1. Preview wording: no new decision is needed. The ticket brief explicitly
+   directs per-branch staging previews following #13's resolution. Both SDK
+   runs and the headless run use that authorized e2e target pattern.
+2. Existing drafts with `at: ""`: accepted as a compatibility caveat, not a
+   reason to weaken the shared validation. No claim is made about live data.
+   `get debrief:<session>` returns the raw draft without replay validation.
+   The GM can read the affected IDs, drop invalid changes and their dependent
+   changes together, then re-add them with `at` omitted or a valid timestamp.
+   `debrief_drop` filters selected changes before validating the remainder;
+   its error names any invalid IDs that also need removal. The README now
+   documents this recovery. Committed history is not revalidated or changed.
+3. Story timestamps without a session: rejected as a defect. Spec #11 allows
+   optional source `at` while story_commit has no session argument. No
+   session is fabricated. Transcript context remains available through the
+   utterance search reference.
+4. Relationship source references and bounded replay: inherited limits,
+   unchanged by this ticket. Relationship-only source hits refer to the
+   first endpoint, and state replay remains bounded at 2,000 records.
+
+The first headless note needed the GM's bullet-format correction. The full
+conversation retains that turn, and only the corrected note is acceptance
+proof. Mira's motivation remains unanswered because the GM supplied her
+want and then stopped; the client records that answer without inventing why.
+CodeRabbit skipped the draft PR. The required cross-family reviews ran.

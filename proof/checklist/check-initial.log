@@ -1,0 +1,89 @@
+
+> omni-gm@0.1.0 check /tmp/omnigm-38/worktree
+> pnpm build:ledger && pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test
+
+
+> omni-gm@0.1.0 build:ledger /tmp/omnigm-38/worktree
+> tsx scripts/build-ledger.ts
+
+tests/mcp.test.ts:713:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    711 │   const failed = await c.t.fetch(path, {
+    712 │     method: "PUT",
+  > 713 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
+        │           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    714 │   });
+    715 │   expect(failed.status).toBe(400);
+  
+  i Unsafe fix: Use a template literal.
+  
+     711  711 │     const failed = await c.t.fetch(path, {
+     712  712 │       method: "PUT",
+     713      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
+          713 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
+     714  714 │     });
+     715  715 │     expect(failed.status).toBe(400);
+  
+
+Checked 58 files in 57ms. No fixes applied.
+Found 1 info.
+CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
+✔ Configured a local deployment for http://127.0.0.1:3212 and saved its:
+    name as CONVEX_DEPLOYMENT
+    client URL as VITE_CONVEX_URL
+    HTTP actions URL as VITE_CONVEX_SITE_URL
+ to .env.local
+  Added ".env.local" to .gitignore
+
+Write your Convex functions in convex/
+Give us feedback at https://convex.dev/community or support@convex.dev
+View the Convex dashboard at null
+
+▌ Developing against deployment:
+▌ [Local] Port 3212 • No Convex account (run npx convex login to link to a project)
+▌ └─ http://127.0.0.1:3212
+- Preparing Convex functions...
+
+Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
+✔ Added table indexes:
+  [+] adventures.by_campaign   campaign, _creationTime
+  [+] campaigns.by_owner   owner, _creationTime
+  [+] checklists.by_campaign   campaign, _creationTime
+  [+] commits.by_campaign   campaign, _creationTime
+  [+] commits.by_campaign_and_adventure   campaign, adventure, _creationTime
+  [+] commits.by_campaign_and_kind   campaign, kind, _creationTime
+  [+] entities.by_campaign   campaign, _creationTime
+  [+] entities.by_campaign_and_id   campaign, id, _creationTime
+  [+] entities.by_campaign_and_kind   campaign, kind, _creationTime
+  [+] entities.search_text (text)   searchText, filters on campaign, kind
+  [+] entityHistory.by_campaign_and_entity   campaign, entityId, _creationTime
+  [+] history.by_campaign   campaign, _creationTime
+  [+] history.search_text (text)   searchText, filter on campaign
+  [+] relationships.by_campaign   campaign, _creationTime
+  [+] relationships.by_campaign_and_from   campaign, from, _creationTime
+  [+] relationships.by_campaign_and_to   campaign, to, _creationTime
+  [+] scenes.by_campaign   campaign, _creationTime
+  [+] scenes.by_session   session, _creationTime
+  [+] scenes.search_text (text)   searchText, filter on campaign
+  [+] sessions.by_campaign   campaign, _creationTime
+  [+] sessions.by_campaign_and_ordinal   campaign, ordinal, _creationTime
+  [+] uploads.by_session   session, _creationTime
+  [+] uploads.by_token   token, _creationTime
+  [+] utterances.by_campaign   campaign, _creationTime
+  [+] utterances.by_session_and_generation_and_seconds   session, transcriptGeneration, seconds, ordinal, _creationTime
+  [+] utterances.search_text (text)   searchText, filter on campaign
+✔ Installed component mcpGateway.
+✔ 19:15:31 Convex functions ready! (1.67s)
+Finding component definitions...
+Generating server code...
+Bundling component definitions...
+Bundling component schemas and implementations...
+Downloading current deployment state...
+Uploading functions to Convex...
+Generating TypeScript bindings...
+Running TypeScript...
+convex/tools.ts(33,21): error TS2345: Argument of type '{ name: string; description: string; fn: FunctionReference<"mutation", "internal", { reason: string; sections: { name: string; definition: string; }[]; template: string; caller: { claims?: any; subject: string; }; }, { ...; }, string | undefined>; identityArg: "caller"; args: { ...; }; returns: VObject<...>; }' is not assignable to parameter of type 'McpToolConfigBase<FunctionReference<"mutation", "internal", { reason: string; sections: { name: string; definition: string; }[]; template: string; caller: { claims?: any; subject: string; }; }, { commit: Id<"commits">; checklist: { ...; }; }, string | undefined>, { ...; }, VObject<...>> & { ...; }'.
+  Type '{ name: string; description: string; fn: FunctionReference<"mutation", "internal", { reason: string; sections: { name: string; definition: string; }[]; template: string; caller: { claims?: any; subject: string; }; }, { ...; }, string | undefined>; identityArg: "caller"; args: { ...; }; returns: VObject<...>; }' is missing the following properties from type '{ _typeMismatch: "returns validator does not match the function's return type"; expected: { commit: Id<"commits">; checklist: { sections: { name: string; definition: string; }[]; template: string; }; }; received: { ...; }; }': _typeMismatch, expected, received
+ ELIFECYCLE  Command failed with exit code 2.

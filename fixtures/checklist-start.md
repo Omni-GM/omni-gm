@@ -1,0 +1,1 @@
+Let's prep the next session of The Tallow Mill in English. This is invented proof data. The briefing has already been shown; no frame talk or store corrections today. Load the section-walk procedure and start my checklist. I have no vault access in this client.

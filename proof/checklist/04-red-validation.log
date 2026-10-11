@@ -1,0 +1,204 @@
+
+> omni-gm@0.1.0 test /tmp/omnigm-38/worktree
+> vitest run tests/checklist.test.ts
+
+
+ RUN  v4.1.0 /tmp/omnigm-38/worktree
+
+ ❯ tests/checklist.test.ts (8 tests | 5 failed) 653ms
+   × blank section name is rejected atomically 26ms
+   × blank definition is rejected atomically 22ms
+   × duplicate names is rejected atomically 21ms
+   × blank reason is rejected atomically 20ms
+   × blank template is rejected atomically 22ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/checklist.test.ts > blank section name is rejected atomically
+AssertionError: promise resolved "{ checklist: { …(2) }, …(1) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "checklist": {
++     "sections": [
++       {
++         "definition": "Opening situations",
++         "name": " 	",
++       },
++     ],
++     "template": "# Session
++ ## Strong start
++ ## Clues
++ ",
++   },
++   "commit": "0000000000000000000010005commits",
+  }
+
+ ❯ tests/checklist.test.ts:69:100
+     67|   const before = await c.call("get", { ref: "checklist" });
+     68|   const overview = await c.call("get", { ref: "overview" });
+     69|   await expect(c.call("checklist_set", { ...original, reason: "Invalid…
+       |                                                                                                    ^
+     70|   expect(await c.call("get", { ref: "checklist" })).toEqual(before);
+     71|   expect(await c.call("get", { ref: "overview" })).toEqual(overview);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  tests/checklist.test.ts > blank definition is rejected atomically
+AssertionError: promise resolved "{ checklist: { …(2) }, …(1) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "checklist": {
++     "sections": [
++       {
++         "definition": " 
++ ",
++         "name": "Start",
++       },
++     ],
++     "template": "# Session
++ ## Strong start
++ ## Clues
++ ",
++   },
++   "commit": "0000000000000000000010005commits",
+  }
+
+ ❯ tests/checklist.test.ts:69:100
+     67|   const before = await c.call("get", { ref: "checklist" });
+     68|   const overview = await c.call("get", { ref: "overview" });
+     69|   await expect(c.call("checklist_set", { ...original, reason: "Invalid…
+       |                                                                                                    ^
+     70|   expect(await c.call("get", { ref: "checklist" })).toEqual(before);
+     71|   expect(await c.call("get", { ref: "overview" })).toEqual(overview);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  tests/checklist.test.ts > duplicate names is rejected atomically
+AssertionError: promise resolved "{ checklist: { …(2) }, …(1) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "checklist": {
++     "sections": [
++       {
++         "definition": "First",
++         "name": "Clues",
++       },
++       {
++         "definition": "Second",
++         "name": " clues ",
++       },
++     ],
++     "template": "# Session
++ ## Strong start
++ ## Clues
++ ",
++   },
++   "commit": "0000000000000000000010005commits",
+  }
+
+ ❯ tests/checklist.test.ts:69:100
+     67|   const before = await c.call("get", { ref: "checklist" });
+     68|   const overview = await c.call("get", { ref: "overview" });
+     69|   await expect(c.call("checklist_set", { ...original, reason: "Invalid…
+       |                                                                                                    ^
+     70|   expect(await c.call("get", { ref: "checklist" })).toEqual(before);
+     71|   expect(await c.call("get", { ref: "overview" })).toEqual(overview);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  tests/checklist.test.ts > blank reason is rejected atomically
+AssertionError: promise resolved "{ checklist: { …(2) }, …(1) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "checklist": {
++     "sections": [
++       {
++         "definition": "Two or three opening situations.",
++         "name": "Strong start",
++       },
++       {
++         "definition": "Ten short clues the characters could learn.",
++         "name": "Clues",
++       },
++     ],
++     "template": "# Session
++ ## Strong start
++ ## Clues
++ ",
++   },
++   "commit": "0000000000000000000010005commits",
+  }
+
+ ❯ tests/checklist.test.ts:69:100
+     67|   const before = await c.call("get", { ref: "checklist" });
+     68|   const overview = await c.call("get", { ref: "overview" });
+     69|   await expect(c.call("checklist_set", { ...original, reason: "Invalid…
+       |                                                                                                    ^
+     70|   expect(await c.call("get", { ref: "checklist" })).toEqual(before);
+     71|   expect(await c.call("get", { ref: "overview" })).toEqual(overview);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  tests/checklist.test.ts > blank template is rejected atomically
+AssertionError: promise resolved "{ checklist: { …(2) }, …(1) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "checklist": {
++     "sections": [
++       {
++         "definition": "Two or three opening situations.",
++         "name": "Strong start",
++       },
++       {
++         "definition": "Ten short clues the characters could learn.",
++         "name": "Clues",
++       },
++     ],
++     "template": " 
++ ",
++   },
++   "commit": "0000000000000000000010005commits",
+  }
+
+ ❯ tests/checklist.test.ts:69:100
+     67|   const before = await c.call("get", { ref: "checklist" });
+     68|   const overview = await c.call("get", { ref: "overview" });
+     69|   await expect(c.call("checklist_set", { ...original, reason: "Invalid…
+       |                                                                                                    ^
+     70|   expect(await c.call("get", { ref: "checklist" })).toEqual(before);
+     71|   expect(await c.call("get", { ref: "overview" })).toEqual(overview);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 3 passed (8)
+   Start at  19:14:10
+   Duration  848ms (transform 413ms, setup 0ms, import 92ms, tests 653ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

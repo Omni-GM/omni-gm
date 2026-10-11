@@ -114,6 +114,13 @@ function numberedItems(text: string): Map<number, string> {
   return items;
 }
 
+function sectionFacts(text: string): string[] {
+  const pitches = text.split("\n").findIndex((line) => /pitch/i.test(line));
+  return units(text.split("\n").slice(0, pitches).join("\n")).filter((u) =>
+    /^([-*•]|\d+[.)])\s/.test(u),
+  );
+}
+
 function lastSection(text: string): string {
   const [heading, ...lines] = text.split("\n");
   const list = /^\s*([-*•]|\d+[.)])\s/;
@@ -231,11 +238,11 @@ try {
         entities: { name: string }[];
       }
     ).entities.map((e) => e.name.toLowerCase());
+    const sourced = (unit: string) =>
+      source.test(unit) ||
+      names.some((name) => unit.toLowerCase().includes(name));
     const unsourced = factual.filter(
-      (unit) =>
-        !source.test(unit) &&
-        !/\bframe\b/i.test(unit) &&
-        !names.some((name) => unit.toLowerCase().includes(name)),
+      (unit) => !sourced(unit) && !/\bframe\b/i.test(unit),
     );
     assert.deepEqual(unsourced, [], "Every fact carries a source");
     const marked = [
@@ -243,7 +250,17 @@ try {
       { about: /haunt/i, mark: /rumou?r/i },
       { about: /downriver/i, mark: /guess/i },
       { about: /\bkey\b/i, mark: /according to|claim|holloway says/i },
+      { about: /twenty years/i, mark: /according to|claim|says/i },
     ];
+    const npcs = units(briefing.slice(parts[3].at, parts[4].at)).filter((u) =>
+      /^([-*•]|\d+[.)])\s/.test(u),
+    );
+    assert(npcs.length >= 3, "Three or more NPCs in play");
+    for (const npc of npcs)
+      assert(
+        /want/i.test(npc),
+        `NPC line names or flags what they want: ${npc}`,
+      );
     const pre = units(briefing.slice(0, parts[5].at));
     for (const { about, mark } of marked)
       for (const unit of pre.filter((u) => about.test(u)))
@@ -263,10 +280,9 @@ try {
     const start = reply(2);
     const builtOn = start.match(/built on/gi)?.length ?? 0;
     assert(builtOn >= 2 && builtOn <= 3, `Strong start has ${builtOn} pitches`);
-    const startFacts = units(start.slice(0, start.search(/pitch/i))).filter(
-      (u) => source.test(u),
-    );
+    const startFacts = sectionFacts(start);
     assert(startFacts.length <= 5, "At most five facts open the section");
+    assert(startFacts.every(sourced), "Every section fact is sourced");
     assert(questions(start).length <= 1, "At most one question");
     const names2 = [...numberedItems(start).values()]
       .slice(0, builtOn)
@@ -303,9 +319,12 @@ try {
         `One or two sentences: ${item}`,
       );
     }
+    const secretFacts = sectionFacts(secrets);
+    assert(secretFacts.length <= 5, "At most five facts open the section");
+    assert(secretFacts.every(sourced), "Every section fact is sourced");
     assert(questions(secrets).length <= 1, "At most one question");
     console.log(
-      "PASS secrets and clues: ten numbered, tweet-short items and at most one question",
+      `PASS secrets and clues: ${secretFacts.length} sourced facts, ten numbered, tweet-short items and at most one question`,
     );
 
     assert(numberedItems(reply(5)).size >= 2, "Numbered next options");

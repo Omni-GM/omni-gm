@@ -1,0 +1,29 @@
+[00:00:10] GM: Hollin's Weir, late autumn. The tallow mill groans on the river, its wheel turning slower than it should.
+[00:01:30] GM as Widow Ferrant: Two of my apprentices are gone. Pell and Nia. Three nights now. Find them.
+[00:01:55] GM: Widow Ferrant speaks in slow, clipped words and never sits down.
+[00:02:40] Bryn: Did they run off, or did someone take them?
+[00:03:05] GM as Widow Ferrant: Nobody runs from a warm bed in autumn.
+[00:05:20] GM: Corwin Ashe, the mill foreman, shows you the apprentices' loft. He laughs nervously and keeps rubbing flour from his hands.
+[00:06:10] GM as Corwin: They sleep up here. Slept. I locked the door myself, I swear it.
+[00:07:45] Tamsin: The window latch is scratched from outside.
+[00:08:30] GM: Below the loft, the cellar smells of old tallow and wet stone.
+[00:09:15] GM as Corwin: The cellar is haunted, everybody in town says so. The old miller drowned down there.
+[00:12:00] GM: At the town hall, Reeve Holloway receives you. He is formal and quotes the town charter at every turn.
+[00:12:50] GM as Reeve Holloway: The harvest fair opens in three days. If those children are not found by then, I close the mill. Charter, article nine.
+[00:13:40] GM: The harvest fair clock has three segments; one is filled. You can all see it.
+[00:14:20] GM as Reeve Holloway: The widow and I have disagreed about that weir gate for twenty years.
+[00:15:05] Oskar: Who keeps the key to the weir gate?
+[00:15:30] GM as Reeve Holloway: The widow, of course. She will tell you otherwise.
+[00:18:00] GM: Night on the river. Lanterns move on the water: two flat barges slipping past the weir.
+[00:19:10] GM as Dace: Evening, cousins. Fine night for a swim. Nobody asked you here.
+[00:19:40] GM: Dace grins, calls everyone cousin, and never stops coiling rope.
+[00:20:30] GM as Dace: Ask your foreman about the money he owes me. Corwin is my favorite debtor.
+[00:21:15] Bryn: So Corwin is in debt to a smuggler.
+[00:22:00] GM as Dace: Sister Ulla patched up my boatmen last spring. She asks no questions. Neither should you.
+[00:23:10] Tamsin: I think the barges carried the children downriver.
+[00:24:00] GM: The water behind the weir rises. The weir flood clock stands at two of four. Only I know it.
+[00:24:45] GM as Widow Ferrant: If the gate stays shut past the new moon, the wheel stops for good.
+[00:26:30] Tamsin: I still have that unsigned letter from my sister. The seal had a mill wheel on it.
+[00:27:10] GM: Nobody at the mill recognizes the seal.
+[00:29:00] Oskar: Tomorrow we search the cellar, then we watch the weir at night.
+[00:29:30] GM: The session ends in the mill yard, flour on your boots, the wheel groaning behind you.

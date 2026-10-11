@@ -1,0 +1,10 @@
+PROOF TARGET https://nautical-heron-152.convex.site
+PASS loaded briefing, then the section walk; every tool call read the store
+PASS briefing of 598 words with its parts in the spec's order, store corrections included
+PASS 22 fact units each sourced; claims, rumors and guesses marked; 3 numbered what-next options with the frame talk first and no question before them
+PASS strong start: 5 sourced facts, 3 pitches each "built on" (Wet stone | A boat under the wheel | The reeve comes to inspect), 0 question
+PASS the strong-start pick is shown back alone, then numbered next options
+PASS secrets and clues: 5 sourced facts, ten numbered, tweet-short items and at most one question
+PASS the note holds the picked start and exactly the five kept items
+PASS story state, frame, schema and sessions unchanged after prep
+HEADLESS BRIEFING AND SECTION WALK PASSED

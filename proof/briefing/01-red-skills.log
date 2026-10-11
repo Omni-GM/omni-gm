@@ -1,0 +1,57 @@
+SOURCE COMMIT d44d4d3714e64a36c3db5400225a12fb52e46aa4 plus the new test only
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-36
+
+ ❯ tests/briefing.test.ts (2 tests | 2 failed) 455ms
+   × prep opens with the briefing skill, and every skill carries the pitch guardrails instead of a ban on drafting prep 433ms
+   × no tool tells the client to never draft prep, and the skill tool names the briefing 21ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/briefing.test.ts > prep opens with the briefing skill, and every skill carries the pitch guardrails instead of a ban on drafting prep
+AssertionError: expected 'Never draft prep. Propose only on the…' not to contain 'Never draft prep'
+
+- Expected
++ Received
+
+- Never draft prep
++ Never draft prep. Propose only on the game master's explicit request, at most three situations built from story-state facts with sources.
++ Ask about situations and pressure, never player decisions or outcomes.
++ Story state records what happened. The adventure frame records intent. Keep them apart.
++ Write in the game master's language.
+
+ ❯ tests/briefing.test.ts:13:21
+     11|   const c = client();
+     12|   const rules = await servedStandingRules(c);
+     13|   expect(rules).not.toContain("Never draft prep");
+       |                     ^
+     14|   for (const guardrail of [
+     15|     "built on",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/briefing.test.ts > no tool tells the client to never draft prep, and the skill tool names the briefing
+AssertionError: story_commit: expected 'Commit corrections and the game maste…' not to match /never draft prep/i
+
+- Expected:
+/never draft prep/i
+
++ Received:
+"Commit corrections and the game master's plank answers outside a debrief, with a reason. All or nothing. A basis of only player_guess/player_plan may touch only thread or character_goal. Never draft prep."
+
+ ❯ tests/briefing.test.ts:43:45
+     41|   ).result.tools;
+     42|   for (const tool of tools)
+     43|     expect(tool.description, tool.name).not.toMatch(/never draft prep/…
+       |                                             ^
+     44|   expect(tools.find((t) => t.name === "skill")?.description).toContain(
+     45|     "briefing",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  18:40:36
+   Duration  642ms (transform 385ms, setup 0ms, import 90ms, tests 455ms, environment 0ms)
+

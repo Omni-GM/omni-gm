@@ -223,7 +223,7 @@ try {
   } else {
     for (const name of ["prep sparring", "plank questions"]) {
       const skill = await call<{ procedure: string }>("skill", { name });
-      assert(skill.procedure.includes("Never draft prep"));
+      assert(skill.procedure.includes("Only the game master's picks"));
     }
     const before = await call("get", { ref: "overview" });
     const draft = await call("get", { ref: `debrief:${session.id}` });

@@ -380,7 +380,7 @@ test("prep search returns separately ranked source claims with their basis and t
   expect(window.utterances[0].text).toBe("The amber token opens the ferry.");
 });
 
-test("the client loads prep sparring and plank questions with their creative rules and the story write contract", async () => {
+test("the client loads the section walk and plank questions with their creative rules and the story write contract", async () => {
   const c = client();
   const init = await c.init();
   expect(init.result.instructions.length).toBeLessThan(4096);
@@ -391,17 +391,13 @@ test("the client loads prep sparring and plank questions with their creative rul
   const prep = await c.call("skill", { name: "Prep sparring" });
   expect(prep.name).toBe("prep-sparring");
   expect(prep.procedure).toContain("checklist");
-  expect(prep.procedure).toContain("One question");
-  expect(prep.procedure).toContain("five short bullets");
-  expect(prep.procedure).toContain("two or three");
+  expect(prep.procedure).toContain("briefing");
   expect(prep.procedure).toContain("plank-questions");
   const plank = await c.call("skill", { name: "plank_questions" });
   expect(plank.name).toBe("plank-questions");
   expect(plank.procedure).toContain("story_commit");
   expect(plank.procedure).toContain("game_master");
   for (const skill of [prep, plank]) {
-    expect(skill.procedure).toContain("Never draft prep");
-    expect(skill.procedure).toContain("explicit request");
     expect(skill.procedure).toContain("never player decisions or outcomes");
     expect(skill.procedure).toContain("game master's language");
   }

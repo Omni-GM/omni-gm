@@ -1,0 +1,10 @@
+SOURCE TREE 159b5ad7c45b07a69a8b0f47cb8ed3720ca54b2e plus this proof commit
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-36
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  19:05:28
+   Duration  682ms (transform 408ms, setup 0ms, import 90ms, tests 496ms, environment 0ms)
+

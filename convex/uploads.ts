@@ -1,9 +1,13 @@
 import { ConvexError, type Infer, v } from "convex/values";
+import type { McpCaller } from "convex-mcp-gateway";
 import { internal } from "./_generated/api";
+import type { Doc, Id } from "./_generated/dataModel";
 import {
+  type ActionCtx,
   httpAction,
   internalMutation,
   internalQuery,
+  type MutationCtx,
 } from "./_generated/server";
 import { seconds, utterance } from "./model";
 import { callerArgs, campaignFor, sessionFor } from "./store";
@@ -11,7 +15,39 @@ import { callerArgs, campaignFor, sessionFor } from "./store";
 const MAX_BYTES = 2_000_000;
 const MAX_LINES = 2000;
 export const uploadArgs = { ...callerArgs, session: v.string() };
-export const uploadResult = v.object({ url: v.string() });
+export const uploadResult = v.object({ url: v.string(), pageUrl: v.string() });
+export function siteUrl(): string {
+  return process.env.CONVEX_SITE_URL ?? "https://test.convex.site";
+}
+async function issueToken(
+  ctx: MutationCtx,
+  caller: McpCaller,
+  session: string,
+): Promise<{ token: string; session: Id<"sessions"> }> {
+  const campaign = await campaignFor(ctx, caller);
+  const s = await sessionFor(ctx, campaign._id, session);
+  if (isLocked(s))
+    throw new ConvexError(
+      "Transcript is locked once scenes or a debrief exist",
+    );
+  const token = crypto.randomUUID();
+  const ticket = await ctx.db.insert("uploads", {
+    token,
+    session: s._id,
+    expires: Date.now() + 10 * 60_000,
+  });
+  await ctx.scheduler.runAfter(10 * 60_000, internal.uploads.expire, {
+    ticket,
+  });
+  return { token, session: s._id };
+}
+function isLocked(session: Doc<"sessions">): boolean {
+  return (
+    session.status === "committed" ||
+    session.scenes.length > 0 ||
+    session.changes.length > 0
+  );
+}
 export const uploadUrl = internalMutation({
   args: uploadArgs,
   returns: uploadResult,
@@ -19,23 +55,10 @@ export const uploadUrl = internalMutation({
     ctx,
     { caller, session },
   ): Promise<Infer<typeof uploadResult>> => {
-    const campaign = await campaignFor(ctx, caller);
-    const s = await sessionFor(ctx, campaign._id, session);
-    if (s.status === "committed" || s.scenes.length || s.changes.length)
-      throw new ConvexError(
-        "Transcript is locked once scenes or a debrief exist",
-      );
-    const token = crypto.randomUUID();
-    const ticket = await ctx.db.insert("uploads", {
-      token,
-      session: s._id,
-      expires: Date.now() + 10 * 60_000,
-    });
-    await ctx.scheduler.runAfter(10 * 60_000, internal.uploads.expire, {
-      ticket,
-    });
+    const issued = await issueToken(ctx, caller, session);
     return {
-      url: `${process.env.CONVEX_SITE_URL ?? "https://test.convex.site"}/upload?token=${token}`,
+      url: `${siteUrl()}/upload?token=${issued.token}`,
+      pageUrl: `${siteUrl()}/upload-page?session=${issued.session}`,
     };
   },
 });
@@ -65,12 +88,7 @@ export const finish = internalMutation({
         message: "Upload URL expired or used",
       });
     const session = await ctx.db.get(ticket.session);
-    if (
-      !session ||
-      session.status === "committed" ||
-      session.scenes.length ||
-      session.changes.length
-    )
+    if (!session || isLocked(session))
       throw new ConvexError({
         code: "UPLOAD_CAPABILITY",
         message: "Transcript is locked",
@@ -135,10 +153,11 @@ function parse(text: string): Infer<typeof utterance>[] {
     throw new ConvexError("Transcript timestamps must be in order");
   return result;
 }
-export const upload = httpAction(async (ctx, request) => {
-  const token = new URL(request.url).searchParams.get("token") ?? "";
-  if (!(await ctx.runQuery(internal.uploads.valid, { token })))
-    return new Response("Expired or used URL", { status: 403 });
+async function store(
+  ctx: ActionCtx,
+  token: string,
+  request: Request,
+): Promise<Response> {
   if (Number(request.headers.get("content-length")) > MAX_BYTES)
     return new Response("Transcript too large", { status: 413 });
   const body = new Uint8Array(await request.arrayBuffer());
@@ -178,6 +197,66 @@ export const upload = httpAction(async (ctx, request) => {
     );
   }
   return Response.json({ uploaded: true });
+}
+export const upload = httpAction(async (ctx, request) => {
+  const token = new URL(request.url).searchParams.get("token") ?? "";
+  if (!(await ctx.runQuery(internal.uploads.valid, { token })))
+    return new Response("Expired or used URL", { status: 403 });
+  return store(ctx, token, request);
+});
+const pageSessionResult = v.union(
+  v.null(),
+  v.object({
+    ordinal: v.number(),
+    playedOn: v.string(),
+    locked: v.boolean(),
+    uploaded: v.boolean(),
+  }),
+);
+export const pageSession = internalQuery({
+  args: uploadArgs,
+  returns: pageSessionResult,
+  handler: async (
+    ctx,
+    { caller, session },
+  ): Promise<Infer<typeof pageSessionResult>> => {
+    try {
+      const campaign = await campaignFor(ctx, caller);
+      const s = await sessionFor(ctx, campaign._id, session);
+      return {
+        ordinal: s.ordinal,
+        playedOn: s.playedOn,
+        locked: isLocked(s),
+        uploaded: s.transcript !== undefined,
+      };
+    } catch (error) {
+      if (error instanceof ConvexError) return null;
+      throw error;
+    }
+  },
+});
+export const pageToken = internalMutation({
+  args: uploadArgs,
+  returns: v.string(),
+  handler: async (ctx, { caller, session }) =>
+    (await issueToken(ctx, caller, session)).token,
+});
+export const pageSessionApi = httpAction(async (ctx, request) => {
+  const identity = await ctx.auth.getUserIdentity();
+  if (!identity) return new Response("Sign in first", { status: 401 });
+  const args = {
+    caller: { subject: identity.subject },
+    session: new URL(request.url).searchParams.get("session") ?? "",
+  };
+  const info = await ctx.runQuery(internal.uploads.pageSession, args);
+  if (!info) return new Response("Session not found", { status: 404 });
+  if (request.method === "GET") return Response.json(info);
+  if (info.locked)
+    return new Response("Transcript is locked once scenes or a debrief exist", {
+      status: 409,
+    });
+  const token = await ctx.runMutation(internal.uploads.pageToken, args);
+  return store(ctx, token, request);
 });
 export const transcriptFile = internalQuery({
   args: { ...callerArgs, session: v.string() },

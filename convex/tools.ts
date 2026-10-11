@@ -86,7 +86,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "transcript_upload_url",
     description:
-      "Get a signed single-use URL valid for ten minutes. Upload the file with curl -T; never put its contents in a tool call or output. UTF-8 [HH:MM:SS] Speaker: text, at most 2 MB and 2000 utterances.",
+      "Get a signed single-use URL valid for ten minutes and an upload page link. Upload the file with curl -T; never put its contents in a tool call or output. Without a shell, give the game master pageUrl to sign in and drop the file there, then continue. UTF-8 [HH:MM:SS] Speaker: text, at most 2 MB and 2000 utterances.",
     fn: internal.uploads.uploadUrl,
     identityArg: "caller",
     args: uploadArgs,

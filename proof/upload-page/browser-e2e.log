@@ -1,0 +1,49 @@
+Upload page proof against https://bold-stoat-539.convex.site (b0f135a, merged with main), 2026-10-11T12:53:15Z
+
+== Second owner creates a session through MCP
+other owner's page: https://bold-stoat-539.convex.site/upload-page?session=k573f0947rh18918dj86krbg398g399d
+
+== Anonymous visitor, fresh browser
+waiting for --text Sign in to upload
+"Sign in to upload this session's transcript.\n\nSign in"
+screenshot proof/upload-page/screenshots/01-anonymous.png
+API without sign-in: 401
+
+== Real AuthKit sign-in as the test user
+waiting for --url **authkit.app/**
+waiting for input[type="email"]
+screenshot proof/upload-page/screenshots/02-authkit-email.png
+waiting for input[type="password"]
+waiting for --fn location.origin === 'https://bold-stoat-539.convex.site' || document.body.innerText.includes('Allow access')
+screenshot proof/upload-page/screenshots/03-authkit-consent.png
+waiting for --url https://bold-stoat-539.convex.site/upload-page?session=*
+waiting for --text not in your campaign
+URL after sign-in: https://bold-stoat-539.convex.site/upload-page?session=k573f0947rh18918dj86krbg398g399d
+
+== Signed in, another owner's session is refused
+"This session is not in your campaign. Sign in with the account your AI client uses, or ask it for a new link.\n\nSign out"
+screenshot proof/upload-page/screenshots/04-other-owner-refused.png
+
+== The test user creates their own session through MCP
+own page: https://bold-stoat-539.convex.site/upload-page?session=k57c11yjyrcs5eqnvwb8h877bn8g20ty
+
+== Own session is ready for a file
+waiting for --text Drop the transcript file here
+"Session 1, played 2026-01-03.\n\nDrop the transcript file here.\n\nChoose a file\n\nUTF-8 lines like [00:01:10] Speaker: text, at most 2 MB.\n\nSign out"
+screenshot proof/upload-page/screenshots/05-ready-1280.png
+screenshot proof/upload-page/screenshots/05-ready-768.png
+screenshot proof/upload-page/screenshots/05-ready-390.png
+
+== Drop the fixture onto the drop zone
+waiting for --text is stored
+"session.txt is stored. Go back to your AI client and tell it to continue."
+screenshot proof/upload-page/screenshots/06-stored-1280.png
+screenshot proof/upload-page/screenshots/06-stored-768.png
+screenshot proof/upload-page/screenshots/06-stored-390.png
+
+== Stored file is byte-exact (read back through MCP as the same user)
+fixture  692 bytes sha256 be730cec849970e98293f58f9679a4445544e56dcb0116ed1b8d800661d7351b
+stored   692 bytes sha256 be730cec849970e98293f58f9679a4445544e56dcb0116ed1b8d800661d7351b
+utterances parsed: 7
+PASS stored file is byte-exact
+exit=0

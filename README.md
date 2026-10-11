@@ -16,8 +16,15 @@ The server stores and validates the story state; it makes no AI calls.
 Start with `adventure_start`, then `session_create`. Call
 `transcript_upload_url` and upload the file directly from disk with
 `curl -T <file> <signed-url>`. The URL is single-use and expires after ten
-minutes. Only the signed URL is returned in this slice. The transcript
-never belongs in a tool call or the assistant's output.
+minutes. The transcript never belongs in a tool call or the assistant's
+output.
+
+Claude Desktop and claude.ai have no shell. For them the tool also returns
+`pageUrl`, an upload page for that session. The game master opens it, signs
+in with the same AuthKit account, and drops the file. The page refuses
+anonymous visitors and sessions of another owner. It stores the file
+through the same parser and limits as the signed URL. The `split-scenes`
+skill tells the model to hand over the link when it cannot run `curl`.
 
 Use UTF-8 text with timestamped speakers:
 
@@ -44,7 +51,7 @@ Review `get debrief:<session>`, drop mistakes with `debrief_drop`, and call
 history commit atomically. The committed debrief, transcript, and scenes
 stay closed. Dropping a parent refuses to break retained dependent changes and lists
 their IDs. Drop them together, then add replacements in dependency order. Later corrections, the adventure
-frame, the signed-in upload page, and the Ledger view are later slices.
+frame and the Ledger view are later slices.
 
 At prep, `get overview` returns the most recently committed `lastTime`.
 `find` lists entities and scenes without a query, or searches names,
@@ -84,6 +91,11 @@ CONVEX_DEPLOY_KEY="$CONVEX_PREVIEW_DEPLOY_KEY" pnpm exec convex deploy \
 OMNI_GM_MCP_URL=https://<preview-deployment>.convex.site/mcp \
   OMNI_GM_ACCESS_TOKEN="$STAGING_M2M_ACCESS_TOKEN" pnpm e2e
 ```
+
+`scripts/upload-page-proof.sh` signs in to a preview's upload page as the
+staging test user in a fresh agent-browser session. It checks the refusals,
+drops `fixtures/session.txt`, and compares the stored bytes. It reads the
+site, the test user, and a second owner's token from the environment.
 
 Preview deployments trust staging WorkOS AuthKit. The live deployment
 trusts production. GitHub Actions runs the gate for PRs and `main`, then

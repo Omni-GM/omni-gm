@@ -1,0 +1,9 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-upload-page
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  12:35:09
+   Duration  532ms (transform 269ms, setup 0ms, import 95ms, tests 311ms, environment 0ms)
+

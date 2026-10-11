@@ -61,6 +61,29 @@ test("the upload page refuses anonymous visitors and sessions of another owner, 
   expect(await (await c.owner.fetch(api)).json()).toMatchObject({
     uploaded: true,
   });
+
+  await c.call("scenes_set", {
+    session: session.id,
+    scenes: [
+      {
+        title: "The ferry",
+        start: "00:01:10",
+        place: "Glass Causeway",
+        summary: "Sera offers passage.",
+      },
+    ],
+  });
+  expect(await (await c.owner.fetch(api)).json()).toMatchObject({
+    locked: true,
+  });
+  const replaced = await c.owner.fetch(api, {
+    method: "PUT",
+    body: "[00:00:01] GM: A different session.\n",
+  });
+  expect(replaced.status).toBe(409);
+  expect(await (await c.owner.fetch(local(read.downloadUrl))).text()).toBe(
+    transcript,
+  );
 });
 
 test("split-scenes and the upload tool tell a client without a shell to hand over the page link", async () => {

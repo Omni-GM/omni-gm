@@ -23,7 +23,7 @@ tests/mcp.test.ts:694:11 lint/style/useTemplate  FIXABLE  ━━━━━━━�
     696 696 │     expect(failed.status).toBe(400);
   
 
-Checked 24 files in 21ms. No fixes applied.
+Checked 24 files in 20ms. No fixes applied.
 Found 1 info.
 CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
 ▌ Developing against deployment:
@@ -32,7 +32,7 @@ CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the fut
 - Preparing Convex functions...
 
 Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
-✔ 12:46:30 Convex functions ready! (369.27ms)
+✔ 12:51:24 Convex functions ready! (367.92ms)
 Finding component definitions...
 Generating server code...
 Bundling component definitions...
@@ -51,6 +51,6 @@ Running TypeScript...
 
  Test Files  2 passed (2)
       Tests  25 passed (25)
-   Start at  12:46:36
-   Duration  2.53s (transform 532ms, setup 0ms, import 216ms, tests 2.64s, environment 0ms)
+   Start at  12:51:29
+   Duration  2.50s (transform 519ms, setup 0ms, import 226ms, tests 2.61s, environment 0ms)
 

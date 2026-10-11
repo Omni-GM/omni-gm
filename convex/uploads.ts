@@ -153,10 +153,16 @@ function parse(text: string): Infer<typeof utterance>[] {
     throw new ConvexError("Transcript timestamps must be in order");
   return result;
 }
+const refusedUrl = { status: 403, message: "Expired, used or locked URL" };
+const lockedTranscript = {
+  status: 409,
+  message: "Transcript is locked once scenes or a debrief exist",
+};
 async function store(
   ctx: ActionCtx,
   token: string,
   request: Request,
+  refused: { status: number; message: string },
 ): Promise<Response> {
   if (Number(request.headers.get("content-length")) > MAX_BYTES)
     return new Response("Transcript too large", { status: 413 });
@@ -189,12 +195,9 @@ async function store(
       error.data !== null &&
       "code" in error.data &&
       error.data.code === "UPLOAD_CAPABILITY";
-    return new Response(
-      capability
-        ? "Expired, used or locked URL"
-        : "Upload failed; retry the same URL",
-      { status: capability ? 403 : 500 },
-    );
+    if (capability)
+      return new Response(refused.message, { status: refused.status });
+    return new Response("Upload failed; retry the same URL", { status: 500 });
   }
   return Response.json({ uploaded: true });
 }
@@ -202,7 +205,7 @@ export const upload = httpAction(async (ctx, request) => {
   const token = new URL(request.url).searchParams.get("token") ?? "";
   if (!(await ctx.runQuery(internal.uploads.valid, { token })))
     return new Response("Expired or used URL", { status: 403 });
-  return store(ctx, token, request);
+  return store(ctx, token, request, refusedUrl);
 });
 const pageSessionResult = v.union(
   v.null(),
@@ -251,12 +254,17 @@ export const pageSessionApi = httpAction(async (ctx, request) => {
   const info = await ctx.runQuery(internal.uploads.pageSession, args);
   if (!info) return new Response("Session not found", { status: 404 });
   if (request.method === "GET") return Response.json(info);
-  if (info.locked)
-    return new Response("Transcript is locked once scenes or a debrief exist", {
-      status: 409,
-    });
-  const token = await ctx.runMutation(internal.uploads.pageToken, args);
-  return store(ctx, token, request);
+  const locked = () =>
+    new Response(lockedTranscript.message, { status: lockedTranscript.status });
+  if (info.locked) return locked();
+  let token: string;
+  try {
+    token = await ctx.runMutation(internal.uploads.pageToken, args);
+  } catch (error) {
+    if (error instanceof ConvexError) return locked();
+    throw error;
+  }
+  return store(ctx, token, request, lockedTranscript);
 });
 export const transcriptFile = internalQuery({
   args: { ...callerArgs, session: v.string() },

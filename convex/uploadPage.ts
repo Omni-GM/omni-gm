@@ -69,9 +69,14 @@ async function signIn() {
   }).toString();
   location.assign(url.toString());
 }
-async function finishSignIn() {
+function returnFromSignIn() {
   const saved = JSON.parse(sessionStorage.getItem(pkceKey) || "null");
   sessionStorage.removeItem(pkceKey);
+  if (saved) session = saved.session;
+  history.replaceState(null, "", config.redirectUri + "?session=" + encodeURIComponent(session ?? ""));
+  return saved;
+}
+async function finishSignIn(saved) {
   if (!saved || saved.state !== params.get("state"))
     throw new Error("The sign-in expired. Sign in again.");
   const response = await fetch(config.token, {
@@ -85,8 +90,6 @@ async function finishSignIn() {
   if (!response.ok) throw new Error("The sign-in failed. Sign in again.");
   sessionStorage.setItem(tokenKey, (await response.json()).access_token);
   sessionStorage.removeItem(switchKey);
-  session = saved.session;
-  history.replaceState(null, "", config.redirectUri + "?session=" + encodeURIComponent(session));
 }
 function signOut() {
   sessionStorage.removeItem(tokenKey);
@@ -118,11 +121,16 @@ async function load() {
 async function upload(file) {
   if (!file) return;
   show("busy", "Uploading " + file.name + "…");
-  const response = await request("PUT", file);
-  if (!response) return;
-  if (response.ok)
-    return show("done", file.name + " is stored. Go back to your AI client and tell it to continue.");
-  show("ready", (await response.text()) + ". Fix the file and drop it again.");
+  try {
+    const response = await request("PUT", file);
+    if (!response) return;
+    if (response.ok)
+      return show("done", file.name + " is stored. Go back to your AI client and tell it to continue.");
+    if (response.status === 409) return load();
+    show("ready", (await response.text()) + ". Fix the file and drop it again.");
+  } catch {
+    show("ready", "The upload did not reach the server. Check your connection and drop the file again.");
+  }
 }
 
 document.getElementById("signin-button").addEventListener("click", signIn);
@@ -141,11 +149,12 @@ drop.addEventListener("drop", (event) => {
 
 (async () => {
   try {
-    if (params.has("error")) {
-      session = JSON.parse(sessionStorage.getItem(pkceKey) || "{}").session ?? session;
-      return show("signin", "The sign-in did not finish. Sign in again.");
+    if (params.has("code") || params.has("error")) {
+      const saved = returnFromSignIn();
+      if (params.has("error"))
+        return show("signin", "The sign-in did not finish. Sign in again.");
+      await finishSignIn(saved);
     }
-    if (params.has("code")) await finishSignIn();
     if (!session) return show("refused", "This link has no session. Ask your AI client for a new upload link.");
     if (!sessionStorage.getItem(tokenKey)) return show("signin", "Sign in to upload this session's transcript.");
     await load();

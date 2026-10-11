@@ -1,0 +1,14 @@
+
+> omni-gm@0.1.0 e2e /home/coder/dev/omni-gm-schema-change
+> tsx scripts/e2e.ts
+
+PASS anonymous endpoint requires auth
+PASS byte-exact signed upload, parsed utterances, single use
+PASS scenes stored
+PASS invented property and NPC player guess rejected independently
+PASS drop returns the updated draft
+PASS atomic commit
+PASS alias lookup, playedAs, history with basis and sources, lastTime read back
+PASS hosted Unicode name lookup excludes unrelated prefix matches
+PROOF SESSION k575s59sjdep58c57pedkxp0ms8g3t9e
+SDK E2E PASSED

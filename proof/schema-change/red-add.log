@@ -1,0 +1,32 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-schema-change
+> vitest run -- -t 'deliberate property addition'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-schema-change
+
+ ❯ tests/mcp.test.ts (22 tests | 1 failed) 2079ms
+   × a deliberate property addition is immediately usable and recorded with its reason 11ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > a deliberate property addition is immediately usable and recorded with its reason
+Error: {"jsonrpc":"2.0","id":6,"error":{"code":-32602,"message":"Unknown tool: schema_change"}}
+ ❯ Object.call tests/mcp.test.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/mcp.test.ts:880:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 21 passed (22)
+   Start at  12:32:26
+   Duration  2.29s (transform 253ms, setup 0ms, import 108ms, tests 2.08s, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

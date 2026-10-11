@@ -1,0 +1,26 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-schema-change
+
+ ❯ tests/mcp.test.ts (24 tests | 1 failed | 23 skipped) 287ms
+   × a deliberate relationship type is usable with its labels and allowed endpoints 286ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > a deliberate relationship type is usable with its labels and allowed endpoints
+Error: {"jsonrpc":"2.0","id":6,"result":{"content":[{"type":"text","text":"Schema operation not implemented"}],"isError":true}}
+ ❯ Object.call tests/mcp.test.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/mcp.test.ts:932:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 23 skipped (24)
+   Start at  12:34:11
+   Duration  500ms (transform 261ms, setup 0ms, import 112ms, tests 287ms, environment 0ms)

@@ -1,0 +1,29 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-schema-change
+
+ ❯ tests/mcp.test.ts (29 tests | 1 failed | 28 skipped) 343ms
+   × a retirement-invalidated draft names the pending change and the repair in every write error 342ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > a retirement-invalidated draft names the pending change and the repair in every write error
+AssertionError: expected [Function] to throw error including 'Pending change c1' but got '{"jsonrpc":"2.0","id":9,"result":{"co…'
+
+Expected: "Pending change c1"
+Received: "{"jsonrpc":"2.0","id":9,"result":{"content":[{"type":"text","text":"Allowed properties for npc: knows, relationships, role, status, wants"}],"isError":true}}"
+
+ ❯ tests/mcp.test.ts:1259:149
+    1257|   await c.call("schema_change", { reason: "Stop recording voices", ops…
+    1258|   const before = await c.call("get", { ref: `debrief:${s.id}` });
+    1259|   await expect(c.call("debrief_add", { session: s.id, changes: [{ ...n…
+       |                                                                                                                                                     ^
+    1260|   await expect(c.call("debrief_commit", { session: s.id })).rejects.to…
+    1261|   await expect(c.call("debrief_drop", { session: s.id, changeIds: ["c2…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 28 skipped (29)
+   Start at  12:42:53
+   Duration  571ms (transform 305ms, setup 0ms, import 124ms, tests 343ms, environment 0ms)

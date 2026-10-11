@@ -1,0 +1,164 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-schema-change
+
+ ❯ tests/mcp.test.ts (26 tests | 1 failed | 25 skipped) 313ms
+   × schema operations reject invalid definitions atomically and cannot borrow prototype names 312ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > schema operations reject invalid definitions atomically and cannot borrow prototype names
+AssertionError: promise resolved "{ …(2) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "commit": "0000000000000000000010010commits",
++   "schema": {
++     "kinds": {
++       "character_goal": {
++         "goal": "text",
++         "progress": "text",
++         "status": [
++           "open",
++           "closed",
++         ],
++       },
++       "clock": {
++         "countsToward": "text",
++         "filled": "number",
++         "segments": "number",
++         "visibleToPlayers": [
++           "shown",
++           "hidden",
++         ],
++       },
++       "npc": {
++         "constructor": "text",
++         "greeting": "text",
++         "knows": "text",
++         "playedAs": "text",
++         "relationships": "text",
++         "role": "text",
++         "status": [
++           "alive",
++           "dead",
++           "gone",
++           "unknown",
++         ],
++         "wants": "text",
++       },
++       "place": {
++         "detailsShown": "text",
++         "state": "text",
++       },
++       "player_character": {
++         "concept": "text",
++       },
++       "thread": {
++         "deadline": "text",
++         "nextStep": "text",
++         "status": [
++           "open",
++           "advanced",
++           "closed",
++         ],
++         "whatIsOpen": "text",
++       },
++       "world_fact": {
++         "statement": "text",
++       },
++     },
++     "relationshipTypes": {
++       "involves": {
++         "from": [
++           "thread",
++           "world_fact",
++         ],
++         "inverseLabel": "involved in",
++         "label": "involves",
++         "to": [
++           "npc",
++           "player_character",
++           "place",
++           "world_fact",
++           "thread",
++           "character_goal",
++         ],
++       },
++       "last_seen_at": {
++         "from": [
++           "npc",
++           "player_character",
++         ],
++         "inverseLabel": "last seen here",
++         "label": "last seen at",
++         "to": [
++           "place",
++         ],
++       },
++       "located_in": {
++         "from": [
++           "place",
++         ],
++         "inverseLabel": "contains",
++         "label": "located in",
++         "to": [
++           "place",
++         ],
++       },
++       "pressures": {
++         "from": [
++           "clock",
++         ],
++         "inverseLabel": "pressured by",
++         "label": "pressures",
++         "to": [
++           "thread",
++           "place",
++           "player_character",
++         ],
++       },
++       "pursues": {
++         "from": [
++           "player_character",
++         ],
++         "inverseLabel": "pursued by",
++         "label": "pursues",
++         "to": [
++           "character_goal",
++         ],
++       },
++       "raised_by": {
++         "from": [
++           "thread",
++         ],
++         "inverseLabel": "raised",
++         "label": "raised by",
++         "to": [
++           "npc",
++           "player_character",
++         ],
++       },
++     },
++     "retiredProperties": {},
++   },
+  }
+
+ ❯ tests/mcp.test.ts:1095:106
+    1093|   ];
+    1094|   for (const op of invalid) {
+    1095|     await expect(c.call("schema_change", { reason: "Invented invalid d…
+       |                                                                                                          ^
+    1096|     expect(await c.call("get", { refs: ["schema", "overview"] })).toEq…
+    1097|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 25 skipped (26)
+   Start at  12:35:16
+   Duration  535ms (transform 281ms, setup 0ms, import 119ms, tests 313ms, environment 0ms)

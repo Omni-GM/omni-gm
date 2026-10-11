@@ -1,0 +1,13 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-impl37
+> vitest run tests/transcript-retirement.test.ts
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-impl37
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  18:54:18
+   Duration  622ms (transform 381ms, setup 0ms, import 90ms, tests 436ms, environment 0ms)
+

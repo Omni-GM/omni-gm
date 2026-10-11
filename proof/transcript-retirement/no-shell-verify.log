@@ -1,0 +1,4 @@
+PASS no-shell agent immediately gives pageUrl, does not retype the transcript, and waits without scenes or debrief writes
+PASS independent MCP readback confirms no transcript has been invented or stored
+PROOF SESSION k57cqgbzgqyjky0agerc8mx8rd8g39qp
+NO-SHELL HEADLESS UPLOAD PROOF PASSED

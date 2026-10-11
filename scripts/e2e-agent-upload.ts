@@ -33,7 +33,6 @@ type Page = {
   nextCursor: string | null;
   downloadUrl: string;
 };
-type Reply = { uploaded: boolean; nextIndex: number; bytes: number };
 
 function transcriptText(utterances: TranscriptLine[]): string {
   return `${utterances.map((u) => `[${u.at}] ${u.speaker}: ${u.text}`).join("\r\n")}\r\n`;
@@ -65,29 +64,15 @@ try {
   const session = await call<{ id: string }>("session_create", {
     playedOn: "2026-01-03",
   });
-  let start = 0;
-  let index = 0;
-  while (start < bytes.length) {
-    let end = Math.min(start + 64_000, bytes.length);
-    while (end < bytes.length && (bytes[end] & 0xc0) === 0x80) end--;
-    const args = {
-      session: session.id,
-      chunk: bytes.subarray(start, end).toString("utf8"),
-      index,
-      final: end === bytes.length,
-    };
-    const result = await call<Reply>("transcript_append", args);
-    assert.equal(result.uploaded, args.final);
-    assert.equal(result.nextIndex, index + 1);
-    assert.equal(result.bytes, end);
-    if (index === 0 || args.final)
-      assert.deepEqual(await call("transcript_append", args), result);
-    start = end;
-    index++;
-  }
-  console.log(
-    `PASS agent tool uploaded ${index} chunks; first and final duplicate retries are idempotent`,
+  const { url: uploadUrl } = await call<{ url: string }>(
+    "transcript_upload_url",
+    { session: session.id },
   );
+  assert.equal(
+    (await fetch(uploadUrl, { method: "PUT", body: bytes })).status,
+    200,
+  );
+  console.log("PASS signed URL uploaded the original file bytes");
   const utterances: TranscriptLine[] = [];
   let cursor: string | null = null;
   let downloadUrl = "";
@@ -128,17 +113,11 @@ try {
     ],
   });
   const locked = (await client.callTool({
-    name: "transcript_append",
-    arguments: {
-      session: session.id,
-      chunk: "[00:00:00] GM: Changed.\n",
-      index: 0,
-      final: true,
-      restart: true,
-    },
+    name: "transcript_upload_url",
+    arguments: { session: session.id },
   })) as CallToolResult;
   assert(locked.isError && JSON.stringify(locked.content).includes("locked"));
-  console.log("PASS hosted scene lock also blocks tool restarts");
+  console.log("PASS hosted scene lock blocks signed upload URLs");
   console.log(`PROOF SESSION ${session.id}`);
   console.log("AGENT UPLOAD SDK E2E PASSED");
 } finally {

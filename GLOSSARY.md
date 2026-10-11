@@ -60,6 +60,10 @@ _Avoid_: Campaign state, world state, canon
 Background the game master has decided but the table has not yet seen, such as who a villain really was. It is the game master's intent, open to change at any time, and becomes story state only once it is revealed at the table or the game master declares it fixed.
 _Avoid_: Lore, hidden fact, GM canon
 
+**Reveal**:
+The moment the table learns part or all of a secret during a session. What the players learned becomes story state; the part they have not seen stays a secret.
+_Avoid_: Disclosure, discovery
+
 **Fizzle**:
 A campaign losing momentum until it stalls: players no longer see progress, and the game master loses the energy to prep it.
 _Avoid_: Burnout, campaign death
@@ -123,6 +127,10 @@ _Avoid_: Planning session, frame interview
 **Briefing**:
 The one-page, plot-first digest that opens prep, generated from the story state and the adventure frame: where the party stands, the threads that pull, the NPCs in play and what they want, the clocks and pressure, and a few off-screen moves or complications to pick from.
 _Avoid_: Dossier, report, digest
+
+**Prep checklist**:
+The game master's own ordered list of prep sections, such as strong start, scenes, or secrets and clues, each with its definition in their words. A section's definition decides what a good entry, and a good pitch, looks like for it.
+_Avoid_: Prep template, prep steps
 
 **Prep sparring**:
 The part of prep after the briefing: the AI walks the game master's own prep checklist, opening each section with the facts that matter for it and offering pitches, and assembles the session note from the game master's decisions only.

@@ -334,12 +334,28 @@ export async function storeBytes(
         bytes += size;
         end++;
       }
-      await ctx.runMutation(internal.uploads.append, {
-        token,
-        storage,
-        start,
-        utterances: lines.slice(start, end),
-      });
+      for (let attempt = 0; ; attempt++) {
+        try {
+          await ctx.runMutation(internal.uploads.append, {
+            token,
+            storage,
+            start,
+            utterances: lines.slice(start, end),
+          });
+          break;
+        } catch (error) {
+          if (
+            attempt >= 3 ||
+            !(error instanceof Error) ||
+            !error.message.includes("Too many writes per second")
+          )
+            throw error;
+          console.warn("Transcript batch hit deployment write rate; retrying");
+          await new Promise((resolve) =>
+            setTimeout(resolve, 1000 * 2 ** attempt),
+          );
+        }
+      }
       start = end;
     }
     await ctx.runMutation(internal.uploads.finish, {

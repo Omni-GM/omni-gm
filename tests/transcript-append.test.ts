@@ -71,7 +71,7 @@ test("duplicate chunks and a lost final reply can be retried without duplicating
   expect(await c.call("transcript_append", first)).toEqual(accepted);
   await expect(
     c.call("transcript_append", { ...first, chunk: "different" }),
-  ).rejects.toThrow("different");
+  ).rejects.toThrow("send restart: true with index 0");
   const final = {
     session: s.id,
     chunk: "[00:00:10] Rowan: We follow.\n",

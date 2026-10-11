@@ -1,0 +1,10 @@
+{"identifier":"uploads:append","error":"Too many writes per second. Your deployment is limited to 4 MiB bytes written per second. Reduce your write rate or upgrade to a larger deployment.\n","logLines":[]}
+{"identifier":"transcriptAppend:append","error":null,"logLines":[{"messages":["'Transcript batch hit deployment write rate; retrying'"],"isTruncated":false,"timestamp":1791727412339,"level":"WARN","systemMetadata":null}]}
+{"identifier":"uploads:append","error":"Too many writes per second. Your deployment is limited to 4 MiB bytes written per second. Reduce your write rate or upgrade to a larger deployment.\n","logLines":[]}
+{"identifier":"transcriptAppend:append","error":null,"logLines":[{"messages":["'Transcript batch hit deployment write rate; retrying'"],"isTruncated":false,"timestamp":1791727414768,"level":"WARN","systemMetadata":null}]}
+{"identifier":"uploads:append","error":"Too many writes per second. Your deployment is limited to 4 MiB bytes written per second. Reduce your write rate or upgrade to a larger deployment.\n","logLines":[]}
+{"identifier":"transcriptAppend:append","error":null,"logLines":[{"messages":["'Transcript batch hit deployment write rate; retrying'"],"isTruncated":false,"timestamp":1791727418041,"level":"WARN","systemMetadata":null}]}
+{"identifier":"uploads:append","error":"Too many writes per second. Your deployment is limited to 4 MiB bytes written per second. Reduce your write rate or upgrade to a larger deployment.\n","logLines":[]}
+{"identifier":"transcriptAppend:append","error":null,"logLines":[{"messages":["'Transcript batch hit deployment write rate; retrying'"],"isTruncated":false,"timestamp":1791727418472,"level":"WARN","systemMetadata":null}]}
+{"identifier":"uploads:append","error":"Too many writes per second. Your deployment is limited to 4 MiB bytes written per second. Reduce your write rate or upgrade to a larger deployment.\n","logLines":[]}
+{"identifier":"transcriptAppend:append","error":null,"logLines":[{"messages":["'Transcript batch hit deployment write rate; retrying'"],"isTruncated":false,"timestamp":1791727420042,"level":"WARN","systemMetadata":null}]}

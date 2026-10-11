@@ -1,0 +1,7 @@
+Invented four-hour fixture: 4801 utterances, 8000000 UTF-8 bytes, SHA-256 0f12feb6542f7815b218a57d95780d6e0901e5abc1341d064bcc05aa896dcd4c
+PASS agent tool uploaded 125 chunks; first and final duplicate retries are idempotent
+PASS 35 SDK pages read back all 4,801 utterances without gaps or duplicates
+PASS authenticated download preserves every original byte, Unicode and CRLF
+PASS hosted scene lock also blocks tool restarts
+PROOF SESSION k5789f9wwan1grkfcgxsg2pb6d8g2tn7
+AGENT UPLOAD SDK E2E PASSED

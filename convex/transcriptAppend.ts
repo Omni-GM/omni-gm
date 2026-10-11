@@ -97,10 +97,14 @@ export const receive = internalMutation({
         .unique();
       if (!previous || previous.text !== chunk || previous.final !== final)
         throw new ConvexError(
-          "Chunk already received with different content or final flag",
+          "Chunk already received with different content or final flag; send restart: true with index 0 to replace it",
         );
       if (!state.completed && ticket.expires <= Date.now())
         throw new ConvexError("Chunk upload expired; restart at index 0");
+      if (ticket.storage && !state.completed)
+        throw new ConvexError(
+          "Upload in progress; wait and retry the final chunk, or send restart: true with index 0 to cancel it",
+        );
       return {
         token: ticket.token,
         uploaded: state.completed,

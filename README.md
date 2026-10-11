@@ -65,6 +65,8 @@ only their parsed utterances go into the story-state queries. Parsing writes bou
 batches into a new transcript generation. Reads and search switch to it only
 when the upload finishes. Replaced or abandoned generations are cleaned up
 in bounded batches.
+An explicit deployment write-rate rejection retries its batch with bounded
+backoff. Other failures keep the earlier transcript and return retry guidance.
 
 `scenes_set` splits the transcript. `debrief_add` accepts changes with a
 scene, basis, source quotes, and why, and stores the plot-first `lastTime`

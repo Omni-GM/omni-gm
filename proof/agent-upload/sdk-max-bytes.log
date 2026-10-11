@@ -3,5 +3,5 @@ PASS agent tool uploaded 125 chunks; first and final duplicate retries are idemp
 PASS 35 SDK pages read back all 4,801 utterances without gaps or duplicates
 PASS authenticated download preserves every original byte, Unicode and CRLF
 PASS hosted scene lock also blocks tool restarts
-PROOF SESSION k57cnmcvt1tr0bnp2zp7gkkam58g3v5q
+PROOF SESSION k57bfmncqdav62g76r3689hkxd8g29g5
 AGENT UPLOAD SDK E2E PASSED

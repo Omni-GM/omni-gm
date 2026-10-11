@@ -1,6 +1,6 @@
 PASS shell agent used signed URL and curl -T from disk, with no transcript in tool arguments
 PASS agent did not echo transcript in chat
 PASS independent authenticated SDK readback confirms every fixture byte, seven utterances and the agent's saved scenes
-OUTPUT TOKENS 1566
-PROOF SESSION k57dhak35bt4xc65286w37r3b98g3pyj
+OUTPUT TOKENS 1514
+PROOF SESSION k5753pqjefspgs0g5f8re45wa18g2dss
 SHELL HEADLESS UPLOAD PROOF PASSED

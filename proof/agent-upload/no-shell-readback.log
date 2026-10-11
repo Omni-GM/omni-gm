@@ -1,6 +1,6 @@
 PASS Bash absent; agent loaded split-scenes and map-speakers, uploaded exact fixture through transcript_append, and stored scenes without a human step
 PASS agent did not echo transcript in chat
 PASS independent authenticated SDK readback confirms every fixture byte, seven utterances and the agent's saved scenes
-OUTPUT TOKENS 1731
-PROOF SESSION k57bgwd5etmjxasjy8anrc9db58g2jrb
+OUTPUT TOKENS 1819
+PROOF SESSION k57ads0180nk6c2x07afz8zjen8g3k8v
 NO-SHELL HEADLESS UPLOAD PROOF PASSED

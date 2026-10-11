@@ -5,22 +5,22 @@
 
  RUN  v4.1.0 /tmp/omnigm-impl26-baseline
 
- ❯ tests/upload-page.test.ts (4 tests | 1 failed) 522ms
-   × procedures and upload tools tell every client to upload itself, keeping the page as a fallback 14ms
- ❯ tests/transcript-append.test.ts (13 tests | 13 failed) 625ms
-   × an agent uploads chunks without a shell and stores the signed path's exact bytes and utterances 460ms
+ ❯ tests/upload-page.test.ts (4 tests | 1 failed) 539ms
+   × procedures and upload tools tell every client to upload itself, keeping the page as a fallback 18ms
+ ❯ tests/transcript-append.test.ts (13 tests | 13 failed) 640ms
+   × an agent uploads chunks without a shell and stores the signed path's exact bytes and utterances 476ms
    × duplicate chunks and a lost final reply can be retried without duplicating the transcript 17ms
    × an invalid final upload leaves the old transcript readable and the agent can restart with corrected bytes 15ms
    × a final retry cannot claim that a later signed replacement is the appended transcript 14ms
    × a chunk cannot split a Unicode character 15ms
    × expired staging is cleaned without deleting a completed transcript, and the agent can upload again 13ms
-   × the agent restarts an expired incomplete upload without touching the previous transcript 11ms
-   × missing and out-of-order chunks cannot publish, and sending the missing index recovers 12ms
+   × the agent restarts an expired incomplete upload and stores the transcript 11ms
+   × missing and out-of-order chunks cannot publish, and sending the missing index recovers 13ms
    × chunk uploads are private to their owner and locked once scenes exist 16ms
    × chunk and total size limits count UTF-8 bytes and leave rejected chunks retryable 13ms
-   × chunk uploads enforce the signed path's timestamp order limit 12ms
+   × chunk uploads enforce the signed path's timestamp order limit 11ms
    × chunk uploads enforce the signed path's utterance bytes limit 12ms
-   × chunk uploads enforce the signed path's utterance count limit 14ms
+   × chunk uploads enforce the signed path's utterance count limit 13ms
 
 ⎯⎯⎯⎯⎯⎯ Failed Tests 14 ⎯⎯⎯⎯⎯⎯⎯
 
@@ -105,7 +105,7 @@ Error: {"jsonrpc":"2.0","id":4,"error":{"code":-32602,"message":"Unknown tool: t
 
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/14]⎯
 
- FAIL  tests/transcript-append.test.ts > the agent restarts an expired incomplete upload without touching the previous transcript
+ FAIL  tests/transcript-append.test.ts > the agent restarts an expired incomplete upload and stores the transcript
 Error: {"jsonrpc":"2.0","id":4,"error":{"code":-32602,"message":"Unknown tool: transcript_append"}}
  ❯ Object.call tests/mcp-client.ts:45:13
      43|     const response = await rpc("tools/call", { name, arguments: args }…
@@ -242,7 +242,7 @@ AssertionError: expected 'If the session has no stored transcri…' to contain '
 
  Test Files  2 failed (2)
       Tests  14 failed | 3 passed (17)
-   Start at  13:49:35
-   Duration  830ms (transform 815ms, setup 0ms, import 201ms, tests 1.15s, environment 0ms)
+   Start at  14:02:22
+   Duration  848ms (transform 851ms, setup 0ms, import 203ms, tests 1.18s, environment 0ms)
 
  ELIFECYCLE  Test failed. See above for more details.

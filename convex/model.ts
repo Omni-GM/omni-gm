@@ -158,6 +158,37 @@ export const draft = v.object({
   changes: v.array(draftChange),
   lastTime: v.string(),
 });
+export const frameFields = v.object({
+  goal: v.optional(v.string()),
+  stakes: v.optional(v.string()),
+  timeframe: v.optional(v.string()),
+  pressure: v.optional(v.string()),
+  finale: v.optional(v.string()),
+  moves_main_plot: v.optional(v.string()),
+  pulls_in: v.optional(v.string()),
+  next_session_starts: v.optional(v.string()),
+});
+export const frame = v.object({
+  adventure: v.string(),
+  name: v.string(),
+  fields: frameFields,
+});
+export const frameHistory = v.object({
+  id: v.string(),
+  kind: v.literal("frame"),
+  reason: v.string(),
+  before: frameFields,
+  after: frameFields,
+});
+export const frameUpdateResult = v.object({
+  commit: v.string(),
+  adventure: v.string(),
+  fields: frameFields,
+});
+export const frameRead = v.object({
+  ...frame.fields,
+  history: v.array(frameHistory),
+});
 export const ledgerRow = v.object({
   id: v.string(),
   label: v.union(
@@ -242,7 +273,12 @@ export const schemaChangeRecord = v.object({
 });
 export const commit = v.object({
   id: v.string(),
-  kind: v.union(v.literal("seed"), v.literal("debrief"), v.literal("schema")),
+  kind: v.union(
+    v.literal("seed"),
+    v.literal("debrief"),
+    v.literal("schema"),
+    v.literal("frame"),
+  ),
   reason: v.string(),
   schemaChange: v.optional(schemaChangeRecord),
   session: v.optional(v.string()),
@@ -253,8 +289,10 @@ export const readValue = v.union(
     sessions: v.array(sessionInfo),
     commits: v.array(commit),
     currentAdventure: v.union(v.string(), v.null()),
+    frame: v.union(frame, v.null()),
     lastTime: v.string(),
   }),
+  frameRead,
   schemaInfo,
   sessionInfo,
   draft,

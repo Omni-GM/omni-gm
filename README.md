@@ -59,8 +59,8 @@ Its only write is Drop, which calls `debrief_drop` and re-renders from the
 returned draft. Both tools also return `ledger` rows for the view. State and
 history commit atomically. The committed debrief, transcript, and scenes
 stay closed. Dropping a parent refuses to break retained dependent changes and lists
-their IDs. Drop them together, then add replacements in dependency order. Later corrections, the adventure
-frame is a later slice.
+their IDs. Drop them together, then add replacements in dependency order.
+Later corrections remain a later slice.
 
 At prep, `get overview` returns the most recently committed `lastTime`.
 `find` lists entities and scenes without a query, or searches names,
@@ -93,7 +93,33 @@ transcripts; entity kind filters visit each kind in order.
 `order: "type_then_page_relevance"` means more matched keywords rank higher
 within a page. Page order is not a global relevance ranking. Campaign
 indexes bound the scan and avoid Convex text search's 1,024-result ceiling.
-Sparse searches can require several empty pages.
+Each request scans up to 4,000 rows, 4 MB of documents, or 400 internal
+pages, stopping sooner when it fills the requested hits. A database page
+can cross the byte budget by one page. Sparse searches in larger stores
+still need continuation, including empty pages.
+
+## Adventure frame talk
+
+At the start of prep, load `skill` with `name: "frame-talk"`. The AI reads
+`get overview`, `get frame`, and the committed story state. It asks one
+question at a time, grounded in a named thread, NPC, clock, or character goal,
+and explains why it asks. You decide the situations and pressure. It never
+asks what the players will choose or how a scene ends.
+
+The talk stops when goal, stakes, and timeframe are named and you are
+satisfied. Optional fields are pressure, finale situation, how it moves the
+main plot, what it pulls in, and where the next session starts. Later talks
+ask only about missing or unclear fields and those the last session put in
+question. Answers supplied up front do not need another question.
+
+`frame_update` saves only the supplied fields of the current adventure,
+with your reason. Omitted fields stay as they were; an empty string clears
+a field by storing `""`. A reason and at least one field are required. It appends a `frame`
+commit with the full before and after, atomically with the edit. Intent never
+changes story state. `get frame` returns the fields and that adventure's
+history; `get overview` includes the current frame beside `lastTime`.
+Starting another adventure gives it a fresh frame and keeps earlier frames
+and their commits. Each owner's frame remains private.
 
 ## Develop and prove
 
@@ -173,6 +199,13 @@ uses an entity-specific index and continues beyond 2,000 changes. Search
 accepts up to eight keywords and returns up to 200 hits per page without
 a campaign-wide candidate cap. The overview remains a recent summary; the
 paginated paths cover transcripts, scenes, entity history, and find.
+
+For the deployed frame proof, run the existing fixture seed with `pnpm e2e`,
+then `pnpm exec tsx scripts/frame-e2e.ts` using the same preview URL and
+staging token. `proof/frame-talk/` holds this ticket's red/green endpoint
+runs, full gate, SDK run and headless frame-talk transcript with independent
+readback. Frame history currently rejects reads above 2,000 commits rather
+than returning a partial history.
 
 ## Change the schema deliberately
 

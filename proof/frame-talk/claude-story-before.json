@@ -1,0 +1,401 @@
+{
+  "found": {
+    "hits": [
+      {
+        "ref": "entity:b7ecd2f6-9632-4220-a7e3-e99a705a6dee",
+        "snippet": "Sera Venn Sarah Ven Soft voice with a snapped final word Ferry keeper",
+        "title": "Sera Venn",
+        "type": "entity"
+      },
+      {
+        "ref": "entity:f867d3f6-1b46-45f1-bbfe-298bd71b3cd6",
+        "snippet": "River gate closes The gate closes 1 4 shown",
+        "title": "River gate closes",
+        "type": "entity"
+      },
+      {
+        "ref": "entity:5dc98c1b-5d6b-42df-a476-3d1c67b20853",
+        "snippet": "Jörg Kühn",
+        "title": "Jörg Kühn",
+        "type": "entity"
+      },
+      {
+        "ref": "entity:459765eb-e2b2-438b-8e9d-881ace806a6e",
+        "snippet": "Jara Horn",
+        "title": "Jara Horn",
+        "type": "entity"
+      }
+    ],
+    "query": null,
+    "total": 4
+  },
+  "entities": [
+    {
+      "value": {
+        "aliases": [
+          "Sarah Ven"
+        ],
+        "history": [
+          {
+            "after": {
+              "aliases": [
+                "Sarah Ven"
+              ],
+              "id": "b7ecd2f6-9632-4220-a7e3-e99a705a6dee",
+              "kind": "npc",
+              "name": "Sera Venn",
+              "properties": {
+                "playedAs": "Soft voice with a snapped final word",
+                "role": "Ferry keeper"
+              }
+            },
+            "basis": [
+              "npc_said"
+            ],
+            "before": null,
+            "change": {
+              "aliases": [
+                "Sarah Ven"
+              ],
+              "kind": "npc",
+              "name": "Sera Venn",
+              "op": "new",
+              "properties": {
+                "playedAs": "Soft voice with a snapped final word",
+                "role": "Ferry keeper"
+              },
+              "tempKey": "sera"
+            },
+            "commit": "jd7awrpz5jpvxpaeem1axp1tk58g3c36",
+            "scene": 1,
+            "session": "k578mmjr55h63xhzc7xmzy4e918g21s3",
+            "sources": [
+              {
+                "at": "00:01:10",
+                "quote": "Mind the stones, dear. My ferry is waiting."
+              }
+            ],
+            "why": "Remember the voiced NPC"
+          }
+        ],
+        "id": "b7ecd2f6-9632-4220-a7e3-e99a705a6dee",
+        "kind": "npc",
+        "name": "Sera Venn",
+        "properties": {
+          "playedAs": "Soft voice with a snapped final word",
+          "role": "Ferry keeper"
+        },
+        "relationships": []
+      }
+    },
+    {
+      "value": {
+        "aliases": [],
+        "history": [
+          {
+            "after": {
+              "aliases": [],
+              "id": "f867d3f6-1b46-45f1-bbfe-298bd71b3cd6",
+              "kind": "clock",
+              "name": "River gate closes",
+              "properties": {
+                "countsToward": "The gate closes",
+                "filled": 1,
+                "segments": 4,
+                "visibleToPlayers": "shown"
+              }
+            },
+            "basis": [
+              "narrated"
+            ],
+            "before": null,
+            "change": {
+              "kind": "clock",
+              "name": "River gate closes",
+              "op": "new",
+              "properties": {
+                "countsToward": "The gate closes",
+                "filled": 1,
+                "segments": 4,
+                "visibleToPlayers": "shown"
+              }
+            },
+            "commit": "jd7awrpz5jpvxpaeem1axp1tk58g3c36",
+            "scene": 1,
+            "session": "k578mmjr55h63xhzc7xmzy4e918g21s3",
+            "sources": [
+              {
+                "at": "00:04:00",
+                "quote": "The gate clock has four segments, one filled; you can all see it."
+              }
+            ],
+            "why": "Remember the voiced NPC"
+          }
+        ],
+        "id": "f867d3f6-1b46-45f1-bbfe-298bd71b3cd6",
+        "kind": "clock",
+        "name": "River gate closes",
+        "properties": {
+          "countsToward": "The gate closes",
+          "filled": 1,
+          "segments": 4,
+          "visibleToPlayers": "shown"
+        },
+        "relationships": []
+      }
+    },
+    {
+      "value": {
+        "aliases": [],
+        "history": [
+          {
+            "after": {
+              "aliases": [],
+              "id": "5dc98c1b-5d6b-42df-a476-3d1c67b20853",
+              "kind": "npc",
+              "name": "Jörg Kühn",
+              "properties": {}
+            },
+            "basis": [
+              "narrated"
+            ],
+            "before": null,
+            "change": {
+              "kind": "npc",
+              "name": "Jörg Kühn",
+              "op": "new"
+            },
+            "commit": "jd7d74a1a54kx4dqzr6r45f6s58g2jb3",
+            "scene": 1,
+            "session": "k5736rmr0hxkv7m3ks04xw0j1h8g2zef",
+            "sources": [
+              {
+                "quote": "Jörg Kühn greets Jara Horn."
+              }
+            ],
+            "why": "Keep the named ferrymen"
+          }
+        ],
+        "id": "5dc98c1b-5d6b-42df-a476-3d1c67b20853",
+        "kind": "npc",
+        "name": "Jörg Kühn",
+        "properties": {},
+        "relationships": []
+      }
+    },
+    {
+      "value": {
+        "aliases": [],
+        "history": [
+          {
+            "after": {
+              "aliases": [],
+              "id": "459765eb-e2b2-438b-8e9d-881ace806a6e",
+              "kind": "npc",
+              "name": "Jara Horn",
+              "properties": {}
+            },
+            "basis": [
+              "narrated"
+            ],
+            "before": null,
+            "change": {
+              "kind": "npc",
+              "name": "Jara Horn",
+              "op": "new"
+            },
+            "commit": "jd7d74a1a54kx4dqzr6r45f6s58g2jb3",
+            "scene": 1,
+            "session": "k5736rmr0hxkv7m3ks04xw0j1h8g2zef",
+            "sources": [
+              {
+                "quote": "Jörg Kühn greets Jara Horn."
+              }
+            ],
+            "why": "Keep the named ferrymen"
+          }
+        ],
+        "id": "459765eb-e2b2-438b-8e9d-881ace806a6e",
+        "kind": "npc",
+        "name": "Jara Horn",
+        "properties": {},
+        "relationships": []
+      }
+    }
+  ],
+  "sessions": [
+    {
+      "value": {
+        "adventure": "j579vjfemsx385ps6n3fw0mckd8g2tge",
+        "id": "k5736rmr0hxkv7m3ks04xw0j1h8g2zef",
+        "lastTime": "The ferrymen meet.",
+        "ordinal": 2,
+        "playedOn": "2026-01-04",
+        "scenes": [
+          {
+            "place": "Ferry",
+            "start": "00:00:00",
+            "summary": "The ferrymen meet.",
+            "title": "Greeting"
+          }
+        ],
+        "status": "committed"
+      }
+    },
+    {
+      "value": {
+        "adventure": "j579vjfemsx385ps6n3fw0mckd8g2tge",
+        "id": "k578mmjr55h63xhzc7xmzy4e918g21s3",
+        "lastTime": "At dusk at the ferry landing. Pulling forward: the broken seal and the gatekeeper's red cord. Ticking: gate closes, 1/4, visible. Also open: Rowan's suspicion of raider ties, a guess; the Lantern Widow, a rumor.",
+        "ordinal": 1,
+        "playedOn": "2026-01-03",
+        "scenes": [
+          {
+            "end": "00:05:10",
+            "place": "Glass Causeway",
+            "start": "00:00:00",
+            "summary": "Sera offers passage and a rumor. The gate clock is visible.",
+            "title": "The causeway ferry"
+          },
+          {
+            "place": "Ferry landing",
+            "start": "00:07:00",
+            "summary": "The gatekeeper leaves a red cord.",
+            "title": "The red cord"
+          }
+        ],
+        "status": "committed"
+      }
+    }
+  ],
+  "schema": {
+    "value": {
+      "kinds": {
+        "character_goal": {
+          "goal": "text",
+          "progress": "text",
+          "status": [
+            "open",
+            "closed"
+          ]
+        },
+        "clock": {
+          "countsToward": "text",
+          "filled": "number",
+          "segments": "number",
+          "visibleToPlayers": [
+            "shown",
+            "hidden"
+          ]
+        },
+        "npc": {
+          "knows": "text",
+          "playedAs": "text",
+          "relationships": "text",
+          "role": "text",
+          "status": [
+            "alive",
+            "dead",
+            "gone",
+            "unknown"
+          ],
+          "wants": "text"
+        },
+        "place": {
+          "detailsShown": "text",
+          "state": "text"
+        },
+        "player_character": {
+          "concept": "text"
+        },
+        "thread": {
+          "deadline": "text",
+          "nextStep": "text",
+          "status": [
+            "open",
+            "advanced",
+            "closed"
+          ],
+          "whatIsOpen": "text"
+        },
+        "world_fact": {
+          "statement": "text"
+        }
+      },
+      "relationshipTypes": {
+        "involves": {
+          "from": [
+            "thread",
+            "world_fact"
+          ],
+          "inverseLabel": "involved in",
+          "label": "involves",
+          "to": [
+            "npc",
+            "player_character",
+            "place",
+            "world_fact",
+            "thread",
+            "character_goal"
+          ]
+        },
+        "last_seen_at": {
+          "from": [
+            "npc",
+            "player_character"
+          ],
+          "inverseLabel": "last seen here",
+          "label": "last seen at",
+          "to": [
+            "place"
+          ]
+        },
+        "located_in": {
+          "from": [
+            "place"
+          ],
+          "inverseLabel": "contains",
+          "label": "located in",
+          "to": [
+            "place"
+          ]
+        },
+        "pressures": {
+          "from": [
+            "clock"
+          ],
+          "inverseLabel": "pressured by",
+          "label": "pressures",
+          "to": [
+            "thread",
+            "place",
+            "player_character"
+          ]
+        },
+        "pursues": {
+          "from": [
+            "player_character"
+          ],
+          "inverseLabel": "pursued by",
+          "label": "pursues",
+          "to": [
+            "character_goal"
+          ]
+        },
+        "raised_by": {
+          "from": [
+            "thread"
+          ],
+          "inverseLabel": "raised",
+          "label": "raised by",
+          "to": [
+            "npc",
+            "player_character"
+          ]
+        }
+      },
+      "retiredProperties": {}
+    }
+  },
+  "lastTime": "The ferrymen meet."
+}

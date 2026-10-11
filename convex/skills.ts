@@ -7,6 +7,17 @@ Story state records what happened. The adventure frame records intent. Keep them
 Write in the game master's language.`;
 export const instructions = `Load the matching procedure with skill before starting a workflow.\n${standingRules}`;
 const procedures: Record<string, { description: string; procedure: string }> = {
+  "frame-talk": {
+    description:
+      "Ask the game master for the current adventure's intent, grounded in story state.",
+    procedure: `Start with get overview, get frame and find for the committed story state after the last debrief. Use get entity:<id> for the named threads, NPCs, clocks and character goals you need, including their sources and history. If no adventure exists, ask which adventure the party has entered and call adventure_start only on the game master's answer.
+Open with one sentence in the game master's language: you are preparing the next session together, and their answers become the adventure frame. The creative part belongs to the game master. One question at a time. Each question names a thread, NPC, clock or character goal from the story state and explains why the answer helps the game master decide. Ask about situations and pressure, never outcomes, player decisions, or how a scene ends.
+Read the earlier frame before asking. Ask only about missing or unclear fields and fields the last session put in question. Skip answers already given; never rewrite settled intent at every prep. Preserve the game master's words and language. Never propose without an explicit request; then offer at most three situations built from story-state facts with sources.
+First establish goal, stakes, and timeframe. Goal: what is this adventure about, as the players would name it? Stakes: what is at risk and what can be gained? Timeframe: a clock, a deadline in the world, or a number of sessions? If useful and the game master wants to continue, ask about pressure and moments of release; finale as a situation with a place, opposition and difficulty; how it moves the main plot; which threads and character goals it pulls in; and where the next session starts. Never ask who wins or what the players choose.
+Stop once goal, stakes, and timeframe are named and the game master is satisfied. Do not stretch the talk to fill every optional field. When answers are supplied up front, use them without asking again. If satisfaction is not yet stated, ask one short confirmation rather than starting more topics.
+Store only the game master's supplied or accepted intent with frame_update, a reason in their words, and only changed fields: goal, stakes, timeframe, pressure, finale, moves_main_plot, pulls_in, next_session_starts. An empty string clears a field; omitted fields stay as they were. Read get frame to confirm the saved intent and its history. get overview shows the current frame alongside lastTime.
+Keep frame edits apart from story state. If an answer corrects what happened, use story_commit with basis game_master and the answer as source, separately and only after confirmation. If story_commit is unavailable, leave that correction for the game master to resolve; never disguise it as frame intent.`,
+  },
   "map-speakers": {
     description:
       "Map transcript speakers to the game master, players and characters.",

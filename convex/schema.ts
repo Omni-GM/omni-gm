@@ -4,6 +4,7 @@ import {
   commit,
   draftChange,
   entity,
+  frameFields,
   history,
   relationship,
   scene,
@@ -19,6 +20,7 @@ export default defineSchema({
     campaign: v.id("campaigns"),
     name: v.string(),
     reason: v.string(),
+    frame: v.optional(frameFields),
   }).index("by_campaign", ["campaign"]),
   sessions: defineTable({
     campaign: v.id("campaigns"),
@@ -60,8 +62,12 @@ export default defineSchema({
     reason: v.string(),
     session: v.optional(v.string()),
     schemaChange: commit.fields.schemaChange,
+    adventure: v.optional(v.id("adventures")),
+    before: v.optional(frameFields),
+    after: v.optional(frameFields),
   })
     .index("by_campaign", ["campaign"])
+    .index("by_campaign_and_adventure", ["campaign", "adventure"])
     .index("by_campaign_and_kind", ["campaign", "kind"]),
   history: defineTable({
     campaign: v.id("campaigns"),

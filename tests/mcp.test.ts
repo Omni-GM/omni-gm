@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+import { longSession } from "../fixtures/long-session";
 import { client, createTest } from "./mcp-client";
 
 test("the game master starts an adventure, records a session and recalls the seeded schema", async () => {

@@ -1,0 +1,31 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-frame-talk
+
+ ❯ tests/mcp.test.ts (25 tests | 1 failed | 24 skipped) 587ms
+   × frame history never displaces the latest debrief from overview 586ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > frame history never displaces the latest debrief from overview
+AssertionError: expected '' to be 'Sera waits by the ferry.' // Object.is equality
+
+- Expected
++ Received
+
+- Sera waits by the ferry.
+
+ ❯ tests/mcp.test.ts:1044:63
+    1042|   await c.call("debrief_commit", { session: s.id });
+    1043|   for (let i = 0; i < 201; i++) await c.call("frame_update", { reason:…
+    1044|   expect((await c.call("get", { ref: "overview" })).lastTime).toBe("Se…
+       |                                                               ^
+    1045| });
+    1046|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 24 skipped (25)
+   Start at  12:36:37
+   Duration  805ms (transform 261ms, setup 0ms, import 116ms, tests 587ms, environment 0ms)

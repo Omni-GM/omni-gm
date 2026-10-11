@@ -1,0 +1,5 @@
+PROOF TARGET https://knowing-cricket-822.convex.site
+PASS frame-talk loads through MCP with standing rules
+PASS all eight fields stored, partial edit preserves the other seven, before/after history and reason retained
+PASS get frame and overview agree; entities, relationships, entity history, sessions, custom campaign schema and lastTime unchanged
+FRAME SDK E2E PASSED

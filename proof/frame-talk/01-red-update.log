@@ -1,0 +1,32 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-frame-talk
+> vitest run -- -t 'frame edits'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-frame-talk
+
+ ❯ tests/mcp.test.ts (22 tests | 1 failed) 2076ms
+   × frame edits preserve omitted intent, append before and after with a reason, and leave the story state untouched 22ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > frame edits preserve omitted intent, append before and after with a reason, and leave the story state untouched
+Error: {"jsonrpc":"2.0","id":12,"error":{"code":-32602,"message":"Unknown tool: frame_update"}}
+ ❯ Object.call tests/mcp.test.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/mcp.test.ts:890:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 21 passed (22)
+   Start at  12:32:23
+   Duration  2.29s (transform 259ms, setup 0ms, import 108ms, tests 2.08s, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

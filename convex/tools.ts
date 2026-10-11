@@ -14,13 +14,28 @@ import {
   scenesArgs,
 } from "./debrief";
 import { carriesLedger } from "./ledger";
-import { adventure, sessionInfo } from "./model";
+import { adventure, frameUpdateResult, sessionInfo } from "./model";
 import { schemaChangeArgs, schemaChangeResult } from "./schemaChanges";
 import { findArgs, findResult } from "./search";
 import { skillArgs, skillResult } from "./skills";
-import { adventureArgs, getArgs, getResult, sessionArgs } from "./store";
+import {
+  adventureArgs,
+  frameArgs,
+  getArgs,
+  getResult,
+  sessionArgs,
+} from "./store";
 import { uploadArgs, uploadResult } from "./uploads";
 export const tools: McpToolRegistration[] = [
+  defineMcpMutation({
+    name: "frame_update",
+    description:
+      "Change only the given fields of the current adventure frame, with the game master's reason. The frame records intent and never touches story state. Ask about situations and pressure, never outcomes.",
+    fn: internal.store.frameUpdate,
+    identityArg: "caller",
+    args: frameArgs,
+    returns: frameUpdateResult,
+  }),
   defineMcpMutation({
     name: "schema_change",
     description:
@@ -33,7 +48,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpQuery({
     name: "skill",
     description:
-      "List procedures without a name, or load map-speakers, split-scenes or debrief, including standing rules. Load the matching procedure before a workflow.",
+      "List procedures without a name, or load map-speakers, split-scenes, debrief or frame-talk, including standing rules. Load the matching procedure before a workflow.",
     fn: internal.skills.skill,
     identityArg: "caller",
     args: skillArgs,
@@ -115,7 +130,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpQuery({
     name: "get",
     description:
-      "Read overview, schema, entity:<id> with history, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>.",
+      "Read overview, frame with its history, schema, entity:<id> with history, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>.",
     fn: internal.store.get,
     identityArg: "caller",
     args: getArgs,
@@ -153,4 +168,15 @@ describeInput(
   "session_create",
   ["properties", "playedOn"],
   "Date played, YYYY-MM-DD.",
+);
+
+describeInput(
+  "frame_update",
+  ["properties", "fields"],
+  "Only frame fields to change. Omitted fields stay as they are; an empty string clears a field. Intent never changes story state.",
+);
+describeInput(
+  "frame_update",
+  ["properties", "reason"],
+  "The game master's reason for changing the adventure frame.",
 );

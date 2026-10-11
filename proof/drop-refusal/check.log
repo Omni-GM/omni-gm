@@ -7,79 +7,46 @@
 > tsx scripts/build-ledger.ts
 
 
-[29.36ms] [@tailwindcss/vite] Generate CSS (build)
-[17.46ms]   ↳ Setup compiler
-[ 0.88ms]   ↳ Setup scanner
-[ 1.42ms]   ↳ Scan for candidates
-[ 0.52ms]   ↳ Register dependency messages
-[ 8.48ms]   ↳ Build CSS
+[29.87ms] [@tailwindcss/vite] Generate CSS (build)
+[17.48ms]   ↳ Setup compiler
+[ 0.89ms]   ↳ Setup scanner
+[ 1.71ms]   ↳ Scan for candidates
+[ 0.59ms]   ↳ Register dependency messages
+[ 8.56ms]   ↳ Build CSS
 [ 0.00ms]   ↳ Build Source Map
-[ 2.06ms] [@tailwindcss/vite] Optimize CSS
+[ 2.07ms] [@tailwindcss/vite] Optimize CSS
 
-tests/mcp.test.ts:696:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+tests/mcp.test.ts:704:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   i Template literals are preferred over string concatenation.
   
-    694 │   const failed = await c.t.fetch(path, {
-    695 │     method: "PUT",
-  > 696 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
+    702 │   const failed = await c.t.fetch(path, {
+    703 │     method: "PUT",
+  > 704 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
         │           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    697 │   });
-    698 │   expect(failed.status).toBe(400);
+    705 │   });
+    706 │   expect(failed.status).toBe(400);
   
   i Unsafe fix: Use a template literal.
   
-     694  694 │     const failed = await c.t.fetch(path, {
-     695  695 │       method: "PUT",
-     696      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
-          696 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
-     697  697 │     });
-     698  698 │     expect(failed.status).toBe(400);
+     702  702 │     const failed = await c.t.fetch(path, {
+     703  703 │       method: "PUT",
+     704      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
+          704 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
+     705  705 │     });
+     706  706 │     expect(failed.status).toBe(400);
   
 
-Checked 38 files in 87ms. No fixes applied.
+Checked 40 files in 39ms. No fixes applied.
 Found 1 info.
 CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
-✔ Configured a local deployment for http://127.0.0.1:3212 and saved its:
-    name as CONVEX_DEPLOYMENT
-    client URL as VITE_CONVEX_URL
-    HTTP actions URL as VITE_CONVEX_SITE_URL
- to .env.local
-  Added ".env.local" to .gitignore
-
-Write your Convex functions in convex/
-Give us feedback at https://convex.dev/community or support@convex.dev
-View the Convex dashboard at null
-
 ▌ Developing against deployment:
 ▌ [Local] Port 3212 • No Convex account (run npx convex login to link to a project)
 ▌ └─ http://127.0.0.1:3212
 - Preparing Convex functions...
 
 Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
-✔ Added table indexes:
-  [+] adventures.by_campaign   campaign, _creationTime
-  [+] campaigns.by_owner   owner, _creationTime
-  [+] commits.by_campaign   campaign, _creationTime
-  [+] commits.by_campaign_and_kind   campaign, kind, _creationTime
-  [+] entities.by_campaign   campaign, _creationTime
-  [+] entities.by_campaign_and_id   campaign, id, _creationTime
-  [+] entities.search_text (text)   searchText, filters on campaign, kind
-  [+] entityHistory.by_campaign_and_entity   campaign, entityId, _creationTime
-  [+] history.by_campaign   campaign, _creationTime
-  [+] history.search_text (text)   searchText, filter on campaign
-  [+] relationships.by_campaign   campaign, _creationTime
-  [+] relationships.by_campaign_and_from   campaign, from, _creationTime
-  [+] relationships.by_campaign_and_to   campaign, to, _creationTime
-  [+] scenes.by_session   session, _creationTime
-  [+] scenes.search_text (text)   searchText, filter on campaign
-  [+] sessions.by_campaign   campaign, _creationTime
-  [+] sessions.by_campaign_and_ordinal   campaign, ordinal, _creationTime
-  [+] uploads.by_token   token, _creationTime
-  [+] utterances.by_session_and_seconds   session, seconds, _creationTime
-  [+] utterances.search_text (text)   searchText, filter on campaign
-✔ Installed component mcpGateway.
-✔ 13:05:09 Convex functions ready! (1.19s)
+✔ 13:10:56 Convex functions ready! (403.59ms)
 Finding component definitions...
 Generating server code...
 Bundling component definitions...
@@ -97,7 +64,7 @@ Running TypeScript...
 
 
  Test Files  2 passed (2)
-      Tests  36 passed (36)
-   Start at  13:05:16
-   Duration  4.00s (transform 853ms, setup 0ms, import 254ms, tests 4.28s, environment 0ms)
+      Tests  40 passed (40)
+   Start at  13:11:03
+   Duration  4.42s (transform 850ms, setup 0ms, import 247ms, tests 4.71s, environment 0ms)
 

@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { client } from "./mcp-client";
+import { client, createTest } from "./mcp-client";
 
 test("the game master starts an adventure, records a session and recalls the seeded schema", async () => {
   const c = client();
@@ -184,11 +184,17 @@ test("skills list and load the procedures with the standing rules, and initializ
   expect(init.result.instructions).toContain("Never draft prep");
   const list = await c.call("skill");
   expect(list.skills.map((s: { name: string }) => s.name)).toEqual([
+    "frame-talk",
     "map-speakers",
     "split-scenes",
     "debrief",
   ]);
-  for (const name of ["map speakers", "split scenes", "DEBRIEF"]) {
+  for (const name of [
+    "map speakers",
+    "split scenes",
+    "DEBRIEF",
+    "frame talk",
+  ]) {
     const skill = await c.call("skill", { name });
     expect(skill.procedure).toMatch(
       /Never draft prep[\s\S]*Write in the game master's language\.$/,
@@ -464,7 +470,9 @@ test("get reads every slice ref and find searches each kind with basis visible o
     if (type === "source") expect(r.hits[0].snippet).toContain("npc_said");
     await c.call("get", { ref: r.hits[0].ref });
   }
-  await expect(c.call("get", { ref: "frame" })).rejects.toThrow("Allowed refs");
+  await expect(c.call("get", { ref: "unsupported" })).rejects.toThrow(
+    "Allowed refs",
+  );
   await expect(
     c.call("get", { refs: Array(26).fill("schema") }),
   ).rejects.toThrow("25");
@@ -810,6 +818,218 @@ test("the advertised basis schema repeats the guess rule, and private identity i
   expect(tool.outputSchema.type).toBe("object");
 });
 
+test("frame edits preserve omitted intent, append before and after with a reason, and leave the story state untouched", async () => {
+  const { c, s } = await prepared();
+  await c.call("debrief_add", {
+    session: s.id,
+    changes: [npcChange()],
+    lastTime: "Sera waits by the ferry. The gate closes at dusk.",
+  });
+  await c.call("debrief_commit", { session: s.id });
+  const found = await c.call("find", { types: ["entity"] });
+  const npc = await c.call("get", { ref: found.hits[0].ref });
+  const session = await c.call("get", { ref: `session:${s.id}` });
+  await c.call("schema_change", {
+    reason: "Remember a greeting",
+    ops: [
+      {
+        op: "add_property",
+        kind: "npc",
+        key: "greeting",
+        type: "text",
+        description: "How this NPC greets visitors",
+      },
+    ],
+  });
+  const schema = await c.call("get", { ref: "schema" });
+  const initial = {
+    goal: "Restore passage",
+    stakes: "The ferry village is cut off",
+    timeframe: "Before dusk",
+    pressure: "The closing gate",
+    finale: "A cracked gate above the ferry",
+    moves_main_plot: "Reveal the broken seal",
+    pulls_in: "Sera's ferry",
+    next_session_starts: "At the ferry landing",
+  };
+  await c.call("frame_update", {
+    reason: "My intent for the causeway",
+    fields: initial,
+  });
+  await c.call("frame_update", {
+    reason: "The gate now closes sooner",
+    fields: { timeframe: "Before the third bell" },
+  });
+  const frame = await c.call("get", { ref: "frame" });
+  expect(frame.fields).toEqual({
+    ...initial,
+    timeframe: "Before the third bell",
+  });
+  expect(frame.history).toHaveLength(2);
+  expect(frame.history[0]).toMatchObject({
+    kind: "frame",
+    reason: "My intent for the causeway",
+    before: {},
+    after: initial,
+  });
+  expect(frame.history[1]).toMatchObject({
+    kind: "frame",
+    reason: "The gate now closes sooner",
+    before: initial,
+    after: frame.fields,
+  });
+  const overview = await c.call("get", { ref: "overview" });
+  expect(overview.frame.fields).toEqual(frame.fields);
+  expect(overview.frame.adventure).toBe(overview.currentAdventure);
+  expect(overview.lastTime).toBe(
+    "Sera waits by the ferry. The gate closes at dusk.",
+  );
+  expect(
+    overview.commits.filter(
+      (commit: { kind: string }) => commit.kind === "frame",
+    ),
+  ).toHaveLength(2);
+  expect(await c.call("find", { types: ["entity"] })).toEqual(found);
+  expect(await c.call("get", { ref: found.hits[0].ref })).toEqual(npc);
+  expect(await c.call("get", { ref: `session:${s.id}` })).toEqual(session);
+  expect(await c.call("get", { ref: "schema" })).toEqual(schema);
+  await c.call("frame_update", {
+    reason: "Leave the timeframe open",
+    fields: { timeframe: "" },
+  });
+  const cleared = await c.call("get", { ref: "frame" });
+  expect(cleared.fields).toEqual({ ...initial, timeframe: "" });
+  expect(cleared.history[2]).toMatchObject({
+    reason: "Leave the timeframe open",
+    before: frame.fields,
+    after: cleared.fields,
+  });
+});
+
+test("frame updates reject missing intent and keep each adventure and owner separate", async () => {
+  const shared = createTest();
+  const c = client("first-gm", shared);
+  await c.init();
+  await expect(
+    c.call("frame_update", {
+      reason: "First intent",
+      fields: { goal: "Open the gate" },
+    }),
+  ).rejects.toThrow("adventure_start");
+  await c.call("adventure_start", { name: "The Causeway", reason: "Arrived" });
+  await c.call("frame_update", {
+    reason: "First intent",
+    fields: { goal: "Open the gate" },
+  });
+  const firstFrame = await c.call("get", { ref: "frame" });
+  await expect(
+    c.call("frame_update", { reason: "  ", fields: { goal: "Changed" } }),
+  ).rejects.toThrow("reason");
+  await expect(
+    c.call("frame_update", { reason: "No change", fields: {} }),
+  ).rejects.toThrow("field");
+  await expect(
+    c.call("frame_update", {
+      reason: "Invented field",
+      fields: { outcome: "The party wins" },
+    }),
+  ).rejects.toThrow("Tool execution failed");
+  expect(await c.call("get", { ref: "frame" })).toEqual(firstFrame);
+  const other = client("second-gm", shared);
+  await other.init();
+  await other.call("adventure_start", {
+    name: "The Orchard",
+    reason: "Arrived",
+  });
+  await other.call("frame_update", {
+    reason: "Own intent",
+    fields: { goal: "Save the orchard" },
+  });
+  expect((await other.call("get", { ref: "frame" })).fields).toEqual({
+    goal: "Save the orchard",
+  });
+  expect(await c.call("get", { ref: "frame" })).toEqual(firstFrame);
+  await c.call("adventure_start", {
+    name: "The Red Tower",
+    reason: "Next adventure",
+  });
+  expect(await c.call("get", { ref: "frame" })).toMatchObject({
+    name: "The Red Tower",
+    fields: {},
+    history: [],
+  });
+  await c.call("frame_update", {
+    reason: "Tower intent",
+    fields: { goal: "Reach the roof" },
+  });
+  expect((await c.call("get", { ref: "frame" })).history).toHaveLength(1);
+});
+
+test("the frame-talk skill reaches clients with grounded questions, a stopping rule and separate intent", async () => {
+  const c = client();
+  await c.init();
+  const listed = await c.call("skill");
+  expect(listed.skills.map((skill: { name: string }) => skill.name)).toContain(
+    "frame-talk",
+  );
+  const loaded = await c.call("skill", { name: "Frame Talk" });
+  expect(loaded.name).toBe("frame-talk");
+  for (const text of [
+    "get overview",
+    "get frame",
+    "One question at a time",
+    "why",
+    "goal, stakes, and timeframe",
+    "satisfied",
+    "last session put in question",
+    "frame_update",
+    "never outcomes",
+    "Standing rules",
+  ])
+    expect(loaded.procedure).toContain(text);
+  const tools = await c.rpc("tools/list");
+  const frameTool = tools.result.tools.find(
+    (tool: { name: string }) => tool.name === "frame_update",
+  );
+  expect(frameTool.inputSchema.properties.fields.additionalProperties).toBe(
+    false,
+  );
+  expect(
+    Object.keys(frameTool.inputSchema.properties.fields.properties),
+  ).toEqual([
+    "goal",
+    "stakes",
+    "timeframe",
+    "pressure",
+    "finale",
+    "moves_main_plot",
+    "pulls_in",
+    "next_session_starts",
+  ]);
+  expect(
+    tools.result.tools.find(
+      (tool: { name: string }) => tool.name === "frame_update",
+    ).description,
+  ).toContain("never touches story state");
+});
+
+test("frame history never displaces the latest debrief from overview", async () => {
+  const { c, s } = await prepared();
+  await c.call("debrief_add", {
+    session: s.id,
+    changes: [npcChange()],
+    lastTime: "Sera waits by the ferry.",
+  });
+  await c.call("debrief_commit", { session: s.id });
+  for (let i = 0; i < 201; i++)
+    await c.call("frame_update", {
+      reason: "Revise intent",
+      fields: { timeframe: `Bell ${i}` },
+    });
+  expect((await c.call("get", { ref: "overview" })).lastTime).toBe(
+    "Sera waits by the ferry.",
+  );
+});
 test("a deliberate property addition is immediately usable and recorded with its reason", async () => {
   const { c, s } = await prepared();
   const ops = [

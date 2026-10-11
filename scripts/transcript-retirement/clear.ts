@@ -32,7 +32,11 @@ export const clear = internalMutation({
     for (const ticket of page.page) {
       if (!ticket.appendState) continue;
       const session = await ctx.db.get(ticket.session);
-      if (ticket.storage && ticket.storage !== session?.transcript)
+      if (
+        !ticket.appendState.completed &&
+        ticket.storage &&
+        ticket.storage !== session?.transcript
+      )
         await ctx.scheduler.runAfter(
           0,
           makeFunctionReference<"mutation">("uploads:cleanup"),

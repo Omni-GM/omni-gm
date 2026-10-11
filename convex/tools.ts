@@ -115,7 +115,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "transcript_upload_url",
     description:
-      "With a shell, upload the transcript yourself from disk with curl -T to this signed single-use URL, valid for ten minutes; no transcript in tool calls or chat output. Without a shell, immediately give the game master pageUrl to sign in and upload the original file. Never retype the transcript in tool calls or chat. After they upload, read get transcript:<session> to confirm it is stored before the debrief. UTF-8 [HH:MM:SS] Speaker: text, at most 8 MB and 20000 utterances.",
+      "With a shell, upload the transcript yourself from disk with curl -T to this signed single-use URL, valid for ten minutes; no transcript in tool calls or chat output. Without a shell or without the original file on disk, immediately give the game master pageUrl to sign in and upload the original file. Never retype the transcript in tool calls or chat. After they upload, read get transcript:<session> to confirm it is stored before the debrief. UTF-8 [HH:MM:SS] Speaker: text, at most 8 MB and 20000 utterances.",
     fn: internal.uploads.uploadUrl,
     identityArg: "caller",
     args: uploadArgs,

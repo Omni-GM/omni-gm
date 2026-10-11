@@ -1,7 +1,7 @@
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/feat-retire-transcript-append (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/modest-hawk-89)
-▌ └─ https://modest-hawk-89.convex.cloud
-- Deploying to https://modest-hawk-89.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/feat-retire-transcript-append (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/robust-cassowary-319)
+▌ └─ https://robust-cassowary-319.convex.cloud
+- Deploying to https://robust-cassowary-319.convex.cloud...
 
 ✔ Added table indexes:
   [+] adventures.by_campaign   campaign, _creationTime
@@ -31,5 +31,5 @@
   [+] utterances.by_session_and_generation_and_seconds   session, transcriptGeneration, seconds, ordinal, _creationTime
   [+] utterances.search_text (text)   searchText, filter on campaign
 ✔ Installed component mcpGateway.
-✔ Deployed Convex functions to https://modest-hawk-89.convex.cloud
+✔ Deployed Convex functions to https://robust-cassowary-319.convex.cloud
 ✔ Finished running function "oauth:configure"

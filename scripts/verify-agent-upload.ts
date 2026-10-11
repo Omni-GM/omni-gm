@@ -18,10 +18,13 @@ function sanitize(value: unknown): unknown {
     );
   return value;
 }
-const [mode, rawPath, publicPath] = process.argv.slice(2);
+const [mode, rawPath, publicPath, promptPath] = process.argv.slice(2);
 assert(
-  ["no-shell", "shell", "resume"].includes(mode) && rawPath && publicPath,
-  "Usage: tsx scripts/verify-agent-upload.ts no-shell|shell|resume raw.jsonl public.jsonl",
+  ["no-shell", "shell", "resume"].includes(mode) &&
+    rawPath &&
+    publicPath &&
+    promptPath,
+  "Usage: tsx scripts/verify-agent-upload.ts no-shell|shell|resume raw.jsonl public.jsonl prompt.txt",
 );
 const events = (await readFile(rawPath, "utf8"))
   .trim()
@@ -40,7 +43,12 @@ const publication: unknown[] = [
     type: "proof",
     model: init.model,
     tools: init.tools,
-    note: "Invented fixture. Upload capabilities, provider usage and thinking omitted.",
+    command:
+      mode === "shell"
+        ? "claude -p --model claude-sonnet-5-5 --tools Bash"
+        : "claude -p --model claude-sonnet-5-5 --tools '' --disallowedTools Bash",
+    prompt: await readFile(promptPath, "utf8"),
+    note: "Invented fixture. Upload capabilities, provider usage and thinking omitted. Hooks disabled for this run.",
   },
 ];
 for (const event of events) {

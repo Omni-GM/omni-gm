@@ -47,6 +47,9 @@ try {
       name: "The Lantern Ferry",
       reason: "Invented migration proof",
     });
+    const pendingSession = await session();
+    for (let i = 0; i < 110; i++)
+      await call("transcript_upload_url", { session: pendingSession });
     const completed = await session();
     await call("transcript_append", {
       session: completed,
@@ -84,7 +87,7 @@ try {
       { mode: 0o600 },
     );
     console.log(
-      "PASS baseline has a completed chunk ticket, 105 unfinished chunks over a published transcript, and an unused signed URL",
+      "PASS baseline has 110 ordinary signed tickets before a completed chunk ticket, 105 unfinished chunks over a published transcript, and an unused signed URL",
     );
   } else {
     assert.equal(phase, "verify");

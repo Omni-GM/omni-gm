@@ -118,7 +118,8 @@ export const cleanup = internalMutation({
     for (const row of rows) await ctx.db.delete(row._id);
     if (rows.length === 100)
       await ctx.scheduler.runAfter(0, internal.uploads.cleanup, args);
-    else await ctx.storage.delete(args.storage);
+    else if (await ctx.db.system.get(args.storage))
+      await ctx.storage.delete(args.storage);
     return null;
   },
 });

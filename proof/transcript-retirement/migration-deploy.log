@@ -1,9 +1,9 @@
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/feat-retire-transcript-append (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/modest-hawk-89)
-▌ └─ https://modest-hawk-89.convex.cloud
-- Deploying to https://modest-hawk-89.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/feat-retire-transcript-append (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/robust-cassowary-319)
+▌ └─ https://robust-cassowary-319.convex.cloud
+- Deploying to https://robust-cassowary-319.convex.cloud...
 
-✔ Deployed Convex functions to https://modest-hawk-89.convex.cloud
+✔ Deployed Convex functions to https://robust-cassowary-319.convex.cloud
 {
   "chunks": 100,
   "cursor": null,
@@ -18,15 +18,21 @@
 }
 {
   "chunks": 0,
+  "cursor": "07a5de8217e807858af3bfc9e96c587273ad2e668a2905baa393283b6d07c690996cd24004b39cb420e708d21c70838f8c8a71cf9f576146d87fc20d07061793ae05aa286161c889dd72d956e08b22b72e1e695896174ea409242d9fd18b92cd4340263dda837dee9d83d7e82c45eb720a2804f06ceb6c8a",
+  "done": false,
+  "tickets": 0
+}
+{
+  "chunks": 0,
   "cursor": null,
   "done": true,
-  "tickets": 2
+  "tickets": 3
 }
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/feat-retire-transcript-append (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/modest-hawk-89)
-▌ └─ https://modest-hawk-89.convex.cloud
-- Deploying to https://modest-hawk-89.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/feat-retire-transcript-append (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/robust-cassowary-319)
+▌ └─ https://robust-cassowary-319.convex.cloud
+- Deploying to https://robust-cassowary-319.convex.cloud...
 
 ✔ Deleted table indexes:
   [-] transcriptChunks.by_upload_and_index   upload, index, _creationTime
-✔ Deployed Convex functions to https://modest-hawk-89.convex.cloud
+✔ Deployed Convex functions to https://robust-cassowary-319.convex.cloud

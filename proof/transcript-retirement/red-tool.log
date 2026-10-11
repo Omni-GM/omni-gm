@@ -1,31 +1,31 @@
 
-> omni-gm@0.1.0 test /home/coder/dev/omni-gm-impl37
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-impl37/.retirement-baseline
 > vitest run tests/transcript-retirement.test.ts
 
 
- RUN  v4.1.0 /home/coder/dev/omni-gm-impl37
+ RUN  v4.1.0 /home/coder/dev/omni-gm-impl37/.retirement-baseline
 
- ❯ tests/transcript-retirement.test.ts (1 test | 1 failed) 441ms
-   × clients upload transcripts through a signed URL or page, without a chunk tool 440ms
+ ❯ tests/transcript-retirement.test.ts (1 test | 1 failed) 446ms
+   × the tool list has no chunk upload tool and calling it fails 445ms
 
 ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
 
- FAIL  tests/transcript-retirement.test.ts > clients upload transcripts through a signed URL or page, without a chunk tool
+ FAIL  tests/transcript-retirement.test.ts > the tool list has no chunk upload tool and calling it fails
 AssertionError: expected [ 'transcript_append', …(13) ] to not include 'transcript_append'
- ❯ tests/transcript-retirement.test.ts:8:78
-      6|   await c.init();
-      7|   const listed = await c.rpc("tools/list");
-      8|   expect(listed.result.tools.map((tool: { name: string }) => tool.name…
-       |                                                                              ^
-      9|     "transcript_append",
-     10|   );
+ ❯ tests/transcript-retirement.test.ts:10:9
+      8|   expect(
+      9|     listed.result.tools.map((tool: { name: string }) => tool.name),
+     10|   ).not.toContain("transcript_append");
+       |         ^
+     11|   await expect(
+     12|     c.call("transcript_append", {
 
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
 
 
  Test Files  1 failed (1)
       Tests  1 failed (1)
-   Start at  18:39:44
-   Duration  639ms (transform 385ms, setup 0ms, import 93ms, tests 441ms, environment 0ms)
+   Start at  18:54:17
+   Duration  641ms (transform 391ms, setup 0ms, import 92ms, tests 446ms, environment 0ms)
 
  ELIFECYCLE  Test failed. See above for more details.

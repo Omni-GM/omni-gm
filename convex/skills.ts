@@ -7,7 +7,7 @@ Story state records what happened. The adventure frame records intent. Keep them
 Write in the game master's language.`;
 export const instructions = `Load the matching procedure with skill before starting a workflow.\n${standingRules}`;
 const uploadProcedure = `If the session has no stored transcript, call transcript_upload_url. With a shell and a file on disk, run curl -T <file> <signed-url> directly from disk. Never read, echo, cat or repeat the file to upload it. The signed URL is single-use and expires after ten minutes.
-Without a shell, immediately give the game master pageUrl to sign in and upload the original transcript file. Pause until they have uploaded it. Do not retype the transcript in tool calls or chat, even when you hold it in context.
+Without a shell or without the original file on disk, immediately give the game master pageUrl to sign in and upload the original transcript file. Pause until they have uploaded it. Do not retype the transcript in tool calls or chat, even when you hold it in context.
 Both paths use UTF-8 [HH:MM:SS] Speaker: text with continuation lines, at most 8 MB and 20000 utterances, 32 KB per utterance including continuations. Upload before scenes or draft changes exist. Read get transcript:<session> to confirm it is stored before mapping speakers, splitting scenes or starting the debrief. If the transcript is still missing, wait for the upload.`;
 const procedures: Record<string, { description: string; procedure: string }> = {
   "prep-sparring": {

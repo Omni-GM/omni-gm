@@ -18,7 +18,8 @@ With a shell and a file on disk, the agent runs `curl -T <file> <signed-url>`
 directly from disk. The URL is single-use and expires after ten minutes.
 This path sends no transcript tokens through the model.
 
-Without a shell, as in Claude Desktop or claude.ai, the agent immediately
+Without a shell, as in Claude Desktop or claude.ai, or without the original
+file on disk, the agent immediately
 gives you `pageUrl` to sign in and upload the original transcript file.
 It waits for the upload, then reads `get transcript:<session>` to confirm
 that the transcript is stored before mapping speakers, splitting scenes,
@@ -27,8 +28,7 @@ or starting the debrief. Never retype the transcript into tool calls or chat.
 Both paths use the same parser, bounded storage batches, owner scoping,
 and lock once scenes or draft changes exist. Failed uploads keep the
 previous transcript readable; only a successful upload publishes a replacement.
-The page
-requires the same AuthKit sign-in and refuses other owners' sessions.
+The page requires the same AuthKit sign-in and refuses other owners' sessions.
 
 Use UTF-8 text with timestamped speakers:
 
@@ -318,10 +318,13 @@ runs. The no-shell agent gives the GM the upload page and waits. After the
 file is stored, a fresh run reads it before writing scenes. The shell agent
 uploads from disk without repeating the transcript in its output.
 
-Main deployments use `bash scripts/deploy.sh`. It deploys a temporary
+Run `pnpm check` before manual deployment. Main deployments use
+`bash scripts/deploy.sh`. If legacy staging exists,
+it deploys a temporary
 migration schema that accepts the retired chunk fields, with the chunk tool
 already removed, then deletes chunk staging in bounded batches before
 deploying the narrowed schema. Published transcripts, sessions and story
 state stay intact. Preview proof uses the same script with a preview branch
 name as its only argument. The migration files are deployed only for the
-cleanup and are absent from the final deployment.
+cleanup and are absent from the final deployment. Later deployments skip
+the migration once staging is empty.

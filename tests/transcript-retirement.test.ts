@@ -1,7 +1,7 @@
 import { expect, test } from "vitest";
 import { client } from "./mcp-client";
 
-test("clients upload transcripts through a signed URL or page, without a chunk tool", async () => {
+test("the tool list has no chunk upload tool and calling it fails", async () => {
   const c = client();
   await c.init();
   const listed = await c.rpc("tools/list");

@@ -2,9 +2,11 @@ import { httpRouter } from "convex/server";
 import { McpGateway } from "convex-mcp-gateway";
 import { components } from "./_generated/api";
 import { httpAction } from "./_generated/server";
+import { ledgerView } from "./ledger";
 import { instructions } from "./skills";
 import { tools } from "./tools";
-import { download, upload } from "./uploads";
+import { client, page, token } from "./uploadPage";
+import { download, pageSessionApi, upload } from "./uploads";
 
 const gateway = new McpGateway(components.mcpGateway);
 const mcp = httpAction((ctx, req) =>
@@ -13,6 +15,7 @@ const mcp = httpAction((ctx, req) =>
     authorize: async (_ctx, { identity }) =>
       identity ? { allowed: true } : { allowed: false, reason: "Unauthorized" },
     tools,
+    resources: [ledgerView],
     initializeInstructions: instructions,
     serverInfo: { name: "omni-gm", version: "0.1.0" },
   }),
@@ -36,5 +39,14 @@ for (const path of [
 }
 http.route({ path: "/upload", method: "PUT", handler: upload });
 http.route({ path: "/upload", method: "POST", handler: upload });
+http.route({ path: "/upload-page", method: "GET", handler: page });
+http.route({ path: "/upload-page/token", method: "POST", handler: token });
+http.route({
+  path: "/upload-page/client.json",
+  method: "GET",
+  handler: client,
+});
+for (const method of ["GET", "PUT"] as const)
+  http.route({ path: "/upload-page/session", method, handler: pageSessionApi });
 http.route({ pathPrefix: "/transcripts/", method: "GET", handler: download });
 export default http;

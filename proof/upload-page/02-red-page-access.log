@@ -1,0 +1,33 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-upload-page
+
+ ❯ tests/upload-page.test.ts (2 tests | 1 failed) 324ms
+   × the upload page refuses anonymous visitors and sessions of another owner, and stores the owner's file byte-exact 19ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/upload-page.test.ts > the upload page refuses anonymous visitors and sessions of another owner, and stores the owner's file byte-exact
+AssertionError: expected 404 to be 401 // Object.is equality
+
+- Expected
++ Received
+
+- 401
++ 404
+
+ ❯ tests/upload-page.test.ts:31:41
+     29|     "[00:01:10] GM as Sera Venn: Mind the stones, dear.\r\n[00:02:20] …
+     30|
+     31|   expect((await c.t.fetch(api)).status).toBe(401);
+       |                                         ^
+     32|   expect(
+     33|     (await c.t.fetch(api, { method: "PUT", body: transcript })).status,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  12:35:10
+   Duration  541ms (transform 264ms, setup 0ms, import 96ms, tests 324ms, environment 0ms)
+

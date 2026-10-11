@@ -1,0 +1,96 @@
+
+ RUN  v4.1.0 ~/dev/omni-gm-wt/ledger-view
+
+ ❯ tests/mcp.test.ts (23 tests | 1 failed | 22 skipped) 362ms
+   × debrief_add and debrief_drop return Ledger rows with label, subject, before and after per scene 361ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > debrief_add and debrief_drop return Ledger rows with label, subject, before and after per scene
+AssertionError: expected undefined to deeply equal { …(2) }
+
+- Expected:
+{
+  "rows": [
+    {
+      "after": {
+        "aliases": "Sarah Ven",
+        "playedAs": "Softly, with a snapped final word",
+      },
+      "before": {},
+      "id": "c1",
+      "kind": "npc",
+      "label": "new",
+      "subject": "Sera Venn",
+    },
+    {
+      "after": {
+        "status": "open",
+      },
+      "before": {},
+      "id": "c2",
+      "kind": "thread",
+      "label": "new",
+      "subject": "Who pays the raiders?",
+    },
+    {
+      "after": {},
+      "before": {},
+      "id": "c3",
+      "label": "link",
+      "subject": "Who pays the raiders? raised by Sera Venn",
+    },
+    {
+      "after": {
+        "aliases": "Sarah Ven, Sera of the Ferry",
+        "wants": "Safe passage home",
+      },
+      "before": {
+        "aliases": "Sarah Ven",
+      },
+      "id": "c4",
+      "kind": "npc",
+      "label": "change",
+      "subject": "Sera Venn",
+    },
+    {
+      "after": {
+        "status": "closed",
+      },
+      "before": {
+        "status": "open",
+      },
+      "id": "c5",
+      "kind": "thread",
+      "label": "closed",
+      "subject": "Who pays the raiders?",
+    },
+  ],
+  "scenes": [
+    {
+      "ordinal": 1,
+      "place": "Glass Causeway",
+      "title": "The ferry",
+    },
+  ],
+}
+
++ Received:
+undefined
+
+ ❯ tests/mcp.test.ts:939:24
+    937|     (p: { id: string }) => p.id,
+    938|   );
+    939|   expect(added.ledger).toEqual({
+       |                        ^
+    940|     scenes: [{ ordinal: 1, title: "The ferry", place: "Glass Causeway"…
+    941|     rows: [
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 22 skipped (23)
+   Start at  12:36:37
+   Duration  597ms (transform 315ms, setup 0ms, import 116ms, tests 362ms, environment 0ms)
+

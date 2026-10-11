@@ -16,8 +16,15 @@ The server stores and validates the story state; it makes no AI calls.
 Start with `adventure_start`, then `session_create`. Call
 `transcript_upload_url` and upload the file directly from disk with
 `curl -T <file> <signed-url>`. The URL is single-use and expires after ten
-minutes. Only the signed URL is returned in this slice. The transcript
-never belongs in a tool call or the assistant's output.
+minutes. The transcript never belongs in a tool call or the assistant's
+output.
+
+Claude Desktop and claude.ai have no shell. For them the tool also returns
+`pageUrl`, an upload page for that session. The game master opens it, signs
+in with the same AuthKit account, and drops the file. The page refuses
+anonymous visitors and sessions of another owner. It stores the file
+through the same parser and limits as the signed URL. The `split-scenes`
+skill tells the model to hand over the link when it cannot run `curl`.
 
 Use UTF-8 text with timestamped speakers:
 
@@ -43,11 +50,17 @@ must satisfy that rule. The schema defines all kinds, properties, enums,
 and relationship endpoints.
 
 Review `get debrief:<session>`, drop mistakes with `debrief_drop`, and call
-`debrief_commit` only after the game master accepts the draft. State and
+`debrief_commit` only after the game master accepts the draft. In clients
+that render MCP Apps, `debrief_add` and `debrief_drop` carry the Ledger view
+(`ui://omni-gm/draft-debrief`, `_meta.ui`). It shows the "for your session
+note" box with `lastTime`, then one row per change grouped by scene: the
+operation, the subject, before and after, basis, source quotes, and why.
+Its only write is Drop, which calls `debrief_drop` and re-renders from the
+returned draft. Both tools also return `ledger` rows for the view. State and
 history commit atomically. The committed debrief, transcript, and scenes
 stay closed. Dropping a parent refuses to break retained dependent changes and lists
 their IDs. Drop them together, then add replacements in dependency order. Later corrections, the adventure
-frame, the signed-in upload page, and the Ledger view are later slices.
+frame is a later slice.
 
 At prep, `get overview` returns the most recently committed `lastTime`.
 `find` lists entities and scenes without a query, or searches names,
@@ -91,7 +104,10 @@ pnpm install --frozen-lockfile
 pnpm check
 ```
 
-The gate runs Biome, Convex codegen, TypeScript, and endpoint tests. Codegen
+The gate builds the Ledger view, then runs Biome, Convex codegen,
+TypeScript, and endpoint tests. `pnpm build:ledger` bundles `ledger/` (React
+and Tailwind) into one HTML file and writes it to the ignored
+`convex/ledgerHtml.generated.ts`; run it before any `convex deploy`. Codegen
 uses an isolated anonymous local Convex deployment in `.codegen/` with
 an empty auth configuration. It never uses a deploy key or a hosted
 campaign. The actual auth configuration stays required and is typechecked.
@@ -109,6 +125,23 @@ OMNI_GM_MCP_URL=https://<preview-deployment>.convex.site/mcp \
   OMNI_GM_ACCESS_TOKEN="$STAGING_M2M_ACCESS_TOKEN" pnpm e2e
 ```
 
+To see the Ledger view against a preview, run the local MCP Apps host. It
+seeds an invented draft, reads the view through `debrief_add`'s `_meta.ui`,
+and renders it with the official `AppBridge`, forwarding Drop to the
+deployment:
+
+```sh
+OMNI_GM_MCP_URL=https://<preview-deployment>.convex.site/mcp \
+  OMNI_GM_ACCESS_TOKEN="$STAGING_M2M_ACCESS_TOKEN" PORT=4600 pnpm ledger:host
+```
+
+Open `http://localhost:4600/`, or `/?theme=dark` for the dark host theme.
+
+`scripts/upload-page-proof.sh` signs in to a preview's upload page as the
+staging test user in a fresh agent-browser session. It checks the refusals,
+drops `fixtures/session.txt`, and compares the stored bytes. It reads the
+site, the test user, and a second owner's token from the environment.
+
 Preview deployments trust staging WorkOS AuthKit. The live deployment
 trusts production. GitHub Actions runs the gate for PRs and `main`, then
 `deploy-main` deploys `main` using the repository's `CONVEX_DEPLOY_KEY` and
@@ -116,7 +149,7 @@ configures OAuth discovery. Unmerged code never deploys to live.
 
 Use invented data for every proof. `fixtures/session.txt` exercises name
 variants, a voiced NPC, a rumor figure, a player guess, and a clock.
-`proof/` holds red/green endpoint runs, the local gate, SDK e2e, and the
+`proof/` holds red/green endpoint runs, `proof/ledger/` the Ledger view's, the local gate, SDK e2e, and the
 Claude fixture transcript with upload capabilities and provider usage
 removed. `scripts/verify-claude.ts` checks procedure ordering and reads
 back the committed store independently. Per-branch previews replace the
@@ -140,3 +173,43 @@ uses an entity-specific index and continues beyond 2,000 changes. Search
 accepts up to eight keywords and returns up to 200 hits per page without
 a campaign-wide candidate cap. The overview remains a recent summary; the
 paginated paths cover transcripts, scenes, entity history, and find.
+
+## Change the schema deliberately
+
+Call `schema_change` only when the game master explicitly asks. Supply a
+non-empty `reason` and an `ops` list. The whole list commits atomically:
+
+- `add_property`: `kind`, `key`, `type` (`text`, `number`, or `enum`), and
+  `description`. An enum also needs distinct, non-empty `enumValues`.
+- `retire_property`: `kind` and `key`. Old entity values and history stay
+  intact. New writes and pending draft commits reject the retired property.
+  Errors name the pending change ID. Drop it with `debrief_drop` first, then
+  add a replacement before committing.
+- `add_relationship_type`: `type`, `from` and `to` lists of existing kinds,
+  `label`, `inverseLabel`, and `description`.
+
+New definitions are usable immediately. `get schema` returns the campaign's
+live definitions and `retiredProperties`. Retired keys cannot be reused.
+`get overview` includes `schema` commits with the reason, operations, and
+before/after definitions, alongside debrief commits. Changing a schema never
+changes story-state values. There are no new kinds, deletes, or renames in v1.
+Property keys and relationship type names start with a letter, contain only
+letters, digits or underscores, and cannot be reserved entity or JavaScript
+prototype names.
+
+Run this ticket's hosted proof on a branch preview with the staging token:
+
+```sh
+OMNI_GM_MCP_URL=https://<preview-deployment>.convex.site/mcp \
+  OMNI_GM_ACCESS_TOKEN="$STAGING_M2M_ACCESS_TOKEN" \
+  pnpm exec tsx scripts/schema-e2e.ts
+```
+
+The script uses invented data and unique definition names, so it can run
+again on the same preview. Its proof bundle is in `proof/schema-change/`.
+
+Schema changes accept 1 to 100 operations. The reason, operations and
+before/after definitions together must fit within 32 KB per schema commit.
+A rejection changes neither definitions nor history. Overview keeps the
+latest committed `lastTime` even when its debrief is older than the recent
+200-commit history window.

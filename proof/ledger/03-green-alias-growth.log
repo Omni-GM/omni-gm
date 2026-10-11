@@ -1,0 +1,9 @@
+
+ RUN  v4.1.0 ~/dev/omni-gm-wt/ledger-view
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 22 skipped (23)
+   Start at  12:55:35
+   Duration  703ms (transform 413ms, setup 0ms, import 116ms, tests 472ms, environment 0ms)
+

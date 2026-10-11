@@ -1,0 +1,26 @@
+
+ RUN  v4.1.0 ~/dev/omni-gm-wt/ledger-view
+
+ ❯ tests/mcp.test.ts (22 tests | 1 failed | 21 skipped) 250ms
+   × the Ledger view is served as an MCP Apps resource that debrief_add and debrief_drop carry 249ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > the Ledger view is served as an MCP Apps resource that debrief_add and debrief_drop carry
+TypeError: Cannot read properties of undefined (reading 'resources')
+ ❯ tests/mcp.test.ts:882:24
+    880|   const ledger = "ui://omni-gm/draft-debrief";
+    881|   const listed = await c.rpc("resources/list");
+    882|   expect(listed.result.resources).toContainEqual(
+       |                        ^
+    883|     expect.objectContaining({ uri: ledger, mimeType: "text/html;profil…
+    884|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 21 skipped (22)
+   Start at  12:35:06
+   Duration  482ms (transform 242ms, setup 0ms, import 111ms, tests 250ms, environment 0ms)
+

@@ -1,7 +1,8 @@
 import { ConvexError, type Infer, v } from "convex/values";
 import { internal } from "./_generated/api";
+import type { Doc, Id } from "./_generated/dataModel";
 import { internalQuery } from "./_generated/server";
-import { kinds as entityKinds } from "./model";
+import { schemaFor } from "./model";
 import {
   continuation,
   pageArgs,
@@ -56,6 +57,8 @@ const streamResult = v.object({
   hits: v.array(hit),
   cursor: v.string(),
   done: v.boolean(),
+  rowsRead: v.number(),
+  bytesRead: v.number(),
 });
 export const searchPage = internalQuery({
   args: {
@@ -78,6 +81,8 @@ export const searchPage = internalQuery({
       maximumBytesRead: 500_000,
     };
     const words = text?.split(" ") ?? [];
+    const bytes = (rows: unknown[]): number =>
+      new TextEncoder().encode(JSON.stringify(rows)).length;
     function ranked<T extends { searchText: string }>(
       rows: T[],
     ): { row: T; score?: number }[] {
@@ -107,6 +112,8 @@ export const searchPage = internalQuery({
       return {
         cursor: page.continueCursor,
         done: page.isDone,
+        rowsRead: page.page.length,
+        bytesRead: bytes(page.page),
         hits: ranked(page.page).map(({ row, score }) => ({
           id: row._id,
           ref: `entity:${row.id}`,
@@ -126,6 +133,8 @@ export const searchPage = internalQuery({
       return {
         cursor: page.continueCursor,
         done: page.isDone,
+        rowsRead: page.page.length,
+        bytesRead: bytes(page.page),
         hits: ranked(page.page).map(({ row, score }) => ({
           id: row._id,
           ref: `scene:${row.session}/${row.ordinal}`,
@@ -136,7 +145,8 @@ export const searchPage = internalQuery({
         })),
       };
     }
-    if (!text) return { cursor: "", done: true, hits: [] };
+    if (!text)
+      return { cursor: "", done: true, hits: [], rowsRead: 0, bytesRead: 0 };
     if (type === "source") {
       const page = await ctx.db
         .query("history")
@@ -145,6 +155,8 @@ export const searchPage = internalQuery({
       return {
         cursor: page.continueCursor,
         done: page.isDone,
+        rowsRead: page.page.length,
+        bytesRead: bytes(page.page),
         hits: ranked(page.page).map(({ row, score }) => ({
           id: row._id,
           ref: `entity:${row.entityIds[0]}`,
@@ -164,8 +176,11 @@ export const searchPage = internalQuery({
       .withIndex("by_campaign", (q) => q.eq("campaign", campaign))
       .paginate(opts);
     const visible = [];
+    const sessions = new Map<Id<"sessions">, Doc<"sessions"> | null>();
     for (const row of page.page) {
-      const session = await ctx.db.get(row.session);
+      if (!sessions.has(row.session))
+        sessions.set(row.session, await ctx.db.get(row.session));
+      const session = sessions.get(row.session);
       if (
         session?.transcript &&
         session.transcriptGeneration === row.transcriptGeneration
@@ -175,6 +190,8 @@ export const searchPage = internalQuery({
     return {
       cursor: page.continueCursor,
       done: page.isDone,
+      rowsRead: page.page.length,
+      bytesRead: bytes([...page.page, ...sessions.values()]),
       hits: ranked(visible).map(({ row, score }) => ({
         id: row._id,
         ref: `transcript:${row.session}@${row.at}`,
@@ -195,6 +212,7 @@ export const find = internalQuery({
   ): Promise<Infer<typeof findResult>> => {
     const campaign = await campaignFor(ctx, caller);
     const maximum = pageLimit(limit, query === undefined ? 100 : 10);
+    const entityKinds = schemaFor(campaign).kinds;
     if (kinds?.some((kind) => !Object.hasOwn(entityKinds, kind)))
       throw new ConvexError(
         `Allowed kinds: ${Object.keys(entityKinds).join(", ")}`,
@@ -222,8 +240,17 @@ export const find = internalQuery({
     if (start.stream > streams.length)
       throw new ConvexError("Cursor stream is invalid");
     const hits: Infer<typeof hit>[] = [];
+    let rowsRead = 0;
+    let bytesRead = 0;
+    let pagesRead = 0;
     if (query === undefined || words.length) {
-      while (start.stream < streams.length && hits.length < maximum) {
+      while (
+        start.stream < streams.length &&
+        hits.length < maximum &&
+        rowsRead < 4000 &&
+        bytesRead < 4_000_000 &&
+        pagesRead < 400
+      ) {
         const page: Infer<typeof streamResult> = await ctx.runQuery(
           internal.search.searchPage,
           {
@@ -235,14 +262,22 @@ export const find = internalQuery({
           },
         );
         hits.push(...page.hits);
+        rowsRead += page.rowsRead;
+        bytesRead += page.bytesRead;
+        pagesRead++;
         start = {
           stream: start.stream + (page.done ? 1 : 0),
           cursor: page.done ? null : page.cursor,
           seen: start.seen + page.hits.length,
         };
-        if (!page.done) break;
       }
     } else start = { ...start, stream: streams.length };
+    hits.sort(
+      (a, b) =>
+        ["entity", "source", "scene", "transcript"].indexOf(a.type) -
+          ["entity", "source", "scene", "transcript"].indexOf(b.type) ||
+        (b.score ?? 0) - (a.score ?? 0),
+    );
     const truncated = start.stream < streams.length;
     return {
       query: query ?? null,

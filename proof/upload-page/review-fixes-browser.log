@@ -1,0 +1,16 @@
+Review-fix browser check against https://cheerful-duck-685.convex.site (955bc4c), 2026-10-11T12:52:16Z
+
+== Finding 1: a failed code exchange keeps the upload session
+view: "The sign-in failed. Sign in again.\n\nSign in"
+url keeps session: 1
+script session restored: true
+screenshot proof/upload-page/screenshots/07-failed-exchange.png
+
+== Sign in again from that page (real AuthKit sign-in)
+back on: 1 (1 = same session)
+view: "Session 1, played 2026-01-03. A new file replaces the stored transcript.\n\nDro
+
+== Finding 2: a network failure during upload restores the drop zone
+view: "The upload did not reach the server. Check your connection and drop the file again.\n\nDrop the transcript file here.\n\nChoose a file\n\nUTF-8 lines like [00:
+screenshot proof/upload-page/screenshots/08-network-failure.png
+exit=0

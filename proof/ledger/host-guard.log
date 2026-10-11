@@ -1,0 +1,11 @@
+Local host guard checks against http://127.0.0.1:4716 (scripts/ledger-host.ts):
+$ ss -ltn | grep 4716
+127.0.0.1:4716
+$ POST /host/mcp tools/call debrief_commit (application/json, same host)
+The local host forwards only tools/list, resources/read and debrief_drop -> HTTP 500
+$ POST /host/mcp tools/list with text/plain (cross-site simple request)
+Forbidden -> HTTP 403
+$ POST /host/mcp tools/list with Origin https://evil.example
+Forbidden -> HTTP 403
+$ POST /host/mcp tools/list with Host rebind.example:4716
+Forbidden -> HTTP 403

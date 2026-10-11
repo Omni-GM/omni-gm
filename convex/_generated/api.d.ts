@@ -10,13 +10,16 @@
 
 import type * as debrief from "../debrief.js";
 import type * as http from "../http.js";
+import type * as ledger from "../ledger.js";
 import type * as model from "../model.js";
 import type * as oauth from "../oauth.js";
 import type * as pagination from "../pagination.js";
+import type * as schemaChanges from "../schemaChanges.js";
 import type * as search from "../search.js";
 import type * as skills from "../skills.js";
 import type * as store from "../store.js";
 import type * as tools from "../tools.js";
+import type * as uploadPage from "../uploadPage.js";
 import type * as uploads from "../uploads.js";
 
 import type {
@@ -28,13 +31,16 @@ import type {
 declare const fullApi: ApiFromModules<{
   debrief: typeof debrief;
   http: typeof http;
+  ledger: typeof ledger;
   model: typeof model;
   oauth: typeof oauth;
   pagination: typeof pagination;
+  schemaChanges: typeof schemaChanges;
   search: typeof search;
   skills: typeof skills;
   store: typeof store;
   tools: typeof tools;
+  uploadPage: typeof uploadPage;
   uploads: typeof uploads;
 }>;
 

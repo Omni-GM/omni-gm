@@ -1,0 +1,26 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-schema-change
+
+ ❯ tests/mcp.test.ts (23 tests | 1 failed | 22 skipped) 318ms
+   × retiring a property rejects new writes and pending commits while preserving old records 317ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > retiring a property rejects new writes and pending commits while preserving old records
+Error: {"jsonrpc":"2.0","id":16,"result":{"content":[{"type":"text","text":"Schema operation not implemented"}],"isError":true}}
+ ❯ Object.call tests/mcp.test.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/mcp.test.ts:907:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 22 skipped (23)
+   Start at  12:33:32
+   Duration  530ms (transform 261ms, setup 0ms, import 112ms, tests 318ms, environment 0ms)

@@ -1,0 +1,1 @@
+Dace secretly shelters Pell and Nia in a dry chamber under the weir to protect them from Holloway. The table has not seen this. Record those exact words as my background decision, with the reason "I want the rescue to put pressure on Holloway". Keep the players' unresolved search open.

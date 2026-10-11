@@ -9,10 +9,13 @@ import {
   relationship,
   scene,
   schemaInfo,
+  secret,
+  secretHistory,
 } from "./model";
 export default defineSchema({
   campaigns: defineTable({
     owner: v.string(),
+    openSecrets: v.optional(v.number()),
     schema: v.optional(schemaInfo),
     currentAdventure: v.optional(v.id("adventures")),
   }).index("by_owner", ["owner"]),
@@ -37,6 +40,17 @@ export default defineSchema({
   })
     .index("by_campaign", ["campaign"])
     .index("by_campaign_and_ordinal", ["campaign", "ordinal"]),
+  secrets: defineTable({
+    campaign: v.id("campaigns"),
+    ...secret.fields,
+  })
+    .index("by_campaign_and_id", ["campaign", "id"])
+    .index("by_campaign_and_status", ["campaign", "status"]),
+  secretHistory: defineTable({
+    campaign: v.id("campaigns"),
+    secret: v.string(),
+    ...secretHistory.fields,
+  }).index("by_campaign_and_secret", ["campaign", "secret"]),
   entities: defineTable({
     campaign: v.id("campaigns"),
     ...entity.fields,
@@ -58,6 +72,7 @@ export default defineSchema({
     .index("by_campaign_and_to", ["campaign", "to"]),
   commits: defineTable({
     campaign: v.id("campaigns"),
+    storyCommit: v.optional(v.string()),
     kind: commit.fields.kind,
     reason: v.string(),
     session: v.optional(v.string()),
@@ -76,6 +91,7 @@ export default defineSchema({
     searchText: v.string(),
   })
     .index("by_campaign", ["campaign"])
+    .index("by_campaign_and_commit", ["campaign", "commit"])
     .searchIndex("search_text", {
       searchField: "searchText",
       filterFields: ["campaign"],

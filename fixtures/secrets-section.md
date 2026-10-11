@@ -1,0 +1,1 @@
+Let's walk my checklist now. My checklist has one section, "Scenes", defined as "Two or three situations that put pressure on the search for Pell and Nia". My session-note template is "# Next session\n## Scenes". I have no scene material yet. Open this section and let me pick.

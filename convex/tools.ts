@@ -19,6 +19,7 @@ import { carriesLedger } from "./ledger";
 import { adventure, frameUpdateResult, sessionInfo } from "./model";
 import { schemaChangeArgs, schemaChangeResult } from "./schemaChanges";
 import { findArgs, findResult } from "./search";
+import { secretArgs, secretResult } from "./secrets";
 import { skillArgs, skillResult } from "./skills";
 import {
   adventureArgs,
@@ -30,9 +31,18 @@ import {
 import { uploadArgs, uploadResult } from "./uploads";
 export const tools: McpToolRegistration[] = [
   defineMcpMutation({
+    name: "secret_write",
+    description:
+      "Write or change the game master's unplayed background with a reason. Secrets live apart from story state. op write needs text and optional about entity refs; change needs secret and text and/or about. fix needs secret and storyCommit from story_commit with game_master basis and the secret's exact text as a source quote; drop needs secret. Each write appends before/after history. Text at most 16 KB, reason 2 KB, about at most 50 owner-scoped entity refs.",
+    fn: internal.secrets.write,
+    identityArg: "caller",
+    args: secretArgs,
+    returns: secretResult,
+  }),
+  defineMcpMutation({
     name: "story_commit",
     description:
-      "Commit corrections, store corrections the game master confirmed, and their plank answers outside a debrief, with a reason. All or nothing. A basis of only player_guess/player_plan may touch only thread or character_goal.",
+      "Commit corrections and secrets the game master declares fixed outside a debrief, with a reason. All or nothing. A basis of only player_guess/player_plan may touch only thread or character_goal.",
     fn: internal.debrief.storyCommit,
     identityArg: "caller",
     args: storyArgs,
@@ -141,7 +151,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpQuery({
     name: "get",
     description:
-      "Read overview, frame with its history, schema, entity:<id> with history, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>. Transcript, scene and history reads return pages with truncated and nextCursor. Follow nextCursor as cursor with the same single ref until it is null. limit accepts 1 to 200, default 100; byte budgets can shorten pages and history returns at most ten changes. Batch items carry independent cursors; continue them individually. Download URLs require the owner's bearer sign-in.",
+      "Read overview with openSecrets count, frame with its history, schema, secrets (hidden and partly_revealed), secret:<id> with history, entity:<id> with history, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>. Secrets, transcript, scene and history reads return pages with truncated and nextCursor. Follow nextCursor as cursor with the same single ref until it is null. limit accepts 1 to 200, default 100; byte budgets can shorten pages and history returns at most ten changes. Batch items carry independent cursors; continue them individually. Download URLs require the owner's bearer sign-in.",
     fn: internal.store.get,
     identityArg: "caller",
     args: getArgs,
@@ -195,7 +205,7 @@ describeInput(
 describeInput(
   "story_commit",
   ["properties", "changes", "items", "properties", "basis"],
-  "Where the change comes from. Plank answers use game_master. A basis of only player_guess and/or player_plan may touch only thread or character_goal.",
+  "Where the change comes from. Corrections and declared-fixed secrets use game_master. Unplayed plank answers go to secret_write. A basis of only player_guess and/or player_plan may touch only thread or character_goal.",
 );
 describeInput(
   "story_commit",

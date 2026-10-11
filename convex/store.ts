@@ -18,6 +18,7 @@ import {
   sessionInfo,
 } from "./model";
 import { continuation, pageArgs, pageLimit, position } from "./pagination";
+import { readSecrets } from "./secrets";
 export const callerArgs = { caller: mcpCallerValidator };
 export async function campaignFor(
   ctx: QueryCtx,
@@ -195,6 +196,8 @@ async function read(
   limit: number,
   cursor?: string | null,
 ): Promise<ReadValue> {
+  if (ref === "secrets" || ref.startsWith("secret:"))
+    return readSecrets(ctx, campaign, ref, limit, cursor);
   if (ref === "schema") return schemaFor(campaign);
   if (ref === "frame") {
     const adventure = await currentAdventureFor(ctx, campaign);
@@ -254,6 +257,7 @@ async function read(
       .first();
     const latestSession = latestDebrief?.session;
     return {
+      openSecrets: campaign.openSecrets ?? 0,
       adventures: adventures.map((a) => ({
         id: a._id,
         name: a.name,
@@ -265,6 +269,7 @@ async function read(
         kind: c.kind,
         reason: c.reason,
         ...(c.session ? { session: c.session } : {}),
+        ...(c.storyCommit ? { storyCommit: c.storyCommit } : {}),
         ...(c.schemaChange ? { schemaChange: c.schemaChange } : {}),
       })),
       currentAdventure: campaign.currentAdventure ?? null,
@@ -455,7 +460,7 @@ async function read(
   if (ref.startsWith("session:"))
     return sessionResult(await sessionFor(ctx, campaign._id, ref));
   throw new ConvexError(
-    "Allowed refs: overview, frame, schema, entity:<id>, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>",
+    "Allowed refs: overview, frame, schema, secrets, secret:<id>, entity:<id>, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>",
   );
 }
 export const get = internalQuery({

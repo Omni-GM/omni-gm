@@ -117,7 +117,7 @@ Where a story-state change comes from: narrated by the game master, said by an N
 _Avoid_: Source type, confidence
 
 **Frame talk**:
-The conversation at the start of prep in which the AI asks, grounded in the story state, and the game master writes or updates the adventure frame.
+The conversation in which the AI asks, grounded in the story state, and the game master writes or updates the adventure frame. It runs when a new adventure starts, or briefly when the briefing flags frame fields that the last session put in question.
 _Avoid_: Planning session, frame interview
 
 **Briefing**:

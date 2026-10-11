@@ -1,0 +1,5 @@
+PROOF TARGET https://calculating-cardinal-244.convex.site
+PASS stored order, definitions and template; replacement retains prior version and both reasons
+PASS no sections, blank names, duplicate names and oversized UTF-8 rejected without any write
+PASS pre-existing story state, frame, schema, sessions and non-checklist history unchanged
+CHECKLIST SDK E2E PASSED

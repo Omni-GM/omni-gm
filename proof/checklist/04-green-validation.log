@@ -1,0 +1,13 @@
+
+> omni-gm@0.1.0 test /tmp/omnigm-38/worktree
+> vitest run tests/checklist.test.ts
+
+
+ RUN  v4.1.0 /tmp/omnigm-38/worktree
+
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  19:14:12
+   Duration  885ms (transform 408ms, setup 0ms, import 95ms, tests 693ms, environment 0ms)
+

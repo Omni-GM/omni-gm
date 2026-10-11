@@ -1,0 +1,1 @@
+Let's prep the next session of The Tallow Mill in English. The briefing is already shown; no frame talk or store corrections today. This is a fresh client with no vault access. Load the section-walk procedure and start my checklist.

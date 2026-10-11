@@ -1,0 +1,32 @@
+
+> omni-gm@0.1.0 test /tmp/omnigm-38/worktree
+> vitest run tests/checklist.test.ts
+
+
+ RUN  v4.1.0 /tmp/omnigm-38/worktree
+
+ ❯ tests/checklist.test.ts (1 test | 1 failed) 468ms
+   × the game master stores ordered sections, definitions and the markdown template for any client 467ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/checklist.test.ts > the game master stores ordered sections, definitions and the markdown template for any client
+Error: {"jsonrpc":"2.0","id":3,"result":{"content":[{"type":"text","text":"Allowed refs: overview, frame, schema, entity:<id>, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>"}],"isError":true}}
+ ❯ Object.call tests/mcp-client.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/checklist.test.ts:21:10
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  19:12:45
+   Duration  655ms (transform 405ms, setup 0ms, import 87ms, tests 468ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

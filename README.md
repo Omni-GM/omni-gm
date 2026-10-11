@@ -158,8 +158,11 @@ and their commits. Each owner's frame remains private.
 ## Section walk and plank answers
 
 Load `skill` with `name: "prep-sparring"` after the briefing. Give the AI
-your prep checklist, each section's definition, and your session-note
-template from your notes vault, or paste them. It walks your sections in
+your prep checklist, each section's definition, and your markdown session-note
+template once, from your notes vault or pasted in chat. It stores them with
+`checklist_set` and reads `get checklist` in every later client, including
+clients without vault access. When none is stored, it asks once for all
+three before starting. It walks your stored sections in
 order: at most five sourced facts, then pitches shaped by the section's
 definition, then your turn. Scenes and strong starts get two or three
 situations, each saying what it is built on; a secrets-and-clues section in
@@ -195,7 +198,7 @@ itself a validated fact.
 
 At the end the AI assembles your picks in your template, in your words and
 language, without padding for skipped sections. Your prep stays in your
-vault; it does not become story state. `story_commit` accepts 1 to 500 changes, at most 16 KB
+session note; it does not become story state. `story_commit` accepts 1 to 500 changes, at most 16 KB
 per change and 512 KB for the reason and batch together. The existing
 2,000-entity/relationship replay capacity also applies.
 
@@ -204,6 +207,27 @@ Run `pnpm exec tsx scripts/prep-e2e.ts` on a staging branch preview with
 and can run again on the same preview. Use `--seed-only` for the headless
 sparring fixture. `proof/prep-sparring/` holds the endpoint red/green runs,
 full gate, SDK run, headless conversation and independent readback.
+
+`checklist_set` takes `sections: [{name, definition}]`, `template` and a
+non-empty `reason`. It replaces the whole checklist for the owner's campaign,
+preserving the supplied words, markdown and section order. It requires
+1 to 100 sections, non-empty names and definitions, distinct section names
+ignoring surrounding whitespace and case, and a non-empty markdown template.
+The sections, template and reason together must fit within 32,000 UTF-8 bytes
+as JSON. A rejection changes neither the checklist nor its history.
+
+`get checklist` returns `{checklist, history, truncated, nextCursor}`. An
+unset checklist is `null`; a stored one contains `sections` and `template`.
+Each history entry has `commit`, `reason`, `before` and `after`, including
+the initial write with `before: null`. History is oldest first, at most ten
+versions per page. Follow `nextCursor` with the same ref to read the rest.
+Starting another adventure retains the campaign's checklist. Other owners
+cannot read or replace it.
+
+Run `pnpm exec tsx scripts/checklist-e2e.ts` on a staging branch preview.
+`proof/checklist/` holds endpoint red/green runs, the gate, schema-upgrade
+readback over existing records, SDK replacement/validation proof, and a
+headless no-vault walk followed by a fresh client using the same checklist.
 
 ## Develop and prove
 

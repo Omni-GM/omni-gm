@@ -1,0 +1,46 @@
+PROOF TARGET https://youthful-mandrill-164.convex.site
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Mechanical Supplies has no pitches
+    at verifyHeadless (/tmp/omnigm-38/worktree/scripts/checklist-e2e.ts:222:10)
+    at async <anonymous> (/tmp/omnigm-38/worktree/scripts/checklist-e2e.ts:342:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '\n' +
+    'Saved as your Supplies entry:\n' +
+    '\n' +
+    '> **Supplies:** A river map and two apprentice tokens.\n' +
+    '\n' +
+    '**Check:** Your Launch and Discoveries cover the cellar and the weir, so the river map fits, and the two tokens match Pell and Nia *(00:01:30)*.\n' +
+    '\n' +
+    "That was the last section. Here's your note, built only from your picks:\n" +
+    '\n' +
+    '```markdown\n' +
+    '# Next session of The Tallow Mill\n' +
+    '## Launch\n' +
+    "Water on the cellar stairs. At first light the party opens the cellar door and finds river water on the bottom steps that wasn't there yesterday. The wheel overhead has almost stopped. Widow Ferrant stands at the top of the stairs and won't come down. In the wet stone at the waterline is a small scratch mark, like the one on the loft latch.\n" +
+    '## Discoveries\n' +
+    '1. The loft latch was scratched by a boat hook, the iron kind barge crews carry.\n' +
+    '2. The wheel turns slowly because something is wedged in the millrace under the cellar floor.\n' +
+    "3. Corwin owes Dace twelve silver from dice at the river tavern. It's a small debt and an old one.\n" +
+    '## Supplies\n' +
+    '- A river map\n' +
+    '- Two apprentice tokens\n' +
+    '```\n' +
+    '\n' +
+    "Nothing was written to story state; your picks are prep plans and live only in this note. You don't have vault access in this client, so copy the note from here.\n" +
+    '\n' +
+    'Options:\n' +
+    '1. Fix anything in the note by telling me what to change.\n' +
+    '2. Go back to a section.\n' +
+    '3. Finish prep here.\n' +
+    '\n' +
+    'Your turn.',
+  expected: /built on|pitch [123]/i,
+  operator: 'doesNotMatch',
+  diff: 'simple'
+}
+
+Node.js v24.21.0

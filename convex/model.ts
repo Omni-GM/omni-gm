@@ -189,6 +189,26 @@ export const frameRead = v.object({
   ...frame.fields,
   history: v.array(frameHistory),
 });
+export const checklist = v.object({
+  sections: v.array(v.object({ name: v.string(), definition: v.string() })),
+  template: v.string(),
+});
+export const checklistChange = v.object({
+  before: v.union(checklist, v.null()),
+  after: checklist,
+});
+export const checklistRead = v.object({
+  checklist: v.union(checklist, v.null()),
+  history: v.array(
+    v.object({
+      commit: v.string(),
+      reason: v.string(),
+      before: v.union(checklist, v.null()),
+      after: checklist,
+    }),
+  ),
+  ...pageInfo,
+});
 export const ledgerRow = v.object({
   id: v.string(),
   label: v.union(
@@ -286,6 +306,7 @@ export const commit = v.object({
     v.literal("story"),
     v.literal("schema"),
     v.literal("frame"),
+    v.literal("checklist"),
   ),
   reason: v.string(),
   schemaChange: v.optional(schemaChangeRecord),
@@ -301,6 +322,7 @@ export const readValue = v.union(
     briefing: v.union(storedBriefing, v.null()),
   }),
   frameRead,
+  checklistRead,
   schemaInfo,
   sessionInfo,
   draft,

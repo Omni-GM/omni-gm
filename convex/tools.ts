@@ -4,6 +4,7 @@ import {
   type McpToolRegistration,
 } from "convex-mcp-gateway";
 import { internal } from "./_generated/api";
+import { checklistArgs, checklistResult } from "./checklists";
 import {
   addArgs,
   addResult,
@@ -29,6 +30,15 @@ import {
 } from "./store";
 import { uploadArgs, uploadResult } from "./uploads";
 export const tools: McpToolRegistration[] = [
+  defineMcpMutation({
+    name: "checklist_set",
+    description:
+      "Replace the campaign's ordered prep sections, their definitions and the markdown session-note template with the game master's non-empty reason. Keeps earlier versions in history. Read with get checklist. Requires 1 to 100 sections with non-empty, unique names and definitions, and a non-empty template. Sections, template and reason together must fit within 32 KB of UTF-8 JSON. All or nothing.",
+    fn: internal.checklists.set,
+    identityArg: "caller",
+    args: checklistArgs,
+    returns: checklistResult,
+  }),
   defineMcpMutation({
     name: "story_commit",
     description:
@@ -141,7 +151,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpQuery({
     name: "get",
     description:
-      "Read overview, frame with its history, schema, entity:<id> with history, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>. Transcript, scene and history reads return pages with truncated and nextCursor. Follow nextCursor as cursor with the same single ref until it is null. limit accepts 1 to 200, default 100; byte budgets can shorten pages and history returns at most ten changes. Batch items carry independent cursors; continue them individually. Download URLs require the owner's bearer sign-in.",
+      "Read overview, frame with its history, checklist with ordered sections, definitions, markdown template and replacement history, schema, entity:<id> with history, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>. checklist is null when not yet stored. Transcript, scene and history reads return pages with truncated and nextCursor. Follow nextCursor as cursor with the same single ref until it is null. limit accepts 1 to 200, default 100; byte budgets can shorten pages and history returns at most ten changes. Batch items carry independent cursors; continue them individually. Download URLs require the owner's bearer sign-in.",
     fn: internal.store.get,
     identityArg: "caller",
     args: getArgs,

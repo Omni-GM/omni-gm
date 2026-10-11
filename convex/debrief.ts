@@ -10,6 +10,8 @@ import {
   draft,
   type Entity,
   type History,
+  type LedgerRow,
+  ledger,
   type Proposed,
   proposed,
   type Relationship,
@@ -102,6 +104,19 @@ export const scenesSet = internalMutation({
 export function entityText(e: Entity): string {
   return [e.name, ...e.aliases, ...Object.values(e.properties)].join(" ");
 }
+type Applied = {
+  before: Entity | Relationship | null;
+  after: Entity | Relationship | null;
+  ids: string[];
+};
+function fields(entity: Entity | null, keys: string[]): LedgerRow["after"] {
+  const values: LedgerRow["after"] = {};
+  for (const key of keys) {
+    const value = entity?.properties[key];
+    if (value !== undefined) values[key] = value;
+  }
+  return values;
+}
 class DraftState {
   readonly entities = new Map<string, Entity>();
   readonly temps = new Map<string, string>();
@@ -130,6 +145,9 @@ class DraftState {
       );
     return entity;
   }
+  name(id: string): string {
+    return this.entities.get(id)?.name ?? id;
+  }
   properties(kind: string, properties: Record<string, string | number>): void {
     const kinds = this.schema.kinds;
     const fields = kinds[kind];
@@ -151,14 +169,7 @@ class DraftState {
         );
     }
   }
-  apply(
-    p: Proposed,
-    id: string,
-  ): {
-    before: Entity | Relationship | null;
-    after: Entity | Relationship | null;
-    ids: string[];
-  } {
+  apply(p: Proposed, id: string): Applied {
     if (
       !p.basis.length ||
       !p.sources.length ||
@@ -235,6 +246,60 @@ class DraftState {
     return { before: rel, after: null, ids: [from.id, to.id] };
   }
 }
+function ledgerRow(
+  state: DraftState,
+  id: string,
+  { change }: Proposed,
+  { before, after }: Applied,
+): LedgerRow {
+  if (change.op === "relate" || change.op === "unrelate") {
+    const rel = (after ?? before) as Relationship;
+    const { label } = state.schema.relationshipTypes[rel.type];
+    return {
+      id,
+      label: change.op === "relate" ? "link" : "unlink",
+      subject: `${state.name(rel.from)} ${label} ${state.name(rel.to)}`,
+      before: {},
+      after: {},
+    };
+  }
+  const entity = after as Entity;
+  if (change.op === "new")
+    return {
+      id,
+      label: "new",
+      subject: entity.name,
+      kind: entity.kind,
+      before: {},
+      after: {
+        ...(entity.aliases.length
+          ? { aliases: entity.aliases.join(", ") }
+          : {}),
+        ...entity.properties,
+      },
+    };
+  const was = before as Entity;
+  const keys = Object.keys(change.properties ?? {});
+  const added = entity.aliases.filter((a) => !was.aliases.includes(a));
+  return {
+    id,
+    label: change.properties?.status === "closed" ? "closed" : "change",
+    subject: entity.name,
+    kind: entity.kind,
+    before: fields(was, keys),
+    after: {
+      ...fields(entity, keys),
+      ...(added.length ? { addAliases: added.join(", ") } : {}),
+    },
+  };
+}
+function scenesOf(s: Doc<"sessions">): Infer<typeof ledger>["scenes"] {
+  return s.scenes.map(({ title, place }, i) => ({
+    ordinal: i + 1,
+    title,
+    place,
+  }));
+}
 async function stateFor(
   ctx: QueryCtx,
   campaign: Doc<"campaigns">,
@@ -291,6 +356,7 @@ export const addArgs = {
 };
 export const addResult = v.object({
   draft,
+  ledger,
   rejected: v.array(v.object({ index: v.number(), reason: v.string() })),
 });
 export const add = internalMutation({
@@ -309,7 +375,16 @@ export const add = internalMutation({
     if (encodedSize(lastTime ?? s.lastTime) > 16_000)
       throw new ConvexError("Keep lastTime within 16 KB");
     const state = await stateFor(ctx, campaign);
-    for (const p of s.changes) applyPendingChange(s, state, p, `draft-${p.id}`);
+    const rows: LedgerRow[] = [];
+    for (const p of s.changes)
+      rows.push(
+        ledgerRow(
+          state,
+          p.id,
+          p,
+          applyPendingChange(s, state, p, `draft-${p.id}`),
+        ),
+      );
     const kept: DraftChange[] = [...s.changes];
     const rejected: { index: number; reason: string }[] = [];
     let nextChange = s.nextChange;
@@ -323,7 +398,7 @@ export const add = internalMutation({
             "Keep the draft within 512 KB; drop or shorten proposals",
           );
         validScene(s, p);
-        state.apply(p, `draft-${id}`);
+        rows.push(ledgerRow(state, id, p, state.apply(p, `draft-${id}`)));
         kept.push({ ...p, id });
         nextChange++;
       } catch (error) {
@@ -344,11 +419,15 @@ export const add = internalMutation({
       lastTime: updated.lastTime,
       nextChange,
     });
-    return { draft: draftResult(updated), rejected };
+    return {
+      draft: draftResult(updated),
+      ledger: { scenes: scenesOf(s), rows },
+      rejected,
+    };
   },
 });
 export const dropArgs = { ...sessionArgs, changeIds: v.array(v.string()) };
-export const draftResponse = v.object({ draft });
+export const draftResponse = v.object({ draft, ledger });
 export const drop = internalMutation({
   args: dropArgs,
   returns: draftResponse,
@@ -364,9 +443,17 @@ export const drop = internalMutation({
     const changes = s.changes.filter((p) => !changeIds.includes(p.id));
     const state = await stateFor(ctx, campaign);
     const invalid: { id: string; reason: string }[] = [];
+    const rows: LedgerRow[] = [];
     for (const p of changes) {
       try {
-        applyPendingChange(s, state, p, `draft-${p.id}`);
+        rows.push(
+          ledgerRow(
+            state,
+            p.id,
+            p,
+            applyPendingChange(s, state, p, `draft-${p.id}`),
+          ),
+        );
       } catch (error) {
         invalid.push({
           id: p.id,
@@ -379,7 +466,10 @@ export const drop = internalMutation({
         `Drop also requires invalid remaining changes: ${invalid.map((entry) => entry.id).join(", ")}. ${invalid.map((entry) => entry.reason).join(" ")}`,
       );
     await ctx.db.patch(s._id, { changes });
-    return { draft: draftResult({ ...s, changes }) };
+    return {
+      draft: draftResult({ ...s, changes }),
+      ledger: { scenes: scenesOf(s), rows },
+    };
   },
 });
 async function persist(

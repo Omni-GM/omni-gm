@@ -32,3 +32,7 @@ The full gate passes 34 endpoint tests. The acceptance test and refreshed SDK pr
 The final read-only T3 Opus review (`opus-final-review.md`) approves the implementation and confirms all three acceptance criteria. Its M1 anticipated #23's move of the MCP client helpers. After incorporating `16f7904`, fixed the `createTest` import, preserved the upload page and both procedures, resolved README to list only corrections and the Ledger as later slices, and fixed the missing blank line before the schema heading. The full local gate now passes 38 tests.
 
 M1's proof-replay choice is an implementation decision covered by the autonomous brief, so no human decision is needed. Both hosted proofs are rerun from the committed combined code. L1's provenance gap is addressed by recording the source SHA in each deployment log; L2's narrower up-front-answer proof remains an explicit accepted limitation. CodeRabbit's automatic review reported no actionable comments.
+
+## Ledger reconciliation
+
+Merged `c39a7a5` from origin/main. The three conflicts were adjacent additions: retained both frame and Ledger validators, both tool imports and the Ledger documentation, and removed the stale statements that frame and Ledger were future work. The Ledger's MCP metadata, row results and build step are intact. Installed its locked dependencies and ran the full gate, including the Ledger bundle and all 40 tests. The final frame increment against main is unchanged in behavior. Both hosted frame proofs are rerun from this committed combined source.

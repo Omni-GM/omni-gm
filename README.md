@@ -47,11 +47,17 @@ must satisfy that rule. The schema defines all kinds, properties, enums,
 and relationship endpoints.
 
 Review `get debrief:<session>`, drop mistakes with `debrief_drop`, and call
-`debrief_commit` only after the game master accepts the draft. State and
+`debrief_commit` only after the game master accepts the draft. In clients
+that render MCP Apps, `debrief_add` and `debrief_drop` carry the Ledger view
+(`ui://omni-gm/draft-debrief`, `_meta.ui`). It shows the "for your session
+note" box with `lastTime`, then one row per change grouped by scene: the
+operation, the subject, before and after, basis, source quotes, and why.
+Its only write is Drop, which calls `debrief_drop` and re-renders from the
+returned draft. Both tools also return `ledger` rows for the view. State and
 history commit atomically. The committed debrief, transcript, and scenes
 stay closed. Dropping a parent refuses to break retained dependent changes and lists
-their IDs. Drop them together, then add replacements in dependency order. Later
-corrections and the Ledger view are later slices.
+their IDs. Drop them together, then add replacements in dependency order.
+Later corrections remain a later slice.
 
 At prep, `get overview` returns the most recently committed `lastTime`.
 `find` lists entities and scenes without a query, or searches names,
@@ -97,7 +103,10 @@ pnpm install --frozen-lockfile
 pnpm check
 ```
 
-The gate runs Biome, Convex codegen, TypeScript, and endpoint tests. Codegen
+The gate builds the Ledger view, then runs Biome, Convex codegen,
+TypeScript, and endpoint tests. `pnpm build:ledger` bundles `ledger/` (React
+and Tailwind) into one HTML file and writes it to the ignored
+`convex/ledgerHtml.generated.ts`; run it before any `convex deploy`. Codegen
 uses an isolated anonymous local Convex deployment in `.codegen/` with
 an empty auth configuration. It never uses a deploy key or a hosted
 campaign. The actual auth configuration stays required and is typechecked.
@@ -115,6 +124,18 @@ OMNI_GM_MCP_URL=https://<preview-deployment>.convex.site/mcp \
   OMNI_GM_ACCESS_TOKEN="$STAGING_M2M_ACCESS_TOKEN" pnpm e2e
 ```
 
+To see the Ledger view against a preview, run the local MCP Apps host. It
+seeds an invented draft, reads the view through `debrief_add`'s `_meta.ui`,
+and renders it with the official `AppBridge`, forwarding Drop to the
+deployment:
+
+```sh
+OMNI_GM_MCP_URL=https://<preview-deployment>.convex.site/mcp \
+  OMNI_GM_ACCESS_TOKEN="$STAGING_M2M_ACCESS_TOKEN" PORT=4600 pnpm ledger:host
+```
+
+Open `http://localhost:4600/`, or `/?theme=dark` for the dark host theme.
+
 `scripts/upload-page-proof.sh` signs in to a preview's upload page as the
 staging test user in a fresh agent-browser session. It checks the refusals,
 drops `fixtures/session.txt`, and compares the stored bytes. It reads the
@@ -127,7 +148,7 @@ configures OAuth discovery. Unmerged code never deploys to live.
 
 Use invented data for every proof. `fixtures/session.txt` exercises name
 variants, a voiced NPC, a rumor figure, a player guess, and a clock.
-`proof/` holds red/green endpoint runs, the local gate, SDK e2e, and the
+`proof/` holds red/green endpoint runs, `proof/ledger/` the Ledger view's, the local gate, SDK e2e, and the
 Claude fixture transcript with upload capabilities and provider usage
 removed. `scripts/verify-claude.ts` checks procedure ordering and reads
 back the committed store independently. Per-branch previews replace the

@@ -1,0 +1,60 @@
+
+> omni-gm@0.1.0 check ~/dev/omni-gm-wt/ledger-view
+> pnpm build:ledger && pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test
+
+
+> omni-gm@0.1.0 build:ledger ~/dev/omni-gm-wt/ledger-view
+> tsx scripts/build-ledger.ts
+
+tests/mcp.test.ts:694:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    692 │   const failed = await c.t.fetch(path, {
+    693 │     method: "PUT",
+  > 694 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
+        │           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    695 │   });
+    696 │   expect(failed.status).toBe(400);
+  
+  i Unsafe fix: Use a template literal.
+  
+     692  692 │     const failed = await c.t.fetch(path, {
+     693  693 │       method: "PUT",
+     694      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
+          694 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
+     695  695 │     });
+     696  696 │     expect(failed.status).toBe(400);
+  
+
+Checked 38 files in 35ms. No fixes applied.
+Found 1 info.
+CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
+▌ Developing against deployment:
+▌ [Local] Port 3212 • No Convex account (run npx convex login to link to a project)
+▌ └─ http://127.0.0.1:3212
+- Preparing Convex functions...
+
+Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
+✔ 12:59:27 Convex functions ready! (399.61ms)
+Finding component definitions...
+Generating server code...
+Bundling component definitions...
+Bundling component schemas and implementations...
+Downloading current deployment state...
+Uploading functions to Convex...
+Generating TypeScript bindings...
+Running TypeScript...
+
+> omni-gm@0.1.0 test ~/dev/omni-gm-wt/ledger-view
+> vitest run
+
+
+ RUN  v4.1.0 ~/dev/omni-gm-wt/ledger-view
+
+
+ Test Files  2 passed (2)
+      Tests  36 passed (36)
+   Start at  12:59:33
+   Duration  4.03s (transform 855ms, setup 0ms, import 250ms, tests 4.33s, environment 0ms)
+

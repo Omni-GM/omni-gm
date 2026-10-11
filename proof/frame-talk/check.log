@@ -1,29 +1,33 @@
 
 > omni-gm@0.1.0 check /home/coder/dev/omni-gm-frame-talk
-> pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test
+> pnpm build:ledger && pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test
+
+
+> omni-gm@0.1.0 build:ledger /home/coder/dev/omni-gm-frame-talk
+> tsx scripts/build-ledger.ts
 
 tests/mcp.test.ts:702:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   i Template literals are preferred over string concatenation.
-
+  
     700 │   const failed = await c.t.fetch(path, {
     701 │     method: "PUT",
   > 702 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
         │           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     703 │   });
     704 │   expect(failed.status).toBe(400);
-
+  
   i Unsafe fix: Use a template literal.
-
+  
      700  700 │     const failed = await c.t.fetch(path, {
      701  701 │       method: "PUT",
      702      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
           702 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
      703  703 │     });
      704  704 │     expect(failed.status).toBe(400);
+  
 
-
-Checked 28 files in 82ms. No fixes applied.
+Checked 40 files in 41ms. No fixes applied.
 Found 1 info.
 CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
 ▌ Developing against deployment:
@@ -32,7 +36,7 @@ CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the fut
 - Preparing Convex functions...
 
 Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
-✔ 12:56:46 Convex functions ready! (369.21ms)
+✔ 13:03:40 Convex functions ready! (427.1ms)
 Finding component definitions...
 Generating server code...
 Bundling component definitions...
@@ -50,6 +54,7 @@ Running TypeScript...
 
 
  Test Files  2 passed (2)
-      Tests  38 passed (38)
-   Start at  12:56:51
-   Duration  3.82s (transform 529ms, setup 0ms, import 231ms, tests 3.94s, environment 0ms)
+      Tests  40 passed (40)
+   Start at  13:03:46
+   Duration  4.06s (transform 842ms, setup 0ms, import 232ms, tests 4.36s, environment 0ms)
+

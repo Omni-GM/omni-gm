@@ -1,0 +1,63 @@
+Deployment: https://honorable-mockingbird-611.convex.cloud (branch preview feat-ledger-view, staging M2M sign-in)
+Seeded by scripts/ledger-host.ts: Seeded draft debrief for session k574a1kwet54myk1d6r874dvtd8g3r1t
+After clicking Drop on 'Does Sera work for the raiders?' in the Ledger view, then a refused drop of 'Who broke the seal?', get debrief:k574a1kwet54myk1d6r874dvtd8g3r1t returns:
+{
+  "session": "k574a1kwet54myk1d6r874dvtd8g3r1t",
+  "status": "draft",
+  "changes": [
+    {
+      "id": "c1",
+      "scene": 1,
+      "op": "new",
+      "subject": "Sera Venn",
+      "basis": [
+        "npc_said"
+      ]
+    },
+    {
+      "id": "c2",
+      "scene": 1,
+      "op": "new",
+      "subject": "The river gate closes",
+      "basis": [
+        "narrated"
+      ]
+    },
+    {
+      "id": "c3",
+      "scene": 1,
+      "op": "new",
+      "subject": "Who broke the seal?",
+      "basis": [
+        "narrated"
+      ]
+    },
+    {
+      "id": "c4",
+      "scene": 1,
+      "op": "relate",
+      "subject": "involves",
+      "basis": [
+        "narrated"
+      ]
+    },
+    {
+      "id": "c6",
+      "scene": 2,
+      "op": "update",
+      "subject": "$gate",
+      "basis": [
+        "narrated"
+      ]
+    },
+    {
+      "id": "c7",
+      "scene": 2,
+      "op": "update",
+      "subject": "$seal",
+      "basis": [
+        "player_plan"
+      ]
+    }
+  ]
+}

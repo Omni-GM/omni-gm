@@ -197,8 +197,24 @@ async function proxy(request: Proxied): Promise<unknown> {
   if (request.method === "tools/list") return client.listTools();
   if (request.method === "resources/read")
     return client.readResource(request.params);
-  if (request.method === "tools/call") return client.callTool(request.params);
-  throw new Error("Unsupported method");
+  if (request.method === "tools/call" && request.params.name === "debrief_drop")
+    return dropped((await client.callTool(request.params)) as CallToolResult);
+  throw new Error(
+    "The local host forwards only tools/list, resources/read and debrief_drop",
+  );
+}
+function dropped(result: CallToolResult): CallToolResult {
+  if (!result.isError) seeded.result = result;
+  return result;
+}
+const origins = [`http://localhost:${port}`, `http://127.0.0.1:${port}`];
+function fromThisHost(req: IncomingMessage): boolean {
+  const origin = req.headers.origin;
+  return (
+    origins.includes(`http://${req.headers.host}`) &&
+    (origin === undefined || origins.includes(origin)) &&
+    req.headers["content-type"] === "application/json"
+  );
 }
 
 const vite = await createVite({
@@ -217,6 +233,11 @@ createServer(async (req, res) => {
       return;
     }
     if (req.url === "/host/mcp" && req.method === "POST") {
+      if (!fromThisHost(req)) {
+        res.statusCode = 403;
+        res.end("Forbidden");
+        return;
+      }
       const request: Proxied = JSON.parse(await body(req));
       res.setHeader("Content-Type", "application/json");
       res.end(JSON.stringify(await proxy(request)));
@@ -227,6 +248,6 @@ createServer(async (req, res) => {
     res.statusCode = 500;
     res.end(error instanceof Error ? error.message : String(error));
   }
-}).listen(port, () => {
+}).listen(port, "127.0.0.1", () => {
   console.log(`Local MCP Apps host on http://localhost:${port}/`);
 });

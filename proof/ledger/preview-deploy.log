@@ -1,8 +1,8 @@
 Branch preview: convex deploy --preview-create feat-ledger-view --preview-run oauth:configure --yes
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/feat-ledger-view (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/diligent-okapi-193)
-▌ └─ https://diligent-okapi-193.convex.cloud
-- Deploying to https://diligent-okapi-193.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/feat-ledger-view (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/whimsical-lark-82)
+▌ └─ https://whimsical-lark-82.convex.cloud
+- Deploying to https://whimsical-lark-82.convex.cloud...
 
 ✔ Added table indexes:
   [+] adventures.by_campaign   campaign, _creationTime
@@ -25,5 +25,5 @@ Branch preview: convex deploy --preview-create feat-ledger-view --preview-run oa
   [+] utterances.by_session_and_seconds   session, seconds, _creationTime
   [+] utterances.search_text (text)   searchText, filter on campaign
 ✔ Installed component mcpGateway.
-✔ Deployed Convex functions to https://diligent-okapi-193.convex.cloud
+✔ Deployed Convex functions to https://whimsical-lark-82.convex.cloud
 ✔ Finished running function "oauth:configure"

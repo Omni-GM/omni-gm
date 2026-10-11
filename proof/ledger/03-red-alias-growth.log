@@ -1,0 +1,50 @@
+
+ RUN  v4.1.0 ~/dev/omni-gm-wt/ledger-view
+
+ ❯ tests/mcp.test.ts (23 tests | 1 failed | 22 skipped) 456ms
+   × debrief_add and debrief_drop return Ledger rows with label, subject, before and after per scene, listing only the aliases each change adds 455ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > debrief_add and debrief_drop return Ledger rows with label, subject, before and after per scene, listing only the aliases each change adds
+AssertionError: expected { …(2) } to deeply equal { …(2) }
+
+- Expected
++ Received
+
+@@ -28,14 +28,16 @@
+        "label": "link",
+        "subject": "Who pays the raiders? raised by Sera Venn",
+      },
+      {
+        "after": {
+-         "addAliases": "Sera of the Ferry",
++         "aliases": "Sarah Ven, Sera of the Ferry",
+          "wants": "Safe passage home",
+        },
+-       "before": {},
++       "before": {
++         "aliases": "Sarah Ven",
++       },
+        "id": "c4",
+        "kind": "npc",
+        "label": "change",
+        "subject": "Sera Venn",
+      },
+
+ ❯ tests/mcp.test.ts:954:24
+    952|     (p: { id: string }) => p.id,
+    953|   );
+    954|   expect(added.ledger).toEqual({
+       |                        ^
+    955|     scenes: [{ ordinal: 1, title: "The ferry", place: "Glass Causeway"…
+    956|     rows: [
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 22 skipped (23)
+   Start at  12:55:18
+   Duration  689ms (transform 399ms, setup 0ms, import 116ms, tests 456ms, environment 0ms)
+

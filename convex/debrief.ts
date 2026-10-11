@@ -111,12 +111,8 @@ type Applied = {
 };
 function fields(entity: Entity | null, keys: string[]): LedgerRow["after"] {
   const values: LedgerRow["after"] = {};
-  if (!entity) return values;
   for (const key of keys) {
-    const value =
-      key === "aliases"
-        ? entity.aliases.join(", ") || undefined
-        : entity.properties[key];
+    const value = entity?.properties[key];
     if (value !== undefined) values[key] = value;
   }
   return values;
@@ -244,14 +240,6 @@ class DraftState {
     return { before: rel, after: null, ids: [from.id, to.id] };
   }
 }
-function changedKeys(change: Proposed["change"], after: Entity): string[] {
-  if (change.op === "new") return ["aliases", ...Object.keys(after.properties)];
-  if (change.op !== "update") return [];
-  return [
-    ...Object.keys(change.properties ?? {}),
-    ...(change.addAliases?.length ? ["aliases"] : []),
-  ];
-}
 function ledgerRow(
   state: DraftState,
   id: string,
@@ -271,16 +259,33 @@ function ledgerRow(
     };
   }
   const entity = after as Entity;
-  const keys = changedKeys(change, entity);
-  const closes =
-    change.op === "update" && change.properties?.status === "closed";
+  if (change.op === "new")
+    return {
+      id,
+      label: "new",
+      subject: entity.name,
+      kind: entity.kind,
+      before: {},
+      after: {
+        ...(entity.aliases.length
+          ? { aliases: entity.aliases.join(", ") }
+          : {}),
+        ...entity.properties,
+      },
+    };
+  const was = before as Entity;
+  const keys = Object.keys(change.properties ?? {});
+  const added = entity.aliases.filter((a) => !was.aliases.includes(a));
   return {
     id,
-    label: change.op === "new" ? "new" : closes ? "closed" : "change",
+    label: change.properties?.status === "closed" ? "closed" : "change",
     subject: entity.name,
     kind: entity.kind,
-    before: fields(before as Entity | null, keys),
-    after: fields(entity, keys),
+    before: fields(was, keys),
+    after: {
+      ...fields(entity, keys),
+      ...(added.length ? { addAliases: added.join(", ") } : {}),
+    },
   };
 }
 function scenesOf(s: Doc<"sessions">): Infer<typeof ledger>["scenes"] {

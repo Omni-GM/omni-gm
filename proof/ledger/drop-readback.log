@@ -1,15 +1,15 @@
-Deployment: https://diligent-okapi-193.convex.cloud (branch preview feat-ledger-view, staging M2M sign-in)
-Seeded by scripts/ledger-host.ts: Seeded draft debrief for session k578warwe552pp1d8603pwsb4h8g2dym
-After clicking Drop on 'Does Sera work for the raiders?' in the Ledger view, get debrief:k578warwe552pp1d8603pwsb4h8g2dym returns:
+Deployment: https://whimsical-lark-82.convex.cloud (branch preview feat-ledger-view, staging M2M sign-in)
+Seeded by scripts/ledger-host.ts: Seeded draft debrief for session k57cgjw0fvn7kf7c26r06sxs858g2yp1
+After clicking Drop on 'Does Sera work for the raiders?' in the Ledger view, get debrief:k57cgjw0fvn7kf7c26r06sxs858g2yp1 returns:
 {
-  "session": "k578warwe552pp1d8603pwsb4h8g2dym",
+  "session": "k57cgjw0fvn7kf7c26r06sxs858g2yp1",
   "status": "draft",
   "changes": [
     {
       "id": "c1",
       "scene": 1,
       "op": "new",
-      "name": "Sera Venn",
+      "subject": "Sera Venn",
       "basis": [
         "npc_said"
       ]
@@ -18,7 +18,7 @@ After clicking Drop on 'Does Sera work for the raiders?' in the Ledger view, get
       "id": "c2",
       "scene": 1,
       "op": "new",
-      "name": "The river gate closes",
+      "subject": "The river gate closes",
       "basis": [
         "narrated"
       ]
@@ -27,7 +27,7 @@ After clicking Drop on 'Does Sera work for the raiders?' in the Ledger view, get
       "id": "c3",
       "scene": 1,
       "op": "new",
-      "name": "Who broke the seal?",
+      "subject": "Who broke the seal?",
       "basis": [
         "narrated"
       ]
@@ -36,7 +36,7 @@ After clicking Drop on 'Does Sera work for the raiders?' in the Ledger view, get
       "id": "c4",
       "scene": 1,
       "op": "relate",
-      "name": "involves",
+      "subject": "involves",
       "basis": [
         "narrated"
       ]
@@ -45,7 +45,7 @@ After clicking Drop on 'Does Sera work for the raiders?' in the Ledger view, get
       "id": "c6",
       "scene": 2,
       "op": "update",
-      "name": "$gate",
+      "subject": "$gate",
       "basis": [
         "narrated"
       ]
@@ -54,7 +54,7 @@ After clicking Drop on 'Does Sera work for the raiders?' in the Ledger view, get
       "id": "c7",
       "scene": 2,
       "op": "update",
-      "name": "$seal",
+      "subject": "$seal",
       "basis": [
         "player_plan"
       ]

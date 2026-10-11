@@ -900,7 +900,7 @@ test("the Ledger view is served as an MCP Apps resource that debrief_add and deb
     });
 });
 
-test("debrief_add and debrief_drop return Ledger rows with label, subject, before and after per scene", async () => {
+test("debrief_add and debrief_drop return Ledger rows with label, subject, before and after per scene, listing only the aliases each change adds", async () => {
   const { c, s } = await prepared();
   const thread = {
     ...npcChange(),
@@ -985,10 +985,10 @@ test("debrief_add and debrief_drop return Ledger rows with label, subject, befor
         label: "change",
         subject: "Sera Venn",
         kind: "npc",
-        before: { aliases: "Sarah Ven" },
+        before: {},
         after: {
           wants: "Safe passage home",
-          aliases: "Sarah Ven, Sera of the Ferry",
+          addAliases: "Sera of the Ferry",
         },
       },
       {
@@ -1018,4 +1018,17 @@ test("debrief_add and debrief_drop return Ledger rows with label, subject, befor
     wants,
   ]);
   expect(dropped.ledger.scenes).toEqual(added.ledger.scenes);
+  const more = await c.call("debrief_add", {
+    session: s.id,
+    changes: [
+      {
+        ...npcChange(),
+        change: { op: "update", entity: "$sera", addAliases: ["Ferry Sera"] },
+      },
+    ],
+  });
+  expect(more.ledger.rows.at(-1)).toMatchObject({
+    before: {},
+    after: { addAliases: "Ferry Sera" },
+  });
 });

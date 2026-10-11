@@ -1,0 +1,72 @@
+{
+ "id": "sonnet-A-T1-1",
+ "client": "sonnet",
+ "surface": "A",
+ "task": "T1",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [
+  "transcript never passed through model output"
+ ],
+ "calls": 4,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1484,
+ "toolSequence": [
+  "story_read:overview",
+  "debrief:new_session",
+  "debrief:upload_url",
+  "debrief:set_scenes"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 80149,
+  "cachedInput": 63033,
+  "output": 2374
+ },
+ "ms": 21590,
+ "errors": [],
+ "answer": "Session 3 is recorded and uploaded, and I've split it into four scenes. I haven't drafted any story-state changes, since you only asked for the upload and the scenes.\n\n- **Session:** it's s3 in The Drowned Bell, dated 2026-10-10.\n- **Upload:** the server confirmed it stored 5,895 bytes for s3. The upload response gave two different URLs, one in `uploadUrl` and a different one in the `howTo` example. I used the `uploadUrl` one, and it worked.\n- **Scenes:**\n  1. A boat from Sela Thorn (0:00:05–0:01:39), at pier four.\n  2. The flooded Saltmere Mine (0:05:48–0:07:28).\n  3. The bell at midnight (0:13:40–0:15:45), on the shore below the drowned chapel.\n  4. Planning at the Tarred Gull (0:19:50–0:21:15).\n- **Scene boundaries:** I cut the scenes at the gaps in the timestamps and the changes of place. The transcript has no explicit markers, so check them. I wrote the scene summaries myself from the transcript.\n\n**What's left, for when you're back:**\n- **Debrief:** open one for s3 and draft the story-state changes. Nothing has been proposed or committed.\n- **Things to sort out in the debrief:**\n  - **Sela's name:** it's spelled both \"Sela\" and \"Sella\" in the transcript. Speaker 1 is unlabeled and covers Sela, the fishermen and Bram.\n  - **Maren:** Dana and Priya's guess that Maren is in the cult is only a player guess, so it can touch a thread but not a fact. Bram's remark that she lost a brother to the bay is a separate NPC statement.\n  - **Choir clock:** at 0:15:24 you said aloud \"the choir clock at three of six\". That would update the existing clock.\n  - **Mira:** Teo says the \"M. Brand\" handwriting is his sister Mira's. That is a character's claim, not yet confirmed.\n  - **The party's plan:** the plan to dive the chapel at low tide tomorrow is a player plan."
+}

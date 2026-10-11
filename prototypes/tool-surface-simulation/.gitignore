@@ -1,0 +1,5 @@
+node_modules
+results/runs/*/seed.json
+results/runs/*/mcp.json
+results/runs/*/work
+results/runs/*/codex-home

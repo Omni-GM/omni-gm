@@ -1,0 +1,15 @@
+{"t":1791701887399,"surface":"C","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791701897279,"surface":"C","tool":"skill","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":1165}
+{"t":1791701901421,"surface":"C","tool":"skill","args":{"name":"debrief"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":1583}
+{"t":1791701901427,"surface":"C","tool":"find","args":{"query":"Hesk","limit":30},"argsBytes":27,"outcome":"ok","partialRejections":0,"resultBytes":1194}
+{"t":1791701901431,"surface":"C","tool":"get","args":{"ref":"schema"},"argsBytes":16,"outcome":"ok","partialRejections":0,"resultBytes":5264}
+{"t":1791701904447,"surface":"C","tool":"get","args":{"ref":"entity:e34"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":816}
+{"t":1791701904448,"surface":"C","tool":"find","args":{"query":"ferry","limit":30},"argsBytes":28,"outcome":"ok","partialRejections":0,"resultBytes":1453}
+{"t":1791701904448,"surface":"C","tool":"get","args":{"ref":"session:s2"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":596}
+{"t":1791701910451,"surface":"C","tool":"skill","args":{"name":"split-scenes"},"argsBytes":23,"outcome":"ok","partialRejections":0,"resultBytes":768}
+{"t":1791701910455,"surface":"C","tool":"get","args":{"ref":"scene:s2/1"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":799}
+{"t":1791701910458,"surface":"C","tool":"find","args":{"query":"Hesk revived","limit":20},"argsBytes":35,"outcome":"ok","partialRejections":0,"resultBytes":1202}
+{"t":1791701920352,"surface":"C","tool":"story_commit","args":{"changes":[{"basis":["game_master"],"change":{"op":"update","entity":"e34","properties":{"status":"alive"}},"sources":[{"quote":"Old Hesk isn't dead. He only passed out in the water in session 2, and the ferry-house keeper revived him."}],"why":"Corrects the session 2 debrief: Old Hesk passed out in the water and the ferry-house keeper revived him."}],"reason":"The GM explicitly corrected Old Hesk's recorded death and asked to fix it; he survived the session 2 ferry incident."},"argsBytes":483,"outcome":"ok","partialRejections":0,"resultBytes":37}
+{"t":1791701920356,"surface":"C","tool":"scenes_set","args":{"session":"s2","scenes":[{"title":"The ferry","start":"0:00:05","end":"0:05:09","place":"Estuary ferry","summary":"Old Hesk ferries the party and goes overboard. He passes out in the water; Oren pulls him out, and the ferry-house keeper revives him."},{"title":"The Archive annex","start":"0:05:10","place":"Archive annex","summary":"A mural shows the Pale Abbot with the bell rope; the archivist points them to Saltmere Mine."}]},"argsBytes":431,"outcome":"rejected","error":"This session's debrief is committed; its scenes are fixed."}
+{"t":1791701925029,"surface":"C","tool":"get","args":{"ref":"entity:e34"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1424}
+{"t":1791701925030,"surface":"C","tool":"get","args":{"ref":"session:s2"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":596}

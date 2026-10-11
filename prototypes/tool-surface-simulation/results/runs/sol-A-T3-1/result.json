@@ -1,0 +1,69 @@
+{
+ "id": "sol-A-T3-1",
+ "client": "sol",
+ "surface": "A",
+ "task": "T3",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "mine: at least two facts",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela: whisper and gaze",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Hesk: 'river's angry since the bell'",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no writes",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Sela's flood story marked as her claim",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 10,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 431,
+ "toolSequence": [
+  "story_read:overview",
+  "story_read:entities",
+  "story_read:transcript",
+  "story_read:entities",
+  "story_read:transcript",
+  "story_read:transcript",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "prep-sparring",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 101076,
+  "cachedInput": 84736,
+  "output": 744
+ },
+ "ms": 28183,
+ "errors": [],
+ "answer": "1. **Saltmere Mine:** They heard it was up the cliff path, closed for forty years, and supplied the chapel bell's metal. Sela claimed it flooded the night the bell first rang; her grandmother said the water came up warm. They visited and found warm, candle-wax-smelling air, warm black water thirty paces in, and hymn-book pages. One hymn described the sea giving back what it takes, with \"M. Brand\" pencilled in the margin. Teo identified Mira's handwriting and concluded she'd been there. Oren took two damage from bad air.  \n   *Sources: session 2, 0:08:40–0:08:50; session 3, 0:01:26 and 0:05:48–0:07:28.*\n\n2. **Sela Thorn:** You whispered \"like the water might hear her,\" avoided eye contact, and kept her gaze on the tide line. Grey braid, salt-stained coat, mending a net on an overturned skiff. Her firm boundary was: \"I'll row you, but not at night. Never at night.\"  \n   *Source: session 3, 0:00:19–0:00:42.*\n\n3. **Old Hesk's first river remark:** \"Hold the rail. River's angry since the bell.\"  \n   *Source: session 2, 0:00:14.*\n\nAll three answers were available in Omni-GM. Nothing left to look up; Sela's historical account and Teo's identification remain attributed claims."
+}

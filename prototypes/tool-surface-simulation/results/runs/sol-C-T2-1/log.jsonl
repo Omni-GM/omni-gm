@@ -1,0 +1,52 @@
+{"t":1791701977778,"surface":"C","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791701983247,"surface":"C","tool":"skill","args":{"name":"debrief"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":1583}
+{"t":1791701987107,"surface":"C","tool":"get","args":{"ref":"schema"},"argsBytes":16,"outcome":"ok","partialRejections":0,"resultBytes":5264}
+{"t":1791701987109,"surface":"C","tool":"get","args":{"ref":"overview"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":768}
+{"t":1791701987109,"surface":"C","tool":"get","args":{"ref":"session:s3"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1216}
+{"t":1791701987109,"surface":"C","tool":"get","args":{"ref":"debrief:s3"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":348}
+{"t":1791701987110,"surface":"C","tool":"skill","args":{"name":"map-speakers"},"argsBytes":23,"outcome":"ok","partialRejections":0,"resultBytes":425}
+{"t":1791701989938,"surface":"C","tool":"find","args":{"query":"","types":["entity"],"limit":100},"argsBytes":43,"outcome":"invalid","error":"Invalid input: ✖ Too big: expected number to be <=30\n  → at limit"}
+{"t":1791701989939,"surface":"C","tool":"get","args":{"ref":"transcript:s3"},"argsBytes":23,"outcome":"ok","partialRejections":0,"resultBytes":5611}
+{"t":1791701993421,"surface":"C","tool":"find","args":{"query":"","types":["entity"],"limit":30},"argsBytes":42,"outcome":"rejected","error":"Give a query with at least one meaningful word."}
+{"t":1791701998543,"surface":"C","tool":"find","args":{"query":"Gullwick","types":["entity"],"limit":30},"argsBytes":50,"outcome":"ok","partialRejections":0,"resultBytes":481}
+{"t":1791701998544,"surface":"C","tool":"find","args":{"query":"Maren","types":["entity"],"limit":30},"argsBytes":47,"outcome":"ok","partialRejections":0,"resultBytes":292}
+{"t":1791701998544,"surface":"C","tool":"find","args":{"query":"Mira","types":["entity"],"limit":30},"argsBytes":46,"outcome":"ok","partialRejections":0,"resultBytes":348}
+{"t":1791701998545,"surface":"C","tool":"find","args":{"query":"choir","types":["entity"],"limit":30},"argsBytes":47,"outcome":"ok","partialRejections":0,"resultBytes":262}
+{"t":1791701998545,"surface":"C","tool":"find","args":{"query":"Teo","types":["entity"],"limit":30},"argsBytes":45,"outcome":"ok","partialRejections":0,"resultBytes":237}
+{"t":1791701998545,"surface":"C","tool":"find","args":{"query":"Vessa","types":["entity"],"limit":30},"argsBytes":47,"outcome":"ok","partialRejections":0,"resultBytes":233}
+{"t":1791701998546,"surface":"C","tool":"find","args":{"query":"Saltmere","types":["entity"],"limit":30},"argsBytes":50,"outcome":"ok","partialRejections":0,"resultBytes":477}
+{"t":1791701998546,"surface":"C","tool":"find","args":{"query":"Oren","types":["entity"],"limit":30},"argsBytes":46,"outcome":"ok","partialRejections":0,"resultBytes":215}
+{"t":1791701998546,"surface":"C","tool":"find","args":{"query":"chapel","types":["entity"],"limit":30},"argsBytes":48,"outcome":"ok","partialRejections":0,"resultBytes":1166}
+{"t":1791701998547,"surface":"C","tool":"find","args":{"query":"Tarred","types":["entity"],"limit":30},"argsBytes":48,"outcome":"ok","partialRejections":0,"resultBytes":48}
+{"t":1791701998547,"surface":"C","tool":"find","args":{"query":"Sela","types":["entity"],"limit":30},"argsBytes":46,"outcome":"ok","partialRejections":0,"resultBytes":46}
+{"t":1791701998547,"surface":"C","tool":"find","args":{"query":"Bram","types":["entity"],"limit":30},"argsBytes":46,"outcome":"ok","partialRejections":0,"resultBytes":46}
+{"t":1791701998548,"surface":"C","tool":"find","args":{"query":"Kelp","types":["entity"],"limit":30},"argsBytes":46,"outcome":"ok","partialRejections":0,"resultBytes":46}
+{"t":1791702002459,"surface":"C","tool":"get","args":{"ref":"entity:e19"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1368}
+{"t":1791702002460,"surface":"C","tool":"get","args":{"ref":"entity:e24"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1337}
+{"t":1791702002461,"surface":"C","tool":"get","args":{"ref":"entity:e18"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1135}
+{"t":1791702002461,"surface":"C","tool":"get","args":{"ref":"entity:e23"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1691}
+{"t":1791702002461,"surface":"C","tool":"get","args":{"ref":"entity:e38"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":726}
+{"t":1791702002461,"surface":"C","tool":"get","args":{"ref":"entity:e39"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":759}
+{"t":1791702002461,"surface":"C","tool":"get","args":{"ref":"entity:e21"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":706}
+{"t":1791702002462,"surface":"C","tool":"get","args":{"ref":"session:s1"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":608}
+{"t":1791702002462,"surface":"C","tool":"get","args":{"ref":"session:s2"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":596}
+{"t":1791702002462,"surface":"C","tool":"get","args":{"ref":"entity:e22"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1261}
+{"t":1791702008449,"surface":"C","tool":"get","args":{"ref":"transcript:s2"},"argsBytes":23,"outcome":"ok","partialRejections":0,"resultBytes":1170}
+{"t":1791702008450,"surface":"C","tool":"find","args":{"query":"Brand","types":["entity"]},"argsBytes":36,"outcome":"ok","partialRejections":0,"resultBytes":239}
+{"t":1791702008450,"surface":"C","tool":"find","args":{"query":"Sella","types":["entity"]},"argsBytes":36,"outcome":"ok","partialRejections":0,"resultBytes":47}
+{"t":1791702008451,"surface":"C","tool":"find","args":{"query":"Hesk","types":["entity"]},"argsBytes":35,"outcome":"ok","partialRejections":0,"resultBytes":263}
+{"t":1791702008451,"surface":"C","tool":"find","args":{"query":"bell","types":["entity"],"limit":30},"argsBytes":46,"outcome":"ok","partialRejections":0,"resultBytes":1942}
+{"t":1791702016001,"surface":"C","tool":"get","args":{"ref":"entity:e20"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":847}
+{"t":1791702016001,"surface":"C","tool":"get","args":{"ref":"entity:e15"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1165}
+{"t":1791702016001,"surface":"C","tool":"get","args":{"ref":"entity:e16"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":696}
+{"t":1791702016002,"surface":"C","tool":"get","args":{"ref":"entity:e17"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":684}
+{"t":1791702016002,"surface":"C","tool":"get","args":{"ref":"entity:e34"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":816}
+{"t":1791702016002,"surface":"C","tool":"get","args":{"ref":"entity:e35"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":801}
+{"t":1791702016003,"surface":"C","tool":"get","args":{"ref":"entity:e37"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1173}
+{"t":1791702016003,"surface":"C","tool":"get","args":{"ref":"entity:e36"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":1256}
+{"t":1791702016014,"surface":"C","tool":"find","args":{"query":"flooded","types":["entity"]},"argsBytes":38,"outcome":"ok","partialRejections":0,"resultBytes":49}
+{"t":1791702016014,"surface":"C","tool":"find","args":{"query":"Maren cult","types":["entity"]},"argsBytes":41,"outcome":"ok","partialRejections":0,"resultBytes":297}
+{"t":1791702016014,"surface":"C","tool":"find","args":{"query":"hymn","types":["entity"]},"argsBytes":35,"outcome":"ok","partialRejections":0,"resultBytes":46}
+{"t":1791702016015,"surface":"C","tool":"find","args":{"query":"brother","types":["entity"]},"argsBytes":38,"outcome":"ok","partialRejections":0,"resultBytes":49}
+{"t":1791702016015,"surface":"C","tool":"find","args":{"query":"first light","types":["entity"]},"argsBytes":42,"outcome":"ok","partialRejections":0,"resultBytes":53}
+{"t":1791702026196,"surface":"C","tool":"get","args":{"ref":"transcript:s1"},"argsBytes":23,"outcome":"ok","partialRejections":0,"resultBytes":1182}

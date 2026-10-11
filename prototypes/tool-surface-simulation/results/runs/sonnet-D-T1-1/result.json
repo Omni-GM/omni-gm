@@ -1,0 +1,72 @@
+{
+ "id": "sonnet-D-T1-1",
+ "client": "sonnet",
+ "surface": "D",
+ "task": "T1",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [
+  "transcript never passed through model output"
+ ],
+ "calls": 4,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1665,
+ "toolSequence": [
+  "get",
+  "session_create",
+  "transcript_upload_url",
+  "scenes_set"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 73512,
+  "cachedInput": 54898,
+  "output": 2264
+ },
+ "ms": 18885,
+ "errors": [],
+ "answer": "Session 3 (2026-10-10) is now in Omni-GM, with the transcript uploaded (5,895 bytes) and split into four scenes. I didn't start a debrief, because you only asked for the upload and the split.\n\n**Scenes**\n1. **Sela Thorn on pier four** (0:00:05), Gullwick docks. The party hires Sela, who won't row at night. She tells them Saltmere flooded the night the bell first rang.\n2. **The flooded Saltmere Mine** (0:05:48), the mine on the cliff path. The tunnel is full of warm water and hymn-book pages. One page is marked \"M. Brand\", which Teo says is his sister Mira's handwriting.\n3. **Midnight at the drowned chapel** (0:13:40), the shore below the ruins. Fishermen warn about the Kelp Mother. The bell rings twelve times, and pale shapes stand in rows under the water. You said aloud that the choir clock is at three of six.\n4. **Planning at the Tarred Gull** (0:19:50), the tavern. The party plans to dive to the chapel at low tide at first light, and the innkeeper Bram feeds them. They take a long rest.\n\n**Speakers**\n- **Speaker 1** is your NPC voice. From content it's Sela Thorn in scene 1, an unnamed fisherman in scene 3, and Bram in scene 4.\n- **Jonas** plays Teo, **Dana** plays Vessa, and **Priya** plays Oren.\n\n**What's left**\n- **Debrief:** nothing is drafted yet. When you want it, two things need your ruling:\n  - **Sela's name:** you spelled it \"Sela\" and said the dockhands use \"Sella\" too, so I'd keep \"Sela\" and add \"Sella\" as an alias.\n  - **Maren:** the idea that she's in the cult is only a player guess from Dana and Priya. In the debrief it can only go on a thread, not on Maren herself.\n- **Clock:** your \"three of six\" remark was said to yourself, not to the table. I'd need your word before the debrief moves the choir clock.\n- **Scene boundaries:** the transcript has time gaps (about 0:01:39 to 0:05:48, 0:07:28 to 0:13:40, 0:15:45 to 0:19:50), so I started each scene at the first line after the gap. Adjust them if you remember the breaks differently."
+}

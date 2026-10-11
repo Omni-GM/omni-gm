@@ -1,0 +1,64 @@
+{
+ "id": "sonnet-C-T6-1",
+ "client": "sonnet",
+ "surface": "C",
+ "task": "T6",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Hesk alive",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "one correction commit with a reason",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate Hesk",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "nothing else changed",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "basis game_master",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 7,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 610,
+ "toolSequence": [
+  "skill",
+  "find",
+  "get",
+  "get",
+  "find",
+  "get",
+  "story_commit"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 57641,
+  "cachedInput": 39299,
+  "output": 1079
+ },
+ "ms": 11450,
+ "errors": [],
+ "answer": "Old Hesk's status is now `alive` (commit k59). I recorded your correction as the source, with basis `game_master`.\n\nI changed only his status. The session 2 debrief had marked him dead from the line \"He's grey and cold and not breathing that you can tell.\" That entry still shows in his history. The new commit corrects it.\n\nI left two things alone:\n- **Ferry-house keeper:** They aren't in the story state as an NPC. I didn't create one, because I'd have had to invent details you haven't given me.\n- **Hesk's location:** Nothing records where he is now, and I didn't add a \"last seen at\" link.\n\nI searched for Hesk and the keeper and found nothing from session 3 onward that treats him as dead. I did not read every later scene in full, so a mention under a different name could have slipped through.\n\nTwo questions for you when you're back:\n- Should the keeper be recorded as an NPC, and should Hesk be linked to the ferry-house or estuary?\n- Do the players know he survived? The table only saw him lying there grey and cold, so they may still think he's dead."
+}

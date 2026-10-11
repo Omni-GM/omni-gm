@@ -1,0 +1,74 @@
+{
+ "id": "sol-A-T1-1",
+ "client": "sol",
+ "surface": "A",
+ "task": "T1",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [
+  "transcript never passed through model output"
+ ],
+ "calls": 6,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1588,
+ "toolSequence": [
+  "story_read:overview",
+  "debrief:new_session",
+  "debrief:upload_url",
+  "debrief:set_scenes",
+  "story_read:overview",
+  "story_read:transcript"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 145026,
+  "cachedInput": 119936,
+  "output": 912
+ },
+ "ms": 33151,
+ "errors": [],
+ "answer": "Imported session 3 into The Lantern Coast, dated 2026-10-10, and verified the transcript and four saved scenes:\n\n1. Sela's offer at pier four\n2. The hymn page in Saltmere Mine\n3. The midnight bell at the drowned chapel\n4. A dawn dive planned at the Tarred Gull\n\nNothing remains for the import and scene split. The story-state debrief has not been started."
+}

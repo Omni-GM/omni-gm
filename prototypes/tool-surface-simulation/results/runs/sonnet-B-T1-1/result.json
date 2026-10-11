@@ -1,0 +1,73 @@
+{
+ "id": "sonnet-B-T1-1",
+ "client": "sonnet",
+ "surface": "B",
+ "task": "T1",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [
+  "transcript never passed through model output"
+ ],
+ "calls": 5,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1350,
+ "toolSequence": [
+  "list_sessions",
+  "get_schema",
+  "create_session",
+  "get_upload_url",
+  "set_scenes"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 99132,
+  "cachedInput": 78382,
+  "output": 2167
+ },
+ "ms": 20240,
+ "errors": [],
+ "answer": "Session 3 is now in Omni-GM as s3, dated 2026-10-10, with the transcript uploaded (5,895 bytes). I split it into four scenes:\n\n1. **A boat on pier four** (0:00:05–0:01:39): the party meets Sela Thorn and hires her to row them out.\n2. **The flooded Saltmere Mine** (0:05:48–0:07:28): Teo finds a hymn page signed \"M. Brand\".\n3. **Midnight at the drowned chapel** (0:13:40–0:15:45): the bell rings and pale shapes appear in the water.\n4. **Stew at the Tarred Gull** (0:19:50–0:21:15): the party plans the dive, and Bram talks about Maren.\n\nI stopped there because you only asked for the upload and the scenes. I haven't started the debrief draft, and nothing is committed.\n\nThings to know before the debrief:\n- **Unlabeled speaker:** The transcription service tagged Sela, the two fishermen and Bram all as \"Speaker 1\". I split them by context, so the debrief needs your confirmation of who said what.\n- **Sela's name:** The GM said the dockhands spell it both \"Sela\" and \"Sella\". I used \"Sela\" in the scene summaries and would keep \"Sella\" as an alias.\n- **Choir clock:** The GM said \"choir clock at three of six\" under their breath, but it isn't clear whether that was a move to 3 or the existing value. I'd check it against the clock entity from earlier sessions.\n- **Player guess:** Dana and Priya guessed that Maren is in the cult. That can only go on a thread, never on Maren herself. Bram's remarks about her point the other way.\n- **Transcript length:** The header says 0:25:40, but the last line is at 0:21:15. There are also gaps between scenes, for example 0:01:39 to 0:05:48. I can't tell whether talk is missing or it was just off-topic.\n\nNext, if you want, I can draft the debrief changes for you to review."
+}

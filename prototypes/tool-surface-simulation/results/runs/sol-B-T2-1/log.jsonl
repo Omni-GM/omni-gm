@@ -1,0 +1,16 @@
+{"t":1791701959449,"surface":"B","event":"start","tools":21,"uploadMode":"signed"}
+{"t":1791701967138,"surface":"B","tool":"list_sessions","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":768}
+{"t":1791701971428,"surface":"B","tool":"read_transcript","args":{"sessionId":"s3"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":5611}
+{"t":1791701971429,"surface":"B","tool":"get_schema","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":5264}
+{"t":1791701971430,"surface":"B","tool":"list_entities","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":1200}
+{"t":1791701971430,"surface":"B","tool":"get_frame","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":551}
+{"t":1791701971431,"surface":"B","tool":"draft_show","args":{"sessionId":"s3"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":348}
+{"t":1791701976838,"surface":"B","tool":"get_entity","args":{"entityId":"e18"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":267}
+{"t":1791701976839,"surface":"B","tool":"get_entity","args":{"entityId":"e19"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":352}
+{"t":1791701976839,"surface":"B","tool":"get_entity","args":{"entityId":"e21"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":195}
+{"t":1791701976839,"surface":"B","tool":"get_entity","args":{"entityId":"e38"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":204}
+{"t":1791701976840,"surface":"B","tool":"get_entity","args":{"entityId":"e22"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":318}
+{"t":1791701976840,"surface":"B","tool":"get_entity","args":{"entityId":"e24"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":368}
+{"t":1791701976840,"surface":"B","tool":"get_entity","args":{"entityId":"e39"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":218}
+{"t":1791701976840,"surface":"B","tool":"get_entity","args":{"entityId":"e23"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":347}
+{"t":1791701976841,"surface":"B","tool":"get_entity","args":{"entityId":"e37"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":295}

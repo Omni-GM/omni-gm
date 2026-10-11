@@ -1,0 +1,17 @@
+{"t":1791701958079,"surface":"A","event":"start","tools":5,"uploadMode":"signed"}
+{"t":1791701964830,"surface":"A","tool":"story_read","args":{"view":"overview"},"argsBytes":19,"outcome":"ok","partialRejections":0,"resultBytes":768}
+{"t":1791701964832,"surface":"A","tool":"story_read","args":{"view":"entities"},"argsBytes":19,"outcome":"ok","partialRejections":0,"resultBytes":1200}
+{"t":1791701964833,"surface":"A","tool":"story_read","args":{"view":"schema"},"argsBytes":17,"outcome":"ok","partialRejections":0,"resultBytes":5264}
+{"t":1791701968659,"surface":"A","tool":"story_read","args":{"view":"transcript","sessionId":"s3"},"argsBytes":38,"outcome":"ok","partialRejections":0,"resultBytes":5611}
+{"t":1791701968668,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e19","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":1368}
+{"t":1791701968669,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e22","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":1261}
+{"t":1791701968670,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e21","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":706}
+{"t":1791701968670,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e23","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":1691}
+{"t":1791701968670,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e35","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":801}
+{"t":1791701968671,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e36","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":1256}
+{"t":1791701968671,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e24","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":1337}
+{"t":1791701968671,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e37","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":1173}
+{"t":1791701968671,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e34","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":816}
+{"t":1791701968672,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e39","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":759}
+{"t":1791701968672,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e38","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":726}
+{"t":1791701973904,"surface":"A","tool":"debrief","args":{"action":"open","sessionId":"s3","summary":"The party met tide-reader Sela Thorn, explored Saltmere Mine and found a hymn page marked \"M. Brand\", then witnessed the drowned bell and pale underwater shapes at midnight. At the Tarred Gull they agreed to ask Sela for a first-light crossing and dive to the chapel at low tide. Claims about Saltmere's flooding, the Kelp Mother and Maren's past remain attributed; the players' suspicions about Maren and Teo's identification of Mira's handwriting remain unconfirmed."},"argsBytes":517,"outcome":"ok","partialRejections":0,"resultBytes":875}

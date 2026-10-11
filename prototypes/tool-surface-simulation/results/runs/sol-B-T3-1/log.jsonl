@@ -1,0 +1,16 @@
+{"t":1791702024275,"surface":"B","event":"start","tools":21,"uploadMode":"signed"}
+{"t":1791702032052,"surface":"B","tool":"list_sessions","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":773}
+{"t":1791702032053,"surface":"B","tool":"list_entities","args":{"nameContains":"Sela"},"argsBytes":23,"outcome":"ok","partialRejections":0,"resultBytes":64}
+{"t":1791702032054,"surface":"B","tool":"list_entities","args":{"nameContains":"Hesk"},"argsBytes":23,"outcome":"ok","partialRejections":0,"resultBytes":62}
+{"t":1791702032055,"surface":"B","tool":"list_entities","args":{"nameContains":"Saltmere"},"argsBytes":27,"outcome":"ok","partialRejections":0,"resultBytes":261}
+{"t":1791702038707,"surface":"B","tool":"get_entity","args":{"entityId":"e38"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":328}
+{"t":1791702038708,"surface":"B","tool":"get_entity","args":{"entityId":"e55"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":272}
+{"t":1791702038709,"surface":"B","tool":"get_entity","args":{"entityId":"e54"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":402}
+{"t":1791702038709,"surface":"B","tool":"get_entity","args":{"entityId":"e39"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":218}
+{"t":1791702038710,"surface":"B","tool":"get_entity_history","args":{"entityId":"e38"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":1182}
+{"t":1791702038710,"surface":"B","tool":"get_entity_history","args":{"entityId":"e34"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":530}
+{"t":1791702038711,"surface":"B","tool":"get_entity_history","args":{"entityId":"e54"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":1033}
+{"t":1791702038712,"surface":"B","tool":"read_transcript","args":{"sessionId":"s1"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":1182}
+{"t":1791702038712,"surface":"B","tool":"get_entity","args":{"entityId":"e34"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":245}
+{"t":1791702038713,"surface":"B","tool":"read_transcript","args":{"sessionId":"s2"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":1170}
+{"t":1791702038713,"surface":"B","tool":"read_transcript","args":{"sessionId":"s3"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":5611}

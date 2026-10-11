@@ -1,0 +1,79 @@
+{
+ "id": "sol-C-T1-1",
+ "client": "sol",
+ "surface": "C",
+ "task": "T1",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [
+  "transcript never passed through model output"
+ ],
+ "calls": 8,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1563,
+ "toolSequence": [
+  "skill",
+  "skill:split-scenes",
+  "get",
+  "skill:map-speakers",
+  "session_create",
+  "transcript_upload_url",
+  "scenes_set",
+  "get"
+ ],
+ "skillsLoaded": [
+  "split-scenes",
+  "map-speakers"
+ ],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 185455,
+  "cachedInput": 161280,
+  "output": 1213
+ },
+ "ms": 39749,
+ "errors": [],
+ "answer": "Imported and verified session 3, dated 2026-10-10, in The Lantern Coast → The Drowned Bell. The full transcript is saved with four scenes:\n\n1. A boat and a warning\n2. Hymn pages in the mine\n3. The bell beneath the water\n4. Tomorrow's dive\n\nNothing remains for the import or scene split. The speaker at 0:01:06 remains uncertain, but it doesn’t affect the split. No debrief or story-state changes were made."
+}

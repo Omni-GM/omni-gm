@@ -1,0 +1,74 @@
+{
+ "id": "sol-C-T6-1",
+ "client": "sol",
+ "surface": "C",
+ "task": "T6",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Hesk alive",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "one correction commit with a reason",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate Hesk",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "nothing else changed",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "basis game_master",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 14,
+ "rejected": 1,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1163,
+ "toolSequence": [
+  "skill",
+  "skill:debrief",
+  "find",
+  "get",
+  "get",
+  "find",
+  "get",
+  "skill:split-scenes",
+  "get",
+  "find",
+  "story_commit",
+  "scenes_set!rejected",
+  "get",
+  "get"
+ ],
+ "skillsLoaded": [
+  "debrief",
+  "split-scenes"
+ ],
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 219136,
+  "cachedInput": 187392,
+  "output": 1253
+ },
+ "ms": 41476,
+ "errors": [],
+ "answer": "Old Hesk is now marked **alive**. I verified the saved correction records that he passed out in session 2 and the ferry-house keeper revived him.\n\nOne item remains: the scene summary still says “seems dead.” Omni-GM rejected that edit because scenes are locked after a debrief is committed. The correction is saved in Hesk’s history."
+}

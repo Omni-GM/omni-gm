@@ -1,0 +1,110 @@
+{
+ "id": "sonnet-A-T2-1",
+ "client": "sonnet",
+ "surface": "A",
+ "task": "T2",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 15,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 8025,
+ "toolSequence": [
+  "story_read:overview",
+  "story_read:schema",
+  "story_read:transcript",
+  "story_read:entities",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "debrief:open",
+  "debrief:propose",
+  "debrief:commit"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 267136,
+  "cachedInput": 220137,
+  "output": 13095
+ },
+ "ms": 45329,
+ "errors": [],
+ "answer": "I've drafted session 3 and I'm now showing it to you. It isn't committed, because you have to say it's right first.\n\n## Draft: 17 changes across 4 scenes\n\n**Scene 1, A boat at pier four**\n- New NPC **Sela Thorn**, with \"Sella\" as an alias. She whispers, never meets anyone's eyes, and watches the tide line. She rows for two silver, never at night. Last seen at Gullwick Docks.\n- New world fact, from what Sela said: Saltmere flooded the night the bell first rang, 40 years ago, and the water came up warm. It involves Saltmere Mine.\n\n**Scene 2, Saltmere Mine**\n- Saltmere Mine updated with what the party saw: warm air that smells of candle wax, a flooded tunnel, and hymn pages floating on the water.\n- Teo's goal \"Find out why Mira left the Archive\" updated: the hymn page is marked \"M. Brand\", and Teo recognised Mira's handwriting.\n- New thread \"Is Maren Vosk in the cult?\", based on a player guess and involving Maren. It's recorded as a guess only, and you didn't confirm it.\n\n**Scene 3, The shore at midnight**\n- New world fact \"The Kelp Mother\", based on a rumor. The fishermen tell it, and whether she's real is left open.\n- Drowned chapel updated: the roof, tower and arches show at low water. At midnight the bell rang twelve times, there was a loud humming, and pale shapes stood in rows.\n- Clock \"The Hollow Choir rises\" goes from 2 to 3 of 6, based on your aside \"choir clock at three of six\".\n\n**Scene 4, The Tarred Gull**\n- New place The Tarred Gull and new NPC **Bram**, the innkeeper. He is huge, red-bearded, laughs at his own jokes and wipes the same mug the whole time. He is at the Tarred Gull.\n- New world fact from Bram: Maren lost a brother to the bay. It involves Maren.\n- \"Who rang the drowned bell?\" gets a next step from the party's plan: Sela rows them out at first light and they dive to the chapel at low tide, by day. Vessa buys rope and a second lantern.\n\n## What's left for you\n1. **Sela's name.** The transcript has \"Sela\" and \"Sella\", and you said the dockhands use both. I used Sela Thorn with Sella as an alias. Tell me if you'd rather have it the other way round.\n2. **Unlabelled voices.** Sela, the fisherman and Bram all show up as \"Speaker 1\". I attributed their lines from the scene context, so check that I got them right.\n3. **Maren's thread.** I made it a new thread rather than attaching it to an existing one. Say if you want it folded into \"Who rang the drowned bell?\" or dropped.\n4. **Left out on purpose:**\n   - rolls and damage (Priya's 14, Dana's 9, Oren going to 11 HP)\n   - the long rest\n   - the haggled price, except in Sela's \"wants\"\n\n   Tell me if you want any of these in.\n5. **Maren's entry.** I didn't change her NPC entry, since she wasn't on stage this session.\n6. **Commit.** Tell me when the draft is right and I'll commit it. I can also drop or change any individual change first.\n\nSession 3 is committed as k57, with all 17 changes applied."
+}

@@ -1,0 +1,138 @@
+{
+ "id": "sonnet-B-T2-1",
+ "client": "sonnet",
+ "surface": "B",
+ "task": "T2",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 43,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 9351,
+ "toolSequence": [
+  "list_sessions",
+  "get_schema",
+  "get_frame",
+  "list_entities",
+  "read_transcript",
+  "draft_show",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "draft_new_entity:Sela Thorn",
+  "draft_new_entity:Bram",
+  "draft_new_entity:The Tarred Gull",
+  "draft_new_entity:Saltmere flooded the night the bell first rang",
+  "draft_new_entity:The Kelp Mother",
+  "draft_new_entity:Maren lost a brother to the bay",
+  "draft_new_entity:Is Maren in the cult?",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_show",
+  "draft_commit"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 409614,
+  "cachedInput": 350502,
+  "output": 21762
+ },
+ "ms": 64951,
+ "errors": [],
+ "answer": "The session 3 draft is ready, and I haven't committed it. I'll commit only when you say it's right.\n\n**What the draft holds** (21 changes across the 4 scenes)\n- **New NPCs:**\n  - Sela Thorn, with \"Sella\" as an alias.\n  - Bram, the innkeeper.\n- **New place:** The Tarred Gull.\n- **New world facts:**\n  - Saltmere flooded the night the bell first rang. This is `npc_said`.\n  - Maren lost a brother to the bay. This is `npc_said`.\n  - The Kelp Mother. This is `rumor`: the fishermen's belief, not confirmed as real.\n- **New thread:** \"Is Maren in the cult?\" This is `player_guess` from Vessa and Oren. It is kept as a thread only, and the draft notes you didn't confirm it.\n- **Updates:**\n  - Saltmere Mine and the drowned chapel, including the pale congregation.\n  - The Hollow Choir clock, from 2 to 3, `game_master` basis, from your aside \"three of six\".\n  - \"Who rang the drowned bell?\": status set to advanced, and the next step is the dive at first light.\n  - Teo's goal: the \"M. Brand\" hymn page. Narrated, but the handwriting ID is Teo's claim.\n- **Relationships:**\n  - Sela last seen at the docks.\n  - Bram is at the Tarred Gull.\n  - All three PCs last seen at the Tarred Gull.\n  - Links tying the new facts and thread to Saltmere, Maren and Vessa.\n\n**What's left for you to check**\n1. **Sela's name:** I used \"Sela Thorn\" with \"Sella\" as an alias, since you said the dockhands say it both ways.\n2. **Thread status:** I set \"Who rang the drowned bell?\" to `advanced`. Change it back to `open` if you'd rather keep it there.\n3. **Skipped on purpose:** the two silver for the boat ride, Oren's damage, and the long rest. They are mechanics or minor details. Tell me if you want any of them in.\n4. **Hymn book and the Archive:** the hymn-book page isn't recorded as an item or tied to the Archive. The schema has no item kind, and nothing at the table linked it to the Archive. If that link matters to the main plot, I have a question for you about it.\n5. **Unnamed fishermen:** I didn't record them, since they have no names and only voiced the rumor.\n6. **Schema:** I changed nothing in the schema.\n\nI committed the session 3 draft as k61, and all 21 changes were applied.\n\nI have one open question for you, about the main plot. The hymn-book page with \"M. Brand\" is now recorded as a clue on Teo's goal, but nothing links it to the Archive. Does the Archive have something to do with the hymn book or the Saltmere pages? I'd record that link if so."
+}

@@ -1,0 +1,113 @@
+{
+ "id": "sonnet-C-T2-1",
+ "client": "sonnet",
+ "surface": "C",
+ "task": "T2",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 15,
+ "rejected": 1,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 9678,
+ "toolSequence": [
+  "skill:debrief",
+  "get",
+  "get",
+  "get",
+  "skill:map-speakers",
+  "get",
+  "find!rejected",
+  "find",
+  "get",
+  "get",
+  "find",
+  "get",
+  "get",
+  "debrief_add",
+  "debrief_commit"
+ ],
+ "skillsLoaded": [
+  "debrief",
+  "map-speakers"
+ ],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 308388,
+  "cachedInput": 263986,
+  "output": 14497
+ },
+ "ms": 50834,
+ "errors": [],
+ "answer": "The session 3 draft is ready, with 22 changes accepted. I haven't committed it, because you need to confirm it first.\n\n## Draft by scene\n\n**1. A boat at pier four**\n- New NPC Sela Thorn (alias Sella), at Gullwick Docks.\n  - Played as a whisperer who never meets anyone's eye.\n  - She rows by day only.\n- New world fact: Saltmere flooded the night the bell first rang, forty years ago, and the water came up warm. This is `npc_said`.\n- Details added to Gullwick Docks.\n\n**2. Saltmere Mine**\n- Details and state added to Saltmere Mine: the warm flooded tunnel and the floating hymn pages.\n- New world fact: a page signed \"M. Brand\" in the margin.\n- Teo's belief that it's Mira's handwriting is on the goal \"Find out why Mira left the Archive\". This is `player_guess`.\n- New thread \"Is Maren Vosk in the cult?\" from Vessa and Oren. This is `player_guess`, and Maren's own entry is untouched.\n\n**3. The shore at midnight**\n- Details and state added to the drowned chapel, including the pale shapes standing in rows.\n- The Hollow Choir clock goes from 2 to 3 of 6. I used your aside \"(to himself) That's the choir clock at three of six\" as the source (`game_master`).\n- The Kelp Mother is a rumor world fact, not an NPC.\n\n**4. The Tarred Gull**\n- New place The Tarred Gull, and new NPC Bram, the innkeeper.\n  - Played as a huge man with a red beard who laughs at his own jokes and wipes the same mug throughout.\n- New world fact: Maren lost a brother to the bay. This is `npc_said`, from Bram.\n- New thread \"Dive to the drowned chapel at low tide\". This is `player_plan`, with Sela rowing at first light.\n\n## Where the plots stand\n- **Who rang the drowned bell?** The bell and humming are louder, and the congregation shapes are now seen. The choir clock is at 3 of 6.\n- **Mira's trail** now runs through Saltmere and the hymns, and the party thinks it leads to the chapel.\n- **Maren** is a player-side suspicion only. Bram's account of her lost brother is the only fact so far.\n- **The dive**, planned for first light tomorrow, is the next scene.\n\n## Open questions only you can answer\n1. Did the choir clock really go from 2 to 3 this session? I took your aside to mean that.\n2. Who is the \"M. Brand\" in the margin? I didn't record that it's Mira, only Teo's belief.\n3. Is Bram's remark about Maren's brother something you want tied to the Pellow boys or the earlier bell events? I made no link.\n4. Is the Kelp Mother only a rumor, or do you want it treated as something real later?\n5. The transcript doesn't say what Bram or Sela want beyond what they said. Do you want to fill in `wants` for Bram, which I left as \"Not shown\"?\n\n## What's left\n- Your review of the draft. Tell me any corrections, and I'll apply them and commit when you say it's right.\n- Answers to the questions above.\n\nThe session 3 debrief is committed as k62, with all 22 changes applied.\n\nYour five open questions are still unanswered. I recorded only what the transcript supports for each, and nothing is linked or filled in beyond that. Bram's `wants` still reads \"Not shown.\" Tell me if you want any of them changed."
+}

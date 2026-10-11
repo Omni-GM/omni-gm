@@ -43,7 +43,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "story_commit",
     description:
-      "Commit corrections and the game master's plank answers outside a debrief, with a reason. All or nothing. A basis of only player_guess/player_plan may touch only thread or character_goal. Never draft prep.",
+      "Commit corrections, store corrections the game master confirmed, and their plank answers outside a debrief, with a reason. All or nothing. A basis of only player_guess/player_plan may touch only thread or character_goal.",
     fn: internal.debrief.storyCommit,
     identityArg: "caller",
     args: storyArgs,
@@ -70,7 +70,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpQuery({
     name: "skill",
     description:
-      "List procedures without a name, or load map-speakers, split-scenes, debrief, frame-talk, prep-sparring or plank-questions, including standing rules. Load the matching procedure before a workflow.",
+      "List procedures without a name, or load briefing, prep-sparring, plank-questions, frame-talk, map-speakers, split-scenes or debrief, including standing rules. Prep opens with briefing. Load the matching procedure before a workflow.",
     fn: internal.skills.skill,
     identityArg: "caller",
     args: skillArgs,
@@ -97,7 +97,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "debrief_add",
     description:
-      "Add scene changes and lastTime to a draft. Invalid changes are rejected individually. A basis of only player_guess/player_plan may touch only a thread or character_goal. Never draft prep.",
+      "Add scene changes and lastTime to a draft. Invalid changes are rejected individually. A basis of only player_guess/player_plan may touch only a thread or character_goal.",
     fn: internal.debrief.add,
     identityArg: "caller",
     args: addArgs,

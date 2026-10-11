@@ -132,9 +132,27 @@ pages, stopping sooner when it fills the requested hits. A database page
 can cross the byte budget by one page. Sparse searches in larger stores
 still need continuation, including empty pages.
 
+## Briefing
+
+Prep opens with `skill` and `name: "briefing"`. Before you say anything, the
+AI reads `get overview`, every committed entity with its history, and makes
+one optional pass over the latest transcript for what the story state lacks.
+It writes one plot-first page of 400 to 600 words in a fixed order: where the
+party stands, what pulls, forgotten threads, NPCs in play, clocks and
+pressure, two or three off-screen moves, store corrections and frame flags
+when needed, and two or three numbered "what next" options with the
+recommended one first. Every fact carries a source: `[HH:MM:SS]` for the
+latest session, `[S<n> HH:MM:SS]` for an older one, or the entity name.
+Claims are marked as an NPC's word, a rumor, a player guess or a player plan.
+A gap is a flag, never an invented fact. Store corrections are written with
+`story_commit` only after your okay. With an empty frame the recommended
+option is a short frame talk; with only flagged fields it comes second.
+
 ## Adventure frame talk
 
-At the start of prep, load `skill` with `name: "frame-talk"`. The AI reads
+Load `skill` with `name: "frame-talk"` when the briefing offers it or a new
+adventure starts. When the briefing flagged only some fields, the short form
+asks about just those. The AI reads
 `get overview`, `get frame`, and the committed story state. It asks one
 question at a time, grounded in a named thread, NPC, clock, or character goal,
 and explains why it asks. You decide the situations and pressure. It never
@@ -155,14 +173,20 @@ history; `get overview` includes the current frame beside `lastTime`.
 Starting another adventure gives it a fresh frame and keeps earlier frames
 and their commits. Each owner's frame remains private.
 
-## Prep sparring and plank answers
+## Section walk and plank answers
 
-Load `skill` with `name: "prep-sparring"` after the frame talk. Give the AI
-your prep checklist and session-note template from your notes vault. It
-walks your sections in order with at most five sourced facts, one question
-per section, and checks against the frame and the committed story state.
-You decide the situations. It never drafts prep or proposes unless you
-explicitly ask; then it offers at most three sourced situations.
+Load `skill` with `name: "prep-sparring"` after the briefing. Give the AI
+your prep checklist, each section's definition, and your session-note
+template from your notes vault, or paste them. It walks your sections in
+order: at most five sourced facts, then pitches shaped by the section's
+definition, then your turn. Scenes and strong starts get two or three
+situations, each saying what it is built on; a secrets-and-clues section in
+the Lazy DM style gets ten tweet-short, character-facing items. Sections
+where you brought your own material, and mechanical ones, get no pitches.
+It asks only about a contradiction with the story state or one plank
+question per section. You pick, mix, reshape or ignore; only your picks
+enter the note, shown back in two or three lines, and every section closes
+with numbered next options.
 
 A missing main-plot fact loads `plank-questions`. The AI asks one targeted
 question and explains why, then records your confirmed answer with
@@ -187,11 +211,9 @@ reads the entity's history; each utterance ref reads
 `transcript:<session>@<timestamp>` for nearby context. A raw utterance is not
 itself a validated fact.
 
-At the end the AI assembles your decisions in your template, with at most
-five short bullets per section. For each place it adds two or three mood
-details only from your own descriptions, with sources. Missing details are
-marked instead of invented. Your prep stays in your vault; it does not
-become story state. `story_commit` accepts 1 to 500 changes, at most 16 KB
+At the end the AI assembles your picks in your template, in your words and
+language, without padding for skipped sections. Your prep stays in your
+vault; it does not become story state. `story_commit` accepts 1 to 500 changes, at most 16 KB
 per change and 512 KB for the reason and batch together. The existing
 2,000-entity/relationship replay capacity also applies.
 

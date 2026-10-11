@@ -182,9 +182,9 @@ test("skills list and load the procedures with the standing rules, and initializ
   const c = client();
   const init = await c.init();
   expect(init.result.instructions.length).toBeLessThan(4096);
-  expect(init.result.instructions).toContain("Never draft prep");
   const list = await c.call("skill");
   expect(list.skills.map((s: { name: string }) => s.name)).toEqual([
+    "briefing",
     "prep-sparring",
     "plank-questions",
     "frame-talk",
@@ -200,7 +200,7 @@ test("skills list and load the procedures with the standing rules, and initializ
   ]) {
     const skill = await c.call("skill", { name });
     expect(skill.procedure).toMatch(
-      /Never draft prep[\s\S]*Write in the game master's language\.$/,
+      /Standing rules[\s\S]*Write in the game master's language\.$/,
     );
   }
   expect((await c.call("skill", { name: "debrief" })).procedure).toContain(

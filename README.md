@@ -13,19 +13,42 @@ In Claude Code, use `/mcp` to sign in. Load `skill` with `name: "debrief"`
 before starting. The procedure also loads `map-speakers` and `split-scenes`.
 The server stores and validates the story state; it makes no AI calls.
 
-Start with `adventure_start`, then `session_create`. Call
-`transcript_upload_url` and upload the file directly from disk with
-`curl -T <file> <signed-url>`. The URL is single-use and expires after ten
-minutes. The transcript never belongs in a tool call or the assistant's
-output.
+Start with `adventure_start`, then `session_create`. The agent uploads the
+transcript itself. With a shell and a file on disk, it calls
+`transcript_upload_url` and runs `curl -T <file> <signed-url>` directly from
+disk. The URL is single-use and expires after ten minutes. This path sends
+no transcript tokens through the model.
 
-Claude Desktop and claude.ai have no shell. For them the tool also returns
-`pageUrl`, an upload page for that session. The game master opens it, signs
-in with the same AuthKit account, and drops the file. The page refuses
-anonymous visitors and sessions of another owner. It stores the file
-through the same parser and limits as the signed URL. The `split-scenes`
-skill tells the model to hand over the link when it cannot run `curl`.
+Without a shell, as in Claude Desktop or claude.ai, the agent sends the
+transcript it already holds in context through `transcript_append`:
 
+```json
+{"session":"<session-id>","chunk":"[00:00:00] GM: The lantern gate opens.\n","index":0,"final":true}
+```
+
+Send exact consecutive chunks of 1 to 64,000 UTF-8 bytes with indexes
+starting at zero. Preserve whitespace and line endings and do not split a
+Unicode character. Set `final` only on the last chunk. A reply with
+`uploaded: false` accepts the chunk; `uploaded: true` confirms the complete
+transcript is stored. The reply also carries `nextIndex` and accepted
+`bytes`. Out-of-order or missing chunks are rejected with the expected
+index. Identical retries, including the final chunk, are safe; changing an
+accepted chunk or its `final` flag is rejected. After bad input or to replace
+a transcript, send `restart: true` with index zero, then resend every chunk.
+Chunk uploads expire one hour after the first chunk. There are at most 128
+chunks and the same 8 MB total limit. This path spends model output tokens
+on tool arguments. With a shell, always use the signed URL instead.
+
+Both paths use the same parser, bounded storage batches, owner scoping,
+and lock once scenes or draft changes exist. Incomplete or failed chunk
+uploads keep the previous transcript readable; only a successful final
+call publishes a replacement. Never repeat the transcript in chat output.
+The `split-scenes`, `map-speakers`, and `debrief` procedures choose the path
+and never ask you to upload when a tool path can access the transcript.
+
+`transcript_upload_url` also returns `pageUrl`, a fallback when the client
+cannot access the transcript through either automatic path. The page
+requires the same AuthKit sign-in and refuses other owners' sessions.
 Use UTF-8 text with timestamped speakers:
 
 ```text
@@ -247,3 +270,14 @@ before/after definitions together must fit within 32 KB per schema commit.
 A rejection changes neither definitions nor history. Overview keeps the
 latest committed `lastTime` even when its debrief is older than the recent
 200-commit history window.
+
+
+For agent upload proof, run `pnpm exec tsx scripts/e2e-agent-upload.ts` with
+the same preview URL and staging token. It uploads an invented four-hour,
+4,801-utterance transcript through `transcript_append`, retries chunks,
+reads every page, compares original bytes, and verifies the scene lock.
+`proof/agent-upload/` includes red/green endpoint evidence, the gate,
+hosted SDK proof, and headless Claude Sonnet 5.5 runs with and without Bash.
+The no-shell run uploads the fixture from its prompt and records output
+tokens. The shell run uploads from disk and puts no transcript in its tool
+arguments or chat. Both are checked by independent hosted readback.

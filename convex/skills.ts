@@ -6,6 +6,9 @@ Ask about situations and pressure, never player decisions or outcomes.
 Story state records what happened. The adventure frame records intent. Keep them apart.
 Write in the game master's language.`;
 export const instructions = `Load the matching procedure with skill before starting a workflow.\n${standingRules}`;
+const uploadProcedure = `If the session has no stored transcript, upload the transcript yourself. With a shell and a file on disk, call transcript_upload_url and run curl -T <file> <signed-url> directly from disk. Never read, echo, cat or repeat the file to upload it. The signed URL is single-use and expires after ten minutes.
+Without a shell, send the transcript you hold in context through transcript_append {session, chunk, index, final}. Send exact consecutive chunks of at most 64000 UTF-8 bytes, starting at index 0 and increasing by 1. Do not summarize, omit or alter text, timestamps, speakers, whitespace or line endings; do not split a Unicode character. Set final: true only on the last chunk. Only uploaded: true confirms the complete transcript is stored. A response with uploaded: false accepts a chunk, not the transcript. Retry an identical chunk with the same index and final after a lost reply; use nextIndex to recover an out-of-order request. If the content must change or the one-hour chunk upload expires, send restart: true with index 0, then resend all chunks. Each tool call goes through the model, so this path costs output tokens; with a shell always use the signed URL instead.
+Both paths use UTF-8 [HH:MM:SS] Speaker: text with continuation lines, at most 8 MB and 20000 utterances, 32 KB per utterance including continuations. Upload before scenes or draft changes exist. Never echo the transcript in chat. Never ask the game master to upload when a tool path exists. The pageUrl from transcript_upload_url is a fallback only if the client cannot access the transcript through either path. Read get transcript:<session> to confirm it is stored.`;
 const procedures: Record<string, { description: string; procedure: string }> = {
   "frame-talk": {
     description:
@@ -21,14 +24,15 @@ Keep frame edits apart from story state. If an answer corrects what happened, us
   "map-speakers": {
     description:
       "Map transcript speakers to the game master, players and characters.",
-    procedure: `Read get overview, then get transcript:<session> or a timestamp window. Upload a file by calling transcript_upload_url and using curl -T <file> <signed-url> from disk, or without a shell by giving the game master pageUrl. Never echo, cat or repeat the transcript in output. The URL expires after ten minutes and is single-use. The format is UTF-8 [HH:MM:SS] Speaker: text, with continuation lines allowed; at most 8 MB and 20000 utterances. Follow nextCursor as cursor with the same ref while truncated, including timestamp windows; never treat a first page as the complete transcript.
+    procedure: `Read get overview. ${uploadProcedure}
+Read get transcript:<session> or a timestamp window. Follow nextCursor as cursor with the same ref while truncated, including timestamp windows; never treat a first page as the complete transcript.
 Map each speaker to game master, player and player character, or unknown. GM NPC voices can have separate labels. Use the content, not the label alone. Do not guess an unclear identity. Ask only when its answer changes story state. Keep this mapping in the conversation, not in invented schema properties.
 Keep alternate spellings as entity aliases after confirming they name the same person. A rumor figure stays in the rumor and is not an NPC just because named.`,
   },
   "split-scenes": {
     description:
       "Split a stored transcript into continuous places and situations.",
-    procedure: `If the session has no stored transcript, call transcript_upload_url and upload the file from disk with curl -T <file> <url>. If you cannot run curl, give the game master pageUrl, ask them to sign in there and drop the file, and continue once they say it is stored; get transcript:<session> confirms it.
+    procedure: `${uploadProcedure}
 Load skill map-speakers and map the speakers. Read get transcript:<session> in pages or timestamp windows; follow nextCursor as cursor with the same ref while truncated. Never repeat the transcript in output.
 Split into scenes at changes of place or situation. Give each a short title, start and optional end timestamp, place and a summary of plot points in one or two lines. Keep the original timestamps. Do not overlap scenes. Leave out rolls, rests, hit points and inventory.
 Call scenes_set with the session and scenes in order. Use get scene:<session>/<n> to check a scene with its utterances. Splitting replaces earlier scenes, so drop existing draft changes first; a committed debrief and its scenes are closed.`,
@@ -37,7 +41,8 @@ Call scenes_set with the session and scenes in order. Use get scene:<session>/<n
     description:
       "Draft story-state changes scene by scene for the game master to review.",
     procedure: `Start with get overview and get schema, then find without a query to see the committed story state. Follow nextCursor as cursor with the same arguments while truncated, even on an empty page. Do the same when reading scene transcripts or entity history. total is only complete when totalIsExact is true. If this is first use, adventure_start creates the campaign and starter schema; session_create records the played date in the current adventure. The first debrief seeds from the latest session and, if offered, the earlier session note. Do not bulk-import older sessions.
-Load skill map-speakers and skill split-scenes. Upload from disk with transcript_upload_url and curl -T, or hand the game master pageUrl when you cannot run curl, never putting the file in a tool call or output. Use the stored utterances and scenes.
+Load skill map-speakers and skill split-scenes. ${uploadProcedure}
+Use the stored utterances and scenes.
 Walk each scene in order. Use find by name and aliases before creating an entity. Record every named NPC who speaks or is named in play, but keep a person existing only in a rumor inside that rumor. For each NPC the game master voiced, fill playedAs from the actual voice and manner. Preserve spelling variants as aliases. Do not invent motives, secrets, properties or kinds. Fill only fields supported by the session. Leave out mechanics, rolls, rests, hit points and inventory.
 Each change needs scene, change, a non-empty basis list, at least one short verbatim source {quote, at?}, and why. Use basis narrated for narration, npc_said for an NPC claim, rumor for a rumor, player_guess or player_plan for those, and game_master for the GM's own answer. With npc_said identify the speaking NPC in the quote or why. A basis consisting only of player_guess/player_plan may touch only thread or character_goal, never an NPC, place, world fact or clock. Facts, claims, rumors and guesses must stay apart.
 Operations are new {kind,name,tempKey?,aliases?,properties?}, update {entity,properties?,addAliases?}, relate/unrelate {type,from,to}. Entity refs are ids or $tempKey from an earlier accepted new change in this draft. Read the allowed properties, enum values and relationship endpoint kinds from schema. A relationship touches both endpoints. Merge repeated updates within a scene where possible.

@@ -1,0 +1,13 @@
+
+> omni-gm@0.1.0 test /tmp/omnigm-impl26
+> vitest run tests/transcript-append.test.ts
+
+
+ RUN  v4.1.0 /tmp/omnigm-impl26
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  13:28:08
+   Duration  692ms (transform 415ms, setup 0ms, import 91ms, tests 504ms, environment 0ms)
+

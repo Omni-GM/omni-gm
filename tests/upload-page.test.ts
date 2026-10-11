@@ -86,16 +86,24 @@ test("the upload page refuses anonymous visitors and sessions of another owner, 
   );
 });
 
-test("split-scenes and the upload tool tell a client without a shell to hand over the page link", async () => {
+test("procedures and upload tools tell every client to upload itself, keeping the page as a fallback", async () => {
   const c = client();
   await c.init();
   const skill = await c.call("skill", { name: "split-scenes" });
-  expect(skill.procedure).toMatch(/cannot run curl[^\n]*pageUrl/);
+  expect(skill.procedure).toContain("transcript_append");
+  expect(skill.procedure).toContain("upload the transcript yourself");
+  for (const name of ["map-speakers", "debrief"]) {
+    expect((await c.call("skill", { name })).procedure).toContain(
+      "transcript_append",
+    );
+  }
   const tools = await c.rpc("tools/list");
   const upload = tools.result.tools.find(
     (t: { name: string }) => t.name === "transcript_upload_url",
   );
   expect(upload.description).toContain("pageUrl");
+  expect(upload.description).toContain("transcript_append");
+  expect(upload.description).toContain("fallback");
 });
 
 afterEach(() => {

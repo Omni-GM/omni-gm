@@ -1,0 +1,76 @@
+
+> omni-gm@0.1.0 test /tmp/omnigm-impl26
+> vitest run tests/transcript-append.test.ts
+
+
+ RUN  v4.1.0 /tmp/omnigm-impl26
+
+ ❯ tests/transcript-append.test.ts (9 tests | 5 failed) 1084ms
+   × missing and out-of-order chunks cannot publish, and sending the missing index recovers 23ms
+   × chunk and total size limits count UTF-8 bytes and leave rejected chunks retryable 346ms
+   × chunk uploads enforce the signed path's timestamp order limit 16ms
+   × chunk uploads enforce the signed path's utterance bytes limit 17ms
+   × chunk uploads enforce the signed path's utterance count limit 64ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/transcript-append.test.ts > missing and out-of-order chunks cannot publish, and sending the missing index recovers
+Error: {"jsonrpc":"2.0","id":7,"result":{"content":[{"type":"text","text":"Upload a transcript first"}],"isError":true}}
+ ❯ Object.call tests/mcp-client.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/transcript-append.test.ts:78:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  tests/transcript-append.test.ts > chunk and total size limits count UTF-8 bytes and leave rejected chunks retryable
+Error: {"jsonrpc":"2.0","id":131,"result":{"content":[{"type":"text","text":"Upload a transcript first"}],"isError":true}}
+ ❯ Object.call tests/mcp-client.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/transcript-append.test.ts:108:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  tests/transcript-append.test.ts > chunk uploads enforce the signed path's timestamp order limit
+ FAIL  tests/transcript-append.test.ts > chunk uploads enforce the signed path's utterance bytes limit
+Error: {"jsonrpc":"2.0","id":5,"result":{"content":[{"type":"text","text":"Upload a transcript first"}],"isError":true}}
+ ❯ Object.call tests/mcp-client.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/transcript-append.test.ts:123:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  tests/transcript-append.test.ts > chunk uploads enforce the signed path's utterance count limit
+Error: {"jsonrpc":"2.0","id":21,"result":{"content":[{"type":"text","text":"Upload a transcript first"}],"isError":true}}
+ ❯ Object.call tests/mcp-client.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/transcript-append.test.ts:123:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 4 passed (9)
+   Start at  13:30:06
+   Duration  1.28s (transform 427ms, setup 0ms, import 97ms, tests 1.08s, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

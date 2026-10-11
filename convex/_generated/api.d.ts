@@ -19,6 +19,7 @@ import type * as search from "../search.js";
 import type * as skills from "../skills.js";
 import type * as store from "../store.js";
 import type * as tools from "../tools.js";
+import type * as transcriptAppend from "../transcriptAppend.js";
 import type * as uploadPage from "../uploadPage.js";
 import type * as uploads from "../uploads.js";
 
@@ -40,6 +41,7 @@ declare const fullApi: ApiFromModules<{
   skills: typeof skills;
   store: typeof store;
   tools: typeof tools;
+  transcriptAppend: typeof transcriptAppend;
   uploadPage: typeof uploadPage;
   uploads: typeof uploads;
 }>;

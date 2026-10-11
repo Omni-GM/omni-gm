@@ -1,0 +1,35 @@
+
+> omni-gm@0.1.0 test /tmp/omnigm-impl26
+> vitest run tests/transcript-append.test.ts
+
+
+ RUN  v4.1.0 /tmp/omnigm-impl26
+
+ ❯ tests/transcript-append.test.ts (3 tests | 1 failed) 567ms
+   × an invalid final upload leaves the old transcript readable and the agent can restart with corrected bytes 21ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/transcript-append.test.ts > an invalid final upload leaves the old transcript readable and the agent can restart with corrected bytes
+AssertionError: expected [Function] to throw error including 'HH:MM:SS' but got '{"jsonrpc":"2.0","id":5,"result":{"co…'
+
+Expected: "HH:MM:SS"
+Received: "{"jsonrpc":"2.0","id":5,"result":{"content":[{"type":"text","text":"Tool execution failed"}],"isError":true}}"
+
+ ❯ tests/transcript-append.test.ts:64:53
+     62|   await c.call("transcript_append", original);
+     63|   const invalid = { ...original, chunk: "not a timestamped transcript"…
+     64|   await expect(c.call("transcript_append", invalid)).rejects.toThrow("…
+       |                                                     ^
+     65|   await expect(c.call("transcript_append", { ...invalid, restart: fals…
+     66|   expect((await downloaded(c, s.id)).text).toBe(original.chunk);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  13:29:04
+   Duration  761ms (transform 424ms, setup 0ms, import 93ms, tests 567ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

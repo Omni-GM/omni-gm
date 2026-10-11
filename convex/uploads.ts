@@ -128,12 +128,19 @@ export const expire = internalMutation({
   handler: async (ctx, { ticket }) => {
     const row = await ctx.db.get(ticket);
     if (row) {
-      if (row.storage)
+      if (row.storage && !row.appendState?.completed)
         await ctx.scheduler.runAfter(0, internal.uploads.cleanup, {
           session: row.session,
           storage: row.storage,
           generation: row.storage,
         });
+      if (row.appendState) {
+        const chunks = await ctx.db
+          .query("transcriptChunks")
+          .withIndex("by_upload_and_index", (q) => q.eq("upload", ticket))
+          .take(128);
+        for (const chunk of chunks) await ctx.db.delete(chunk._id);
+      }
       await ctx.db.delete(ticket);
     }
     return null;
@@ -191,7 +198,11 @@ export const finish = internalMutation({
       transcript: storage,
       transcriptGeneration: storage,
     });
-    await ctx.db.delete(ticket._id);
+    if (ticket.appendState)
+      await ctx.db.patch(ticket._id, {
+        appendState: { ...ticket.appendState, completed: true },
+      });
+    else await ctx.db.delete(ticket._id);
     if (session.transcript)
       await ctx.scheduler.runAfter(0, internal.uploads.cleanup, {
         session: session._id,
@@ -212,7 +223,12 @@ export const abort = internalMutation({
         storage,
         generation: storage,
       });
-      await ctx.db.delete(ticket._id);
+      if (ticket.appendState)
+        await ctx.db.patch(ticket._id, {
+          storage: undefined,
+          count: undefined,
+        });
+      else await ctx.db.delete(ticket._id);
     }
     return null;
   },
@@ -264,7 +280,7 @@ const lockedTranscript = {
   status: 409,
   message: "Transcript is locked once scenes or a debrief exist",
 };
-async function store(
+export async function storeTranscript(
   ctx: ActionCtx,
   token: string,
   request: Request,
@@ -339,7 +355,7 @@ export const upload = httpAction(async (ctx, request) => {
   const token = new URL(request.url).searchParams.get("token") ?? "";
   if (!(await ctx.runQuery(internal.uploads.valid, { token })))
     return new Response("Expired or used URL", { status: 403 });
-  return store(ctx, token, request, refusedUrl);
+  return storeTranscript(ctx, token, request, refusedUrl);
 });
 const pageSessionResult = v.union(
   v.null(),
@@ -398,7 +414,7 @@ export const pageSessionApi = httpAction(async (ctx, request) => {
     if (error instanceof ConvexError) return locked();
     throw error;
   }
-  return store(ctx, token, request, lockedTranscript);
+  return storeTranscript(ctx, token, request, lockedTranscript);
 });
 export const transcriptFile = internalQuery({
   args: { ...callerArgs, session: v.string() },

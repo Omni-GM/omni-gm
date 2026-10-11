@@ -2,7 +2,7 @@ import { ConvexError, type Infer, v } from "convex/values";
 import { internal } from "./_generated/api";
 import type { Doc, Id } from "./_generated/dataModel";
 import { internalQuery } from "./_generated/server";
-import { schemaFor } from "./model";
+import { basis, schemaFor } from "./model";
 import {
   continuation,
   pageArgs,
@@ -25,6 +25,7 @@ const hit = v.object({
   title: v.string(),
   snippet: v.optional(v.string()),
   score: v.optional(v.number()),
+  basis: v.optional(v.array(basis)),
 });
 export const findArgs = {
   ...callerArgs,
@@ -162,6 +163,7 @@ export const searchPage = internalQuery({
           ref: `entity:${row.entityIds[0]}`,
           type,
           title: row.why,
+          basis: row.basis,
           snippet:
             `${row.basis.join(", ")}: ${row.sources.map((s) => s.quote).join(" ")}`.slice(
               0,

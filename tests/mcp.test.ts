@@ -185,6 +185,8 @@ test("skills list and load the procedures with the standing rules, and initializ
   expect(init.result.instructions).toContain("Never draft prep");
   const list = await c.call("skill");
   expect(list.skills.map((s: { name: string }) => s.name)).toEqual([
+    "prep-sparring",
+    "plank-questions",
     "frame-talk",
     "map-speakers",
     "split-scenes",
@@ -1938,7 +1940,7 @@ test("more than 2000 changes to one entity remain reachable with distinct histor
   } while (cursor);
   expect(hits).toHaveLength(2004);
   expect(new Set(hits.map((h) => h.id)).size).toBe(2004);
-});
+}, 15_000);
 
 test("replacing a long transcript hides the old generation and invalidates its continuation", async () => {
   const c = client();

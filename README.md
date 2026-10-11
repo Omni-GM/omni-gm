@@ -76,8 +76,8 @@ Later corrections use `story_commit`.
 
 `debrief_commit` refuses a draft without a briefing and keeps the briefing
 with the committed session. At prep, `get overview` returns it as `briefing`
-(`session`, `commit`, `text`, and the `story` commits written since as
-`correctionsSince`), or `null` before the first commit with a briefing, and
+(`session`, `commit`, `text`, and the 200 newest `story` commits written
+since as `correctionsSince`, oldest first), or `null` before the first commit with a briefing, and
 the `briefing` skill opens prep with that text instead of regenerating it.
 `find` lists entities and scenes without a query, or searches names,
 aliases, property values, scenes, source quotes, and transcript utterances.

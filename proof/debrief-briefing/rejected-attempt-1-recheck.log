@@ -1,0 +1,18 @@
+PROOF TARGET https://amicable-salmon-984.convex.site
+PASS turn one drafts a tide clock that pressures its thread, both Brask ties and the bell condition with npc_said (39 changes)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: At most one line before the briefing: I've debriefed session 1 of Brackwater (played 2026-03-14). The transcript is split into 4 scenes, and 37 changes plus the draft briefing below are stored in the draft. Nothing is committed yet. / Two links were turned down because a player's line alone can't support them: Ilka starting the courier thread and Rook starting the grey-cloak thread. I left them out, and each thread's own text still says it.
+    at reviewShape (/home/coder/dev/omni-gm-wt40/scripts/verify-debrief-briefing.ts:146:3)
+    at <anonymous> (/home/coder/dev/omni-gm-wt40/scripts/verify-debrief-briefing.ts:254:31) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.21.0

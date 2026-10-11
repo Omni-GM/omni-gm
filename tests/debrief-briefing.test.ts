@@ -113,3 +113,32 @@ test("a briefing over 16 KB is refused and leaves the draft as it was", async ()
     briefing,
   );
 });
+
+test("past 200 corrections, the overview keeps the newest ones written since the debrief", async () => {
+  const { c, session } = await debriefReadyToReview();
+  await c.call("debrief_add", { session, briefing, changes: [seraSpeaks] });
+  await c.call("debrief_commit", { session });
+  const sera = (await c.call("find", { query: "Sera Venn" })).hits[0].ref;
+  for (let i = 1; i <= 201; i++)
+    await c.call("story_commit", {
+      reason: `Correction ${i}`,
+      changes: [
+        {
+          change: {
+            op: "update",
+            entity: sera.replace(/^entity:/, ""),
+            properties: { knows: `Fact ${i}` },
+          },
+          basis: ["game_master"],
+          sources: [{ quote: `Fact ${i}` }],
+          why: "The game master corrected the store",
+        },
+      ],
+    });
+  const reasons = (
+    await c.call("get", { ref: "overview" })
+  ).briefing.correctionsSince.map((r: { reason: string }) => r.reason);
+  expect(reasons).toHaveLength(200);
+  expect(reasons[0]).toBe("Correction 2");
+  expect(reasons.at(-1)).toBe("Correction 201");
+});

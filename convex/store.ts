@@ -203,12 +203,13 @@ async function storedBriefing(
         .eq("kind", "story")
         .gt("_creationTime", debrief._creationTime),
     )
+    .order("desc")
     .take(200);
   return {
     session: debrief.session,
     commit: debrief._id,
     text: briefing,
-    correctionsSince: corrections.map((c) => ({
+    correctionsSince: corrections.reverse().map((c) => ({
       commit: c._id,
       reason: c.reason,
     })),

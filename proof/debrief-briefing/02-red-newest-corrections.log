@@ -1,0 +1,33 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-wt40
+
+ ↓ tests/debrief-briefing.test.ts > the committed debrief stores its briefing, and the overview returns it with the corrections written since
+ ↓ tests/debrief-briefing.test.ts > a debrief without a briefing is refused at commit
+ ↓ tests/debrief-briefing.test.ts > a briefing over 16 KB is refused and leaves the draft as it was
+ × tests/debrief-briefing.test.ts > past 200 corrections, the overview keeps the newest ones written since the debrief 864ms
+   → expected 'Correction 1' to be 'Correction 2' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/debrief-briefing.test.ts > past 200 corrections, the overview keeps the newest ones written since the debrief
+AssertionError: expected 'Correction 1' to be 'Correction 2' // Object.is equality
+
+Expected: "Correction 2"
+Received: "Correction 1"
+
+ ❯ tests/debrief-briefing.test.ts:142:22
+    140|   ).briefing.correctionsSince.map((r: { reason: string }) => r.reason);
+    141|   expect(reasons).toHaveLength(200);
+    142|   expect(reasons[0]).toBe("Correction 2");
+       |                      ^
+    143|   expect(reasons.at(-1)).toBe("Correction 201");
+    144| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 skipped (4)
+   Start at  19:29:30
+   Duration  1.05s (transform 405ms, setup 0ms, import 92ms, tests 865ms, environment 0ms)
+

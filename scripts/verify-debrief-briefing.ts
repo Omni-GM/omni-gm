@@ -132,17 +132,40 @@ function units(text: string): string[] {
   return found.filter((unit) => /\p{L}/u.test(unit));
 }
 const unquoted = (text: string) => text.replace(/["“][^"”]*["”]/g, "");
-function questionsAfter(briefing: string, review: string): string[] {
+const questionMarks = (text: string) =>
+  (unquoted(text).match(/\?/g) ?? []).length;
+function reviewShape(turn: Turn, briefing: string) {
+  for (const line of briefing.split("\n").filter((l) => plain(l)))
+    assert(
+      plain(turn.reply).includes(plain(line)),
+      `The review shows the stored draft briefing line: ${line}`,
+    );
+  const lines = turn.reply.split("\n");
+  const start = headingLine(turn.reply, parts[0]);
+  const preamble = lines.slice(0, start).filter((l) => /\p{L}/u.test(l));
+  assert(
+    preamble.length <= 1,
+    `At most one line before the briefing: ${preamble.join(" / ")}`,
+  );
   const last = plain(briefing.trim().split("\n").at(-1) ?? "");
-  const lines = review.split("\n");
   const end =
     lines.length -
     1 -
     [...lines].reverse().findIndex((line) => plain(line).includes(last));
-  assert(end < lines.length, "The review contains the draft briefing");
-  return units(lines.slice(end + 1).join("\n")).filter((u) =>
-    /\?/.test(unquoted(u)),
+  const after = lines.slice(end + 1).join("\n");
+  const questions = units(after).filter((u) => questionMarks(u) > 0);
+  for (const q of questions) {
+    assert.equal(questionMarks(q), 1, `One question per item: ${q}`);
+    assert(timestamp.test(q), `Question without a timestamp: ${q}`);
+  }
+  assert(questions.length <= 5, `At most five questions, ${questions.length}`);
+  const rest = words(preamble.join(" ")) + words(after);
+  assert(rest <= 300, `The review adds only questions and options, ${rest}`);
+  assert(
+    !/\b(c\d+|tempKey|op:|basis:)/.test(turn.reply),
+    "No per-change detail before it is asked for",
   );
+  return { questions, rest };
 }
 function proposed(turn: Turn): Proposed[] {
   return calls(turn, "debrief_add").flatMap(
@@ -227,30 +250,11 @@ try {
     inOrder(briefingParts(firstBriefing)),
     `The draft briefing has its parts in order: ${briefingParts(firstBriefing)}`,
   );
-  for (const line of firstBriefing.split("\n").filter((l) => plain(l)))
-    assert(
-      plain(review.reply).includes(plain(line)),
-      `The review shows the stored draft briefing line: ${line}`,
-    );
-  const questions = questionsAfter(firstBriefing, review.reply);
-  assert(
-    questions.length >= 1 && questions.length <= 5,
-    `One to five review questions, got ${questions.length}`,
-  );
-  for (const q of questions)
-    assert(timestamp.test(q), `Question without a timestamp: ${q}`);
-  assert(!unquoted(firstBriefing).includes("?"), "The briefing asks nothing");
-  const rest = words(review.reply) - words(firstBriefing);
-  assert(
-    rest <= 300,
-    `The review adds only questions and options, ${rest} words`,
-  );
-  assert(
-    !/\b(c\d+|tempKey|op:|basis:)/.test(review.reply),
-    "No per-change detail before it is asked for",
-  );
+  assert(!questionMarks(firstBriefing), "The briefing itself asks nothing");
+  const { questions, rest } = reviewShape(review, firstBriefing);
+  assert(questions.length >= 1, "The review asks about the planted gaps");
   console.log(
-    `PASS the review is the stored draft briefing (${words(firstBriefing)} words, parts in order) plus ${questions.length} timestamped questions and ${rest} words of questions and options, no per-change detail`,
+    `PASS the review is the stored draft briefing (${words(firstBriefing)} words, parts in order), at most one line before it, then ${questions.length} questions, one per item, each timestamped, and ${rest} words besides the briefing, no per-change detail`,
   );
   for (const q of questions) console.log(`  QUESTION ${q}`);
 
@@ -265,9 +269,10 @@ try {
     );
   const revised = storedBriefings(answered).at(-1);
   assert(revised && revised !== firstBriefing, "Answers revise the briefing");
-  assert(inOrder(briefingParts(answered.reply)), "Turn two shows it again");
+  assert(inOrder(briefingParts(revised)), "The revised briefing keeps order");
+  const again = reviewShape(answered, revised);
   console.log(
-    `PASS all ${answers.length} answer changes carry basis game_master with the game master's words as a source, and the briefing was revised and shown again`,
+    `PASS all ${answers.length} answer changes carry basis game_master with the game master's words as a source; the review shows the revised briefing again in the same shape, ${again.questions.length} questions still open and ${again.rest} words besides the briefing, without listing the answer changes`,
   );
 
   const commits = calls(committed, "debrief_commit");

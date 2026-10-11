@@ -8,6 +8,8 @@ import {
 } from "./_generated/server";
 import {
   adventure,
+  frameFields,
+  frameUpdateResult,
   type ReadValue,
   readValue,
   schemaFor,
@@ -27,6 +29,48 @@ export async function campaignFor(
     throw new ConvexError("No campaign. Call adventure_start first.");
   return campaign;
 }
+export async function currentAdventureFor(
+  ctx: QueryCtx,
+  campaign: Doc<"campaigns">,
+): Promise<Doc<"adventures">> {
+  const adventure = campaign.currentAdventure
+    ? await ctx.db.get(campaign.currentAdventure)
+    : null;
+  if (!adventure || adventure.campaign !== campaign._id)
+    throw new ConvexError("Call adventure_start first");
+  return adventure;
+}
+export const frameArgs = {
+  ...callerArgs,
+  reason: v.string(),
+  fields: frameFields,
+};
+export const frameUpdate = internalMutation({
+  args: frameArgs,
+  returns: frameUpdateResult,
+  handler: async (
+    ctx,
+    { caller, reason, fields },
+  ): Promise<Infer<typeof frameUpdateResult>> => {
+    if (!reason.trim()) throw new ConvexError("A reason is required");
+    if (!Object.keys(fields).length)
+      throw new ConvexError("Provide at least one frame field");
+    const campaign = await campaignFor(ctx, caller);
+    const adventure = await currentAdventureFor(ctx, campaign);
+    const before = adventure.frame ?? {};
+    const after = { ...before, ...fields };
+    const commit = await ctx.db.insert("commits", {
+      campaign: campaign._id,
+      adventure: adventure._id,
+      kind: "frame",
+      reason,
+      before,
+      after,
+    });
+    await ctx.db.patch(adventure._id, { frame: after });
+    return { commit, adventure: adventure._id, fields: after };
+  },
+});
 export async function sessionFor(
   ctx: QueryCtx,
   campaign: Id<"campaigns">,
@@ -147,6 +191,36 @@ async function read(
   ref: string,
 ): Promise<ReadValue> {
   if (ref === "schema") return schemaFor(campaign);
+  if (ref === "frame") {
+    const adventure = await currentAdventureFor(ctx, campaign);
+    const commits = await ctx.db
+      .query("commits")
+      .withIndex("by_campaign_and_adventure", (q) =>
+        q.eq("campaign", campaign._id).eq("adventure", adventure._id),
+      )
+      .take(2001);
+    if (commits.length > 2000)
+      throw new ConvexError(
+        "Frame history exceeds v1 read capacity of 2000 commits",
+      );
+    return {
+      adventure: adventure._id,
+      name: adventure.name,
+      fields: adventure.frame ?? {},
+      history: commits
+        .filter((c) => c.kind === "frame")
+        .map((c) => {
+          if (!c.before || !c.after) throw new Error("Missing frame history");
+          return {
+            id: c._id,
+            kind: "frame" as const,
+            reason: c.reason,
+            before: c.before,
+            after: c.after,
+          };
+        }),
+    };
+  }
   if (ref === "overview") {
     const sessions = await ctx.db
       .query("sessions")
@@ -163,6 +237,9 @@ async function read(
       .withIndex("by_campaign", (q) => q.eq("campaign", campaign._id))
       .order("desc")
       .take(200);
+    const current = campaign.currentAdventure
+      ? await currentAdventureFor(ctx, campaign)
+      : null;
     const latestDebrief = await ctx.db
       .query("commits")
       .withIndex("by_campaign_and_kind", (q) =>
@@ -186,6 +263,13 @@ async function read(
         ...(c.schemaChange ? { schemaChange: c.schemaChange } : {}),
       })),
       currentAdventure: campaign.currentAdventure ?? null,
+      frame: current
+        ? {
+            adventure: current._id,
+            name: current.name,
+            fields: current.frame ?? {},
+          }
+        : null,
       lastTime: latestSession
         ? (await sessionFor(ctx, campaign._id, latestSession)).lastTime
         : "",
@@ -327,7 +411,7 @@ async function read(
   if (ref.startsWith("session:"))
     return sessionResult(await sessionFor(ctx, campaign._id, ref));
   throw new ConvexError(
-    "Allowed refs: overview, schema, entity:<id>, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>",
+    "Allowed refs: overview, frame, schema, entity:<id>, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>",
   );
 }
 export const get = internalQuery({

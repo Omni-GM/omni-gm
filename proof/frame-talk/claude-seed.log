@@ -1,0 +1,14 @@
+
+> omni-gm@0.1.0 e2e /home/coder/dev/omni-gm-frame-talk
+> tsx scripts/e2e.ts
+
+PASS anonymous endpoint requires auth
+PASS byte-exact signed upload, parsed utterances, single use
+PASS scenes stored
+PASS invented property and NPC player guess rejected independently
+PASS drop returns the updated draft
+PASS atomic commit
+PASS alias lookup, playedAs, history with basis and sources, lastTime read back
+PASS hosted Unicode name lookup excludes unrelated prefix matches
+PROOF SESSION k578mmjr55h63xhzc7xmzy4e918g21s3
+SDK E2E PASSED

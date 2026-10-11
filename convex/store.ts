@@ -16,6 +16,7 @@ import {
   schemaFor,
   seconds,
   sessionInfo,
+  type storedBriefing as storedBriefingValue,
 } from "./model";
 import { continuation, pageArgs, pageLimit, position } from "./pagination";
 export const callerArgs = { caller: mcpCallerValidator };
@@ -101,7 +102,6 @@ export function sessionResult(s: Doc<"sessions">): Infer<typeof sessionInfo> {
     ordinal: s.ordinal,
     scenes: s.scenes,
     status: s.status,
-    lastTime: s.lastTime,
   };
 }
 export const adventureArgs = {
@@ -169,7 +169,6 @@ export const sessionCreate = internalMutation({
       ordinal: (latest?.ordinal ?? 0) + 1,
       scenes: [],
       status: "draft",
-      lastTime: "",
       changes: [],
       nextChange: 1,
     });
@@ -188,6 +187,34 @@ export const getResult = v.object({
   value: v.union(readValue, v.null()),
   items: v.optional(v.array(v.object({ ref: v.string(), value: readValue }))),
 });
+async function storedBriefing(
+  ctx: QueryCtx,
+  campaign: Id<"campaigns">,
+  debrief: Doc<"commits">,
+): Promise<Infer<typeof storedBriefingValue> | null> {
+  if (!debrief.session) throw new Error("Debrief commit without a session");
+  const { briefing } = await sessionFor(ctx, campaign, debrief.session);
+  if (!briefing) return null;
+  const corrections = await ctx.db
+    .query("commits")
+    .withIndex("by_campaign_and_kind", (q) =>
+      q
+        .eq("campaign", campaign)
+        .eq("kind", "story")
+        .gt("_creationTime", debrief._creationTime),
+    )
+    .order("desc")
+    .take(200);
+  return {
+    session: debrief.session,
+    commit: debrief._id,
+    text: briefing,
+    correctionsSince: corrections.reverse().map((c) => ({
+      commit: c._id,
+      reason: c.reason,
+    })),
+  };
+}
 async function read(
   ctx: QueryCtx,
   campaign: Doc<"campaigns">,
@@ -283,7 +310,6 @@ async function read(
       )
       .order("desc")
       .first();
-    const latestSession = latestDebrief?.session;
     return {
       adventures: adventures.map((a) => ({
         id: a._id,
@@ -306,9 +332,9 @@ async function read(
             fields: current.frame ?? {},
           }
         : null,
-      lastTime: latestSession
-        ? (await sessionFor(ctx, campaign._id, latestSession)).lastTime
-        : "",
+      briefing: latestDebrief
+        ? await storedBriefing(ctx, campaign._id, latestDebrief)
+        : null,
     };
   }
   if (ref.startsWith("transcript:")) {
@@ -426,7 +452,7 @@ async function read(
       session: s._id,
       status: s.status,
       changes: s.changes,
-      lastTime: s.lastTime,
+      briefing: s.briefing ?? "",
     };
   }
   if (ref.startsWith("scene:")) {

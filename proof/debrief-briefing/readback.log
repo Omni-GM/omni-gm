@@ -1,0 +1,10 @@
+PROOF TARGET https://graceful-leopard-903.convex.site
+PASS turn one drafts a tide clock that pressures its thread, both Brask ties and the bell condition with npc_said (35 changes)
+PASS the review is the stored draft briefing (538 words, parts in order), at most one line before it, then 2 questions, one per item, each timestamped, and 101 words besides the briefing, no per-change detail
+  QUESTION 1. Brother Fen never speaks in the transcript, though he arrives with the party at [00:00:15]. Who is he: what's his concept, and does he have a personal goal at Brackwater?
+  QUESTION 2. Calloway rides off "toward the garrison" at [00:10:40]. Is the garrison on this side of the causeway or across the marsh?
+PASS all 4 answer changes carry basis game_master with the game master's words as a source; the review shows the revised briefing again in the same shape, 0 questions still open and 49 words besides the briefing, without listing the answer changes
+PASS get overview returns the committed briefing, the last draft briefing stored with debrief_add (552 words)
+PASS the store holds Hedda's and Osric's ties, "Osric's ferry bell for the ledger" with the bell condition on npc_said, and the "Spring tide" clock pressuring a thread
+PASS the next prep opens with the stored briefing word for word, reads only skill briefing, skill prep-sparring, get overview, and adds the correction written since before What next
+DEBRIEF BRIEFING HEADLESS PROOF PASSED

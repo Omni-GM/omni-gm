@@ -31,7 +31,7 @@ async function story(): Promise<unknown> {
     limit: 200,
   });
   const overview = await call<{
-    value: { lastTime: string; sessions: { id: string }[] };
+    value: { briefing: unknown; sessions: { id: string }[] };
   }>("get", { ref: "overview" });
   return {
     found,
@@ -44,7 +44,7 @@ async function story(): Promise<unknown> {
       ),
     ),
     schema: await call("get", { ref: "schema" }),
-    lastTime: overview.value.lastTime,
+    briefing: overview.value.briefing,
   };
 }
 type Block = {

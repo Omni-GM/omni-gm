@@ -29,7 +29,7 @@ async function call<T>(
 type Draft = {
   session: string;
   status: string;
-  lastTime: string;
+  briefing: string;
   changes: { id: string; change: { kind?: string; name?: string } }[];
 };
 try {
@@ -111,14 +111,14 @@ try {
     ],
     why: "Remember the voiced NPC",
   };
-  const lastTime =
+  const briefing =
     "At dusk at the ferry landing. Pulling forward: the broken seal and the gatekeeper's red cord. Ticking: gate closes, 1/4, visible. Also open: Rowan's suspicion of raider ties, a guess; the Lantern Widow, a rumor.";
   const added = await call<{
     draft: Draft;
     rejected: { index: number; reason: string }[];
   }>("debrief_add", {
     session: session.id,
-    lastTime,
+    briefing,
     changes: [
       {
         ...evidence,
@@ -248,12 +248,13 @@ try {
     types: ["source"],
   });
   assert(sources.hits.some((h) => h.snippet.includes("npc_said")));
-  const overview = await call<{ value: { lastTime: string } }>("get", {
-    ref: "overview",
-  });
-  assert.equal(overview.value.lastTime, lastTime);
+  const overview = await call<{ value: { briefing: { text: string } } }>(
+    "get",
+    { ref: "overview" },
+  );
+  assert.equal(overview.value.briefing.text, briefing);
   console.log(
-    "PASS alias lookup, playedAs, history with basis and sources, lastTime read back",
+    "PASS alias lookup, playedAs, history with basis and sources, briefing read back",
   );
   const unicode = await call<{ id: string }>("session_create", {
     playedOn: "2026-01-04",
@@ -283,7 +284,7 @@ try {
   });
   await call("debrief_add", {
     session: unicode.id,
-    lastTime: "The ferrymen meet.",
+    briefing: "The ferrymen meet.",
     changes: ["Jörg Kühn", "Jara Horn"].map((name) => ({
       scene: 1,
       change: { op: "new", kind: "npc", name },

@@ -80,7 +80,7 @@ test("a plank answer commits new entities, aliases and relationships together wi
   });
   expect(after.frame).toEqual(before.frame);
   expect(after.sessions).toEqual(before.sessions);
-  expect(after.lastTime).toEqual(before.lastTime);
+  expect(after.briefing?.text).toEqual(before.briefing?.text);
 });
 
 test("a rejected story batch leaves state, relationships, sources and commit history unchanged", async () => {
@@ -413,7 +413,7 @@ test("the client loads the section walk and plank questions with their creative 
   expect(story.outputSchema.properties.commit).toBeDefined();
 });
 
-test("a correction preserves the closed debrief and lastTime while changing current state, and another owner cannot correct it", async () => {
+test("a correction preserves the closed debrief and its briefing while changing current state, and another owner cannot correct it", async () => {
   const c = await campaign();
   const s = await c.call("session_create", { playedOn: "2026-01-03" });
   const { url } = await c.call("transcript_upload_url", { session: s.id });
@@ -435,7 +435,7 @@ test("a correction preserves the closed debrief and lastTime while changing curr
   });
   await c.call("debrief_add", {
     session: s.id,
-    lastTime: "At the ferry. Mira waits.",
+    briefing: "At the ferry. Mira waits.",
     changes: [
       {
         scene: 1,
@@ -486,7 +486,7 @@ test("a correction preserves the closed debrief and lastTime while changing curr
   });
   expect(await c.call("get", { ref: `debrief:${s.id}` })).toEqual(draft);
   expect(await c.call("get", { ref: `session:${s.id}` })).toEqual(session);
-  expect((await c.call("get", { ref: "overview" })).lastTime).toBe(
+  expect((await c.call("get", { ref: "overview" })).briefing.text).toBe(
     "At the ferry. Mira waits.",
   );
   await expect(c.call("debrief_commit", { session: s.id })).rejects.toThrow(

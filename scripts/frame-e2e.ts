@@ -37,7 +37,7 @@ type Frame = {
 type Overview = {
   frame: Omit<Frame, "history">;
   currentAdventure: string;
-  lastTime: string;
+  briefing: unknown;
   sessions: { id: string }[];
 };
 async function story(): Promise<unknown> {
@@ -57,7 +57,7 @@ async function story(): Promise<unknown> {
       ),
     ),
     schema: await call("get", { ref: "schema" }),
-    lastTime: overview.value.lastTime,
+    briefing: overview.value.briefing,
   };
 }
 try {
@@ -127,7 +127,7 @@ try {
   assert.deepEqual(overview.frame.fields, frame.fields);
   assert.deepEqual(await story(), beforeStory);
   console.log(
-    "PASS get frame and overview agree; entities, relationships, entity history, sessions, custom campaign schema and lastTime unchanged",
+    "PASS get frame and overview agree; entities, relationships, entity history, sessions, custom campaign schema and briefing unchanged",
   );
   console.log("FRAME SDK E2E PASSED");
 } finally {

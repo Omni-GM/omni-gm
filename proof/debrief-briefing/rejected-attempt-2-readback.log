@@ -1,0 +1,18 @@
+PROOF TARGET https://blessed-caribou-237.convex.site
+PASS turn one drafts a tide clock that pressures its thread, both Brask ties and the bell condition with npc_said (44 changes)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The review shows the stored draft briefing line: - Osric's ferry bell: Hedda's price for the ledger. According to Hedda: "You bring that bell back to me and I open the ledger for you. Not before." [00:12:50]. According to Osric, low tide at the fifth bell gives "an hour in that chapel, no more" [00:20:10].
+    at reviewShape (/home/coder/dev/omni-gm-wt40/scripts/verify-debrief-briefing.ts:139:5)
+    at <anonymous> (/home/coder/dev/omni-gm-wt40/scripts/verify-debrief-briefing.ts:254:31) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.21.0

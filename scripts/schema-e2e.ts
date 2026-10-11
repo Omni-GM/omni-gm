@@ -139,7 +139,7 @@ try {
     "debrief_add",
     {
       session: s,
-      lastTime: "Sera mentors Rowan at the ferry.",
+      briefing: "Sera mentors Rowan at the ferry.",
       changes: [
         {
           ...evidence,
@@ -230,7 +230,7 @@ try {
   const pending = await session();
   await call("debrief_add", {
     session: pending,
-    lastTime: "Pending greeting.",
+    briefing: "Pending greeting.",
     changes: [
       {
         ...evidence,

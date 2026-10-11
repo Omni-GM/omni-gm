@@ -76,7 +76,7 @@ function draftArguments(session: string) {
   };
   return {
     session,
-    lastTime:
+    briefing:
       "At dusk at the ferry landing.\nPulling forward: the broken seal, the gatekeeper's red cord.\nTicking: the river gate closes, 2/4, visible.\nAlso open: Rowan suspects Sera works for the raiders (a guess).",
     changes: [
       {

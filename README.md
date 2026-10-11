@@ -13,43 +13,22 @@ In Claude Code, use `/mcp` to sign in. Load `skill` with `name: "debrief"`
 before starting. The procedure also loads `map-speakers` and `split-scenes`.
 The server stores and validates the story state; it makes no AI calls.
 
-Start with `adventure_start`, then `session_create`. The agent uploads the
-transcript itself. With a shell and a file on disk, it calls
-`transcript_upload_url` and runs `curl -T <file> <signed-url>` directly from
-disk. The URL is single-use and expires after ten minutes. This path sends
-no transcript tokens through the model.
+Start with `adventure_start`, then `session_create` and `transcript_upload_url`.
+With a shell and a file on disk, the agent runs `curl -T <file> <signed-url>`
+directly from disk. The URL is single-use and expires after ten minutes.
+This path sends no transcript tokens through the model.
 
-Without a shell, as in Claude Desktop or claude.ai, the agent sends the
-transcript it already holds in context through `transcript_append`:
-
-```json
-{"session":"<session-id>","chunk":"[00:00:00] GM: The lantern gate opens.\n","index":0,"final":true}
-```
-
-Send exact consecutive chunks of 1 to 64,000 UTF-8 bytes with indexes
-starting at zero. Preserve whitespace and line endings and do not split a
-Unicode character. Set `final` only on the last chunk. A reply with
-`uploaded: false` accepts the chunk; `uploaded: true` confirms the complete
-transcript is stored. The reply also carries `nextIndex` and accepted
-`bytes`. Out-of-order or missing chunks are rejected with the expected
-index. Identical retries, including the final chunk, are safe; changing an
-accepted chunk or its `final` flag is rejected. After bad input or to replace
-a transcript or cancel an incomplete upload, send `restart: true` with index
-zero, then resend every chunk.
-Chunk uploads expire one hour after the first chunk. There are at most 128
-chunks and the same 8 MB total limit. This path spends model output tokens
-on tool arguments. With a shell, always use the signed URL instead.
+Without a shell, as in Claude Desktop or claude.ai, or without the original
+file on disk, the agent immediately
+gives you `pageUrl` to sign in and upload the original transcript file.
+It waits for the upload, then reads `get transcript:<session>` to confirm
+that the transcript is stored before mapping speakers, splitting scenes,
+or starting the debrief. Never retype the transcript into tool calls or chat.
 
 Both paths use the same parser, bounded storage batches, owner scoping,
-and lock once scenes or draft changes exist. Incomplete or failed chunk
-uploads keep the previous transcript readable; only a successful final
-call publishes a replacement. Never repeat the transcript in chat output.
-The `split-scenes`, `map-speakers`, and `debrief` procedures choose the path
-and never ask you to upload when a tool path can access the transcript.
-
-`transcript_upload_url` also returns `pageUrl`, a fallback when the client
-cannot access the transcript through either automatic path. The page
-requires the same AuthKit sign-in and refuses other owners' sessions.
+and lock once scenes or draft changes exist. Failed uploads keep the
+previous transcript readable; only a successful upload publishes a replacement.
+The page requires the same AuthKit sign-in and refuses other owners' sessions.
 
 Use UTF-8 text with timestamped speakers:
 
@@ -327,15 +306,25 @@ A rejection changes neither definitions nor history. Overview keeps the
 latest committed `lastTime` even when its debrief is older than the recent
 200-commit history window.
 
-For agent upload proof, run `pnpm exec tsx scripts/e2e-agent-upload.ts` with
+For upload-path proof, run `pnpm exec tsx scripts/e2e-agent-upload.ts` with
 the same preview URL and staging token. It uploads an invented four-hour,
-4,801-utterance transcript through `transcript_append`, retries chunks,
-reads every page, compares original bytes, and verifies the scene lock.
-`proof/agent-upload/` includes red/green endpoint evidence, the gate,
-hosted SDK proof, and headless Claude Sonnet 5.5 runs with and without Bash.
-The no-shell run uploads the fixture from its prompt and records output
-tokens. The shell run uploads from disk and puts no transcript in its tool
-arguments or chat. Both are checked by independent hosted readback.
+4,801-utterance transcript by signed URL, reads every page, compares original
+bytes, and verifies the scene lock. Add `--max-bytes` to pad the fixture to
+exactly 8,000,000 UTF-8 bytes.
 
-Add `--max-bytes` to that SDK proof to pad each invented utterance with
-whitespace to exactly 8,000,000 UTF-8 bytes and verify the hosted limit.
+`proof/transcript-retirement/` holds the retired-tool red/green runs, full
+gate, existing-staging-data migration proof, and headless shell and no-shell
+runs. The no-shell agent gives the GM the upload page and waits. After the
+file is stored, a fresh run reads it before writing scenes. The shell agent
+uploads from disk without repeating the transcript in its output.
+
+Run `pnpm check` before manual deployment. Main deployments use
+`bash scripts/deploy.sh`. If legacy staging exists,
+it deploys a temporary
+migration schema that accepts the retired chunk fields, with the chunk tool
+already removed, then deletes chunk staging in bounded batches before
+deploying the narrowed schema. Published transcripts, sessions and story
+state stay intact. Preview proof uses the same script with a preview branch
+name as its only argument. The migration files are deployed only for the
+cleanup and are absent from the final deployment. Later deployments skip
+the migration once staging is empty.

@@ -118,7 +118,8 @@ export const cleanup = internalMutation({
     for (const row of rows) await ctx.db.delete(row._id);
     if (rows.length === 100)
       await ctx.scheduler.runAfter(0, internal.uploads.cleanup, args);
-    else await ctx.storage.delete(args.storage);
+    else if (await ctx.db.system.get(args.storage))
+      await ctx.storage.delete(args.storage);
     return null;
   },
 });
@@ -128,19 +129,13 @@ export const expire = internalMutation({
   handler: async (ctx, { ticket }) => {
     const row = await ctx.db.get(ticket);
     if (row) {
-      if (row.storage && !row.appendState?.completed)
+      const session = await ctx.db.get(row.session);
+      if (row.storage && session?.transcript !== row.storage)
         await ctx.scheduler.runAfter(0, internal.uploads.cleanup, {
           session: row.session,
           storage: row.storage,
           generation: row.storage,
         });
-      if (row.appendState) {
-        const chunks = await ctx.db
-          .query("transcriptChunks")
-          .withIndex("by_upload_and_index", (q) => q.eq("upload", ticket))
-          .take(128);
-        for (const chunk of chunks) await ctx.db.delete(chunk._id);
-      }
       await ctx.db.delete(ticket);
     }
     return null;
@@ -198,11 +193,7 @@ export const finish = internalMutation({
       transcript: storage,
       transcriptGeneration: storage,
     });
-    if (ticket.appendState)
-      await ctx.db.patch(ticket._id, {
-        appendState: { ...ticket.appendState, completed: true },
-      });
-    else await ctx.db.delete(ticket._id);
+    await ctx.db.delete(ticket._id);
     if (session.transcript)
       await ctx.scheduler.runAfter(0, internal.uploads.cleanup, {
         session: session._id,
@@ -217,18 +208,13 @@ export const abort = internalMutation({
   returns: v.null(),
   handler: async (ctx, { token, storage }) => {
     const ticket = await ticketFor(ctx, token);
-    if (ticket?.storage === storage && !ticket.appendState?.completed) {
+    if (ticket?.storage === storage) {
       await ctx.scheduler.runAfter(0, internal.uploads.cleanup, {
         session: ticket.session,
         storage,
         generation: storage,
       });
-      if (ticket.appendState)
-        await ctx.db.patch(ticket._id, {
-          storage: undefined,
-          count: undefined,
-        });
-      else await ctx.db.delete(ticket._id);
+      await ctx.db.delete(ticket._id);
     }
     return null;
   },

@@ -5,3 +5,4 @@ node_modules/
 .convex/
 .ledger/
 convex/ledgerHtml.generated.ts
+.retirement-*/

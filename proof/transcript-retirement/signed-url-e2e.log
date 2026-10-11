@@ -1,0 +1,7 @@
+Invented four-hour fixture: 4801 utterances, 555347 UTF-8 bytes, SHA-256 cd0ea23ca733b133ba3a5daa612abbdb3fd1789b5692d540488623d467d87943
+PASS signed URL uploaded the original file bytes
+PASS 25 SDK pages read back all 4,801 utterances without gaps or duplicates
+PASS authenticated download preserves every original byte, Unicode and CRLF
+PASS hosted scene lock blocks signed upload URLs
+PROOF SESSION k576syhzw1esntkqe45hnck6m98g2sm1
+AGENT UPLOAD SDK E2E PASSED

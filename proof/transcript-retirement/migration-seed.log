@@ -1,0 +1,2 @@
+PASS baseline has 110 ordinary signed tickets before a completed chunk ticket, 105 unfinished chunks over a published transcript, and an unused signed URL
+PASS baseline also has an interrupted upload with stored unpublished bytes and one staged utterance

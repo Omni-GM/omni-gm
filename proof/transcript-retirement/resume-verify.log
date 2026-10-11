@@ -1,0 +1,4 @@
+PASS resumed no-shell agent confirms the stored transcript before scenes
+PASS independent MCP readback confirms exact fixture bytes and saved scenes
+PROOF SESSION k57cqgbzgqyjky0agerc8mx8rd8g39qp
+RESUME HEADLESS UPLOAD PROOF PASSED

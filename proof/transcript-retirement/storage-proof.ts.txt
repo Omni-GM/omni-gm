@@ -1,0 +1,13 @@
+import { makeFunctionReference } from "convex/server";
+import { v } from "convex/values";
+import { internalAction } from "./_generated/server";
+export const cleanupTwice = internalAction({
+  args: { session: v.id("sessions") },
+  handler: async (ctx, { session }) => {
+    const storage = await ctx.storage.store(new Blob(["Invented cleanup proof"]));
+    const args = { session, storage, generation: storage };
+    await ctx.runMutation(makeFunctionReference<"mutation">("uploads:cleanup"), args);
+    await ctx.runMutation(makeFunctionReference<"mutation">("uploads:cleanup"), args);
+    return { cleanedTwice: true };
+  },
+});

@@ -1,0 +1,26 @@
+import { v } from "convex/values";
+import { internal } from "./_generated/api";
+import { internalAction, internalMutation } from "./_generated/server";
+export const records = internalMutation({
+  args: { session: v.id("sessions"), storage: v.id("_storage") },
+  handler: async (ctx, { session, storage }) => {
+    const s = await ctx.db.get(session);
+    if (!s) throw new Error("Missing invented session");
+    await ctx.db.insert("uploads", {
+      session, storage, token: "invented-interrupted-ticket", expires: Date.now() + 3600000, count: 1,
+      appendState: { nextIndex: 1, bytes: 50, finalIndex: 0, completed: false },
+    });
+    await ctx.db.insert("utterances", {
+      campaign: s.campaign, session, transcriptGeneration: storage, ordinal: 0,
+      at: "00:00:00", seconds: 0, speaker: "GM", text: "Unpublished partial generation.", searchText: "Unpublished partial generation.",
+    });
+  },
+});
+export const partial = internalAction({
+  args: { session: v.id("sessions") },
+  handler: async (ctx, { session }) => {
+    const storage = await ctx.storage.store(new Blob(["[00:00:00] GM: Unpublished partial generation.\n"]));
+    await ctx.runMutation(internal.retirementSeed.records, { session, storage });
+    return storage;
+  },
+});

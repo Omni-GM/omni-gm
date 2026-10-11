@@ -1,7 +1,7 @@
 
  RUN  v4.1.0 /tmp/omnigm-impl15
 
- ❯ tests/prep.test.ts (21 tests | 1 failed) 1002ms
+ ❯ tests/prep.test.ts (21 tests | 1 failed) 1009ms
    × prep search returns separately ranked source claims with their basis and timestamped utterances that get can read 19ms
 
 ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
@@ -32,6 +32,6 @@ AssertionError: expected [ undefined, undefined ] to deeply equal [ 'npc_said', 
 
  Test Files  1 failed (1)
       Tests  1 failed | 20 passed (21)
-   Start at  13:24:46
-   Duration  1.20s (transform 405ms, setup 0ms, import 100ms, tests 1.00s, environment 0ms)
+   Start at  13:37:38
+   Duration  1.22s (transform 405ms, setup 0ms, import 104ms, tests 1.01s, environment 0ms)
 

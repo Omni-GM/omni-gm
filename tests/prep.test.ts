@@ -295,7 +295,7 @@ test("prep search returns separately ranked source claims with their basis and t
       {
         ...answer(
           { op: "new", tempKey: "mira", kind: "npc", name: "Mira" },
-          "Mira claims the amber seal opens the ferry.",
+          "Mira claims the amber token opens the ferry.",
         ),
         basis: ["npc_said"],
       },
@@ -306,7 +306,7 @@ test("prep search returns separately ranked source claims with their basis and t
             entity: "$mira",
             properties: { knows: "A rumor about the seal" },
           },
-          "A rumor says the amber token is hollow.",
+          "A rumor says the amber seal is hollow.",
         ),
         basis: ["rumor"],
       },
@@ -318,7 +318,7 @@ test("prep search returns separately ranked source claims with their basis and t
   });
   expect(sources.hits).toHaveLength(2);
   expect(sources.hits[0].snippet).toContain(
-    "Mira claims the amber seal opens the ferry.",
+    "A rumor says the amber seal is hollow.",
   );
   expect(sources.hits[0].score).toBeGreaterThan(sources.hits[1].score);
   expect(
@@ -355,7 +355,7 @@ test("prep search returns separately ranked source claims with their basis and t
     (
       await c.t.fetch(location.pathname + location.search, {
         method: "PUT",
-        body: "[00:00:00] GM: Start at the landing.\n[00:05:00] GM as Mira: The amber seal opens the ferry.\n[00:05:30] Rowan: An amber token?\n[00:10:00] GM: The bell rings.\n",
+        body: "[00:00:00] GM: Start at the landing.\n[00:05:00] GM as Mira: The amber token opens the ferry.\n[00:05:30] Rowan: An amber seal?\n[00:10:00] GM: The bell rings.\n",
       })
     ).status,
   ).toBe(200);
@@ -364,7 +364,7 @@ test("prep search returns separately ranked source claims with their basis and t
     types: ["transcript"],
   });
   expect(transcript.hits).toHaveLength(2);
-  expect(transcript.hits[0].ref).toBe(`transcript:${session.id}@00:05:00`);
+  expect(transcript.hits[0].ref).toBe(`transcript:${session.id}@00:05:30`);
   expect(transcript.hits[0].score).toBeGreaterThan(transcript.hits[1].score);
   expect(transcript.hits.map((h: { ref: string }) => h.ref).sort()).toEqual([
     `transcript:${session.id}@00:05:00`,
@@ -377,7 +377,7 @@ test("prep search returns separately ranked source claims with their basis and t
     "GM as Mira",
     "Rowan",
   ]);
-  expect(window.utterances[0].text).toBe("The amber seal opens the ferry.");
+  expect(window.utterances[0].text).toBe("The amber token opens the ferry.");
 });
 
 test("the client loads prep sparring and plank questions with their creative rules and the story write contract", async () => {

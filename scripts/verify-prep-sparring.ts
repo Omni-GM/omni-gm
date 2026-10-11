@@ -201,11 +201,39 @@ try {
     const note = texts.at(-1);
     assert(note);
     assert(note.includes("# Next session"));
-    const start = note.indexOf("# Next session");
-    await writeFile(
-      "proof/prep-sparring/session-note.md",
-      `${note.slice(start).trim()}\n`,
+    const lines = note.slice(note.indexOf("# Next session")).split("\n");
+    const end = lines.reduce(
+      (last, line, index) => (/^\s*[-*] /.test(line) ? index : last),
+      -1,
     );
+    const sessionNote = lines
+      .slice(0, end + 1)
+      .join("\n")
+      .trim();
+    let bullets = 0;
+    for (const line of sessionNote.split("\n")) {
+      if (line.startsWith("## ")) bullets = 0;
+      if (/^\s*[-*] /.test(line)) {
+        bullets++;
+        assert(
+          bullets <= 5,
+          "At most five bullets per section, including nested bullets",
+        );
+      }
+    }
+    for (const detail of [
+      "rain taps the brass roof",
+      "wet rope smells of river mud",
+      "green light shivers on the water",
+    ])
+      assert(sessionNote.toLowerCase().includes(detail));
+    assert(sessionNote.toLowerCase().includes("missing"));
+    assert(
+      !sessionNote.includes("1/4") &&
+        !sessionNote.includes("seal opens the ferry"),
+      "Do not add recalled facts the GM did not choose",
+    );
+    await writeFile("proof/prep-sparring/session-note.md", `${sessionNote}\n`);
     assert(
       note.includes("## Strong start") &&
         note.includes("## Places") &&

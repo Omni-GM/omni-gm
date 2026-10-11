@@ -27,29 +27,7 @@ tests/mcp.test.ts:713:11 lint/style/useTemplate  FIXABLE  ━━━━━━━�
      715  715 │     expect(failed.status).toBe(400);
   
 
-scripts/verify-prep-sparring.ts:202:12 lint/complexity/useOptionalChain  FIXABLE  ━━━━━━━━━━━━━━━━━━
-
-  ! Change to an optional chain.
-  
-    200 │     );
-    201 │     const note = texts.at(-1);
-  > 202 │     assert(note && note.includes("# Next session"));
-        │            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    203 │     const start = note.indexOf("# Next session");
-    204 │     await writeFile(
-  
-  i Unsafe fix: Change to an optional chain.
-  
-    200 200 │       );
-    201 201 │       const note = texts.at(-1);
-    202     │ - ····assert(note·&&·note.includes("#·Next·session"));
-        202 │ + ····assert(note?.includes("#·Next·session"));
-    203 203 │       const start = note.indexOf("# Next session");
-    204 204 │       await writeFile(
-  
-
-Checked 47 files in 106ms. No fixes applied.
-Found 1 warning.
+Checked 47 files in 55ms. No fixes applied.
 Found 1 info.
 CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
 ▌ Developing against deployment:
@@ -58,7 +36,7 @@ CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the fut
 - Preparing Convex functions...
 
 Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
-✔ 13:25:58 Convex functions ready! (389.89ms)
+✔ 13:38:45 Convex functions ready! (393.22ms)
 Finding component definitions...
 Generating server code...
 Bundling component definitions...
@@ -77,6 +55,6 @@ Running TypeScript...
 
  Test Files  3 passed (3)
       Tests  69 passed (69)
-   Start at  13:26:04
-   Duration  10.26s (transform 1.37s, setup 0ms, import 405ms, tests 11.57s, environment 0ms)
+   Start at  13:38:51
+   Duration  10.32s (transform 1.26s, setup 0ms, import 393ms, tests 11.59s, environment 0ms)
 

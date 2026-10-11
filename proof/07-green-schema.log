@@ -1,0 +1,12 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  11:54:04
+   Duration  709ms (transform 257ms, setup 0ms, import 98ms, tests 513ms, environment 0ms)

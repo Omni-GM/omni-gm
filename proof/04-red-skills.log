@@ -1,0 +1,31 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+ ❯ tests/mcp.test.ts (4 tests | 1 failed) 346ms
+   × skills list and load the procedures with the standing rules, and initialize stays short 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > skills list and load the procedures with the standing rules, and initialize stays short
+TypeError: Cannot read properties of undefined (reading 'length')
+ ❯ tests/mcp.test.ts:95:35
+     93| test("skills list and load the procedures with the standing rules, and…
+     94|   const c = client(); const init = await c.init();
+     95|   expect(init.result.instructions.length).toBeLessThan(4096);
+       |                                   ^
+     96|   expect(init.result.instructions).toContain("Never draft prep");
+     97|   const list = await c.call("skill");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed (4)
+   Start at  11:49:37
+   Duration  531ms (transform 243ms, setup 0ms, import 86ms, tests 346ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

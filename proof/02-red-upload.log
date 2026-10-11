@@ -1,0 +1,32 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+ ❯ tests/mcp.test.ts (2 tests | 1 failed) 280ms
+   × the signed upload stores exact bytes, parses utterances, and is single-use 12ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > the signed upload stores exact bytes, parses utterances, and is single-use
+Error: {"jsonrpc":"2.0","id":4,"error":{"code":-32602,"message":"Unknown tool: transcript_upload_url"}}
+ ❯ Object.call tests/mcp.test.ts:24:59
+     22|   async function call(name: string, args: Record<string, unknown> = {}…
+     23|     const response = await rpc("tools/call", { name, arguments: args }…
+     24|     if (response.error || response.result?.isError) throw new Error(JS…
+       |                                                           ^
+     25|     expect(response.result.structuredContent).toBeDefined();
+     26|     return name === "get" ? response.result.structuredContent.value ??…
+ ❯ tests/mcp.test.ts:48:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  11:44:37
+   Duration  464ms (transform 232ms, setup 0ms, import 83ms, tests 280ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

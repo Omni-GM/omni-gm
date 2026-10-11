@@ -1,0 +1,33 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+ ❯ tests/mcp.test.ts (3 tests | 1 failed) 297ms
+   × a debrief keeps valid changes, rejects an invented property and an NPC guess, drops a change, then commits history 14ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > a debrief keeps valid changes, rejects an invented property and an NPC guess, drops a change, then commits history
+Error: {"jsonrpc":"2.0","id":5,"error":{"code":-32602,"message":"Unknown tool: scenes_set"}}
+ ❯ Object.call tests/mcp.test.ts:24:59
+     22|   async function call(name: string, args: Record<string, unknown> = {}…
+     23|     const response = await rpc("tools/call", { name, arguments: args }…
+     24|     if (response.error || response.result?.isError) throw new Error(JS…
+       |                                                           ^
+     25|     expect(response.result.structuredContent).toBeDefined();
+     26|     return name === "get" ? response.result.structuredContent.value ??…
+ ❯ prepared tests/mcp.test.ts:69:3
+ ❯ tests/mcp.test.ts:73:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  11:46:30
+   Duration  480ms (transform 231ms, setup 0ms, import 84ms, tests 297ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

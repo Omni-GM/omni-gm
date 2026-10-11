@@ -1,0 +1,60 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+ ❯ tests/mcp.test.ts (10 tests | 2 failed) 496ms
+   × find returns both an entity hit and a source hit when their get ref is the same 18ms
+   × schema and skill names cannot borrow JavaScript prototype properties 13ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > find returns both an entity hit and a source hit when their get ref is the same
+AssertionError: expected [ 'source' ] to deeply equal [ 'entity', 'source' ]
+
+- Expected
++ Received
+
+  [
+-   "entity",
+    "source",
+  ]
+
+ ❯ tests/mcp.test.ts:500:68
+    498|   await c.call("debrief_commit", { session: s.id });
+    499|   const results = await c.call("find", { query: "stones", types: ["ent…
+    500|   expect(results.hits.map((h: { type: string }) => h.type).sort()).toE…
+       |                                                                    ^
+    501|   expect(results.hits[0].ref).toBe(results.hits[1].ref);
+    502| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/mcp.test.ts > schema and skill names cannot borrow JavaScript prototype properties
+AssertionError: expected [] to have a length of 2 but got +0
+
+- Expected
++ Received
+
+- 2
++ 0
+
+ ❯ tests/mcp.test.ts:510:27
+    508|     { ...npcChange(), change: { op: "new", kind: "npc", name: "Unknown…
+    509|   ] });
+    510|   expect(result.rejected).toHaveLength(2);
+       |                           ^
+    511|   expect(result.rejected[0].reason).toContain("Allowed kinds");
+    512|   expect(result.rejected[1].reason).toContain("Allowed properties");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 8 passed (10)
+   Start at  11:53:33
+   Duration  692ms (transform 243ms, setup 0ms, import 95ms, tests 496ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

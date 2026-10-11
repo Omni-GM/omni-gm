@@ -1,0 +1,33 @@
+
+> omni-gm@0.1.0 check /home/coder/dev/omni-gm-debrief
+> pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit && pnpm test
+
+Checked 20 files in 13ms. No fixes applied.
+CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
+▌ Developing against deployment:
+▌ [Local] Port 3212 • No Convex account (run npx convex login to link to a project)
+▌ └─ http://127.0.0.1:3212
+- Preparing Convex functions...
+
+Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
+✔ 12:02:15 Convex functions ready! (345.57ms)
+Finding component definitions...
+Generating server code...
+Bundling component definitions...
+Bundling component schemas and implementations...
+Downloading current deployment state...
+Uploading functions to Convex...
+Generating TypeScript bindings...
+Running TypeScript...
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  12:02:19
+   Duration  703ms (transform 250ms, setup 0ms, import 97ms, tests 509ms, environment 0ms)

@@ -1,0 +1,26 @@
+{
+  "name": "omni-gm",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.28.2",
+  "scripts": {
+    "test": "vitest run",
+    "check": "pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit && pnpm test",
+    "e2e": "tsx scripts/e2e.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.29.0",
+    "convex": "1.46.0",
+    "convex-mcp-gateway": "2.1.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.15",
+    "@types/node": "26.6.5",
+    "convex-test": "0.0.61",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vite": "8.0.2",
+    "vitest": "4.1.0"
+  }
+}

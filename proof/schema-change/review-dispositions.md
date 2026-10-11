@@ -56,3 +56,12 @@ Neither review found a correctness, isolation, atomicity, retirement,
 compatibility or Convex-runtime blocker. CodeRabbit skipped the draft PR.
 No human decision remains open. Follow-ups are reported on #18 rather than
 creating or editing any other ticket.
+
+## Fixes review
+
+The second native Opus review approved 8d4a87c and all dispositions, with no
+remaining blockers or required follow-ups. See opus-fixes-review.md.
+Its two optional nits are rejected as required changes: add, drop and commit
+all use the same tested pending-change helper, and the drop error gives the
+exact additional IDs and names the correct retry tool. Neither changes the
+repair path or leaves an untested write path.

@@ -153,7 +153,7 @@ try {
     assert.equal(writes[0].input?.op, "write");
     assert(
       calls.every((c) =>
-        ["skill", "get", "find", "secret_write"].some((name) =>
+        ["skill", "get", "find", "secret_write", "checklist_set"].some((name) =>
           c.name?.endsWith(`__${name}`),
         ),
       ),
@@ -281,6 +281,40 @@ try {
         `${texts(turn)}\n`,
       );
     }
+    const checklistWrites = calls.filter((c) =>
+      c.name?.endsWith("__checklist_set"),
+    );
+    assert.equal(
+      checklistWrites.length,
+      1,
+      "The supplied checklist is stored once",
+    );
+    assert.equal(
+      checklistWrites[0].turn,
+      4,
+      "Only the section turn stores its supplied checklist",
+    );
+    const checklist = (
+      await call<{
+        value: {
+          checklist: {
+            sections: { name: string; definition: string }[];
+            template: string;
+          };
+        };
+      }>("get", { ref: "checklist" })
+    ).value.checklist;
+    assert.deepEqual(checklist.sections, [
+      {
+        name: "Scenes",
+        definition:
+          "Two or three situations that put pressure on the search for Pell and Nia",
+      },
+    ]);
+    assert.equal(checklist.template, "# Next session\n## Scenes");
+    console.log(
+      "PASS section walk stores and reads the supplied checklist and template without another question",
+    );
     const overview = (
       await call<{ value: { openSecrets: number } }>("get", { ref: "overview" })
     ).value;

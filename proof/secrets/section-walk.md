@@ -1,18 +1,20 @@
-**Scenes:** two or three situations that put pressure on the search for Pell and Nia.
+I've stored your checklist with the reason "I want the search to drive my scene prep". It has one section, **Scenes** ("Two or three situations that put pressure on the search for Pell and Nia"), and the template is `# Next session\n## Scenes`.
+
+## Scenes
 
 **Facts**
-- Pell and Nia have been gone three nights, and the loft latch is "scratched from outside" [00:07:45].
-- Player plan: "Tomorrow we search the cellar, then we watch the weir at night." [00:29:00]
-- Harvest fair clock 1/3, shown. "If those children are not found by then, I close the mill." (Holloway) [00:12:50]
-- Weir flood clock 2/4, hidden: "The water behind the weir rises." [00:24:00]
-- (secret) "Dace secretly shelters Pell and Nia in a dry chamber under the weir to protect them from Holloway." (secret:f09bf11f-9150-400b-b4a4-266ea1e695aa)
+- Pell and Nia have been gone three nights, and the loft latch is "scratched from outside" [00:07:45]. Player plan: "Tomorrow we search the cellar, then we watch the weir at night." [00:29:00]
+- Harvest fair: 1/3, shown. According to Holloway, "If those children are not found by then, I close the mill." [00:12:50]
+- Weir flood: 2/4, hidden. "The water behind the weir rises." [00:24:00]
+- Dace wants nobody watching the weir at night (Dace).
+- (secret) "Dace secretly shelters Pell and Nia in a dry chamber under the weir to protect them from Holloway." (secret:878f43c9-9097-4941-ae41-1ccd9df4d9bc)
 
 **Pitches**
-1. **Article nine at the gate.** Holloway arrives at the mill while the party is there and demands the weir gate key from Widow Ferrant "under the charter." She stands in the yard and won't sit down. The twenty-year quarrel plays out in front of the party, with the fair deadline over it.
-   Built on: Harvest fair clock [00:12:50]; key, according to Holloway [00:15:30]; "disagreed about that weir gate for twenty years" [00:14:20]; Ferrant's and Holloway's playedAs.
-2. **Wet stone.** During the cellar search, water seeps through one wall. Corwin shows up with buckets of tallow to seal it and keeps urging the party to finish quickly.
-   Built on: "the cellar smells of old tallow and wet stone" [00:08:30]; Weir flood 2/4 [00:24:00]; Corwin's playedAs [00:05:20].
-3. **Cousins on the bank.** On the night watch, Dace's boatmen are already sitting on the bank by the weir, coiling rope, and cheerfully tell the party the spot is taken.
-   Built on: Dace wants nobody watching the weir at night (Dace); "Nobody asked you here." [00:19:10]; the night barges [00:18:00]; player plan [00:29:00].
+1. **Water in the cellar.** While the party searches the cellar, water seeps up through the stone. Corwin wants everyone out and blames the drowned miller. The search now has a rising waterline.
+   Built on: Weir flood 2/4 [00:24:00]; "old tallow and wet stone" [00:08:30]; Corwin's haunted-cellar rumor [00:09:15].
+2. **Article nine on the door.** Holloway nails a charter notice to the mill door saying the mill closes at the fair. Workers start packing their tools, and Ferrant stands in the yard refusing. The deadline is now in front of everyone.
+   Built on: Harvest fair clock 1/3 [00:12:50]; Holloway played as quoting the charter [00:12:00]; Ferrant wants her apprentices found (Widow Ferrant).
+3. **Cousins on the bank.** When the party arrives to watch the weir, Dace's boatmen are already on the bank, coiling rope and calling it "a fine night for a swim". They want the watchers gone before the barges move.
+   Built on: Dace wants nobody watching the weir at night (Dace); "Nobody asked you here." [00:19:10]; the party's weir watch [00:29:00].
 
 Your turn.

@@ -1,8 +1,8 @@
-Deployment: https://whimsical-lark-82.convex.cloud (branch preview feat-ledger-view, staging M2M sign-in)
-Seeded by scripts/ledger-host.ts: Seeded draft debrief for session k57cgjw0fvn7kf7c26r06sxs858g2yp1
-After clicking Drop on 'Does Sera work for the raiders?' in the Ledger view, get debrief:k57cgjw0fvn7kf7c26r06sxs858g2yp1 returns:
+Deployment: https://honorable-mockingbird-611.convex.cloud (branch preview feat-ledger-view, staging M2M sign-in)
+Seeded by scripts/ledger-host.ts: Seeded draft debrief for session k574a1kwet54myk1d6r874dvtd8g3r1t
+After clicking Drop on 'Does Sera work for the raiders?' in the Ledger view, then a refused drop of 'Who broke the seal?', get debrief:k574a1kwet54myk1d6r874dvtd8g3r1t returns:
 {
-  "session": "k57cgjw0fvn7kf7c26r06sxs858g2yp1",
+  "session": "k574a1kwet54myk1d6r874dvtd8g3r1t",
   "status": "draft",
   "changes": [
     {

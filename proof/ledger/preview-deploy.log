@@ -1,13 +1,14 @@
 Branch preview: convex deploy --preview-create feat-ledger-view --preview-run oauth:configure --yes
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/feat-ledger-view (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/whimsical-lark-82)
-▌ └─ https://whimsical-lark-82.convex.cloud
-- Deploying to https://whimsical-lark-82.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/feat-ledger-view (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/honorable-mockingbird-611)
+▌ └─ https://honorable-mockingbird-611.convex.cloud
+- Deploying to https://honorable-mockingbird-611.convex.cloud...
 
 ✔ Added table indexes:
   [+] adventures.by_campaign   campaign, _creationTime
   [+] campaigns.by_owner   owner, _creationTime
   [+] commits.by_campaign   campaign, _creationTime
+  [+] commits.by_campaign_and_kind   campaign, kind, _creationTime
   [+] entities.by_campaign   campaign, _creationTime
   [+] entities.by_campaign_and_id   campaign, id, _creationTime
   [+] entities.search_text (text)   searchText, filters on campaign, kind
@@ -25,5 +26,5 @@ Branch preview: convex deploy --preview-create feat-ledger-view --preview-run oa
   [+] utterances.by_session_and_seconds   session, seconds, _creationTime
   [+] utterances.search_text (text)   searchText, filter on campaign
 ✔ Installed component mcpGateway.
-✔ Deployed Convex functions to https://whimsical-lark-82.convex.cloud
+✔ Deployed Convex functions to https://honorable-mockingbird-611.convex.cloud
 ✔ Finished running function "oauth:configure"

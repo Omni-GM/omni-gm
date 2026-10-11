@@ -6,28 +6,28 @@
 > omni-gm@0.1.0 build:ledger ~/dev/omni-gm-wt/ledger-view
 > tsx scripts/build-ledger.ts
 
-tests/mcp.test.ts:760:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+tests/mcp.test.ts:694:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   i Template literals are preferred over string concatenation.
   
-    758 │   const failed = await c.t.fetch(path, {
-    759 │     method: "PUT",
-  > 760 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
+    692 │   const failed = await c.t.fetch(path, {
+    693 │     method: "PUT",
+  > 694 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
         │           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    761 │   });
-    762 │   expect(failed.status).toBe(400);
+    695 │   });
+    696 │   expect(failed.status).toBe(400);
   
   i Unsafe fix: Use a template literal.
   
-     758  758 │     const failed = await c.t.fetch(path, {
-     759  759 │       method: "PUT",
-     760      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
-          760 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
-     761  761 │     });
-     762  762 │     expect(failed.status).toBe(400);
+     692  692 │     const failed = await c.t.fetch(path, {
+     693  693 │       method: "PUT",
+     694      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
+          694 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
+     695  695 │     });
+     696  696 │     expect(failed.status).toBe(400);
   
 
-Checked 32 files in 24ms. No fixes applied.
+Checked 38 files in 35ms. No fixes applied.
 Found 1 info.
 CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
 ▌ Developing against deployment:
@@ -36,7 +36,7 @@ CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the fut
 - Preparing Convex functions...
 
 Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
-✔ 12:57:01 Convex functions ready! (405.98ms)
+✔ 12:59:27 Convex functions ready! (399.61ms)
 Finding component definitions...
 Generating server code...
 Bundling component definitions...
@@ -53,8 +53,8 @@ Running TypeScript...
  RUN  v4.1.0 ~/dev/omni-gm-wt/ledger-view
 
 
- Test Files  1 passed (1)
-      Tests  23 passed (23)
-   Start at  12:57:07
-   Duration  2.74s (transform 402ms, setup 0ms, import 116ms, tests 2.51s, environment 0ms)
+ Test Files  2 passed (2)
+      Tests  36 passed (36)
+   Start at  12:59:33
+   Duration  4.03s (transform 855ms, setup 0ms, import 250ms, tests 4.33s, environment 0ms)
 

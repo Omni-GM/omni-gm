@@ -1,0 +1,70 @@
+
+> omni-gm@0.1.0 check /home/coder/dev/omni-gm-impl27
+> pnpm build:ledger && pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test --color=false
+
+
+> omni-gm@0.1.0 build:ledger /home/coder/dev/omni-gm-impl27
+> tsx scripts/build-ledger.ts
+
+
+[29.87ms] [@tailwindcss/vite] Generate CSS (build)
+[17.48ms]   ↳ Setup compiler
+[ 0.89ms]   ↳ Setup scanner
+[ 1.71ms]   ↳ Scan for candidates
+[ 0.59ms]   ↳ Register dependency messages
+[ 8.56ms]   ↳ Build CSS
+[ 0.00ms]   ↳ Build Source Map
+[ 2.07ms] [@tailwindcss/vite] Optimize CSS
+
+tests/mcp.test.ts:704:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    702 │   const failed = await c.t.fetch(path, {
+    703 │     method: "PUT",
+  > 704 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
+        │           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    705 │   });
+    706 │   expect(failed.status).toBe(400);
+  
+  i Unsafe fix: Use a template literal.
+  
+     702  702 │     const failed = await c.t.fetch(path, {
+     703  703 │       method: "PUT",
+     704      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
+          704 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
+     705  705 │     });
+     706  706 │     expect(failed.status).toBe(400);
+  
+
+Checked 40 files in 39ms. No fixes applied.
+Found 1 info.
+CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
+▌ Developing against deployment:
+▌ [Local] Port 3212 • No Convex account (run npx convex login to link to a project)
+▌ └─ http://127.0.0.1:3212
+- Preparing Convex functions...
+
+Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
+✔ 13:10:56 Convex functions ready! (403.59ms)
+Finding component definitions...
+Generating server code...
+Bundling component definitions...
+Bundling component schemas and implementations...
+Downloading current deployment state...
+Uploading functions to Convex...
+Generating TypeScript bindings...
+Running TypeScript...
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-impl27
+> vitest run --color=false
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-impl27
+
+
+ Test Files  2 passed (2)
+      Tests  40 passed (40)
+   Start at  13:11:03
+   Duration  4.42s (transform 850ms, setup 0ms, import 247ms, tests 4.71s, environment 0ms)
+

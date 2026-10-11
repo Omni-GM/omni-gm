@@ -1,0 +1,6 @@
+{"t":1791702667911,"surface":"E","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791702675276,"surface":"E","tool":"skill","args":{"name":"debrief"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":2456}
+{"t":1791702679846,"surface":"E","tool":"get","args":{"refs":["overview","schema","session:s3","debrief:s3"]},"argsBytes":56,"outcome":"ok","partialRejections":0,"resultBytes":8033}
+{"t":1791702679851,"surface":"E","tool":"find","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":2471}
+{"t":1791702679855,"surface":"E","tool":"skill","args":{"name":"map-speakers"},"argsBytes":23,"outcome":"ok","partialRejections":0,"resultBytes":1298}
+{"t":1791702682984,"surface":"E","tool":"get","args":{"refs":["transcript:s3","entity:e15","entity:e16","entity:e17","entity:e18","entity:e19","entity:e20","entity:e21","entity:e22","entity:e23","entity:e24","entity:e34","entity:e35","entity:e36","entity:e37","entity:e38","entity:e39"]},"argsBytes":234,"outcome":"ok","partialRejections":0,"resultBytes":23216}

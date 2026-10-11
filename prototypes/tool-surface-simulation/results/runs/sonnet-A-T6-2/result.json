@@ -1,0 +1,64 @@
+{
+ "id": "sonnet-A-T6-2",
+ "client": "sonnet",
+ "surface": "A",
+ "task": "T6",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Hesk alive",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "one correction commit with a reason",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate Hesk",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "nothing else changed",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "basis game_master",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 7,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 739,
+ "toolSequence": [
+  "story_read:entities",
+  "story_read:schema",
+  "story_read:entity",
+  "story_read:entities",
+  "story_read:entities",
+  "story_read:transcript",
+  "story_correct"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 71517,
+  "cachedInput": 62199,
+  "output": 1109
+ },
+ "ms": 10553,
+ "errors": [],
+ "answer": "I changed Old Hesk's status from `dead` to `alive` (commit k59). The source is your own words, with basis `game_master`.\n\nTwo things are left:\n- **Ferry-house keeper:** I didn't create an entity for them, because none exists and I didn't want to invent details. The revival isn't recorded as an event either. If you want the keeper in the story state, tell me their name and role.\n- **Where Hesk is:** He has no location (`is_at` or `last_seen_at`), since nothing in the state says where he is now. Tell me if you want one added.\n\nI checked for other entities or threads that depend on his death and found none."
+}

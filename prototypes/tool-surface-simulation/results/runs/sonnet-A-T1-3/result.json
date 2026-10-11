@@ -1,0 +1,70 @@
+{
+ "id": "sonnet-A-T1-3",
+ "client": "sonnet",
+ "surface": "A",
+ "task": "T1",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 4,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1728,
+ "toolSequence": [
+  "story_read:overview",
+  "debrief:new_session",
+  "debrief:upload_url",
+  "debrief:set_scenes"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 88670,
+  "cachedInput": 77123,
+  "output": 2238
+ },
+ "ms": 22338,
+ "errors": [],
+ "answer": "Session 3 is recorded, the transcript is uploaded, and it's split into four scenes. I'm stopping here. I haven't drafted any story-state changes, since you only asked for the upload and the split.\n\n- **Session:** s3, played 2026-10-10, in the current adventure \"The Drowned Bell\".\n- **Transcript:** stored from `./session-03-transcript.md` (5895 bytes).\n- **Scenes:**\n  1. Sela at pier four (0:00:05)\n  2. The Saltmere Mine (0:05:48)\n  3. Midnight at the drowned chapel (0:13:40)\n  4. Stew at the Tarred Gull (0:19:50)\n\n**What's left**\n- **Debrief draft:** I haven't opened one. When you're back, I can draft the story-state changes with sources and show them to you. Nothing gets committed until you say the draft is right.\n- **Speaker 1:** the transcription service labels Speaker 1 for every NPC voice, and that is you, the GM. It covers Sela, the fishermen and Bram. I've read it that way.\n- **Sela / Sella:** you said the dockhands use both spellings. I'd keep the name as Sela, with Sella as an alias.\n- **Dana's guess:** Dana, and then Priya, guessed that harbor-master Maren leads the cult. That's a player guess, so it can only touch a thread, not a fact about Maren. Bram's remark that Maren lost a brother to the bay is an NPC statement and a separate matter.\n- **Clock:** your aside at 0:15:24 was \"choir clock at three of six\". I'd check that against the existing clock before changing it.\n- **Oren's HP:** Oren dropped to 11, then the long rest restored full HP. I'd treat that as no net change."
+}

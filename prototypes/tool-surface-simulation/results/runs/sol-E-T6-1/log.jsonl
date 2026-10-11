@@ -1,0 +1,7 @@
+{"t":1791702667951,"surface":"E","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791702676719,"surface":"E","tool":"skill","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":1165}
+{"t":1791702680398,"surface":"E","tool":"skill","args":{"name":"debrief"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":2456}
+{"t":1791702680404,"surface":"E","tool":"find","args":{"query":"Hesk","limit":100},"argsBytes":28,"outcome":"ok","partialRejections":0,"resultBytes":1194}
+{"t":1791702680408,"surface":"E","tool":"get","args":{"ref":"schema"},"argsBytes":16,"outcome":"ok","partialRejections":0,"resultBytes":5264}
+{"t":1791702684514,"surface":"E","tool":"get","args":{"refs":["entity:e34","session:s2","debrief:s2"]},"argsBytes":49,"outcome":"ok","partialRejections":0,"resultBytes":5790}
+{"t":1791702684515,"surface":"E","tool":"find","args":{"query":"ferry","limit":100},"argsBytes":29,"outcome":"ok","partialRejections":0,"resultBytes":1453}

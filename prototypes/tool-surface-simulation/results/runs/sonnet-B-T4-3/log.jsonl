@@ -1,0 +1,9 @@
+{"t":1791702433272,"surface":"B","event":"start","tools":21,"uploadMode":"signed"}
+{"t":1791702434878,"surface":"B","tool":"get_schema","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":5264}
+{"t":1791702435547,"surface":"B","tool":"list_entities","args":{"nameContains":"Abbot"},"argsBytes":24,"outcome":"ok","partialRejections":0,"resultBytes":145}
+{"t":1791702435551,"surface":"B","tool":"list_entities","args":{"nameContains":"Ivo"},"argsBytes":22,"outcome":"ok","partialRejections":0,"resultBytes":2}
+{"t":1791702436882,"surface":"B","tool":"get_entity","args":{"entityId":"e36"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":315}
+{"t":1791702436999,"surface":"B","tool":"get_entity","args":{"entityId":"e37"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":295}
+{"t":1791702437264,"surface":"B","tool":"list_entities","args":{"nameContains":"bell"},"argsBytes":23,"outcome":"ok","partialRejections":0,"resultBytes":275}
+{"t":1791702437423,"surface":"B","tool":"list_entities","args":{"nameContains":"chapel"},"argsBytes":25,"outcome":"ok","partialRejections":0,"resultBytes":74}
+{"t":1791702443044,"surface":"B","tool":"correct_story","args":{"reason":"GM answered who the Pale Abbot really is.","changes":[{"change":{"op":"update","entity":"e36","addAliases":["Brother Ivo"],"properties":{"role":"Really Brother Ivo, the drowned chapel's last priest; painted in the chapel mural holding the bell rope","wants":"The choir to rise, so he can finally leave the water","knows":"The bell keeps him alive under the bay"}},"basis":["game_master"],"sources":[{"quote":"he's Brother Ivo, the drowned chapel's last priest. The bell keeps him alive under the bay, and he wants the choir to rise so he can finally leave the water."}],"why":"The GM revealed the Pale Abbot's true identity, his hold on life and his goal."}]},"argsBytes":670,"outcome":"ok","partialRejections":0,"resultBytes":37}

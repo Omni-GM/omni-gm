@@ -1,0 +1,120 @@
+{
+ "id": "sol-A-T2-3",
+ "client": "sol",
+ "surface": "A",
+ "task": "T2",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 25,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 18700,
+ "toolSequence": [
+  "story_read:overview",
+  "story_read:entities",
+  "story_read:schema",
+  "story_read:transcript",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "debrief:open",
+  "debrief:propose",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "debrief:propose",
+  "story_read:transcript",
+  "debrief:show",
+  "debrief:commit",
+  "story_read:overview"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 605076,
+  "cachedInput": 498816,
+  "output": 11820
+ },
+ "ms": 150913,
+ "errors": [],
+ "answer": "Session 3’s debrief draft is saved in Omni-GM. All 31 proposed changes have verified transcript quotes.\n\n1. **A boat at pier four.** Sela Thorn, also called Sella, whispers, avoids eye contact, and watches the tide line. She offers passage for two silver at first light, refusing night travel. Her account links Saltmere’s flooding to the bell’s first ringing forty years ago; the warm-water detail comes from her grandmother.\n\n2. **Saltmere Mine.** The tunnel is flooded with warm black water and scattered hymn pages. Teo recovers a page about the sea giving back what it takes, marked “M. Brand.” His identification of Mira’s handwriting advances his goal as a player interpretation. Vessa and Oren’s accusations against Maren become an open thread.\n\n3. **The shore at midnight.** The chapel’s exposed ruins and pale underwater shapes are recorded as observed. The bell rings twelve times with louder humming. The hidden Hollow Choir clock advances from **2/6 to 3/6**, based on the GM’s explicit statement. The fisherman’s Kelp Mother warning remains rumor.\n\n4. **The Tarred Gull.** Bram’s portrayal and testimony are recorded: he laughs at his jokes, wipes the same mug, and says Maren has a good heart and lost a brother to the bay. The party ends here after resting. Their agreed plan is to meet Sela at first light and dive to the chapel at low tide during daylight. Vessa’s proposed equipment purchases remain plans.\n\nWhat’s left is your review and approval before committing. Omni-GM requires debrief drafts to be shown and confirmed by the GM; the story-state changes remain uncommitted.\n\nCommitted session 3’s debrief in Omni-GM. All 31 changes were applied, and the session is verified as committed."
+}

@@ -1,0 +1,61 @@
+{
+ "id": "sonnet-E-T6-1",
+ "client": "sonnet",
+ "surface": "E",
+ "task": "T6",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Hesk alive",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "one correction commit with a reason",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate Hesk",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "nothing else changed",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "basis game_master",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 4,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 573,
+ "toolSequence": [
+  "skill",
+  "find",
+  "get",
+  "story_commit"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 59521,
+  "cachedInput": 42927,
+  "output": 846
+ },
+ "ms": 9343,
+ "errors": [],
+ "answer": "I've fixed it. Old Hesk (e34) now has status `alive` instead of `dead`. The change is commit k59, with basis `game_master` and your correction as the source.\n\n**Left as is:**\n- **Scene summary:** The summary of session 2, scene 1 still reads \"he goes overboard and seems dead\". That matches what the table saw, since the GM narrated him as \"grey and cold and not breathing that you can tell\". I didn't change it.\n- **Revival details:** The transcript doesn't show the ferry-house keeper reviving Hesk. I recorded only what you told me and added no details about when or how.\n- **Keeper and ferry-house:** There's no entry for the ferry-house keeper or the ferry-house. I didn't create any, because you didn't ask for it. If you want them in the story state, or Hesk linked to a place, tell me and I'll add them."
+}

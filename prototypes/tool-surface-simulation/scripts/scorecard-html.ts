@@ -10,7 +10,7 @@ const runs: any[] = readdirSync(RUNS)
   .map((r) => ({ ...r, ruleBreaks: r.checks.filter((c: any) => c.ruleBreak && !c.pass).map((c: any) => c.name) }));
 
 const CLIENTS = [["sonnet", "Sonnet 5.5 · Claude Code"], ["sol", "GPT-6.1 Sol · Codex"]];
-const SURFACES = [["A", "Deep tools"], ["B", "Narrow verbs"], ["C", "find/get + skill tool"], ["D", "find/get, procedures in instructions"]];
+const SURFACES = [["A", "Deep tools"], ["B", "Narrow verbs"], ["C", "find/get + skill tool"], ["D", "find/get, procedures in instructions"], ["E", "C + contract fixes"]];
 const TASKS = [["T1", "Upload + scenes"], ["T2", "Debrief"], ["T3", "Prep questions"], ["T4", "Plank answer"], ["T5", "Frame update"], ["T6", "Fix mistake"], ["T7", "Guess trap"]];
 const avg = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : NaN);
 const main = runs.filter((r) => r.task !== "U-page");

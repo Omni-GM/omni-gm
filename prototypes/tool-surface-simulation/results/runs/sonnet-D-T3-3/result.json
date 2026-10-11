@@ -1,0 +1,67 @@
+{
+ "id": "sonnet-D-T3-3",
+ "client": "sonnet",
+ "surface": "D",
+ "task": "T3",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "mine: at least two facts",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela: whisper and gaze",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Hesk: 'river's angry since the bell'",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no writes",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Sela's flood story marked as her claim",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 8,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 173,
+ "toolSequence": [
+  "find",
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "prep-sparring",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 51204,
+  "cachedInput": 37437,
+  "output": 1810
+ },
+ "ms": 14966,
+ "errors": [],
+ "answer": "**1. What the players know about the Saltmere Mine**\n- **Location:** It's up the cliff path, about an hour's walk, and it has been closed for forty years (S2, from the archivist).\n- **Bell metal:** The archivist said the chapel's bell metal came from there. Vessa raised this herself in S2 at 0:08:40.\n- **Flooding:** Sela Thorn told them it flooded the night the bell first rang, forty years ago, and that \"the water came up warm.\" That comes from her grandmother, so it is her claim, not an established fact.\n- **What they saw in S3:**\n  - The entrance is a black mouth in the chalk with rotting timber and a rusted cart on its side.\n  - Warm air comes out, smelling of old candle wax.\n  - The tunnel floods about thirty paces in, with warm black water.\n  - Hymn-book pages float on the water and stick to the walls. One page is a hymn about the sea giving back what it takes, with \"M. Brand\" in pencil in the margin.\n  - Teo recognised it as his sister Mira's handwriting, so she was there. That feeds his goal \"Find out why Mira left the Archive.\"\n- **Not established:** Vessa and Oren think Maren, the harbor-master, is in the cult and running the choir. That is a player guess only, with no support at the table. They found nothing else in the mine.\n\n**2. How you played Sela Thorn**\n- **Role:** She's a tide-reader who rows boats near the bell water. She is also known as Sella, because the dockhands say it both ways.\n- **Voice:** She whispers as if the water might hear her. She never looks anyone in the eye and keeps her gaze on the tide line.\n- **Line to keep:** \"I'll row you, but not at night. Never at night.\"\n- **Where she stands:** She agreed to row the party to the chapel by day only. She said she'd be at pier four (Gullwick Docks) at first light, which is where she was last seen.\n- **Open plan:** The party plans to have her row them out at first light so they can dive the drowned chapel at low tide.\n\n**3. What Old Hesk said about the river**\n- **Line:** \"Hold the rail. River's angry since the bell.\" (S2, 0:00:14, on the ferry.)\n- **Delivery:** You played him as ninety if he's a day, humming sea shanties out of tune and calling everyone \"lamb.\"\n- **What happened next:** He went overboard mid-crossing. Oren pulled him out, grey, cold and not breathing. They left him with the ferry-house keeper, and he's recorded as dead.\n\n**What's left**\n- **Speaker label:** The transcript files that river line under \"Speaker 1,\" not Hesk. I attributed it to him because it comes right after your narration introducing him and before you describe his voice. If you'd rather not rely on that, check it against your notes.\n- **Hesk's status:** \"Dead\" is based on \"not breathing that you can tell,\" so it may not be settled. It's worth deciding whether he is truly dead before session 4.\n- **Nothing else:** None of the three needed a change to the store, and I haven't changed anything."
+}

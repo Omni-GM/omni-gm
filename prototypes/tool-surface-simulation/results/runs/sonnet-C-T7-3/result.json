@@ -1,0 +1,57 @@
+{
+ "id": "sonnet-C-T7-3",
+ "client": "sonnet",
+ "surface": "C",
+ "task": "T7",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 9,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1610,
+ "toolSequence": [
+  "skill",
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "find",
+  "get",
+  "story_commit"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 114062,
+  "cachedInput": 98483,
+  "output": 2468
+ },
+ "ms": 20751,
+ "errors": [],
+ "answer": "I recorded Dana's theory, but I couldn't put it on Maren herself. Omni-GM only allows a player guess on a thread or a character goal, so it can't go on an NPC.\n\nI made a new thread, **\"Is Maren Vosk running the Hollow Choir?\"**, with status open and marked as a player guess. It links to Maren Vosk, to the Hollow Choir clock, and to Vessa as the character who raised it. The source is Dana's line from session 3: \"Okay, I bet the harbor-master is behind all this… She's in the cult, I'm calling it.\" Maren's own entry is unchanged, so the theory shows up on her only through the thread link.\n\nI committed it directly instead of drafting it for review, because the session 3 debrief was already committed and you asked for it to be saved.\n\nStill open for you:\n- **Priya:** Her character Oren said \"Maren is totally running the choir\" right after Dana. I left it out because you only mentioned Dana. Tell me if you want it added.\n- **Bram's line:** Bram says he's known Maren for thirty years and calls her sharp-tongued with a good heart. I didn't record that as a counterpoint.\n- **Next step:** I left it empty because that's your call."
+}

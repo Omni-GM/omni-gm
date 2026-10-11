@@ -3,9 +3,9 @@
 // D: C without the skill tool; the procedures ride in the server instructions instead.
 import { z } from "zod";
 import { BASES, FRAME_FIELDS, Rejection, type Store } from "./domain";
-import { PROCEDURES, procedureList } from "./procedures";
+import { PROCEDURES, STANDING_RULES, procedureList } from "./procedures";
 
-export type Surface = "A" | "B" | "C" | "D";
+export type Surface = "A" | "B" | "C" | "D" | "E";
 export type Upload = { mode: "signed" | "page"; urlFor: (sessionId: string) => string };
 export type Ctx = { store: Store; upload: Upload };
 export type Tool = { name: string; description: string; schema: z.ZodObject; write: boolean; run: (args: any, ctx: Ctx) => unknown };
@@ -283,6 +283,52 @@ const skillTool = tool(
   (a) => (a.name ? (PROCEDURES[a.name] ? { name: a.name, procedure: PROCEDURES[a.name]!.body } : reject(`No procedure "${a.name}". Procedures: ${Object.keys(PROCEDURES).join(", ")}.`)) : { procedures: procedureList() }),
 );
 
+// ---------- E: C with the contract fixes the matrix pointed at ----------
+
+const findToolE = tool(
+  "find",
+  [
+    "Search the whole store: entities (names, aliases, properties), change sources, scene summaries, and transcripts. Returns ranked hits, each with a ref for get.",
+    "With no query it lists instead: all entities (optionally only some kinds) and scenes, with their refs. Use that to see what exists before a debrief.",
+  ].join("\n"),
+  z.object({
+    query: z.string().optional().describe("Words to look for, e.g. 'Saltmere mine'. Omit to list."),
+    types: z.array(z.enum(["entity", "source", "scene", "transcript"])).optional(),
+    kinds: z.array(z.string()).optional().describe("Limit entity hits to these kinds."),
+    limit: z.number().int().max(200).optional().describe("Default 10 for a search, 100 for a list."),
+  }),
+  (a, { store }) => store.find(a.query ?? "", a.types, a.kinds, a.limit ?? (a.query?.trim() ? 10 : 100), true),
+);
+
+const getToolE = tool(
+  "get",
+  [
+    "Read one or more things by ref (pass refs to read several at once):",
+    "overview | schema | frame | entity:<id> (with history) | session:<id> | scene:<session>/<n> (with its transcript) | transcript:<session>[@<timestamp>] | debrief:<session> (the draft).",
+  ].join("\n"),
+  z.object({ ref: z.string().optional(), refs: z.array(z.string()).max(25).optional() }),
+  (a, { store }) => (a.refs?.length ? store.getMany(a.refs) : store.get(a.ref ?? reject("Give ref or refs."), true)),
+);
+
+const normalizeSkill = (name: string) => {
+  const slug = name.toLowerCase().trim().replace(/[\s_]+/g, "-");
+  return PROCEDURES[slug] ? slug : Object.keys(PROCEDURES).find((k) => k.startsWith(slug.split("-")[0]!));
+};
+
+const skillToolE = tool(
+  "skill",
+  "The procedures for Omni-GM work, each with the standing rules. Call without a name to list them; call with a name to load one. Load the matching procedure before you start a workflow (transcript upload and scenes, debrief, frame talk, prep, plank answers).",
+  z.object({ name: z.string().optional() }),
+  (a) => {
+    if (!a.name) return { procedures: procedureList() };
+    const name = normalizeSkill(a.name) ?? reject(`No procedure "${a.name}". Procedures: ${Object.keys(PROCEDURES).join(", ")}.`);
+    return { name, procedure: `${PROCEDURES[name]!.body}\n\n${STANDING_RULES}` };
+  },
+);
+
+const RULE_HINT = " Basis rule: a player_guess or player_plan only touches a thread or character_goal. Never draft prep.";
+const writesE = writesCD.map((t) => (["debrief_add", "story_commit", "frame_update"].includes(t.name) ? { ...t, description: t.description + RULE_HINT } : t));
+
 export function toolsFor(surface: Surface): Tool[] {
   switch (surface) {
     case "A":
@@ -293,6 +339,8 @@ export function toolsFor(surface: Surface): Tool[] {
       return [findTool, getTool, ...writesCD, skillTool];
     case "D":
       return [findTool, getTool, ...writesCD];
+    case "E":
+      return [findToolE, getToolE, ...writesE, skillToolE];
   }
 }
 

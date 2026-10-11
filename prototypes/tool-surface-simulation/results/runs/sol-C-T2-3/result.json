@@ -1,0 +1,143 @@
+{
+ "id": "sol-C-T2-3",
+ "client": "sol",
+ "surface": "C",
+ "task": "T2",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 44,
+ "rejected": 2,
+ "partialRejections": 0,
+ "invalid": 1,
+ "argsBytes": 17337,
+ "toolSequence": [
+  "skill:debrief",
+  "get",
+  "get",
+  "skill:map-speakers",
+  "get",
+  "get",
+  "find!invalid",
+  "get",
+  "find!rejected",
+  "find",
+  "find",
+  "find",
+  "find",
+  "find",
+  "find",
+  "find",
+  "find",
+  "find",
+  "find",
+  "find",
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "find",
+  "find",
+  "find",
+  "find",
+  "find",
+  "find",
+  "find",
+  "debrief_add",
+  "get",
+  "get",
+  "skill:debrief",
+  "debrief_commit",
+  "get"
+ ],
+ "skillsLoaded": [
+  "debrief",
+  "map-speakers",
+  "debrief"
+ ],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 682669,
+  "cachedInput": 600704,
+  "output": 12105
+ },
+ "ms": 153594,
+ "errors": [],
+ "answer": "Session 3’s debrief is saved in Omni-GM as a draft. All 26 changes were accepted and checked against the saved draft. Nothing has been committed.\n\n**Draft**\n\nAt pier four, the party met Sela Thorn, a tide-reader who offers daytime passage to the chapel and refuses to row there at night. She whispers, avoids eye contact, and watches the tide line. “Sella” is recorded as an alias. She says Saltmere flooded forty years ago, the night the bell first rang; the warm-water detail comes from her grandmother. These remain attributed claims. Sources: 0:00:36–0:01:39.\n\nAt Saltmere Mine, the party found a rotting entrance, warm air smelling of candle wax, and warm black water thirty paces inside. Wet hymn-book pages floated in the tunnel. One bore a hymn about the sea giving back what it takes and the inscription “M. Brand.” Teo identified the handwriting as Mira’s; that identification remains his interpretation. Mira is recorded as his sister, without assigning her a location or confirming authorship. Sources: 0:06:02–0:06:55.\n\nAt the chapel shore, fishermen warned that the Kelp Mother drags children underwater. This is recorded as a rumor, without creating a confirmed creature. At midnight, the submerged bell rang twelve times. The humming was louder, and pale shapes stood in rows on the chapel floor before disappearing when the bell stopped. Sources: 0:14:24–0:15:33.\n\nAt the Tarred Gull, the party agreed to seek Sela at first light and dive to the chapel at low tide during the day. This remains a plan. Bram, the innkeeper, is recorded as huge and red-bearded, laughing at his own jokes while repeatedly wiping the same mug. He says Maren has a good heart and lost a brother to the bay. His testimony remains attributed. Sources: 0:19:50–0:21:02.\n\n**Where the plots stand**\n\n- The bell mystery has advanced through the louder humming and visible underwater shapes. The planned dive is the party’s next step.\n- Teo’s search for Mira now follows the signed hymn page, whose authorship and origin remain unconfirmed.\n- Saltmere’s flooding and its possible connection to the bell remain unexplained.\n- Vessa and Oren suspect Maren’s involvement with the cult or choir. This is a player-theory thread; Maren’s record does not acquire those allegations.\n- The Pale Abbot’s identity remains open, with no new evidence this session.\n\nThe hidden **Hollow Choir rises** clock advances from **2/6 to 3/6**, based on the GM’s explicit statement at 0:15:24.\n\nSpeaker mapping is resolved: Jonas plays Teo, Dana plays Vessa, and Priya plays Oren. “Speaker 1” is Sela in scene 1, an unnamed fisherman in scene 3, and Bram in scene 4.\n\nWhat remains is your review and eventual approval to commit. The draft leaves Mira’s handwriting identification, the hymn pages’ chapel origin, and the truth behind the NPC accounts unresolved; none requires an answer to preserve the session accurately.\n\nCommitted session 3’s debrief in Omni-GM. All 26 approved changes were applied in commit `k66`, and the session is marked committed."
+}

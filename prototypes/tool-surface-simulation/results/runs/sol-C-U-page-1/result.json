@@ -1,0 +1,79 @@
+{
+ "id": "sol-C-U-page-1",
+ "client": "sol",
+ "surface": "C",
+ "task": "U-page",
+ "rep": 1,
+ "uploadMode": "page",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 12,
+ "rejected": 1,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 3326,
+ "toolSequence": [
+  "skill",
+  "skill:split-scenes",
+  "skill:map-speakers",
+  "get",
+  "session_create",
+  "transcript_upload_url",
+  "scenes_set!rejected",
+  "get",
+  "get",
+  "get",
+  "scenes_set",
+  "get"
+ ],
+ "skillsLoaded": [
+  "split-scenes",
+  "map-speakers"
+ ],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 541734,
+  "cachedInput": 437888,
+  "output": 5469
+ },
+ "ms": 256962,
+ "errors": [],
+ "answer": "Created session 3 in The Lantern Coast for **2026-10-10**. Prepared four scenes and speaker mappings in [session-03-scenes.md](/home/coder/.t3/worktrees/omni-gm/t3-02cb808c/prototypes/tool-surface-simulation/results/runs/sol-C-U-page-1/work/session-03-scenes.md).\n\nStill needed: sign in at the [upload page](http://127.0.0.1:35835/upload/s3) and upload `session-03-transcript.md`, then store the prepared scenes.\n\nOmni-GM supplied only a manual upload page. Its “split-scenes” procedure requires that upload first, and Omni-GM rejected saving scenes without it.\n\nSession 3, played **2026-10-10**, is now in Omni-GM with its transcript and four verified scenes:\n\n1. Sela's offer at pier four\n2. Hymn pages in Saltmere Mine\n3. The midnight bell\n4. Tomorrow's dive\n\nNothing remains for the import and scene split."
+}

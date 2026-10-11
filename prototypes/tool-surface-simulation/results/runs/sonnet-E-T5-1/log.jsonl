@@ -1,0 +1,4 @@
+{"t":1791702667829,"surface":"E","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791702669825,"surface":"E","tool":"skill","args":{"name":"frame talk"},"argsBytes":21,"outcome":"ok","partialRejections":0,"resultBytes":1531}
+{"t":1791702669828,"surface":"E","tool":"get","args":{"ref":"frame"},"argsBytes":15,"outcome":"ok","partialRejections":0,"resultBytes":551}
+{"t":1791702671225,"surface":"E","tool":"frame_update","args":{"reason":"GM dictated new timeframe and finale.","fields":{"timeframe":"Before the spring tide, about three sessions.","finale":"The drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick."}},"argsBytes":250,"outcome":"ok","partialRejections":0,"resultBytes":647}

@@ -1,0 +1,64 @@
+{
+ "id": "sonnet-A-T6-3",
+ "client": "sonnet",
+ "surface": "A",
+ "task": "T6",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Hesk alive",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "one correction commit with a reason",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate Hesk",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "nothing else changed",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "basis game_master",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 7,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 720,
+ "toolSequence": [
+  "story_read:entities",
+  "story_read:schema",
+  "story_read:entity",
+  "story_read:entities",
+  "story_read:transcript",
+  "story_read:transcript",
+  "story_correct"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 71339,
+  "cachedInput": 61999,
+  "output": 1147
+ },
+ "ms": 10910,
+ "errors": [],
+ "answer": "I fixed it. Old Hesk's status is now `alive` (commit k59). I recorded your statement as the source with basis `game_master`.\n\nTwo things are left for you:\n- **Session 2 transcript:** It still says he was \"grey and cold and not breathing that you can tell\" (0:02:58). The revival happened off-screen, so the transcript never mentions it. The original debrief entry still shows him as dead in the history, but the current state is correct.\n- **Ferry-house keeper and ferry-house:** Neither exists in the story state, and I didn't add them. If you want them recorded, I'd need their names and details. I'd also need to know where Hesk was last seen, so I can add a \"last seen at\" link. I didn't invent any of that."
+}

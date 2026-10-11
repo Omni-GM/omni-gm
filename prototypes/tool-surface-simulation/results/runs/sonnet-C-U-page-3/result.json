@@ -1,0 +1,75 @@
+{
+ "id": "sonnet-C-U-page-3",
+ "client": "sonnet",
+ "surface": "C",
+ "task": "U-page",
+ "rep": 3,
+ "uploadMode": "page",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 8,
+ "rejected": 1,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 3477,
+ "toolSequence": [
+  "skill",
+  "skill:split-scenes",
+  "skill:map-speakers",
+  "get",
+  "session_create",
+  "transcript_upload_url",
+  "scenes_set!rejected",
+  "scenes_set"
+ ],
+ "skillsLoaded": [
+  "split-scenes",
+  "map-speakers"
+ ],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 269405,
+  "cachedInput": 243874,
+  "output": 6453
+ },
+ "ms": 31863,
+ "errors": [],
+ "answer": "I couldn't finish this one. Session s3 exists in Omni-GM (2026-10-10, adventure \"The Drowned Bell\"), but it has no transcript and no scenes yet.\n\n**What's blocking it:** the upload tool only returned a sign-in page, `http://127.0.0.1:36959/upload/s3`. That page needs you to sign in and drop the file in yourself. I didn't try to get around the sign-in. `scenes_set` also refuses to store scenes until the transcript is uploaded.\n\n**What you need to do:**\n1. Open the link, sign in, and upload `session-03-transcript.md`.\n2. Tell me when it's done, and I'll store the scenes right away.\n\n**Prepared split (4 scenes, from my read of the local file):**\n\n| # | Title | Start | Place |\n|---|---|---|---|\n| 1 | Sela Thorn at pier four | 0:00:05 | Gullwick, pier four |\n| 2 | Saltmere Mine | 0:05:48 | Saltmere Mine, cliff path |\n| 3 | The bell rings at the drowned chapel | 0:13:40 | Shore below the old chapel ruins |\n| 4 | Plan at the Tarred Gull | 0:19:50 | The Tarred Gull tavern |\n\n**Speaker mapping:**\n- **Players:** Jonas plays Teo, Dana plays Vessa, and Priya plays Oren.\n- **\"Speaker 1\"** is the GM's NPC voices:\n  - Sela Thorn, 0:00:27–0:01:35.\n  - The fishermen, 0:14:24.\n  - Bram the innkeeper, 0:20:41 and 0:21:02.\n- **Spelling:** Sela and Sella both appear. I'm keeping \"Sela\", the GM's spelling.\n- **Undecided:** the line at 0:01:06 (\"Sella's boat is the only one…\") is labeled Speaker 1, but the content doesn't make clear whether Sela said it about herself or a dockhand did.\n\nI haven't debriefed, since you only asked for the upload and split.\n\nSession 3 is now in Omni-GM with its transcript and four scenes. I haven't debriefed it, because you only asked for the upload and split.\n\n| # | Scene | Starts | Place |\n|---|---|---|---|\n| 1 | Sela Thorn at pier four | 0:00:05 | Gullwick, pier four |\n| 2 | Saltmere Mine | 0:05:48 | Saltmere Mine, cliff path |\n| 3 | The bell rings at the drowned chapel | 0:13:40 | Shore below the old chapel ruins |\n| 4 | Plan at the Tarred Gull | 0:19:50 | The Tarred Gull tavern |\n\n**Still open:**\n- **Speaker at 0:01:06:** I couldn't tell who said \"Sella's boat is the only one that goes near the bell water.\" It's labeled Speaker 1, but it could be Sela or a dockhand.\n- **Name spelling:** I kept \"Sela\", the GM's spelling, and wrote \"Sela\" in the scene summaries.\n- **Debrief:** say the word and I'll draft the story-state changes from this session. You'll get to review them before anything is committed."
+}

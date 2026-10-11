@@ -1,0 +1,68 @@
+{
+ "id": "sonnet-E-T3-1",
+ "client": "sonnet",
+ "surface": "E",
+ "task": "T3",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "mine: at least two facts",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela: whisper and gaze",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Hesk: 'river's angry since the bell'",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no writes",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Sela's flood story marked as her claim",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 7,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 233,
+ "toolSequence": [
+  "skill",
+  "find",
+  "find",
+  "find",
+  "skill:prep-sparring",
+  "get",
+  "get"
+ ],
+ "skillsLoaded": [
+  "prep-sparring"
+ ],
+ "expectedSkill": "prep-sparring",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 74436,
+  "cachedInput": 51951,
+  "output": 1820
+ },
+ "ms": 15806,
+ "errors": [],
+ "answer": "I answered all three from the store. Nothing is left open, and I didn't write anything to it.\n\n**1. What the players know about the Saltmere Mine**\n\nWhat they saw (narrated, session 3, scene 2):\n- **Entrance:** a black mouth in the chalk, up the cliff path about an hour's walk. The timber frame is half rotted and a rusted cart lies on its side.\n- **Air:** warm, and it smells like old candle wax, \"like a church\" (3:0:06:02).\n- **Flooding:** about thirty paces in, the tunnel floods with black water that is warm to the touch. Wet hymn-book pages float on it and stick to the walls (0:06:24).\n- **The page Teo fished out:** a hymn about \"the sea giving back what it takes\". In pencil in the margin it says \"M. Brand\" (0:06:44). Teo says it's his sister Mira's handwriting, so she was there. This is also recorded as progress on the character goal \"Find out why Mira left the Archive.\"\n- **Bad air:** Oren took 2 damage from it and is down to 11.\n- **Search:** Vessa's investigation roll was a 9 and found nothing else.\n\nWhat they were told (npc_said, so claims):\n- **The archivist** (session 2, 0:08:40–0:08:50) said the chapel's bell metal came from Saltmere, and that the mine had been closed for forty years.\n- **Sela** (session 3, 0:01:26) said, \"Saltmere flooded the same night the bell first rang. Forty years ago. My grandmother said the water came up warm.\" This is her claim, secondhand from her grandmother.\n\nWhat they only guess (player_guess):\n- Vessa and Oren suspect the harbor-master Maren is \"in the cult\" and \"running the choir\" (3:0:07:03–0:07:12). You answered \"You can think that.\" The store holds no fact behind it.\n\n**2. How you played Sela Thorn**\n- **Voice:** she whispers \"like the water might hear her.\"\n- **Eyes:** she never looks anyone in the eye and keeps her gaze on the tide line.\n- **Look:** grey braid, salt-stained coat, sitting on an upturned skiff mending a net. She doesn't look up when they first speak to her.\n- **Manner:** she's blunt and a bit weary: \"Everyone who comes here wants the old chapel.\"\n- **Her rule:** she rows only by day: \"Never at night.\" She charged two silver after Oren's persuasion roll of 14.\n- **Name:** she refers to herself as \"Sella\" once, and you said the dockhands use both. The store has \"Sella\" as an alias.\n- **Ending:** she shrugs and goes back to her net. She'll be at pier four at first light.\n\n**3. What Old Hesk said about the river**\n- On the ferry (session 2, 0:00:14), the line was: **\"Hold the rail. River's angry since the bell.\"**\n- It's the only thing he says about the water, and it comes before he goes overboard.\n- You also played him as humming sea shanties out of tune and calling everyone \"lamb.\"\n- The transcript labels this line \"Speaker 1,\" not \"GM.\" I read it as Hesk's voice because it sits between your narration of him, but the label doesn't say so.\n- He went overboard halfway across, and Oren pulled him out grey, cold and not breathing. They left him with the ferry-house keeper, and the store marks him dead."
+}

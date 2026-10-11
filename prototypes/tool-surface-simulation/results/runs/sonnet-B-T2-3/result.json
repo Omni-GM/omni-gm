@@ -1,0 +1,127 @@
+{
+ "id": "sonnet-B-T2-3",
+ "client": "sonnet",
+ "surface": "B",
+ "task": "T2",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 0.9166666666666666,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": false,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 32,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 7947,
+ "toolSequence": [
+  "list_sessions",
+  "get_schema",
+  "get_frame",
+  "list_entities",
+  "read_transcript",
+  "draft_show",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "draft_new_entity:Sela Thorn",
+  "draft_new_entity:Bram",
+  "draft_new_entity:The Tarred Gull",
+  "draft_new_entity:Saltmere flooded the night the bell first rang",
+  "draft_new_entity:The Kelp Mother",
+  "draft_new_entity:Maren lost a brother to the bay",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_show",
+  "draft_commit"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 393780,
+  "cachedInput": 339848,
+  "output": 18356
+ },
+ "ms": 60448,
+ "errors": [],
+ "answer": "I've drafted the session 3 debrief (s3) with 16 changes across the four scenes. It isn't committed, because that needs your OK.\n\n**New**\n- **Sela Thorn** (alias Sella), an NPC. She whispers, never meets anyone's eye, and rows only by day. She was last seen at Gullwick Docks.\n- **Bram**, the innkeeper, an NPC placed at **The Tarred Gull**, a new place.\n- **Saltmere flooded the night the bell first rang**, a world fact. It's marked npc_said, and it's second-hand from Sela's grandmother.\n- **The Kelp Mother**, a world fact marked as rumor. You never confirmed it's real.\n- **Maren lost a brother to the bay**, a world fact marked npc_said, from Bram, and linked to Maren.\n\n**Updates**\n- **Saltmere Mine:** what the party saw, and that it's flooded with warm water and bad air.\n- **The drowned chapel:** the bell tower and arches at low water, and the pale shapes in rows.\n- **Hollow Choir clock:** 2 → 3 of 6, based on your aside \"(to himself) That's the choir clock at three of six.\"\n- **Teo's goal (Mira):** the hymn page marked \"M. Brand\". It's marked narrated plus player_guess, because Teo's claim that it's Mira's handwriting is his own.\n- **\"Who rang the drowned bell?\" thread:**\n  - Next step: the dive at first light, marked player_plan.\n  - Open question: the players' guess that Maren is in the cult, marked player_guess and unconfirmed. I kept it on the thread and did not put it on Maren.\n\n**Still open for you**\n1. **Speaker names:** The transcript labels Sela, the fishermen and Bram as \"Speaker 1\". I assigned the lines from context. Please check that, especially Sela's \"Sella's boat…\" line.\n2. **Bram's \"wants\":** I wrote \"looks after the party\", which is a light inference from the free stew. Change or drop it if you prefer.\n3. **Thread status:** I left \"Who rang the drowned bell?\" at open. Say if it should be advanced.\n4. **Left out:** Oren's HP (13 → 11, then a long rest to full), the persuasion roll and the two-silver price. These are mechanics, not story state.\n5. **Maren's `played_as`:** I didn't change it. She doesn't appear in session 3.\n\nTell me what to change, or say the draft is right and I'll commit it.\n\nSession 3 is committed as k56, with all 16 changes applied. I did not change the open items from my earlier list (speaker names, Bram's \"wants\", the thread status), so they stand as drafted. Say if you want any of them corrected afterwards."
+}

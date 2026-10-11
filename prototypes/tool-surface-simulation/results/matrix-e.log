@@ -1,0 +1,5 @@
+42 runs planned, 0 already done.
+sonnet-E-T5-1: PASS score=1.00 calls=3 rejected=0 tokens=40202/554 
+sonnet-E-T6-1: PASS score=1.00 calls=4 rejected=0 tokens=59521/846 
+sonnet-E-T4-1: PASS score=1.00 calls=5 rejected=0 tokens=65105/1502 
+sonnet-E-T3-1: PASS score=1.00 calls=7 rejected=0 tokens=74436/1820 

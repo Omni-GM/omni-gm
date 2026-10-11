@@ -1,0 +1,66 @@
+{
+ "id": "sonnet-C-T5-3",
+ "client": "sonnet",
+ "surface": "C",
+ "task": "T5",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "timeframe: spring tide, three sessions",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "finale: chapel at low tide, choir walks out",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "other fields untouched",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no invented frame fields",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "story state untouched",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 4,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 288,
+ "toolSequence": [
+  "skill",
+  "get",
+  "skill:frame-talk",
+  "frame_update"
+ ],
+ "skillsLoaded": [
+  "frame-talk"
+ ],
+ "expectedSkill": "frame-talk",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 53152,
+  "cachedInput": 45980,
+  "output": 715
+ },
+ "ms": 7764,
+ "errors": [],
+ "answer": "I updated the frame for The Drowned Bell. I changed only the two fields you gave me and left the rest as it was.\n\n- **Timeframe:** \"Before the spring tide, about three sessions.\"\n- **Finale:** \"The drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick.\"\n\nNothing is left to do for this change. I didn't touch any story-state entities, since the frame only records your intent.\n\nTwo things you may want to look at when you're back:\n- **Pressure:** it still says \"The bell rings every second night and the humming grows louder.\" That doesn't conflict with the new timeframe, but it isn't tied to the spring tide.\n- **Stakes:** they still say \"the drowned congregation walks into Gullwick.\" That matches your new finale."
+}

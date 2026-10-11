@@ -1,0 +1,7 @@
+{"t":1791702667931,"surface":"E","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791702676541,"surface":"E","tool":"skill","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":1165}
+{"t":1791702679281,"surface":"E","tool":"skill","args":{"name":"split-scenes"},"argsBytes":23,"outcome":"ok","partialRejections":0,"resultBytes":1641}
+{"t":1791702679283,"surface":"E","tool":"get","args":{"ref":"overview"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":614}
+{"t":1791702679283,"surface":"E","tool":"skill","args":{"name":"map-speakers"},"argsBytes":23,"outcome":"ok","partialRejections":0,"resultBytes":1298}
+{"t":1791702681595,"surface":"E","tool":"session_create","args":{"playedOn":"2026-10-10"},"argsBytes":25,"outcome":"ok","partialRejections":0,"resultBytes":94}
+{"t":1791702683680,"surface":"E","tool":"transcript_upload_url","args":{"session":"s3"},"argsBytes":16,"outcome":"ok","partialRejections":0,"resultBytes":288}

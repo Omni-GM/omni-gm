@@ -1,0 +1,111 @@
+{
+ "id": "sonnet-A-T2-3",
+ "client": "sonnet",
+ "surface": "A",
+ "task": "T2",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 16,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 8886,
+ "toolSequence": [
+  "story_read:overview",
+  "story_read:schema",
+  "story_read:frame",
+  "story_read:transcript",
+  "story_read:entities",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "story_read:entity",
+  "debrief:open",
+  "debrief:propose",
+  "debrief:commit"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 291110,
+  "cachedInput": 241163,
+  "output": 14903
+ },
+ "ms": 52160,
+ "errors": [],
+ "answer": "The draft for session 3 is ready, with 17 changes across the 4 scenes. I haven't committed it, because you need to approve it first.\n\n**Scene 1, A boat at pier four**\n- New NPC **Sela Thorn** (alias Sella), who is at Gullwick Docks. She whispers, never meets the party's eyes, and won't row at night.\n- New world fact, from Sela: Saltmere flooded the night the bell first rang, forty years ago, and the water came up warm. It's linked to Saltmere Mine.\n\n**Scene 2, Saltmere Mine**\n- Saltmere Mine now has what the party saw: the church and candle-wax smell, and warm black water with hymn pages floating on it. Its state is flooded.\n- Teo's goal \"Find out why Mira left the Archive\" now notes the page signed \"M. Brand\". The handwriting match is recorded as Teo's claim.\n- New thread \"Is Maren Vosk in the choir?\", recorded as a **player guess** from Vessa and Oren. It notes that you didn't confirm it, and it's linked to Maren.\n\n**Scene 3, The shore at midnight**\n- The drowned chapel now has the bell tower and arches at low water, and the pale congregation shapes at midnight.\n- The Hollow Choir clock goes from 2 to **3 of 6**, based on your aside at 0:15:24.\n- The Kelp Mother is a new world fact, recorded as a **rumor** from the fishermen.\n\n**Scene 4, The Tarred Gull**\n- New place **The Tarred Gull** and new NPC **Bram**, who is at the Gull.\n- New world fact from Bram: Maren lost a brother to the bay. It's linked to Maren.\n- The \"Who rang the drowned bell?\" thread now has a next step: dive to the chapel at low tide at first light, with Sela rowing. This is recorded as a **player plan**.\n\n**Left for you**\n1. **Sela or Sella:** I used \"Sela Thorn\" and kept \"Sella\" as an alias, since you said the dockhands use both. Tell me if you want one spelling.\n2. **Kelp Mother:** I made it a rumor-based world fact. You can drop it if it's just flavor (change c50).\n3. **Dive plan:** I left out Sela's two-silver price and Oren's HP loss, since those are mechanics. I also set no deadline on any thread. You could tie the dive to the clock if you want one.\n4. **Maren:** I added no sign that she's guilty, and the Bram fact leans the other way. Say so if you want her suspicion thread to read differently.\n\nTell me when the draft is right, and I'll commit it.\n\nSession 3 is committed as k57, with all 17 changes applied."
+}

@@ -1,0 +1,131 @@
+{
+ "id": "sol-D-T2-3",
+ "client": "sol",
+ "surface": "D",
+ "task": "T2",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 36,
+ "rejected": 2,
+ "partialRejections": 0,
+ "invalid": 1,
+ "argsBytes": 28460,
+ "toolSequence": [
+  "get",
+  "get",
+  "get",
+  "get",
+  "find!invalid",
+  "find!rejected",
+  "find",
+  "find",
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "find",
+  "find",
+  "find",
+  "find",
+  "get",
+  "get",
+  "find",
+  "debrief_add",
+  "get",
+  "debrief_drop",
+  "debrief_add",
+  "get",
+  "get",
+  "get",
+  "debrief_commit",
+  "get",
+  "get"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 1167751,
+  "cachedInput": 1056384,
+  "output": 13187
+ },
+ "ms": 171276,
+ "errors": [],
+ "answer": "Session 3’s draft is saved in Omni-GM with 21 proposed changes across four scenes. Every change has a verified timestamped quote. It remains uncommitted.\n\nThe plots stand here:\n\n- **The drowned bell:** Twelve midnight strikes, louder humming, and pale shapes standing in rows beneath the water. The party plans a daylight dive at low tide, with Sela rowing them out at first light.\n- **Mira’s trail:** A hymn-book page at Saltmere bears “M. Brand.” Teo recognizes Mira’s handwriting, but that identification remains a player interpretation.\n- **Saltmere’s connection:** Warm black floodwater and hymn-book pages were observed. Sela claims the mine flooded forty years ago, the night the bell first rang.\n- **Maren’s involvement:** Vessa and Oren suspect cult or choir involvement. Bram calls Maren good-hearted and says she lost a brother to the bay. Both accounts remain attributed.\n- **The Pale Abbot:** The existing identity thread remains open, with no new evidence this session.\n\nThe hidden **Hollow Choir rises** clock advances from **2/6 to 3/6**, supported by the GM’s explicit statement at `0:15:24`.\n\nThe draft adds Sela Thorn, with “Sella” as an alias, and Bram, including their portrayals. It adds the Tarred Gull and expands the observed descriptions of the docks, mine, and chapel. The Kelp Mother is recorded as a rumor.\n\nSpeaker mapping is complete: GM; Jonas playing Teo; Dana playing Vessa; Priya playing Oren. “Speaker 1” is Sela in scene 1, an unnamed fisherman in scene 3, and Bram in scene 4.\n\nWhat remains for your review: whether Teo’s handwriting identification is established fact, and enough GM-confirmed information to create Mira’s NPC record. Her mention is retained on Teo’s existing goal. Committing the draft also remains pending; Omni-GM requires your confirmation that it is right.\n\nCommitted session 3’s debrief in Omni-GM. All 21 changes applied. The Hollow Choir clock is now 3/6 and remains hidden from players."
+}

@@ -1,0 +1,12 @@
+{"t":1791702474674,"surface":"B","event":"start","tools":21,"uploadMode":"signed"}
+{"t":1791702484579,"surface":"B","tool":"list_entities","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":1561}
+{"t":1791702484580,"surface":"B","tool":"get_schema","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":5264}
+{"t":1791702484583,"surface":"B","tool":"search_transcripts","args":{"text":"Hesk"},"argsBytes":15,"outcome":"ok","partialRejections":0,"resultBytes":527}
+{"t":1791702484584,"surface":"B","tool":"get_frame","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":551}
+{"t":1791702488567,"surface":"B","tool":"get_entity_history","args":{"entityId":"e34"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":530}
+{"t":1791702488568,"surface":"B","tool":"get_entity","args":{"entityId":"e34"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":245}
+{"t":1791702488568,"surface":"B","tool":"list_sessions","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":773}
+{"t":1791702488569,"surface":"B","tool":"read_transcript","args":{"sessionId":"2"},"argsBytes":17,"outcome":"ok","partialRejections":0,"resultBytes":1170}
+{"t":1791702497508,"surface":"B","tool":"correct_story","args":{"reason":"The GM corrected a mistaken death recorded in session 2: Old Hesk passed out in the water and was revived by the ferry-house keeper.","changes":[{"basis":["game_master"],"change":{"op":"update","entity":"e34","properties":{"status":"alive"}},"sources":[{"quote":"Old Hesk isn't dead. He only passed out in the water in session 2, and the ferry-house keeper revived him."}],"why":"Old Hesk survived session 2: he passed out in the water and the ferry-house keeper revived him, so the recorded dead status was mistaken."}]},"argsBytes":532,"outcome":"ok","partialRejections":0,"resultBytes":37}
+{"t":1791702500833,"surface":"B","tool":"get_entity","args":{"entityId":"e34"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":246}
+{"t":1791702500834,"surface":"B","tool":"get_entity_history","args":{"entityId":"e34"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":1164}

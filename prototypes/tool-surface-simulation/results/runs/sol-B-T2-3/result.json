@@ -1,0 +1,139 @@
+{
+ "id": "sol-B-T2-3",
+ "client": "sol",
+ "surface": "B",
+ "task": "T2",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 44,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 13866,
+ "toolSequence": [
+  "list_sessions",
+  "read_transcript",
+  "get_schema",
+  "draft_show",
+  "list_entities",
+  "get_frame",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "draft_new_entity:Sela Thorn",
+  "draft_new_entity:Saltmere flooding and the first bell",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_new_entity:Is Maren involved with the choir?",
+  "draft_update_entity",
+  "draft_new_entity:Unnamed fisherman at the chapel shore",
+  "draft_new_entity:The Kelp Mother warning",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_new_entity:The Tarred Gull",
+  "draft_new_entity:Bram",
+  "draft_update_entity",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_unrelate",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_show",
+  "draft_drop",
+  "draft_show",
+  "draft_commit",
+  "list_sessions"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 612932,
+  "cachedInput": 536704,
+  "output": 10652
+ },
+ "ms": 107865,
+ "errors": [],
+ "answer": "Session 3’s draft is saved in Omni-GM: 22 proposed changes across all four scenes, each with its basis, verbatim source quotes and reason.\n\n1. **A boat at pier four.** Add Sela Thorn, also called Sella. She whispers, avoids eye contact and watches the tide line. She offers passage for two silver, refuses night travel and offers to meet at first light. Record her account of Saltmere flooding when the bell first rang as an unverified lead.\n\n2. **Saltmere Mine.** Update the mine with warm black water, candle-wax-smelling air and wet hymn-book pages. Record the inscription “M. Brand” and Teo’s identification of Mira’s handwriting in his character goal. Add Vessa and Oren’s suspicion about Maren as a thread; her involvement remains unconfirmed.\n\n3. **The shore at midnight.** Record the chapel’s exposed tower and arches, twelve underwater bell tolls, louder humming and pale shapes standing in rows before vanishing. Advance the hidden Hollow Choir clock from **2/6 to 3/6**, supported by the GM’s explicit statement. Add the unnamed fisherman and preserve his Kelp Mother warning as rumor.\n\n4. **The Tarred Gull.** Add the tavern and Bram, including his red beard, laughter and repeated mug-wiping. Preserve his account that Maren lost a brother to the bay as his claim. Record the party’s last-seen location and agreed plan: meet Sela tomorrow at first light and dive to the chapel at low tide during daylight. Rope and another lantern remain planned purchases.\n\nWhat’s left is your review and approval before committing the draft. Omni-GM requires the GM to say the draft is right; the saved changes remain uncommitted. The uncertain claims can stay uncertain without holding up approval.\n\nCommitted all 22 changes for session 3 of The Lantern Coast. Verified Omni-GM marks the debrief as committed."
+}

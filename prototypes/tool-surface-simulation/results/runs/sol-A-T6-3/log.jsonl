@@ -1,0 +1,9 @@
+{"t":1791702470342,"surface":"A","event":"start","tools":5,"uploadMode":"signed"}
+{"t":1791702482067,"surface":"A","tool":"story_read","args":{"view":"overview"},"argsBytes":19,"outcome":"ok","partialRejections":0,"resultBytes":773}
+{"t":1791702482069,"surface":"A","tool":"story_read","args":{"view":"entities","nameContains":"Hesk"},"argsBytes":41,"outcome":"ok","partialRejections":0,"resultBytes":62}
+{"t":1791702482070,"surface":"A","tool":"story_read","args":{"view":"schema"},"argsBytes":17,"outcome":"ok","partialRejections":0,"resultBytes":5264}
+{"t":1791702485901,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e34","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":816}
+{"t":1791702485902,"surface":"A","tool":"story_read","args":{"view":"transcript","sessionId":"s2"},"argsBytes":38,"outcome":"ok","partialRejections":0,"resultBytes":1170}
+{"t":1791702485903,"surface":"A","tool":"story_read","args":{"view":"entities"},"argsBytes":19,"outcome":"ok","partialRejections":0,"resultBytes":1561}
+{"t":1791702493489,"surface":"A","tool":"story_correct","args":{"reason":"The GM corrected the session 2 debrief: Old Hesk passed out in the water and was revived by the ferry-house keeper; he did not die.","changes":[{"basis":["game_master"],"change":{"op":"update","entity":"e34","properties":{"status":"alive"}},"sources":[{"quote":"Old Hesk isn't dead. He only passed out in the water in session 2, and the ferry-house keeper revived him."}],"why":"The session 2 debrief mistook unconsciousness for death; the GM confirms the ferry-house keeper revived Old Hesk."}]},"argsBytes":507,"outcome":"ok","partialRejections":0,"resultBytes":37}
+{"t":1791702496628,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e34","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":1448}

@@ -1,0 +1,63 @@
+{
+ "id": "sonnet-D-T6-3",
+ "client": "sonnet",
+ "surface": "D",
+ "task": "T6",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Hesk alive",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "one correction commit with a reason",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate Hesk",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "nothing else changed",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "basis game_master",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 6,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 619,
+ "toolSequence": [
+  "find",
+  "get",
+  "get",
+  "find",
+  "find",
+  "story_commit"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 86085,
+  "cachedInput": 73421,
+  "output": 992
+ },
+ "ms": 10879,
+ "errors": [],
+ "answer": "I changed Old Hesk's status from dead to alive (commit k59). That was the only change needed. I recorded it as your correction (basis game_master).\n\nNothing else in the store marked him as dead. I searched for other mentions and found none.\n\nI left a few things unchanged, because the transcript doesn't say and I didn't want to invent them:\n- **Ferry-house keeper:** They're unnamed, so I created no entity for them. If you want them recorded, give me a name or tell me to leave them out.\n- **Where Hesk is now:** I added no \"last seen at\" or \"is at\" link. The transcript only says the party left him with the keeper, and the ferry-house isn't a place in the store yet.\n- **Session 2 scene 1 summary:** It still reads \"he goes overboard and seems dead.\" That's accurate to what the table believed then, so I left it."
+}

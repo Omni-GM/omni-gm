@@ -490,7 +490,7 @@
    "properties": {
     "role": "Ferryman across the estuary",
     "played_as": "Hums sea shanties out of tune, calls everyone \"lamb\"",
-    "status": "dead"
+    "status": "alive"
    }
   },
   {
@@ -1438,6 +1438,11 @@
    "id": "k53",
    "kind": "debrief",
    "reason": "Debrief of session 3"
+  },
+  {
+   "id": "k59",
+   "kind": "correction",
+   "reason": "GM correction: Old Hesk only passed out in the water in session 2; the ferry-house keeper revived him. He is alive."
   }
  ],
  "history": [
@@ -2472,8 +2477,31 @@
    "commitId": "k53",
    "entityId": "e57",
    "sessionId": "s3"
+  },
+  {
+   "change": {
+    "op": "update",
+    "entity": "e34",
+    "properties": {
+     "status": "alive"
+    }
+   },
+   "basis": [
+    "game_master"
+   ],
+   "sources": [
+    {
+     "quote": "Old Hesk isn't dead. He only passed out in the water in session 2, and the ferry-house keeper revived him."
+    }
+   ],
+   "why": "The session 2 debrief recorded Hesk as dead from the narrated 'not breathing that you can tell'; the GM says he was only unconscious and was revived.",
+   "commitId": "k59",
+   "entityId": "e34",
+   "before": {
+    "status": "dead"
+   }
   }
  ],
  "uploads": {},
- "nextId": 59
+ "nextId": 60
 }

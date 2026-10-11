@@ -15,7 +15,7 @@ const runs: R[] = readdirSync(RUNS)
   .map((r) => ({ ...r, ruleBreaks: r.checks.filter((c: any) => c.ruleBreak && !c.pass).map((c: any) => c.name) }));
 
 const CLIENTS = [["sonnet", "Sonnet 5.5 (Claude Code)"], ["sol", "GPT-6.1 Sol (Codex)"]] as const;
-const SURFACES = ["A", "B", "C", "D"];
+const SURFACES = ["A", "B", "C", "D", "E"];
 const TASKS = ["T1", "T2", "T3", "T4", "T5", "T6", "T7"];
 const TASK_TITLES: Record<string, string> = { T1: "upload + scenes", T2: "debrief", T3: "prep questions", T4: "plank answer", T5: "frame update", T6: "fix mistake", T7: "guess trap" };
 
@@ -50,7 +50,7 @@ const main = runs.filter((r) => TASKS.includes(r.task));
 out("# Scorecard: which MCP tool surface helps the AI most?");
 out();
 out(`Throwaway prototype for Omni-GM ticket #10. ${main.length} task runs plus ${pick({ task: "U-page" }).length} upload-page runs, invented data only.`);
-out("Surfaces: **A** few deep tools (spec draft), **B** many narrow verbs, **C** narrow writes + `find`/`get` + `skill` tool, **D** C without `skill`, procedures in server instructions.");
+out("Surfaces: **A** few deep tools (spec draft), **B** many narrow verbs, **C** narrow writes + `find`/`get` + `skill` tool, **D** C without `skill`, procedures in server instructions, **E** C plus the contract fixes the first matrix pointed at (`find` lists with no query, `get` takes several refs, refs explained on error, tolerant skill names, standing rules inside every procedure and the write tools).");
 out();
 out("## Overall, per client and surface");
 out();
@@ -78,12 +78,13 @@ out(`|---|---|${TASKS.map(() => "---:").join("|")}|`);
 for (const [client, label] of CLIENTS)
   for (const surface of SURFACES) out(`| ${label} | ${surface} | ${TASKS.map((task) => passFraction(pick({ client, surface, task } as any))).join(" | ")} |`);
 out();
-out("## Skill loading on surface C (expected procedure loaded before the first write, unprompted)");
+out("## Skill loading on surfaces C and E (expected procedure loaded before the first write, unprompted)");
 out();
-out(`| Client | ${TASKS.filter((t) => t !== "T6").map((t) => `${t} (${TASK_TITLES[t]})`).join(" | ")} |`);
-out(`|---|${TASKS.filter((t) => t !== "T6").map(() => "---:").join("|")}|`);
-for (const [client, label] of CLIENTS)
-  out(`| ${label} | ${TASKS.filter((t) => t !== "T6").map((task) => { const rs = pick({ client, surface: "C", task } as any); return rs.length ? `${rs.filter((r) => r.skillBeforeWrite || (task === "T3" && r.skillsLoaded.includes(r.expectedSkill!))).length}/${rs.length}` : "–"; }).join(" | ")} |`);
+const SKILL_TASKS = TASKS.filter((t) => !["T6", "T7"].includes(t));
+out(`| Client | Surface | ${SKILL_TASKS.map((t) => `${t} (${TASK_TITLES[t]})`).join(" | ")} |`);
+out(`|---|---|${SKILL_TASKS.map(() => "---:").join("|")}|`);
+for (const [client, label] of CLIENTS) for (const surface of ["C", "E"])
+  out(`| ${label} | ${surface} | ${SKILL_TASKS.map((task) => { const rs = pick({ client, surface, task } as any); return rs.length ? `${rs.filter((r) => r.skillBeforeWrite || (task === "T3" && r.skillsLoaded.includes(r.expectedSkill!))).length}/${rs.length}` : "–"; }).join(" | ")} |`);
 out();
 out("## Upload paths per client");
 out();
@@ -99,6 +100,41 @@ for (const [client, label] of CLIENTS) {
     out(`| ${label} | ${path} | ${stored(rs)} | ${leak(rs)} | ${k(s.input)} | ${k(s.output)} | ${f1(s.minutes)} |`);
   }
 }
+out();
+out("## Rejected calls by cause (all runs, both clients)");
+out();
+const CAUSES: [string, RegExp][] = [
+  ["guess or plan on a non-thread", /player guess or plan/],
+  ["unknown property, kind, or relationship", /is not a property|Unknown kind|Unknown relationship|connects/],
+  ["duplicate entity", /already exists/],
+  ["write to a committed debrief or its scenes", /is committed|scenes are fixed/],
+  ["order: no transcript or scenes yet", /no transcript yet|no scenes yet/],
+  ["find: query without meaningful words", /meaningful word/],
+  ["input schema (wrong type, limit, missing field)", /Invalid input|needs /],
+  ["get or entity: unknown ref", /No entity|No session|No scene|No adventure/],
+  ["skill: unknown procedure name", /No procedure/],
+];
+const rejections = new Map<string, Map<string, number>>();
+for (const r of runs) {
+  const log = readFileSync(join(RUNS, r.id, "log.jsonl"), "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l));
+  for (const c of log) {
+    const errors = c.outcome === "rejected" || c.outcome === "invalid" ? [c.error] : (c.errors ?? []);
+    for (const error of errors) {
+      const cause = CAUSES.find(([, re]) => re.test(error))?.[0] ?? "other";
+      const bySurface = rejections.get(cause) ?? new Map();
+      bySurface.set(r.surface, (bySurface.get(r.surface) ?? 0) + 1);
+      rejections.set(cause, bySurface);
+    }
+  }
+}
+out("| Cause | A | B | C | D | E |");
+out("|---|---:|---:|---:|---:|---:|");
+for (const [cause] of [...CAUSES, ["other"]]) {
+  const bySurface = rejections.get(cause);
+  if (bySurface) out(`| ${cause} | ${SURFACES.map((s) => bySurface.get(s) ?? 0).join(" | ")} |`);
+}
+out();
+out(`MCP prompts fetched by a client in any run: ${runs.reduce((a, r: any) => a + (r.promptsFetched?.length ?? 0), 0)}.`);
 out();
 out("## Failed critical checks (count of runs)");
 out();

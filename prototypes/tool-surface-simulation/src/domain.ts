@@ -432,8 +432,9 @@ export class Store {
     return { session: session.ordinal, utterances: shown.map((u) => `[${u.at}] ${u.speaker}: ${u.text}`), more: hits.length - shown.length };
   }
 
-  find(query: string, types?: string[], kinds?: string[], limit = 10) {
-    const terms = tokens(query);
+  find(query: string, types?: string[], kinds?: string[], limit = 10, browse = false) {
+    const terms = tokens(query ?? "");
+    if (terms.length === 0 && browse) return this.browse(types, kinds, limit);
     if (terms.length === 0) reject("Give a query with at least one meaningful word.");
     const wants = (t: string) => !types?.length || types.includes(t);
     const hits: { ref: string; type: string; title: string; snippet: string; score: number }[] = [];
@@ -470,7 +471,31 @@ export class Store {
     return { query, hits: hits.slice(0, limit), total: hits.length };
   }
 
-  get(ref: string) {
+  browse(types?: string[], kinds?: string[], limit = 100) {
+    const wants = (t: string) => !types?.length || types.includes(t);
+    const hits = [
+      ...(wants("entity") ? this.state.entities.filter((e) => !kinds?.length || kinds.includes(e.kind)).map((e) => ({ ref: `entity:${e.id}`, type: `entity/${e.kind}`, title: e.name, aliases: e.aliases.length ? e.aliases : undefined })) : []),
+      ...(wants("scene") ? this.state.sessions.flatMap((s) => s.scenes.map((sc) => ({ ref: `scene:${s.id}/${sc.ordinal}`, type: "scene", title: `Session ${s.ordinal}, scene ${sc.ordinal}: ${sc.title}` }))) : []),
+    ];
+    return { query: "", browse: true, hits: hits.slice(0, limit), total: hits.length };
+  }
+
+  getMany(refs: string[]) {
+    return Object.fromEntries(
+      refs.map((ref) => {
+        try {
+          return [ref, this.get(ref, true)];
+        } catch (e) {
+          if (e instanceof Rejection) return [ref, { error: e.message }];
+          throw e;
+        }
+      }),
+    );
+  }
+
+  get(ref: string, explainRefs = false) {
+    if (explainRefs && !/^(overview|schema|frame|entity|session|scene|transcript|debrief)(:|$)/.test(ref) && !this.state.entities.some((e) => e.id === ref || e.name === ref))
+      reject(`Unknown ref "${ref}". Refs: overview | schema | frame | entity:<id> | session:<id> | scene:<session>/<n> | transcript:<session>[@<timestamp>] | debrief:<session>. To list entities, call find with no query and a kind.`);
     const [type, rest = ""] = ref.includes(":") ? (ref.split(/:(.*)/s) as [string, string]) : [ref, ""];
     switch (type) {
       case "overview":

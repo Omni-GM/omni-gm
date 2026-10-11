@@ -1,0 +1,77 @@
+{
+ "id": "sol-C-T1-3",
+ "client": "sol",
+ "surface": "C",
+ "task": "T1",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 8,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1492,
+ "toolSequence": [
+  "skill",
+  "get",
+  "skill:split-scenes",
+  "skill:map-speakers",
+  "session_create",
+  "transcript_upload_url",
+  "scenes_set",
+  "get"
+ ],
+ "skillsLoaded": [
+  "split-scenes",
+  "map-speakers"
+ ],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 189907,
+  "cachedInput": 166272,
+  "output": 1104
+ },
+ "ms": 38599,
+ "errors": [],
+ "answer": "Imported and verified session 3 in The Lantern Coast, dated 2026-10-10, with the full transcript and four scenes:\n\n1. **0:00:05** — A ride past the breakwater\n2. **0:05:48** — The hymn pages in Saltmere Mine\n3. **0:13:40** — The midnight bell\n4. **0:19:50** — Tomorrow we dive\n\nNothing remains for the import and scene split. Debriefing story-state changes is a separate next step."
+}

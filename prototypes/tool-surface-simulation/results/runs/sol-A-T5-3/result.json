@@ -1,0 +1,63 @@
+{
+ "id": "sol-A-T5-3",
+ "client": "sol",
+ "surface": "A",
+ "task": "T5",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "timeframe: spring tide, three sessions",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "finale: chapel at low tide, choir walks out",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "other fields untouched",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no invented frame fields",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "story state untouched",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 3,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 510,
+ "toolSequence": [
+  "adventure:show",
+  "adventure:update",
+  "adventure:show"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "frame-talk",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 97499,
+  "cachedInput": 83840,
+  "output": 452
+ },
+ "ms": 21813,
+ "errors": [],
+ "answer": "Updated and verified The Drowned Bell’s frame:\n\n- Timeframe: “before the spring tide, about three sessions”\n- Finale: the drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick.\n\nEverything else is unchanged. Nothing left to do."
+}

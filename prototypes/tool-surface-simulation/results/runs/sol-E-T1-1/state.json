@@ -1,0 +1,1691 @@
+{
+ "campaign": "The Lantern Coast",
+ "adventures": [
+  {
+   "id": "a1",
+   "name": "The Drowned Bell",
+   "current": true,
+   "frame": {
+    "goal": "Find out who rings the drowned bell and stop the Hollow Choir before it rises.",
+    "stakes": "Fail: the drowned congregation walks into Gullwick. Win: Teo learns where Mira went.",
+    "timeframe": "Before the choir clock fills.",
+    "pressure": "The bell rings every second night and the humming grows louder.",
+    "finale": "Under the bay, in the drowned chapel.",
+    "moves_main_plot": "Shows that the Archive hid what the bell is.",
+    "pulls_in": "Teo's sister Mira; Vessa's harbor debt."
+   }
+  }
+ ],
+ "sessions": [
+  {
+   "id": "s1",
+   "ordinal": 1,
+   "adventureId": "a1",
+   "playedOn": "2026-09-26",
+   "scenes": [
+    {
+     "title": "Arrival in Gullwick",
+     "start": "0:00:04",
+     "end": "0:06:29",
+     "place": "Gullwick Docks",
+     "summary": "The party lands; Maren Vosk warns them off and mentions the Pellow boys.",
+     "ordinal": 1
+    },
+    {
+     "title": "The bell at midnight",
+     "start": "0:06:30",
+     "place": "Gullwick Docks",
+     "summary": "The drowned bell rings twelve times; a choir hums; Teo says Mira heard it too.",
+     "ordinal": 2
+    }
+   ],
+   "transcript": {
+    "text": "# Session 1 – transcript\n\nInvented example data for a prototype. 0:12:10.\n\n---\n\n**GM** _[0:00:04]_\nYou land at Gullwick at dusk. Fog, tar, gulls. The piers at the far end are rotting.\n\n**Jonas (Teo)** _[0:00:12]_\nI'm Teo, I used to run letters for the Archive. I'm here looking for my sister.\n\n**Dana (Vessa)** _[0:00:20]_\nVessa keeps her hood up. She owes the harbor money and doesn't want to be recognized.\n\n**Priya (Oren)** _[0:00:27]_\nOren, hedge-priest, I just follow these two around and patch them up.\n\n**GM** _[0:00:40]_\nA woman stomps down the pier toward you, chewing something. Cloves, by the smell.\n\n**Speaker 1** _[0:00:48]_\nYou lot don't want to be here after the bell. Last time that bell rang, the Pellow boys walked into the sea and never came out.\n\n**GM** _[0:01:02]_\nThat's Maren Vosk, the harbor-master. She never finishes a sentence if she can spit a clove instead.\n\n**Jonas (Teo)** _[0:01:10]_\nWhat bell?\n\n**Speaker 1** _[0:01:13]_\nThe one that sank with the chapel. Go home.\n\n**GM** _[0:06:30]_\nAt midnight, from under the bay, a bell rings. Twelve times. Something hums along with it, low, like a choir.\n\n**Jonas (Teo)** _[0:06:45]_\nMira heard that bell too. The night she left. She wrote about it.\n",
+    "bytes": 1225,
+    "via": "seed",
+    "uploadedAt": "2026-10-11T07:11:07.297Z"
+   }
+  },
+  {
+   "id": "s2",
+   "ordinal": 2,
+   "adventureId": "a1",
+   "playedOn": "2026-10-03",
+   "scenes": [
+    {
+     "title": "The ferry",
+     "start": "0:00:05",
+     "end": "0:05:09",
+     "place": "Estuary ferry",
+     "summary": "Old Hesk ferries the party; he goes overboard and seems dead.",
+     "ordinal": 1
+    },
+    {
+     "title": "The Archive annex",
+     "start": "0:05:10",
+     "place": "Archive annex",
+     "summary": "A mural shows the Pale Abbot with the bell rope; the archivist points them to Saltmere Mine.",
+     "ordinal": 2
+    }
+   ],
+   "transcript": {
+    "text": "# Session 2 – transcript\n\nInvented example data for a prototype. 0:10:30.\n\n---\n\n**GM** _[0:00:05]_\nNext morning you take the ferry across the estuary to the Archive annex. The ferryman is Old Hesk, ninety if he's a day.\n\n**Speaker 1** _[0:00:14]_\nHold the rail. River's angry since the bell.\n\n**GM** _[0:00:20]_\nHesk hums sea shanties out of tune and calls everyone \"lamb\".\n\n**GM** _[0:02:40]_\nHalfway across, a wave slaps the ferry and Hesk goes over the side. Oren, you pull him out, but he's not moving.\n\n**Priya (Oren)** _[0:02:55]_\nIs he dead?\n\n**GM** _[0:02:58]_\nHe's grey and cold and not breathing that you can tell. You leave him with the ferry-house keeper and go on.\n\n**GM** _[0:05:10]_\nIn the Archive annex there's a mural of the old chapel: monks in white, and above them a pale abbot holding a bell rope, his eyes painted over.\n\n**Jonas (Teo)** _[0:05:25]_\nWho's the abbot?\n\n**GM** _[0:05:28]_\nNo name. The archivist just calls him the Pale Abbot and says nobody knows.\n\n**Dana (Vessa)** _[0:08:40]_\nWe should look at Saltmere Mine sometime, the archivist said the chapel's bell metal came from there.\n\n**GM** _[0:08:50]_\nThe archivist nods. Saltmere, up the cliff path, closed for forty years.\n",
+    "bytes": 1211,
+    "via": "seed",
+    "uploadedAt": "2026-10-11T07:11:07.297Z"
+   }
+  },
+  {
+   "id": "s3",
+   "ordinal": 3,
+   "adventureId": "a1",
+   "playedOn": "2026-10-10",
+   "scenes": []
+  }
+ ],
+ "schema": {
+  "kinds": [
+   {
+    "kind": "npc",
+    "label": "NPC",
+    "description": "A character the GM plays, prepared or improvised.",
+    "properties": [
+     {
+      "key": "role",
+      "type": "text",
+      "description": "Who they are in the world, in a few words."
+     },
+     {
+      "key": "played_as",
+      "type": "text",
+      "description": "How the GM played them: voice, manner, speech habits, attitude to the party. Required for every NPC the GM voiced."
+     },
+     {
+      "key": "wants",
+      "type": "text",
+      "description": "What they want, as shown at the table."
+     },
+     {
+      "key": "knows",
+      "type": "text",
+      "description": "What they know that matters to the story."
+     },
+     {
+      "key": "status",
+      "type": "enum",
+      "enumValues": [
+       "alive",
+       "dead",
+       "missing",
+       "unknown"
+      ],
+      "description": "As far as the table knows."
+     }
+    ]
+   },
+   {
+    "kind": "player_character",
+    "label": "Player character",
+    "description": "A character played by one of the players.",
+    "properties": [
+     {
+      "key": "concept",
+      "type": "text",
+      "description": "The character in one line."
+     }
+    ]
+   },
+   {
+    "kind": "place",
+    "label": "Place",
+    "description": "A location in the world.",
+    "properties": [
+     {
+      "key": "details_shown",
+      "type": "text",
+      "description": "What the players saw there: the GM's descriptions."
+     },
+     {
+      "key": "state",
+      "type": "text",
+      "description": "Its current condition, if it changed."
+     }
+    ]
+   },
+   {
+    "kind": "world_fact",
+    "label": "World fact",
+    "description": "Something the table established about the world: a custom, a law, a past event.",
+    "properties": [
+     {
+      "key": "statement",
+      "type": "text",
+      "description": "The fact in one sentence."
+     }
+    ]
+   },
+   {
+    "kind": "thread",
+    "label": "Thread",
+    "description": "An open story element the players could follow: a lead, a promise, an unanswered question.",
+    "properties": [
+     {
+      "key": "what_is_open",
+      "type": "text",
+      "description": "The open question or promise."
+     },
+     {
+      "key": "status",
+      "type": "enum",
+      "enumValues": [
+       "open",
+       "advanced",
+       "closed"
+      ],
+      "description": "Where the thread stands."
+     },
+     {
+      "key": "next_step",
+      "type": "text",
+      "description": "The next step the party can take or plans to take."
+     },
+     {
+      "key": "deadline",
+      "type": "text",
+      "description": "A deadline in the world, if any."
+     }
+    ]
+   },
+   {
+    "kind": "character_goal",
+    "label": "Character goal",
+    "description": "What a player wants for their character.",
+    "properties": [
+     {
+      "key": "goal",
+      "type": "text",
+      "description": "The goal in the player's words."
+     },
+     {
+      "key": "what_changed",
+      "type": "text",
+      "description": "What changed for this goal most recently."
+     }
+    ]
+   },
+   {
+    "kind": "clock",
+    "label": "Clock",
+    "description": "A story clock: a track that fills toward an event. Never mechanics.",
+    "properties": [
+     {
+      "key": "counts_toward",
+      "type": "text",
+      "description": "What happens when it is full."
+     },
+     {
+      "key": "value",
+      "type": "number",
+      "description": "Filled segments."
+     },
+     {
+      "key": "segments",
+      "type": "number",
+      "description": "Total segments."
+     },
+     {
+      "key": "visible_to_players",
+      "type": "enum",
+      "enumValues": [
+       "yes",
+       "no"
+      ],
+      "description": "Shown to the players or kept by the GM."
+     }
+    ]
+   }
+  ],
+  "relationshipTypes": [
+   {
+    "type": "last_seen_at",
+    "label": "last seen at",
+    "inverseLabel": "last place of",
+    "from": [
+     "npc",
+     "player_character"
+    ],
+    "to": [
+     "place"
+    ],
+    "description": "Where the table last saw them."
+   },
+   {
+    "type": "is_at",
+    "label": "is at",
+    "inverseLabel": "who is there",
+    "from": [
+     "npc"
+    ],
+    "to": [
+     "place"
+    ],
+    "description": "Who lives or works at a place."
+   },
+   {
+    "type": "raised_by",
+    "label": "raised by",
+    "inverseLabel": "raised",
+    "from": [
+     "thread"
+    ],
+    "to": [
+     "npc",
+     "player_character",
+     "place",
+     "world_fact"
+    ],
+    "description": "Who or what raised a thread."
+   },
+   {
+    "type": "belongs_to",
+    "label": "belongs to",
+    "inverseLabel": "pursues",
+    "from": [
+     "character_goal"
+    ],
+    "to": [
+     "player_character"
+    ],
+    "description": "The character a goal belongs to."
+   },
+   {
+    "type": "involves",
+    "label": "involves",
+    "inverseLabel": "involved in",
+    "from": [
+     "thread",
+     "world_fact"
+    ],
+    "to": [
+     "npc",
+     "place",
+     "player_character",
+     "world_fact",
+     "clock"
+    ],
+    "description": "Who or what a thread or fact is about."
+   },
+   {
+    "type": "located_in",
+    "label": "located in",
+    "inverseLabel": "contains",
+    "from": [
+     "place"
+    ],
+    "to": [
+     "place"
+    ],
+    "description": "Place hierarchy."
+   },
+   {
+    "type": "pressures",
+    "label": "pressures",
+    "inverseLabel": "pressured by",
+    "from": [
+     "clock"
+    ],
+    "to": [
+     "thread",
+     "place",
+     "player_character"
+    ],
+    "description": "What a clock pushes on."
+   }
+  ]
+ },
+ "entities": [
+  {
+   "id": "e15",
+   "kind": "player_character",
+   "name": "Teo Brand",
+   "aliases": [],
+   "properties": {
+    "concept": "Former Archive letter-runner looking for his sister"
+   }
+  },
+  {
+   "id": "e16",
+   "kind": "player_character",
+   "name": "Vessa Quill",
+   "aliases": [],
+   "properties": {
+    "concept": "Hooded smuggler who owes the harbor money"
+   }
+  },
+  {
+   "id": "e17",
+   "kind": "player_character",
+   "name": "Oren",
+   "aliases": [],
+   "properties": {
+    "concept": "Hedge-priest who patches the others up"
+   }
+  },
+  {
+   "id": "e18",
+   "kind": "place",
+   "name": "Gullwick Docks",
+   "aliases": [],
+   "properties": {
+    "details_shown": "Fog, tar, and gulls; the far piers are rotting."
+   }
+  },
+  {
+   "id": "e19",
+   "kind": "npc",
+   "name": "Maren Vosk",
+   "aliases": [],
+   "properties": {
+    "role": "Harbor-master of Gullwick",
+    "played_as": "Stomps, chews cloves, never finishes a sentence if she can spit a clove instead",
+    "status": "alive"
+   }
+  },
+  {
+   "id": "e20",
+   "kind": "world_fact",
+   "name": "The Pellow boys walked into the sea",
+   "aliases": [],
+   "properties": {
+    "statement": "Last time the bell rang, the Pellow boys walked into the sea and never came out."
+   }
+  },
+  {
+   "id": "e21",
+   "kind": "place",
+   "name": "The drowned chapel",
+   "aliases": [
+    "old chapel"
+   ],
+   "properties": {
+    "details_shown": "Sank into the bay with its bell."
+   }
+  },
+  {
+   "id": "e22",
+   "kind": "thread",
+   "name": "Who rang the drowned bell?",
+   "aliases": [],
+   "properties": {
+    "what_is_open": "Who or what rings a bell that sank with the old chapel?",
+    "status": "open"
+   }
+  },
+  {
+   "id": "e23",
+   "kind": "clock",
+   "name": "The Hollow Choir rises",
+   "aliases": [],
+   "properties": {
+    "counts_toward": "The drowned congregation walks out of the bay.",
+    "value": 2,
+    "segments": 6,
+    "visible_to_players": "no"
+   }
+  },
+  {
+   "id": "e24",
+   "kind": "character_goal",
+   "name": "Find out why Mira left the Archive",
+   "aliases": [],
+   "properties": {
+    "goal": "Learn why my sister Mira walked out of the Archive and never came back.",
+    "what_changed": "Mira heard the bell the night she left."
+   }
+  },
+  {
+   "id": "e34",
+   "kind": "npc",
+   "name": "Old Hesk",
+   "aliases": [],
+   "properties": {
+    "role": "Ferryman across the estuary",
+    "played_as": "Hums sea shanties out of tune, calls everyone \"lamb\"",
+    "status": "dead"
+   }
+  },
+  {
+   "id": "e35",
+   "kind": "place",
+   "name": "Archive annex",
+   "aliases": [],
+   "properties": {
+    "details_shown": "A mural of the old chapel: monks in white under a pale abbot holding a bell rope, his eyes painted over."
+   }
+  },
+  {
+   "id": "e36",
+   "kind": "npc",
+   "name": "The Pale Abbot",
+   "aliases": [],
+   "properties": {
+    "role": "Figure in the chapel mural holding the bell rope; nobody knows who he was",
+    "status": "unknown"
+   }
+  },
+  {
+   "id": "e37",
+   "kind": "thread",
+   "name": "Who is the Pale Abbot?",
+   "aliases": [],
+   "properties": {
+    "what_is_open": "Who was the abbot painted holding the bell rope?",
+    "status": "open"
+   }
+  },
+  {
+   "id": "e38",
+   "kind": "place",
+   "name": "Saltmere Mine",
+   "aliases": [],
+   "properties": {
+    "details_shown": "Up the cliff path, closed for forty years.",
+    "state": "closed"
+   }
+  },
+  {
+   "id": "e39",
+   "kind": "world_fact",
+   "name": "The bell metal came from Saltmere",
+   "aliases": [],
+   "properties": {
+    "statement": "The chapel's bell was cast from metal mined at Saltmere."
+   }
+  }
+ ],
+ "relationships": [
+  {
+   "type": "last_seen_at",
+   "from": "e19",
+   "to": "e18"
+  },
+  {
+   "type": "pressures",
+   "from": "e23",
+   "to": "e22"
+  },
+  {
+   "type": "belongs_to",
+   "from": "e24",
+   "to": "e15"
+  },
+  {
+   "type": "involves",
+   "from": "e37",
+   "to": "e36"
+  }
+ ],
+ "debriefs": [
+  {
+   "id": "d1",
+   "sessionId": "s1",
+   "status": "committed",
+   "changes": [
+    {
+     "scene": 1,
+     "change": {
+      "op": "new",
+      "tempKey": "teo",
+      "kind": "player_character",
+      "name": "Teo Brand",
+      "properties": {
+       "concept": "Former Archive letter-runner looking for his sister"
+      }
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "I'm Teo, I used to run letters for the Archive. I'm here looking for my sister.",
+       "at": "0:00:12"
+      }
+     ],
+     "why": "Player character introduced.",
+     "id": "c1"
+    },
+    {
+     "scene": 1,
+     "change": {
+      "op": "new",
+      "tempKey": "vessa",
+      "kind": "player_character",
+      "name": "Vessa Quill",
+      "properties": {
+       "concept": "Hooded smuggler who owes the harbor money"
+      }
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "She owes the harbor money and doesn't want to be recognized.",
+       "at": "0:00:20"
+      }
+     ],
+     "why": "Player character introduced.",
+     "id": "c2"
+    },
+    {
+     "scene": 1,
+     "change": {
+      "op": "new",
+      "tempKey": "oren",
+      "kind": "player_character",
+      "name": "Oren",
+      "properties": {
+       "concept": "Hedge-priest who patches the others up"
+      }
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "Oren, hedge-priest, I just follow these two around and patch them up.",
+       "at": "0:00:27"
+      }
+     ],
+     "why": "Player character introduced.",
+     "id": "c3"
+    },
+    {
+     "scene": 1,
+     "change": {
+      "op": "new",
+      "tempKey": "docks",
+      "kind": "place",
+      "name": "Gullwick Docks",
+      "properties": {
+       "details_shown": "Fog, tar, and gulls; the far piers are rotting."
+      }
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "Fog, tar, gulls. The piers at the far end are rotting.",
+       "at": "0:00:04"
+      }
+     ],
+     "why": "First location.",
+     "id": "c4"
+    },
+    {
+     "scene": 1,
+     "change": {
+      "op": "new",
+      "tempKey": "maren",
+      "kind": "npc",
+      "name": "Maren Vosk",
+      "properties": {
+       "role": "Harbor-master of Gullwick",
+       "played_as": "Stomps, chews cloves, never finishes a sentence if she can spit a clove instead",
+       "status": "alive"
+      }
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "That's Maren Vosk, the harbor-master. She never finishes a sentence if she can spit a clove instead.",
+       "at": "0:01:02"
+      }
+     ],
+     "why": "NPC who warned the party off.",
+     "id": "c5"
+    },
+    {
+     "scene": 1,
+     "change": {
+      "op": "relate",
+      "type": "last_seen_at",
+      "from": "$maren",
+      "to": "$docks"
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "A woman stomps down the pier toward you",
+       "at": "0:00:40"
+      }
+     ],
+     "why": "Where the party met her.",
+     "id": "c6"
+    },
+    {
+     "scene": 1,
+     "change": {
+      "op": "new",
+      "tempKey": "pellow",
+      "kind": "world_fact",
+      "name": "The Pellow boys walked into the sea",
+      "properties": {
+       "statement": "Last time the bell rang, the Pellow boys walked into the sea and never came out."
+      }
+     },
+     "basis": [
+      "npc_said"
+     ],
+     "sources": [
+      {
+       "quote": "Last time that bell rang, the Pellow boys walked into the sea and never came out.",
+       "at": "0:00:48"
+      }
+     ],
+     "why": "Maren's claim about the bell's history.",
+     "id": "c7"
+    },
+    {
+     "scene": 2,
+     "change": {
+      "op": "new",
+      "tempKey": "chapel",
+      "kind": "place",
+      "name": "The drowned chapel",
+      "aliases": [
+       "old chapel"
+      ],
+      "properties": {
+       "details_shown": "Sank into the bay with its bell."
+      }
+     },
+     "basis": [
+      "npc_said"
+     ],
+     "sources": [
+      {
+       "quote": "The one that sank with the chapel.",
+       "at": "0:01:13"
+      }
+     ],
+     "why": "The bell's origin.",
+     "id": "c8"
+    },
+    {
+     "scene": 2,
+     "change": {
+      "op": "new",
+      "tempKey": "bell",
+      "kind": "thread",
+      "name": "Who rang the drowned bell?",
+      "properties": {
+       "what_is_open": "Who or what rings a bell that sank with the old chapel?",
+       "status": "open"
+      }
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "At midnight, from under the bay, a bell rings. Twelve times.",
+       "at": "0:06:30"
+      }
+     ],
+     "why": "The adventure's opening mystery.",
+     "id": "c9"
+    },
+    {
+     "scene": 2,
+     "change": {
+      "op": "new",
+      "tempKey": "choir",
+      "kind": "clock",
+      "name": "The Hollow Choir rises",
+      "properties": {
+       "counts_toward": "The drowned congregation walks out of the bay.",
+       "value": 1,
+       "segments": 6,
+       "visible_to_players": "no"
+      }
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "Something hums along with it, low, like a choir.",
+       "at": "0:06:30"
+      }
+     ],
+     "why": "Hidden pressure clock.",
+     "id": "c10"
+    },
+    {
+     "scene": 2,
+     "change": {
+      "op": "relate",
+      "type": "pressures",
+      "from": "$choir",
+      "to": "$bell"
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "Something hums along with it, low, like a choir.",
+       "at": "0:06:30"
+      }
+     ],
+     "why": "The clock drives the mystery.",
+     "id": "c11"
+    },
+    {
+     "scene": 2,
+     "change": {
+      "op": "new",
+      "tempKey": "goal",
+      "kind": "character_goal",
+      "name": "Find out why Mira left the Archive",
+      "properties": {
+       "goal": "Learn why my sister Mira walked out of the Archive and never came back.",
+       "what_changed": "Mira heard the bell the night she left."
+      }
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "Mira heard that bell too. The night she left. She wrote about it.",
+       "at": "0:06:45"
+      }
+     ],
+     "why": "Teo tied his goal to the bell.",
+     "id": "c12"
+    },
+    {
+     "scene": 2,
+     "change": {
+      "op": "relate",
+      "type": "belongs_to",
+      "from": "$goal",
+      "to": "$teo"
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "Mira heard that bell too.",
+       "at": "0:06:45"
+      }
+     ],
+     "why": "Teo's goal.",
+     "id": "c13"
+    }
+   ],
+   "commitId": "k14"
+  },
+  {
+   "id": "d2",
+   "sessionId": "s2",
+   "status": "committed",
+   "changes": [
+    {
+     "scene": 1,
+     "change": {
+      "op": "new",
+      "tempKey": "hesk",
+      "kind": "npc",
+      "name": "Old Hesk",
+      "properties": {
+       "role": "Ferryman across the estuary",
+       "played_as": "Hums sea shanties out of tune, calls everyone \"lamb\"",
+       "status": "dead"
+      }
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "He's grey and cold and not breathing that you can tell.",
+       "at": "0:02:58"
+      }
+     ],
+     "why": "Ferryman who went overboard.",
+     "id": "c25"
+    },
+    {
+     "scene": 2,
+     "change": {
+      "op": "new",
+      "tempKey": "annex",
+      "kind": "place",
+      "name": "Archive annex",
+      "properties": {
+       "details_shown": "A mural of the old chapel: monks in white under a pale abbot holding a bell rope, his eyes painted over."
+      }
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "In the Archive annex there's a mural of the old chapel",
+       "at": "0:05:10"
+      }
+     ],
+     "why": "Where the mural is.",
+     "id": "c26"
+    },
+    {
+     "scene": 2,
+     "change": {
+      "op": "new",
+      "tempKey": "abbot",
+      "kind": "npc",
+      "name": "The Pale Abbot",
+      "properties": {
+       "role": "Figure in the chapel mural holding the bell rope; nobody knows who he was",
+       "status": "unknown"
+      }
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "The archivist just calls him the Pale Abbot and says nobody knows.",
+       "at": "0:05:28"
+      }
+     ],
+     "why": "Central figure of the bell mystery.",
+     "id": "c27"
+    },
+    {
+     "scene": 2,
+     "change": {
+      "op": "new",
+      "tempKey": "who",
+      "kind": "thread",
+      "name": "Who is the Pale Abbot?",
+      "properties": {
+       "what_is_open": "Who was the abbot painted holding the bell rope?",
+       "status": "open"
+      }
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "Who's the abbot?",
+       "at": "0:05:25"
+      }
+     ],
+     "why": "Open question the players raised.",
+     "id": "c28"
+    },
+    {
+     "scene": 2,
+     "change": {
+      "op": "relate",
+      "type": "involves",
+      "from": "$who",
+      "to": "$abbot"
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "The archivist just calls him the Pale Abbot",
+       "at": "0:05:28"
+      }
+     ],
+     "why": "Thread is about the abbot.",
+     "id": "c29"
+    },
+    {
+     "scene": 2,
+     "change": {
+      "op": "new",
+      "tempKey": "mine",
+      "kind": "place",
+      "name": "Saltmere Mine",
+      "properties": {
+       "details_shown": "Up the cliff path, closed for forty years.",
+       "state": "closed"
+      }
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "Saltmere, up the cliff path, closed for forty years.",
+       "at": "0:08:50"
+      }
+     ],
+     "why": "Lead the party may follow.",
+     "id": "c30"
+    },
+    {
+     "scene": 2,
+     "change": {
+      "op": "new",
+      "tempKey": "metal",
+      "kind": "world_fact",
+      "name": "The bell metal came from Saltmere",
+      "properties": {
+       "statement": "The chapel's bell was cast from metal mined at Saltmere."
+      }
+     },
+     "basis": [
+      "npc_said"
+     ],
+     "sources": [
+      {
+       "quote": "the archivist said the chapel's bell metal came from there",
+       "at": "0:08:40"
+      }
+     ],
+     "why": "Links the mine to the bell.",
+     "id": "c31"
+    },
+    {
+     "scene": 2,
+     "change": {
+      "op": "update",
+      "entity": "e23",
+      "properties": {
+       "value": 2
+      }
+     },
+     "basis": [
+      "narrated"
+     ],
+     "sources": [
+      {
+       "quote": "River's angry since the bell.",
+       "at": "0:00:14"
+      }
+     ],
+     "why": "The bell rang again.",
+     "id": "c32"
+    }
+   ],
+   "commitId": "k33"
+  }
+ ],
+ "commits": [
+  {
+   "id": "k14",
+   "kind": "debrief",
+   "reason": "Debrief of session 1"
+  },
+  {
+   "id": "k33",
+   "kind": "debrief",
+   "reason": "Debrief of session 2"
+  }
+ ],
+ "history": [
+  {
+   "scene": 1,
+   "change": {
+    "op": "new",
+    "tempKey": "teo",
+    "kind": "player_character",
+    "name": "Teo Brand",
+    "properties": {
+     "concept": "Former Archive letter-runner looking for his sister"
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "I'm Teo, I used to run letters for the Archive. I'm here looking for my sister.",
+     "at": "0:00:12"
+    }
+   ],
+   "why": "Player character introduced.",
+   "id": "c1",
+   "commitId": "k14",
+   "entityId": "e15",
+   "sessionId": "s1"
+  },
+  {
+   "scene": 1,
+   "change": {
+    "op": "new",
+    "tempKey": "vessa",
+    "kind": "player_character",
+    "name": "Vessa Quill",
+    "properties": {
+     "concept": "Hooded smuggler who owes the harbor money"
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "She owes the harbor money and doesn't want to be recognized.",
+     "at": "0:00:20"
+    }
+   ],
+   "why": "Player character introduced.",
+   "id": "c2",
+   "commitId": "k14",
+   "entityId": "e16",
+   "sessionId": "s1"
+  },
+  {
+   "scene": 1,
+   "change": {
+    "op": "new",
+    "tempKey": "oren",
+    "kind": "player_character",
+    "name": "Oren",
+    "properties": {
+     "concept": "Hedge-priest who patches the others up"
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "Oren, hedge-priest, I just follow these two around and patch them up.",
+     "at": "0:00:27"
+    }
+   ],
+   "why": "Player character introduced.",
+   "id": "c3",
+   "commitId": "k14",
+   "entityId": "e17",
+   "sessionId": "s1"
+  },
+  {
+   "scene": 1,
+   "change": {
+    "op": "new",
+    "tempKey": "docks",
+    "kind": "place",
+    "name": "Gullwick Docks",
+    "properties": {
+     "details_shown": "Fog, tar, and gulls; the far piers are rotting."
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "Fog, tar, gulls. The piers at the far end are rotting.",
+     "at": "0:00:04"
+    }
+   ],
+   "why": "First location.",
+   "id": "c4",
+   "commitId": "k14",
+   "entityId": "e18",
+   "sessionId": "s1"
+  },
+  {
+   "scene": 1,
+   "change": {
+    "op": "new",
+    "tempKey": "maren",
+    "kind": "npc",
+    "name": "Maren Vosk",
+    "properties": {
+     "role": "Harbor-master of Gullwick",
+     "played_as": "Stomps, chews cloves, never finishes a sentence if she can spit a clove instead",
+     "status": "alive"
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "That's Maren Vosk, the harbor-master. She never finishes a sentence if she can spit a clove instead.",
+     "at": "0:01:02"
+    }
+   ],
+   "why": "NPC who warned the party off.",
+   "id": "c5",
+   "commitId": "k14",
+   "entityId": "e19",
+   "sessionId": "s1"
+  },
+  {
+   "scene": 1,
+   "change": {
+    "op": "relate",
+    "type": "last_seen_at",
+    "from": "$maren",
+    "to": "$docks"
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "A woman stomps down the pier toward you",
+     "at": "0:00:40"
+    }
+   ],
+   "why": "Where the party met her.",
+   "id": "c6",
+   "commitId": "k14",
+   "entityId": "e19",
+   "sessionId": "s1"
+  },
+  {
+   "scene": 1,
+   "change": {
+    "op": "relate",
+    "type": "last_seen_at",
+    "from": "$maren",
+    "to": "$docks"
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "A woman stomps down the pier toward you",
+     "at": "0:00:40"
+    }
+   ],
+   "why": "Where the party met her.",
+   "id": "c6",
+   "commitId": "k14",
+   "entityId": "e18",
+   "sessionId": "s1"
+  },
+  {
+   "scene": 1,
+   "change": {
+    "op": "new",
+    "tempKey": "pellow",
+    "kind": "world_fact",
+    "name": "The Pellow boys walked into the sea",
+    "properties": {
+     "statement": "Last time the bell rang, the Pellow boys walked into the sea and never came out."
+    }
+   },
+   "basis": [
+    "npc_said"
+   ],
+   "sources": [
+    {
+     "quote": "Last time that bell rang, the Pellow boys walked into the sea and never came out.",
+     "at": "0:00:48"
+    }
+   ],
+   "why": "Maren's claim about the bell's history.",
+   "id": "c7",
+   "commitId": "k14",
+   "entityId": "e20",
+   "sessionId": "s1"
+  },
+  {
+   "scene": 2,
+   "change": {
+    "op": "new",
+    "tempKey": "chapel",
+    "kind": "place",
+    "name": "The drowned chapel",
+    "aliases": [
+     "old chapel"
+    ],
+    "properties": {
+     "details_shown": "Sank into the bay with its bell."
+    }
+   },
+   "basis": [
+    "npc_said"
+   ],
+   "sources": [
+    {
+     "quote": "The one that sank with the chapel.",
+     "at": "0:01:13"
+    }
+   ],
+   "why": "The bell's origin.",
+   "id": "c8",
+   "commitId": "k14",
+   "entityId": "e21",
+   "sessionId": "s1"
+  },
+  {
+   "scene": 2,
+   "change": {
+    "op": "new",
+    "tempKey": "bell",
+    "kind": "thread",
+    "name": "Who rang the drowned bell?",
+    "properties": {
+     "what_is_open": "Who or what rings a bell that sank with the old chapel?",
+     "status": "open"
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "At midnight, from under the bay, a bell rings. Twelve times.",
+     "at": "0:06:30"
+    }
+   ],
+   "why": "The adventure's opening mystery.",
+   "id": "c9",
+   "commitId": "k14",
+   "entityId": "e22",
+   "sessionId": "s1"
+  },
+  {
+   "scene": 2,
+   "change": {
+    "op": "new",
+    "tempKey": "choir",
+    "kind": "clock",
+    "name": "The Hollow Choir rises",
+    "properties": {
+     "counts_toward": "The drowned congregation walks out of the bay.",
+     "value": 1,
+     "segments": 6,
+     "visible_to_players": "no"
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "Something hums along with it, low, like a choir.",
+     "at": "0:06:30"
+    }
+   ],
+   "why": "Hidden pressure clock.",
+   "id": "c10",
+   "commitId": "k14",
+   "entityId": "e23",
+   "sessionId": "s1"
+  },
+  {
+   "scene": 2,
+   "change": {
+    "op": "relate",
+    "type": "pressures",
+    "from": "$choir",
+    "to": "$bell"
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "Something hums along with it, low, like a choir.",
+     "at": "0:06:30"
+    }
+   ],
+   "why": "The clock drives the mystery.",
+   "id": "c11",
+   "commitId": "k14",
+   "entityId": "e23",
+   "sessionId": "s1"
+  },
+  {
+   "scene": 2,
+   "change": {
+    "op": "relate",
+    "type": "pressures",
+    "from": "$choir",
+    "to": "$bell"
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "Something hums along with it, low, like a choir.",
+     "at": "0:06:30"
+    }
+   ],
+   "why": "The clock drives the mystery.",
+   "id": "c11",
+   "commitId": "k14",
+   "entityId": "e22",
+   "sessionId": "s1"
+  },
+  {
+   "scene": 2,
+   "change": {
+    "op": "new",
+    "tempKey": "goal",
+    "kind": "character_goal",
+    "name": "Find out why Mira left the Archive",
+    "properties": {
+     "goal": "Learn why my sister Mira walked out of the Archive and never came back.",
+     "what_changed": "Mira heard the bell the night she left."
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "Mira heard that bell too. The night she left. She wrote about it.",
+     "at": "0:06:45"
+    }
+   ],
+   "why": "Teo tied his goal to the bell.",
+   "id": "c12",
+   "commitId": "k14",
+   "entityId": "e24",
+   "sessionId": "s1"
+  },
+  {
+   "scene": 2,
+   "change": {
+    "op": "relate",
+    "type": "belongs_to",
+    "from": "$goal",
+    "to": "$teo"
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "Mira heard that bell too.",
+     "at": "0:06:45"
+    }
+   ],
+   "why": "Teo's goal.",
+   "id": "c13",
+   "commitId": "k14",
+   "entityId": "e24",
+   "sessionId": "s1"
+  },
+  {
+   "scene": 2,
+   "change": {
+    "op": "relate",
+    "type": "belongs_to",
+    "from": "$goal",
+    "to": "$teo"
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "Mira heard that bell too.",
+     "at": "0:06:45"
+    }
+   ],
+   "why": "Teo's goal.",
+   "id": "c13",
+   "commitId": "k14",
+   "entityId": "e15",
+   "sessionId": "s1"
+  },
+  {
+   "scene": 1,
+   "change": {
+    "op": "new",
+    "tempKey": "hesk",
+    "kind": "npc",
+    "name": "Old Hesk",
+    "properties": {
+     "role": "Ferryman across the estuary",
+     "played_as": "Hums sea shanties out of tune, calls everyone \"lamb\"",
+     "status": "dead"
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "He's grey and cold and not breathing that you can tell.",
+     "at": "0:02:58"
+    }
+   ],
+   "why": "Ferryman who went overboard.",
+   "id": "c25",
+   "commitId": "k33",
+   "entityId": "e34",
+   "sessionId": "s2"
+  },
+  {
+   "scene": 2,
+   "change": {
+    "op": "new",
+    "tempKey": "annex",
+    "kind": "place",
+    "name": "Archive annex",
+    "properties": {
+     "details_shown": "A mural of the old chapel: monks in white under a pale abbot holding a bell rope, his eyes painted over."
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "In the Archive annex there's a mural of the old chapel",
+     "at": "0:05:10"
+    }
+   ],
+   "why": "Where the mural is.",
+   "id": "c26",
+   "commitId": "k33",
+   "entityId": "e35",
+   "sessionId": "s2"
+  },
+  {
+   "scene": 2,
+   "change": {
+    "op": "new",
+    "tempKey": "abbot",
+    "kind": "npc",
+    "name": "The Pale Abbot",
+    "properties": {
+     "role": "Figure in the chapel mural holding the bell rope; nobody knows who he was",
+     "status": "unknown"
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "The archivist just calls him the Pale Abbot and says nobody knows.",
+     "at": "0:05:28"
+    }
+   ],
+   "why": "Central figure of the bell mystery.",
+   "id": "c27",
+   "commitId": "k33",
+   "entityId": "e36",
+   "sessionId": "s2"
+  },
+  {
+   "scene": 2,
+   "change": {
+    "op": "new",
+    "tempKey": "who",
+    "kind": "thread",
+    "name": "Who is the Pale Abbot?",
+    "properties": {
+     "what_is_open": "Who was the abbot painted holding the bell rope?",
+     "status": "open"
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "Who's the abbot?",
+     "at": "0:05:25"
+    }
+   ],
+   "why": "Open question the players raised.",
+   "id": "c28",
+   "commitId": "k33",
+   "entityId": "e37",
+   "sessionId": "s2"
+  },
+  {
+   "scene": 2,
+   "change": {
+    "op": "relate",
+    "type": "involves",
+    "from": "$who",
+    "to": "$abbot"
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "The archivist just calls him the Pale Abbot",
+     "at": "0:05:28"
+    }
+   ],
+   "why": "Thread is about the abbot.",
+   "id": "c29",
+   "commitId": "k33",
+   "entityId": "e37",
+   "sessionId": "s2"
+  },
+  {
+   "scene": 2,
+   "change": {
+    "op": "relate",
+    "type": "involves",
+    "from": "$who",
+    "to": "$abbot"
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "The archivist just calls him the Pale Abbot",
+     "at": "0:05:28"
+    }
+   ],
+   "why": "Thread is about the abbot.",
+   "id": "c29",
+   "commitId": "k33",
+   "entityId": "e36",
+   "sessionId": "s2"
+  },
+  {
+   "scene": 2,
+   "change": {
+    "op": "new",
+    "tempKey": "mine",
+    "kind": "place",
+    "name": "Saltmere Mine",
+    "properties": {
+     "details_shown": "Up the cliff path, closed for forty years.",
+     "state": "closed"
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "Saltmere, up the cliff path, closed for forty years.",
+     "at": "0:08:50"
+    }
+   ],
+   "why": "Lead the party may follow.",
+   "id": "c30",
+   "commitId": "k33",
+   "entityId": "e38",
+   "sessionId": "s2"
+  },
+  {
+   "scene": 2,
+   "change": {
+    "op": "new",
+    "tempKey": "metal",
+    "kind": "world_fact",
+    "name": "The bell metal came from Saltmere",
+    "properties": {
+     "statement": "The chapel's bell was cast from metal mined at Saltmere."
+    }
+   },
+   "basis": [
+    "npc_said"
+   ],
+   "sources": [
+    {
+     "quote": "the archivist said the chapel's bell metal came from there",
+     "at": "0:08:40"
+    }
+   ],
+   "why": "Links the mine to the bell.",
+   "id": "c31",
+   "commitId": "k33",
+   "entityId": "e39",
+   "sessionId": "s2"
+  },
+  {
+   "scene": 2,
+   "change": {
+    "op": "update",
+    "entity": "e23",
+    "properties": {
+     "value": 2
+    }
+   },
+   "basis": [
+    "narrated"
+   ],
+   "sources": [
+    {
+     "quote": "River's angry since the bell.",
+     "at": "0:00:14"
+    }
+   ],
+   "why": "The bell rang again.",
+   "id": "c32",
+   "commitId": "k33",
+   "entityId": "e23",
+   "sessionId": "s2",
+   "before": {
+    "value": 1
+   }
+  }
+ ],
+ "uploads": {
+  "6505a189aef72467849b4065": "s3",
+  "b034a7a7ea1b979d2f50ae77": "s3"
+ },
+ "nextId": 40
+}

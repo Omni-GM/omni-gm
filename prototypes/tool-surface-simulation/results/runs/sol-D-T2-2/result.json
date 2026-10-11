@@ -1,0 +1,134 @@
+{
+ "id": "sol-D-T2-2",
+ "client": "sol",
+ "surface": "D",
+ "task": "T2",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 39,
+ "rejected": 3,
+ "partialRejections": 0,
+ "invalid": 1,
+ "argsBytes": 16463,
+ "toolSequence": [
+  "get!rejected",
+  "get",
+  "get",
+  "get",
+  "find!invalid",
+  "get",
+  "find!rejected",
+  "get",
+  "get",
+  "get",
+  "get",
+  "find",
+  "find",
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "debrief_add",
+  "get",
+  "get",
+  "get",
+  "debrief_commit",
+  "get",
+  "get"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 1006670,
+  "cachedInput": 914816,
+  "output": 11830
+ },
+ "ms": 147188,
+ "errors": [],
+ "answer": "Session 3’s debrief draft is saved in Omni-GM. All 26 changes have timestamped quotes, checked against the transcript.\n\nThe draft leaves the plots here:\n\n- **The drowned bell:** Twelve midnight tolls, louder humming, and pale figures standing in rows beneath the water. The cause remains unknown. Sources: 0:15:10–0:15:33.\n- **Mira’s trail:** Saltmere contains a hymn page marked “M. Brand.” Teo identifies Mira’s handwriting; that identification remains his interpretation. Sources: 0:06:44–0:06:55.\n- **Maren’s involvement:** Vessa and Oren suspect her. Bram calls her good-hearted and says she lost a brother to the bay. Neither account resolves the suspicion. Sources: 0:07:03–0:07:15; 0:21:02.\n- **The Pale Abbot:** His identity remains open, with no new evidence this session.\n\nThe hidden **Hollow Choir rises** clock advances from **2/6 to 3/6**, following the GM’s explicit statement at 0:15:24. Its established endpoint remains the drowned congregation walking out of the bay.\n\nThe party plans to have Sela row them out at first light and dive to the chapel at low tide during daylight. This is recorded as a plan. Sela and Bram have voice notes; Mira has an entry; Sella is an alias of Sela. The Kelp Mother remains a rumor.\n\nWhat’s left is your review and approval. The transcript does not confirm Mira’s handwriting or the hymn pages’ origin, and it does not establish whether first light coincides with low tide. Those uncertainties remain open.\n\nThe draft is uncommitted because Omni-GM’s debrief procedure requires you to say it is right before applying it.\n\nCommitted all 26 session 3 changes in Omni-GM. Verified the debrief is committed and the Hollow Choir clock is now 3/6."
+}

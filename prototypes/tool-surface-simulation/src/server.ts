@@ -64,6 +64,7 @@ const instructions = {
   B: `${STANDING_RULES}\nThe procedures (debrief, frame talk, prep sparring, ...) are available as MCP prompts.`,
   C: `${STANDING_RULES}\nBefore any workflow, load its procedure with the skill tool.`,
   D: `${STANDING_RULES}\n\nFollow the matching procedure for each workflow.\n\n${allProceduresText()}`,
+  E: `${STANDING_RULES}\nBefore any workflow, load its procedure with the skill tool.`,
 }[surface];
 
 const server = new Server({ name: "omni-gm", version: "0.0.1-prototype" }, { capabilities: { tools: {}, ...(usesPrompts ? { prompts: {} } : {}) }, instructions });

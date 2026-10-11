@@ -1,0 +1,56 @@
+{
+ "id": "sol-B-T7-3",
+ "client": "sol",
+ "surface": "B",
+ "task": "T7",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 8,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1273,
+ "toolSequence": [
+  "get_schema",
+  "list_entities",
+  "search_transcripts",
+  "get_entity",
+  "get_entity",
+  "correct_story",
+  "get_entity",
+  "list_entities"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 152153,
+  "cachedInput": 131200,
+  "output": 737
+ },
+ "ms": 26796,
+ "errors": [],
+ "answer": "Saved and verified on Maren as a linked open thread: “Dana suspects Maren runs the Hollow Choir.”\n\nIt’s marked as Dana’s unconfirmed suspicion, with source quotes. Nothing left for you to do."
+}

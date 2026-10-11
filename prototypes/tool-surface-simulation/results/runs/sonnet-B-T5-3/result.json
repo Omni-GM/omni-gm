@@ -1,0 +1,62 @@
+{
+ "id": "sonnet-B-T5-3",
+ "client": "sonnet",
+ "surface": "B",
+ "task": "T5",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "timeframe: spring tide, three sessions",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "finale: chapel at low tide, choir walks out",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "other fields untouched",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no invented frame fields",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "story state untouched",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 2,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 268,
+ "toolSequence": [
+  "get_frame",
+  "update_frame"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "frame-talk",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 42349,
+  "cachedInput": 36131,
+  "output": 448
+ },
+ "ms": 5587,
+ "errors": [],
+ "answer": "I updated the frame for The Drowned Bell. Only those two fields changed.\n\n- **Timeframe:** \"Before the spring tide, about three sessions.\"\n- **Finale:** \"The drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick.\"\n\nGoal, stakes, pressure, moves_main_plot and pulls_in are as they were.\n\nNothing is left over from this request.\n\nI have one question for when you're back, since the new finale names the Pale Abbot. Who is the Pale Abbot in the story? I haven't checked whether they're already in the story state, and the frame doesn't say."
+}

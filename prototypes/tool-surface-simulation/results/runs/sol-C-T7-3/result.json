@@ -1,0 +1,69 @@
+{
+ "id": "sol-C-T7-3",
+ "client": "sol",
+ "surface": "C",
+ "task": "T7",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 17,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1806,
+ "toolSequence": [
+  "skill",
+  "skill:debrief",
+  "skill:plank-questions",
+  "get",
+  "get",
+  "find",
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "get",
+  "find",
+  "skill:map-speakers",
+  "story_commit",
+  "get",
+  "get"
+ ],
+ "skillsLoaded": [
+  "debrief",
+  "plank-questions",
+  "map-speakers"
+ ],
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 236406,
+  "cachedInput": 204160,
+  "output": 1153
+ },
+ "ms": 41738,
+ "errors": [],
+ "answer": "Saved Dana’s suspicion as an unconfirmed player theory on “Who rang the drowned bell?” and linked it to Maren Vosk’s record. Verified it’s saved. Nothing left to do."
+}

@@ -1,0 +1,77 @@
+{
+ "id": "sonnet-B-T3-3",
+ "client": "sonnet",
+ "surface": "B",
+ "task": "T3",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "mine: at least two facts",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela: whisper and gaze",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Hesk: 'river's angry since the bell'",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no writes",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Sela's flood story marked as her claim",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 18,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 324,
+ "toolSequence": [
+  "list_entities",
+  "list_entities",
+  "list_entities",
+  "list_sessions",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity_history",
+  "get_entity_history",
+  "search_transcripts",
+  "search_transcripts",
+  "read_transcript",
+  "read_transcript",
+  "get_entity_history",
+  "get_entity_history",
+  "get_entity_history"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "prep-sparring",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 65258,
+  "cachedInput": 53362,
+  "output": 1980
+ },
+ "ms": 14889,
+ "errors": [],
+ "answer": "Here are the answers from Omni-GM. I didn't need anything from you, and nothing is left open apart from one small caveat on question 3.\n\n**1. What the players know about the Saltmere Mine**\n- **Bell metal (session 2):** The archivist said the chapel's bell metal came from there. This is an NPC claim, not something the players saw.\n- **Location and history (session 2):** It's up the cliff path and has been closed for forty years.\n- **The flood (session 3):** Sela said it flooded the night the bell first rang, forty years ago. She said her grandmother told her the water came up warm. This is also an NPC claim, so it's stored as such.\n- **The entrance (session 3):** The players saw it themselves. It's a black mouth in the chalk with half-rotted timber and a rusted cart on its side. Warm air comes out smelling of church candle wax.\n- **Inside (session 3):** The tunnel floods about thirty paces in. The black water is warm, and hymn-book pages float on it.\n\n**2. How you played Sela Thorn**\n- **Role:** She's a tide-reader who rows boats near the bell water.\n- **Voice and manner:** She whispers as if the water might hear her. She never looks anyone in the eye and keeps her gaze on the tide line.\n- **Where she is now:** She was last seen at Gullwick Docks. She said she'd be at pier four at first light.\n- **Name:** \"Sella\" is stored as an alias.\n\n**3. What Old Hesk said about the river**\n- **Line (session 2, 0:00:14):** \"Hold the rail. River's angry since the bell.\"\n- **Delivery:** You played him humming sea shanties out of tune and calling everyone \"lamb\".\n- **Caveat:** The transcript labels that line \"Speaker 1\", not Hesk. It sits right after your intro of him, so it's almost certainly his. The transcript doesn't confirm that.\n- **Since then:** He went overboard mid-crossing. Oren pulled him out, and he was left grey, cold and not breathing with the ferry-house keeper. He's stored as dead, though the narration only says \"not breathing that you can tell\"."
+}

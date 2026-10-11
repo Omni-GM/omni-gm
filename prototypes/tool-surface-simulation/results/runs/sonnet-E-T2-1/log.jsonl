@@ -1,0 +1,7 @@
+{"t":1791702667885,"surface":"E","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791702669279,"surface":"E","tool":"skill","args":{"name":"debrief"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":2456}
+{"t":1791702669825,"surface":"E","tool":"get","args":{"refs":["overview","schema","session:s3"]},"argsBytes":43,"outcome":"ok","partialRejections":0,"resultBytes":7643}
+{"t":1791702670989,"surface":"E","tool":"get","args":{"refs":["transcript:s3","debrief:s3","session:s1","session:s2"]},"argsBytes":65,"outcome":"ok","partialRejections":0,"resultBytes":7375}
+{"t":1791702671155,"surface":"E","tool":"find","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":2471}
+{"t":1791702671258,"surface":"E","tool":"skill","args":{"name":"map-speakers"},"argsBytes":23,"outcome":"ok","partialRejections":0,"resultBytes":1298}
+{"t":1791702673131,"surface":"E","tool":"get","args":{"refs":["entity:e17","entity:e19","entity:e21","entity:e22","entity:e23","entity:e24","entity:e38","entity:e39","entity:e37","entity:e18","entity:e15"]},"argsBytes":153,"outcome":"ok","partialRejections":0,"resultBytes":12816}

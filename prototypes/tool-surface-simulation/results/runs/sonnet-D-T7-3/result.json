@@ -1,0 +1,55 @@
+{
+ "id": "sonnet-D-T7-3",
+ "client": "sonnet",
+ "surface": "D",
+ "task": "T7",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Maren's entry untouched by the guess",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "guess recorded on a thread as player_guess",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "GM told why it is not on Maren",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 7,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1297,
+ "toolSequence": [
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "find",
+  "story_commit"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 74066,
+  "cachedInput": 58614,
+  "output": 2154
+ },
+ "ms": 17110,
+ "errors": [],
+ "answer": "I recorded Dana's theory, but as a thread rather than on Maren's NPC entry. The schema only lets a player guess touch a thread or a character goal, so it can't go on an NPC.\n\nThe new thread is \"Is Maren Vosk running the Hollow Choir?\". It's open, marked as an unconfirmed guess from Dana, and linked to Maren and to the \"The Hollow Choir rises\" clock. The source is Dana's line from session 3 at 0:07:03: \"She's in the cult, I'm calling it.\" Maren's entry is unchanged.\n\nTwo things I left alone because you didn't ask for them:\n- **Priya's agreement:** Priya (Oren) also said \"Maren is totally running the choir\" at 0:07:12. I used that line only as a source for the clock link. The thread names Dana only. If Oren shares the theory, say so and I'll add it.\n- **Bram's line:** At 0:21:02 an NPC (Bram, going by Dana's question just before) says Maren has a \"good heart\" and \"lost a brother to that bay\". That's a separate NPC statement and isn't recorded on the thread.\n\nNothing else is left to do on this."
+}

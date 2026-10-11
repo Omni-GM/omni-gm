@@ -1,0 +1,822 @@
+[
+ {
+  "name": "find",
+  "write": false,
+  "description": "Search the whole store: entities (names, aliases, properties), change sources, scene summaries, and transcripts.\nReturns ranked hits, each with a ref to pass to get. Use it first for any prep question or before creating an entity.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "query": {
+     "type": "string",
+     "description": "Words to look for, e.g. 'Saltmere mine'."
+    },
+    "types": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "enum": [
+       "entity",
+       "source",
+       "scene",
+       "transcript"
+      ]
+     }
+    },
+    "kinds": {
+     "description": "Limit entity hits to these kinds.",
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "limit": {
+     "type": "integer",
+     "minimum": -9007199254740991,
+     "maximum": 30
+    }
+   },
+   "required": [
+    "query"
+   ],
+   "additionalProperties": false
+  }
+ },
+ {
+  "name": "get",
+  "write": false,
+  "description": "Read one thing by ref:\noverview | schema | frame | entity:<id> (with history) | session:<id> | scene:<session>/<n> (with its transcript) | transcript:<session>[@<timestamp>] | debrief:<session> (the draft).",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "ref": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "ref"
+   ],
+   "additionalProperties": false
+  }
+ },
+ {
+  "name": "session_create",
+  "write": true,
+  "description": "Record a played session in the current adventure.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "playedOn": {
+     "type": "string",
+     "description": "YYYY-MM-DD"
+    }
+   },
+   "required": [
+    "playedOn"
+   ],
+   "additionalProperties": false
+  }
+ },
+ {
+  "name": "transcript_upload_url",
+  "write": true,
+  "description": "Get where to upload a session's transcript file. The file goes from disk to the URL, never through a tool call.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "session": {
+     "type": "string",
+     "description": "Session id like \"s3\", or its number."
+    }
+   },
+   "required": [
+    "session"
+   ],
+   "additionalProperties": false
+  }
+ },
+ {
+  "name": "scenes_set",
+  "write": true,
+  "description": "Store a session's scenes, replacing any earlier split.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "session": {
+     "type": "string",
+     "description": "Session id like \"s3\", or its number."
+    },
+    "scenes": {
+     "minItems": 1,
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "title": {
+        "type": "string"
+       },
+       "start": {
+        "type": "string",
+        "description": "Timestamp like \"0:14:02\"."
+       },
+       "end": {
+        "type": "string"
+       },
+       "place": {
+        "type": "string"
+       },
+       "summary": {
+        "type": "string",
+        "description": "Plot points only, one or two lines."
+       }
+      },
+      "required": [
+       "title",
+       "start",
+       "place",
+       "summary"
+      ],
+      "additionalProperties": false
+     }
+    }
+   },
+   "required": [
+    "session",
+    "scenes"
+   ],
+   "additionalProperties": false
+  }
+ },
+ {
+  "name": "debrief_add",
+  "write": true,
+  "description": "Add changes to a session's debrief draft (opens it if needed). Each change has scene, change (new/update/relate/unrelate), basis, sources, and why. Invalid changes are rejected one by one with the reason; the others are kept.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "session": {
+     "type": "string",
+     "description": "Session id like \"s3\", or its number."
+    },
+    "changes": {
+     "minItems": 1,
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "change": {
+        "oneOf": [
+         {
+          "type": "object",
+          "properties": {
+           "op": {
+            "type": "string",
+            "const": "new"
+           },
+           "tempKey": {
+            "description": "Lets later changes refer to it as $tempKey.",
+            "type": "string"
+           },
+           "kind": {
+            "type": "string"
+           },
+           "name": {
+            "type": "string"
+           },
+           "aliases": {
+            "type": "array",
+            "items": {
+             "type": "string"
+            }
+           },
+           "properties": {
+            "type": "object",
+            "propertyNames": {
+             "type": "string"
+            },
+            "additionalProperties": {
+             "type": [
+              "string",
+              "number"
+             ]
+            },
+            "description": "Property key -> value. Only keys the schema allows for the kind."
+           }
+          },
+          "required": [
+           "op",
+           "kind",
+           "name"
+          ],
+          "additionalProperties": false
+         },
+         {
+          "type": "object",
+          "properties": {
+           "op": {
+            "type": "string",
+            "const": "update"
+           },
+           "entity": {
+            "type": "string",
+            "description": "An entity id (e.g. \"e12\"), or \"$tempKey\" for an entity created earlier in the same batch or draft."
+           },
+           "properties": {
+            "type": "object",
+            "propertyNames": {
+             "type": "string"
+            },
+            "additionalProperties": {
+             "type": [
+              "string",
+              "number"
+             ]
+            },
+            "description": "Property key -> value. Only keys the schema allows for the kind."
+           },
+           "addAliases": {
+            "type": "array",
+            "items": {
+             "type": "string"
+            }
+           }
+          },
+          "required": [
+           "op",
+           "entity"
+          ],
+          "additionalProperties": false
+         },
+         {
+          "type": "object",
+          "properties": {
+           "op": {
+            "type": "string",
+            "const": "relate"
+           },
+           "type": {
+            "type": "string"
+           },
+           "from": {
+            "type": "string",
+            "description": "An entity id (e.g. \"e12\"), or \"$tempKey\" for an entity created earlier in the same batch or draft."
+           },
+           "to": {
+            "type": "string",
+            "description": "An entity id (e.g. \"e12\"), or \"$tempKey\" for an entity created earlier in the same batch or draft."
+           }
+          },
+          "required": [
+           "op",
+           "type",
+           "from",
+           "to"
+          ],
+          "additionalProperties": false
+         },
+         {
+          "type": "object",
+          "properties": {
+           "op": {
+            "type": "string",
+            "const": "unrelate"
+           },
+           "type": {
+            "type": "string"
+           },
+           "from": {
+            "type": "string",
+            "description": "An entity id (e.g. \"e12\"), or \"$tempKey\" for an entity created earlier in the same batch or draft."
+           },
+           "to": {
+            "type": "string",
+            "description": "An entity id (e.g. \"e12\"), or \"$tempKey\" for an entity created earlier in the same batch or draft."
+           }
+          },
+          "required": [
+           "op",
+           "type",
+           "from",
+           "to"
+          ],
+          "additionalProperties": false
+         }
+        ]
+       },
+       "basis": {
+        "minItems": 1,
+        "type": "array",
+        "items": {
+         "type": "string",
+         "enum": [
+          "narrated",
+          "npc_said",
+          "rumor",
+          "player_guess",
+          "player_plan",
+          "game_master"
+         ]
+        },
+        "description": "Where the change comes from. A player_guess or player_plan may only touch a thread or character_goal."
+       },
+       "sources": {
+        "minItems": 1,
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "quote": {
+           "type": "string",
+           "description": "Verbatim quote from the transcript, or the GM's own words."
+          },
+          "at": {
+           "description": "Timestamp like \"0:14:02\".",
+           "type": "string"
+          }
+         },
+         "required": [
+          "quote"
+         ],
+         "additionalProperties": false
+        }
+       },
+       "why": {
+        "type": "string",
+        "description": "One short sentence: why this changes the story state."
+       },
+       "scene": {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991,
+        "description": "Scene ordinal in this session."
+       }
+      },
+      "required": [
+       "change",
+       "basis",
+       "sources",
+       "why",
+       "scene"
+      ],
+      "additionalProperties": false
+     }
+    }
+   },
+   "required": [
+    "session",
+    "changes"
+   ],
+   "additionalProperties": false
+  }
+ },
+ {
+  "name": "debrief_drop",
+  "write": true,
+  "description": "Remove changes from a session's debrief draft by changeId.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "session": {
+     "type": "string",
+     "description": "Session id like \"s3\", or its number."
+    },
+    "changeIds": {
+     "minItems": 1,
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   },
+   "required": [
+    "session",
+    "changeIds"
+   ],
+   "additionalProperties": false
+  }
+ },
+ {
+  "name": "debrief_commit",
+  "write": true,
+  "description": "Commit a session's debrief draft as one commit. Only after the GM says the draft is right.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "session": {
+     "type": "string",
+     "description": "Session id like \"s3\", or its number."
+    }
+   },
+   "required": [
+    "session"
+   ],
+   "additionalProperties": false
+  }
+ },
+ {
+  "name": "story_commit",
+  "write": true,
+  "description": "Commit changes outside a debrief, with the GM's reason: a fix to a committed mistake, or the GM's answer to a background question (basis game_master). All or nothing.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "reason": {
+     "type": "string"
+    },
+    "changes": {
+     "minItems": 1,
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "change": {
+        "oneOf": [
+         {
+          "type": "object",
+          "properties": {
+           "op": {
+            "type": "string",
+            "const": "new"
+           },
+           "tempKey": {
+            "description": "Lets later changes refer to it as $tempKey.",
+            "type": "string"
+           },
+           "kind": {
+            "type": "string"
+           },
+           "name": {
+            "type": "string"
+           },
+           "aliases": {
+            "type": "array",
+            "items": {
+             "type": "string"
+            }
+           },
+           "properties": {
+            "type": "object",
+            "propertyNames": {
+             "type": "string"
+            },
+            "additionalProperties": {
+             "type": [
+              "string",
+              "number"
+             ]
+            },
+            "description": "Property key -> value. Only keys the schema allows for the kind."
+           }
+          },
+          "required": [
+           "op",
+           "kind",
+           "name"
+          ],
+          "additionalProperties": false
+         },
+         {
+          "type": "object",
+          "properties": {
+           "op": {
+            "type": "string",
+            "const": "update"
+           },
+           "entity": {
+            "type": "string",
+            "description": "An entity id (e.g. \"e12\"), or \"$tempKey\" for an entity created earlier in the same batch or draft."
+           },
+           "properties": {
+            "type": "object",
+            "propertyNames": {
+             "type": "string"
+            },
+            "additionalProperties": {
+             "type": [
+              "string",
+              "number"
+             ]
+            },
+            "description": "Property key -> value. Only keys the schema allows for the kind."
+           },
+           "addAliases": {
+            "type": "array",
+            "items": {
+             "type": "string"
+            }
+           }
+          },
+          "required": [
+           "op",
+           "entity"
+          ],
+          "additionalProperties": false
+         },
+         {
+          "type": "object",
+          "properties": {
+           "op": {
+            "type": "string",
+            "const": "relate"
+           },
+           "type": {
+            "type": "string"
+           },
+           "from": {
+            "type": "string",
+            "description": "An entity id (e.g. \"e12\"), or \"$tempKey\" for an entity created earlier in the same batch or draft."
+           },
+           "to": {
+            "type": "string",
+            "description": "An entity id (e.g. \"e12\"), or \"$tempKey\" for an entity created earlier in the same batch or draft."
+           }
+          },
+          "required": [
+           "op",
+           "type",
+           "from",
+           "to"
+          ],
+          "additionalProperties": false
+         },
+         {
+          "type": "object",
+          "properties": {
+           "op": {
+            "type": "string",
+            "const": "unrelate"
+           },
+           "type": {
+            "type": "string"
+           },
+           "from": {
+            "type": "string",
+            "description": "An entity id (e.g. \"e12\"), or \"$tempKey\" for an entity created earlier in the same batch or draft."
+           },
+           "to": {
+            "type": "string",
+            "description": "An entity id (e.g. \"e12\"), or \"$tempKey\" for an entity created earlier in the same batch or draft."
+           }
+          },
+          "required": [
+           "op",
+           "type",
+           "from",
+           "to"
+          ],
+          "additionalProperties": false
+         }
+        ]
+       },
+       "basis": {
+        "minItems": 1,
+        "type": "array",
+        "items": {
+         "type": "string",
+         "enum": [
+          "narrated",
+          "npc_said",
+          "rumor",
+          "player_guess",
+          "player_plan",
+          "game_master"
+         ]
+        },
+        "description": "Where the change comes from. A player_guess or player_plan may only touch a thread or character_goal."
+       },
+       "sources": {
+        "minItems": 1,
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "quote": {
+           "type": "string",
+           "description": "Verbatim quote from the transcript, or the GM's own words."
+          },
+          "at": {
+           "description": "Timestamp like \"0:14:02\".",
+           "type": "string"
+          }
+         },
+         "required": [
+          "quote"
+         ],
+         "additionalProperties": false
+        }
+       },
+       "why": {
+        "type": "string",
+        "description": "One short sentence: why this changes the story state."
+       }
+      },
+      "required": [
+       "change",
+       "basis",
+       "sources",
+       "why"
+      ],
+      "additionalProperties": false
+     }
+    }
+   },
+   "required": [
+    "reason",
+    "changes"
+   ],
+   "additionalProperties": false
+  }
+ },
+ {
+  "name": "frame_update",
+  "write": true,
+  "description": "Change only the given fields of the current adventure frame, with the GM's reason. The frame is intent, never story state.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "reason": {
+     "type": "string"
+    },
+    "fields": {
+     "type": "object",
+     "properties": {
+      "goal": {
+       "type": "string"
+      },
+      "stakes": {
+       "type": "string"
+      },
+      "timeframe": {
+       "type": "string"
+      },
+      "pressure": {
+       "type": "string"
+      },
+      "finale": {
+       "type": "string"
+      },
+      "moves_main_plot": {
+       "type": "string"
+      },
+      "pulls_in": {
+       "type": "string"
+      },
+      "next_session_starts": {
+       "type": "string"
+      }
+     },
+     "additionalProperties": false,
+     "description": "Only the frame fields to change; the rest stay as they are."
+    }
+   },
+   "required": [
+    "reason",
+    "fields"
+   ],
+   "additionalProperties": false
+  }
+ },
+ {
+  "name": "schema_change",
+  "write": true,
+  "description": "Change the schema. Only when the GM explicitly asks.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "reason": {
+     "type": "string"
+    },
+    "ops": {
+     "minItems": 1,
+     "type": "array",
+     "items": {
+      "oneOf": [
+       {
+        "type": "object",
+        "properties": {
+         "op": {
+          "type": "string",
+          "const": "add_property"
+         },
+         "kind": {
+          "type": "string"
+         },
+         "key": {
+          "type": "string"
+         },
+         "type": {
+          "type": "string",
+          "enum": [
+           "text",
+           "enum",
+           "number"
+          ]
+         },
+         "enumValues": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          }
+         },
+         "description": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "op",
+         "kind",
+         "key",
+         "type",
+         "description"
+        ],
+        "additionalProperties": false
+       },
+       {
+        "type": "object",
+        "properties": {
+         "op": {
+          "type": "string",
+          "const": "retire_property"
+         },
+         "kind": {
+          "type": "string"
+         },
+         "key": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "op",
+         "kind",
+         "key"
+        ],
+        "additionalProperties": false
+       },
+       {
+        "type": "object",
+        "properties": {
+         "op": {
+          "type": "string",
+          "const": "add_relationship_type"
+         },
+         "type": {
+          "type": "string"
+         },
+         "label": {
+          "type": "string"
+         },
+         "inverseLabel": {
+          "type": "string"
+         },
+         "from": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          }
+         },
+         "to": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          }
+         },
+         "description": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "op",
+         "type",
+         "label",
+         "inverseLabel",
+         "from",
+         "to",
+         "description"
+        ],
+        "additionalProperties": false
+       }
+      ]
+     }
+    }
+   },
+   "required": [
+    "reason",
+    "ops"
+   ],
+   "additionalProperties": false
+  }
+ },
+ {
+  "name": "skill",
+  "write": false,
+  "description": "The procedures for Omni-GM work. Call without a name to list them; call with a name to load one. Load the matching procedure before you start a workflow (transcript upload and scenes, debrief, frame talk, prep, plank answers).",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    }
+   },
+   "additionalProperties": false
+  }
+ }
+]

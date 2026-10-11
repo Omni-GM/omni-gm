@@ -1,0 +1,66 @@
+{
+ "id": "sonnet-B-T6-2",
+ "client": "sonnet",
+ "surface": "B",
+ "task": "T6",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Hesk alive",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "one correction commit with a reason",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate Hesk",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "nothing else changed",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "basis game_master",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 9,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 652,
+ "toolSequence": [
+  "list_entities",
+  "get_schema",
+  "search_transcripts",
+  "get_entity",
+  "get_entity_history",
+  "search_transcripts",
+  "search_transcripts",
+  "list_entities",
+  "correct_story"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 82912,
+  "cachedInput": 72853,
+  "output": 1199
+ },
+ "ms": 12180,
+ "errors": [],
+ "answer": "I've fixed it. Old Hesk (e34) now has status `alive`, and the change is saved as commit k59. The source is your statement that he only passed out and the ferry-house keeper revived him.\n\nThe session 2 debrief had marked him dead because of the line \"He's grey and cold and not breathing that you can tell.\" That line only says how it looked to the party, so I didn't change it.\n\nI left these alone:\n- **Where Hesk is now:** no \"last seen at\" or \"is at\" link exists for him. The only ferry-house reference in the transcripts is session 2, where the party left him with the keeper, and there is no ferry-house entry among the places. If you want him linked to a place, tell me which one.\n- **The keeper:** I didn't create an NPC for the ferry-house keeper. The transcript never describes them beyond that one mention.\n- **Whether the party knows:** the status field means \"as far as the table knows.\" The party may still think he drowned, since the revival isn't in any transcript. If so, you may want to set it back to `unknown`."
+}

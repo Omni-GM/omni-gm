@@ -1,0 +1,72 @@
+{
+ "id": "sol-B-T1-3",
+ "client": "sol",
+ "surface": "B",
+ "task": "T1",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 6,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1408,
+ "toolSequence": [
+  "list_sessions",
+  "create_session",
+  "get_upload_url",
+  "set_scenes",
+  "read_transcript",
+  "list_sessions"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 173718,
+  "cachedInput": 138240,
+  "output": 1013
+ },
+ "ms": 35922,
+ "errors": [],
+ "answer": "Imported and verified session 3 in The Lantern Coast, dated 2026-10-10, with the full transcript and four scenes:\n\n1. A boat and a warning\n2. The hymn pages in Saltmere Mine\n3. The bell beneath the water\n4. Tomorrow's dive\n\nNothing remains for the requested import and scene split. Campaign story-state updates through a debrief have not been performed."
+}

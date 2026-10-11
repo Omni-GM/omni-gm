@@ -1,0 +1,3 @@
+{"t":1791702667889,"surface":"E","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791702678643,"surface":"E","tool":"skill","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":1165}
+{"t":1791702682472,"surface":"E","tool":"skill","args":{"name":"frame-talk"},"argsBytes":21,"outcome":"ok","partialRejections":0,"resultBytes":1531}

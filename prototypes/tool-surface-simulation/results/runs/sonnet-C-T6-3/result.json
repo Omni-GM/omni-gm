@@ -1,0 +1,63 @@
+{
+ "id": "sonnet-C-T6-3",
+ "client": "sonnet",
+ "surface": "C",
+ "task": "T6",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Hesk alive",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "one correction commit with a reason",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate Hesk",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "nothing else changed",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "basis game_master",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 6,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 511,
+ "toolSequence": [
+  "skill",
+  "find",
+  "get",
+  "get",
+  "get",
+  "story_commit"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 60845,
+  "cachedInput": 50163,
+  "output": 901
+ },
+ "ms": 9098,
+ "errors": [],
+ "answer": "Old Hesk (e34) is now `alive` instead of `dead`. The fix is committed as k59 with basis `game_master`, and it quotes your correction as the source.\n\nTwo things I left alone:\n- **Scene summary:** the session 2, scene 1 summary still says he \"goes overboard and seems dead\". That's accurate to what the table saw at that moment, so I didn't change it.\n- **Ferry-house keeper:** there's no entity for the keeper, so nothing records who revived Hesk. If you want one, tell me and I'll add it.\n\nI found nothing else that mentions Hesk as dead."
+}

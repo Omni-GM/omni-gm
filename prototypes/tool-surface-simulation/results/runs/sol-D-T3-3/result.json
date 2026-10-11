@@ -1,0 +1,70 @@
+{
+ "id": "sol-D-T3-3",
+ "client": "sol",
+ "surface": "D",
+ "task": "T3",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "mine: at least two facts",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela: whisper and gaze",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Hesk: 'river's angry since the bell'",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no writes",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Sela's flood story marked as her claim",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 11,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 368,
+ "toolSequence": [
+  "find",
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "prep-sparring",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 125531,
+  "cachedInput": 101376,
+  "output": 801
+ },
+ "ms": 27434,
+ "errors": [],
+ "answer": "1. **Saltmere Mine:** The party knows it is up the cliff path and has been closed for forty years. They visited it and found rotting timbers, a rusted cart, and warm air smelling of candle wax. Thirty paces inside, warm black water floods the tunnel, with hymn-book pages floating on it. One hymn concerns the sea giving back what it takes; its margin reads “M. Brand,” which Teo recognized as Mira’s handwriting.  \n   They also heard two claims: the archivist said the chapel bell’s metal came from Saltmere; Sela said the mine flooded the night the bell first rang, forty years ago, and her grandmother said the water came up warm.  \n   *Sources: session 2, scene 2, 0:08:40–0:08:50; session 3, scene 1, 0:01:26; scene 2, 0:06:02–0:06:55.*\n\n2. **Sela Thorn:** You played her whispering “like the water might hear her,” avoiding eye contact and keeping her gaze on the tide line.  \n   *Source: Sela’s `played_as` record, entity e54; session 3, scene 1, 0:00:42.*\n\n3. **Old Hesk:** When they first met him, he said: **“Hold the rail. River’s angry since the bell.”** The transcript labels this “Speaker 1,” but the surrounding introduction identifies Hesk as the speaker.  \n   *Source: session 2, scene 1, 0:00:14.*\n\nAll three answers are recovered. What remains unresolved is why the mine flooded and whether those claims establish a causal link to the bell."
+}

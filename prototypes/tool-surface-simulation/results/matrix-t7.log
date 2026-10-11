@@ -18,3 +18,8 @@ sol-C-T7-2: PASS score=1.00 calls=18 rejected=1 tokens=219828/1449
 sonnet-B-T7-3: PASS score=1.00 calls=9 rejected=0 tokens=84166/2132 
 sol-D-T7-2: PASS score=1.00 calls=13 rejected=1 tokens=234149/1153 {"type":"error","message":"Reconnecting... 1/5 (stream disconnected before completion: stream error: stream disconnected before completion: stream closed before response.completed)"}
 sol-A-T7-3: PASS score=1.00 calls=13 rejected=1 tokens=192953/1314 
+sol-B-T7-3: PASS score=1.00 calls=8 rejected=0 tokens=152153/737 
+sonnet-C-T7-3: PASS score=1.00 calls=9 rejected=0 tokens=114062/2468 
+sonnet-D-T7-3: PASS score=1.00 calls=7 rejected=0 tokens=74066/2154 
+sol-C-T7-3: PASS score=1.00 calls=17 rejected=0 tokens=236406/1153 
+sol-D-T7-3: PASS score=1.00 calls=13 rejected=1 tokens=237306/1033 

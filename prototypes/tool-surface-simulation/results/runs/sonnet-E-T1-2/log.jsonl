@@ -1,0 +1,6 @@
+{"t":1791702681708,"surface":"E","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791702683431,"surface":"E","tool":"skill","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":1165}
+{"t":1791702683439,"surface":"E","tool":"get","args":{"ref":"overview"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":614}
+{"t":1791702684566,"surface":"E","tool":"skill","args":{"name":"split-scenes"},"argsBytes":23,"outcome":"ok","partialRejections":0,"resultBytes":1641}
+{"t":1791702684638,"surface":"E","tool":"skill","args":{"name":"map-speakers"},"argsBytes":23,"outcome":"ok","partialRejections":0,"resultBytes":1298}
+{"t":1791702686010,"surface":"E","tool":"session_create","args":{"playedOn":"2026-10-10"},"argsBytes":25,"outcome":"ok","partialRejections":0,"resultBytes":94}

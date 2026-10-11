@@ -1,0 +1,74 @@
+{
+ "id": "sol-D-T1-3",
+ "client": "sol",
+ "surface": "D",
+ "task": "T1",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 8,
+ "rejected": 1,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1875,
+ "toolSequence": [
+  "get!rejected",
+  "find",
+  "get",
+  "session_create",
+  "transcript_upload_url",
+  "scenes_set",
+  "get",
+  "get"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 307025,
+  "cachedInput": 281088,
+  "output": 2021
+ },
+ "ms": 68395,
+ "errors": [],
+ "answer": "Imported and verified session 3, dated 2026-10-10, in The Lantern Coast → The Drowned Bell.\n\nThe transcript is uploaded and split into five scenes:\n\n- 0:00:05 — Sela at pier four\n- 0:05:48 — Hymn pages in Saltmere Mine\n- 0:13:40 — A warning on the shore\n- 0:15:10 — The midnight bell\n- 0:19:50 — Tomorrow's dive\n\nNothing remains for the import. The speaker map is saved in [session-03-import-notes.md](/home/coder/.t3/worktrees/omni-gm/t3-02cb808c/prototypes/tool-surface-simulation/results/runs/sol-D-T1-3/work/session-03-import-notes.md). A debrief would be a separate next step; none was requested or performed."
+}

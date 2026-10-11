@@ -1,0 +1,78 @@
+{
+ "id": "sol-C-U-page-2",
+ "client": "sol",
+ "surface": "C",
+ "task": "U-page",
+ "rep": 2,
+ "uploadMode": "page",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 11,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1576,
+ "toolSequence": [
+  "skill",
+  "skill:split-scenes",
+  "get",
+  "skill:map-speakers",
+  "session_create",
+  "transcript_upload_url",
+  "get",
+  "get",
+  "get",
+  "scenes_set",
+  "get"
+ ],
+ "skillsLoaded": [
+  "split-scenes",
+  "map-speakers"
+ ],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 465662,
+  "cachedInput": 424064,
+  "output": 4378
+ },
+ "ms": 79599,
+ "errors": [],
+ "answer": "Created session 3 in The Lantern Coast’s current adventure, dated 2026-10-10.\n\nThe transcript and scenes are still pending in Omni-GM. Its `split-scenes` procedure requires waiting when it returns a manual upload page.\n\nUpload `session-03-transcript.md` at the [upload page](http://127.0.0.1:34765/upload/s3). The four-scene split is prepared in [session-03-scenes.json](session-03-scenes.json), ready to store afterward. No debrief was created.\n\nSession 3, dated 2026-10-10, is now in Omni-GM with the uploaded transcript and four saved scenes:\n\n1. A boat at pier four\n2. Hymn pages in the flooded mine\n3. The bell beneath the bay\n4. Tomorrow’s dive\n\nVerified the saved session. Nothing remains for the import and scene split; no debrief was created."
+}

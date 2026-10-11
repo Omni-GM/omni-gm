@@ -1,0 +1,68 @@
+{
+ "id": "sol-B-T6-3",
+ "client": "sol",
+ "surface": "B",
+ "task": "T6",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Hesk alive",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "one correction commit with a reason",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate Hesk",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "nothing else changed",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "basis game_master",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 11,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 644,
+ "toolSequence": [
+  "list_entities",
+  "get_schema",
+  "search_transcripts",
+  "get_frame",
+  "get_entity_history",
+  "get_entity",
+  "list_sessions",
+  "read_transcript",
+  "correct_story",
+  "get_entity",
+  "get_entity_history"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 157524,
+  "cachedInput": 125824,
+  "output": 868
+ },
+ "ms": 31266,
+ "errors": [],
+ "answer": "Fixed and verified in Omni-GM. Old Hesk is now marked alive, with your correction recorded: he passed out in the water in session 2, and the ferry-house keeper revived him.\n\nNothing remains for you to approve."
+}

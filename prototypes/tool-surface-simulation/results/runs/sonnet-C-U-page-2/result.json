@@ -1,0 +1,75 @@
+{
+ "id": "sonnet-C-U-page-2",
+ "client": "sonnet",
+ "surface": "C",
+ "task": "U-page",
+ "rep": 2,
+ "uploadMode": "page",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 8,
+ "rejected": 1,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 3179,
+ "toolSequence": [
+  "skill",
+  "skill:split-scenes",
+  "skill:map-speakers",
+  "get",
+  "session_create",
+  "transcript_upload_url",
+  "scenes_set!rejected",
+  "scenes_set"
+ ],
+ "skillsLoaded": [
+  "split-scenes",
+  "map-speakers"
+ ],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 255879,
+  "cachedInput": 231770,
+  "output": 6984
+ },
+ "ms": 32803,
+ "errors": [],
+ "answer": "The session is created, but I couldn't finish the job. The transcript isn't in Omni-GM yet, and the scenes aren't stored.\n\n**Done**\n- Created session s3 (2026-10-10) in the current adventure, The Drowned Bell.\n- Read `session-03-transcript.md` locally.\n\n**What's left (needs you)**\n1. Upload the transcript. The server only gave me a sign-in page, so it has to be you: http://127.0.0.1:46689/upload/s3.\n2. Store the scenes. `scenes_set` refuses until the transcript is uploaded. Once it is, I can store the split below.\n\nI didn't try to get around the sign-in.\n\n**Speaker map**\n- **GM:** narration and the \"(to himself)\" aside at 0:15:24.\n- **Jonas:** Teo.\n- **Dana:** Vessa.\n- **Priya:** Oren.\n- **\"Speaker 1\":** all the GM's NPC voices, which I assigned from content:\n  - Sela Thorn at 0:00:27–0:01:35.\n  - A fisherman at 0:14:24.\n  - Bram the innkeeper at 0:20:41–0:21:02.\n- **Name spellings:** \"Sela\" and \"Sella\" both appear. The GM said the dockhands use both, so I'd keep \"Sela Thorn\", the spelling she gave herself.\n- **Undecided:** I'm assuming the 0:01:06 line (\"Sella's boat…\") is Sela or a dockhand. The label doesn't say which.\n\n**Planned scenes**\n1. **The boat at pier four** (0:00:05, Gullwick docks, pier four): Sela agrees to row them for two silver, but never at night. She says Saltmere flooded warm the night the bell first rang, forty years ago.\n2. **Saltmere Mine** (0:05:48, the mine above Gullwick): Warm black water and hymn-book pages. One page is marked \"M. Brand\", which Teo recognises as his sister Mira's handwriting. Dana and Priya speculate that Maren is in the cult. Oren takes 2 damage.\n3. **The bell at midnight** (0:13:40, shore below the drowned chapel): The fishermen warn about the Kelp Mother. The bell rings twelve times, the humming is louder, and pale congregation-like shapes appear. The party flees.\n4. **Stew and a plan at the Tarred Gull** (0:19:50, tavern): They plan to dive to the chapel at low tide with Sela. Bram speaks well of Maren. They take a long rest.\n\nI haven't started a debrief. When you debrief, a few items need care:\n- The Maren theory at 0:07:03 is a player guess, so it can only touch a thread.\n- The \"choir clock at three of six\" line is a GM aside.\n- The Kelp Mother is fishermen's talk, so it's a rumor.\n\nSession 3 is now in Omni-GM with its transcript, and I've stored four scenes:\n\n1. **The boat at pier four** (0:00:05, Gullwick docks): Sela Thorn offers to row the party out for two silver, but never at night.\n2. **Saltmere Mine** (0:05:48): Warm flooded tunnel and hymn-book pages, one marked \"M. Brand\" in Teo's sister Mira's handwriting.\n3. **The bell at midnight** (0:13:40, shore below the drowned chapel): The bell rings twelve times, and pale congregation-like shapes appear.\n4. **Stew and a plan at the Tarred Gull** (0:19:50, tavern): The party plans to dive to the chapel at low tide tomorrow, and takes a long rest.\n\nI haven't started a debrief, since you didn't ask for one. Two things are still undecided from the speaker mapping:\n- **Line at 0:01:06:** I couldn't tell whether the \"Sella's boat…\" line is Sela or a dockhand. It's filed under \"Speaker 1\".\n- **Sela's name:** \"Sela\" and \"Sella\" both appear. I'd keep \"Sela Thorn\", the spelling she gave herself, but that's your call.\n\nTell me when you want the debrief."
+}

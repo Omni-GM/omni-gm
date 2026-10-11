@@ -1,0 +1,63 @@
+{
+ "id": "sonnet-D-T6-2",
+ "client": "sonnet",
+ "surface": "D",
+ "task": "T6",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Hesk alive",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "one correction commit with a reason",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate Hesk",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "nothing else changed",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "basis game_master",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 6,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 557,
+ "toolSequence": [
+  "find",
+  "find",
+  "get",
+  "get",
+  "get",
+  "story_commit"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 61801,
+  "cachedInput": 50589,
+  "output": 938
+ },
+ "ms": 10059,
+ "errors": [],
+ "answer": "I fixed it. Old Hesk (e34) is now `alive`, in commit k59. The change is recorded as a GM correction, quoting what you told me.\n\nThree things are left:\n- **Scene summary:** Session 2, scene 1 still reads \"he goes overboard and seems dead.\" That's accurate to what the table saw then, so I left it. Changing it would mean re-saving all of that session's scenes. Tell me if you want it reworded.\n- **Ferry-house keeper:** They aren't in the story state, and I didn't create an entry. You didn't give me a name or a voice, and I won't invent them. If you want them recorded, send me those details.\n- **Revival:** Nothing records the revival itself, such as when it happened or whether the party knows. I only changed his status."
+}

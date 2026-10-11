@@ -1,0 +1,79 @@
+{
+ "id": "sol-C-U-page-3",
+ "client": "sol",
+ "surface": "C",
+ "task": "U-page",
+ "rep": 3,
+ "uploadMode": "page",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 12,
+ "rejected": 1,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 3028,
+ "toolSequence": [
+  "skill",
+  "skill:split-scenes",
+  "skill:map-speakers",
+  "get",
+  "session_create",
+  "transcript_upload_url",
+  "scenes_set!rejected",
+  "get",
+  "get",
+  "get",
+  "scenes_set",
+  "get"
+ ],
+ "skillsLoaded": [
+  "split-scenes",
+  "map-speakers"
+ ],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 654234,
+  "cachedInput": 587776,
+  "output": 6277
+ },
+ "ms": 100641,
+ "errors": [],
+ "answer": "Created session 3 in The Lantern Coast for **2026-10-10**.\n\nPrepared four scenes: Sela's warning, the flooded mine, the midnight bell, and tomorrow's dive. Saved the split in [session-03-scenes.json](/home/coder/.t3/worktrees/omni-gm/t3-02cb808c/prototypes/tool-surface-simulation/results/runs/sol-C-U-page-3/work/session-03-scenes.json).\n\nThe import remains incomplete: Omni-GM requires you to sign in at its [upload page](http://127.0.0.1:41001/upload/s3) and upload the transcript. It rejected saving scenes until that happens. After upload, the prepared scene split still needs to be applied.\n\nSession 3, played **2026-10-10**, is now imported into Omni-GM and split into four scenes:\n\n1. Sela's warning\n2. The flooded mine\n3. The midnight bell\n4. Tomorrow we dive\n\nVerified the uploaded transcript and saved scenes. Nothing remains for this import."
+}

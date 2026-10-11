@@ -1,0 +1,8 @@
+{"t":1791702674369,"surface":"E","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791702676537,"surface":"E","tool":"skill","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":1165}
+{"t":1791702676665,"surface":"E","tool":"get","args":{"ref":"overview"},"argsBytes":18,"outcome":"ok","partialRejections":0,"resultBytes":773}
+{"t":1791702677196,"surface":"E","tool":"find","args":{"query":"Maren Vosk"},"argsBytes":22,"outcome":"ok","partialRejections":0,"resultBytes":2305}
+{"t":1791702677199,"surface":"E","tool":"find","args":{"query":"Hollow Choir"},"argsBytes":24,"outcome":"ok","partialRejections":0,"resultBytes":2035}
+{"t":1791702679207,"surface":"E","tool":"get","args":{"refs":["schema","entity:e19","entity:e22","scene:s3/2"]},"argsBytes":58,"outcome":"ok","partialRejections":0,"resultBytes":11107}
+{"t":1791702679342,"surface":"E","tool":"find","args":{"kinds":["thread","character_goal","player_character"]},"argsBytes":56,"outcome":"ok","partialRejections":0,"resultBytes":1498}
+{"t":1791702683067,"surface":"E","tool":"get","args":{"refs":["entity:e37","entity:e24"]},"argsBytes":36,"outcome":"ok","partialRejections":0,"resultBytes":3320}

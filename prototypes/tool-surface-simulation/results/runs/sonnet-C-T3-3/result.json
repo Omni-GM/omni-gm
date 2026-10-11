@@ -1,0 +1,75 @@
+{
+ "id": "sonnet-C-T3-3",
+ "client": "sonnet",
+ "surface": "C",
+ "task": "T3",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "mine: at least two facts",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela: whisper and gaze",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Hesk: 'river's angry since the bell'",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no writes",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Sela's flood story marked as her claim",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 14,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 306,
+ "toolSequence": [
+  "skill",
+  "find",
+  "find",
+  "find",
+  "skill:prep-sparring",
+  "get",
+  "get",
+  "get",
+  "get",
+  "get",
+  "find",
+  "get",
+  "get",
+  "get"
+ ],
+ "skillsLoaded": [
+  "prep-sparring"
+ ],
+ "expectedSkill": "prep-sparring",
+ "skillBeforeWrite": true,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 72605,
+  "cachedInput": 56319,
+  "output": 2529
+ },
+ "ms": 19285,
+ "errors": [],
+ "answer": "Here are the three answers. Nothing is left that needs you, apart from two small caveats below.\n\n**1. What the players know about the Saltmere Mine**\n- **Closed for forty years.** The archivist told them it sits up the cliff path (s2, 0:08:50).\n- **Bell metal.** The archivist said the chapel's bell metal came from there (s2, 0:08:40). The store holds this as an NPC claim (`e39`).\n- **Flooded the night the bell first rang.** Sela said this, forty years ago, and added that her grandmother said the water came up warm (s3, 0:01:26). This is her claim (`e55`), not a confirmed fact.\n- **What they found inside (s3, 0:06:02–0:06:44).**\n  - The entrance is a black mouth in the chalk with rotting timber and a rusted cart on its side.\n  - The warm air smells of old candle wax.\n  - The tunnel floods about thirty paces in, with warm black water.\n  - Wet hymn-book pages float on it. Teo fished one out: a hymn about the sea giving back what it takes, with \"M. Brand\" in pencil in the margin.\n  - Teo recognised it as his sister Mira's handwriting, so she was there.\n  - Vessa's search roll (9) found nothing else. Oren took 2 damage from the bad air and is down to 11.\n- **Player guess, not fact.** Vessa and Oren suspect the harbor-master, Maren, of being in the cult and running the choir (s3, 0:07:03–0:07:12). You didn't confirm it. You only said \"You can think that.\"\n\n**2. How you played Sela Thorn** (`e54`, alias Sella)\n- She is a tide-reader and the only boatwoman who goes near the bell water.\n- She is a woman with a grey braid and a salt-stained coat, mending a net on an upturned skiff, and she doesn't look up.\n- She whispers \"like the water might hear her\" and never looks anyone in the eye. She keeps her gaze on the tide line (s3, 0:00:42).\n- She will row them, but never at night. The price was two silver after Oren's persuasion roll of 14.\n- The dockhands say her name both ways, Sela and Sella.\n- She'll be at pier four at first light. The party plans to dive to the drowned chapel at low tide, with her rowing them out.\n\n**3. What Old Hesk said about the river** (s2, 0:00:14)\n- He said: \"Hold the rail. River's angry since the bell.\"\n- You played him as ninety if he's a day, humming sea shanties out of tune and calling everyone \"lamb\".\n- Halfway across he went overboard. Oren pulled him out, \"grey and cold and not breathing that you can tell\", and they left him with the ferry-house keeper. The store has him as dead (`e34`).\n\n**Caveats**\n- **Speaker label.** The Hesk line is tagged \"Speaker 1\" in the transcript, not named. He is the only NPC on that ferry scene, so I'm treating it as him. I haven't confirmed the label mapping.\n- **Hesk's death.** Your narration was \"not breathing that you can tell\", so \"dead\" in the store may be firmer than what the players actually saw.\n\nI didn't write anything to the store."
+}

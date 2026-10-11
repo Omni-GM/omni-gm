@@ -1,0 +1,13 @@
+{"t":1791702397015,"surface":"A","event":"start","tools":5,"uploadMode":"signed"}
+{"t":1791702403838,"surface":"A","tool":"story_read","args":{"view":"overview"},"argsBytes":19,"outcome":"ok","partialRejections":0,"resultBytes":773}
+{"t":1791702407767,"surface":"A","tool":"story_read","args":{"view":"entities","nameContains":"Saltmere"},"argsBytes":45,"outcome":"ok","partialRejections":0,"resultBytes":261}
+{"t":1791702407768,"surface":"A","tool":"story_read","args":{"view":"entities","nameContains":"Sela"},"argsBytes":41,"outcome":"ok","partialRejections":0,"resultBytes":64}
+{"t":1791702407769,"surface":"A","tool":"story_read","args":{"view":"entities","nameContains":"Hesk"},"argsBytes":41,"outcome":"ok","partialRejections":0,"resultBytes":62}
+{"t":1791702407769,"surface":"A","tool":"story_read","args":{"view":"transcript","sessionId":"s1"},"argsBytes":38,"outcome":"ok","partialRejections":0,"resultBytes":1182}
+{"t":1791702407770,"surface":"A","tool":"story_read","args":{"view":"transcript","sessionId":"s2"},"argsBytes":38,"outcome":"ok","partialRejections":0,"resultBytes":1170}
+{"t":1791702407770,"surface":"A","tool":"story_read","args":{"view":"transcript","sessionId":"s3"},"argsBytes":38,"outcome":"ok","partialRejections":0,"resultBytes":5611}
+{"t":1791702411364,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e38","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":1577}
+{"t":1791702411364,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e55","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":935}
+{"t":1791702411365,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e39","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":759}
+{"t":1791702411365,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e54","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":1500}
+{"t":1791702411366,"surface":"A","tool":"story_read","args":{"view":"entity","entityId":"e34","withHistory":true},"argsBytes":53,"outcome":"ok","partialRejections":0,"resultBytes":816}

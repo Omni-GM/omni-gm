@@ -1,0 +1,65 @@
+{
+ "id": "sonnet-B-T6-3",
+ "client": "sonnet",
+ "surface": "B",
+ "task": "T6",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Hesk alive",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "one correction commit with a reason",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate Hesk",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "nothing else changed",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "basis game_master",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 8,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 561,
+ "toolSequence": [
+  "list_entities",
+  "search_transcripts",
+  "get_entity",
+  "get_entity_history",
+  "search_transcripts",
+  "get_schema",
+  "list_entities",
+  "correct_story"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 81262,
+  "cachedInput": 70917,
+  "output": 973
+ },
+ "ms": 10051,
+ "errors": [],
+ "answer": "I corrected Old Hesk (e34): his status is now `alive` instead of `dead`. I recorded it as your correction (basis `game_master`, with your words as the source), and it's committed as k59.\n\nTwo things are left, and neither needs action unless you want it:\n- **Ferry-house keeper:** They aren't in the story state, so I didn't add them. I'd need a name and some detail from you before creating an entry.\n- **Where Hesk is now:** The session 2 debrief didn't record a location for him, and I didn't add one."
+}

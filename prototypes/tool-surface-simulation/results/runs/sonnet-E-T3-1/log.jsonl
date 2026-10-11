@@ -1,0 +1,8 @@
+{"t":1791702667755,"surface":"E","event":"start","tools":12,"uploadMode":"signed"}
+{"t":1791702669223,"surface":"E","tool":"skill","args":{},"argsBytes":2,"outcome":"ok","partialRejections":0,"resultBytes":1165}
+{"t":1791702669314,"surface":"E","tool":"find","args":{"query":"Saltmere Mine"},"argsBytes":25,"outcome":"ok","partialRejections":0,"resultBytes":2923}
+{"t":1791702669950,"surface":"E","tool":"find","args":{"query":"Sela Thorn"},"argsBytes":22,"outcome":"ok","partialRejections":0,"resultBytes":2713}
+{"t":1791702669951,"surface":"E","tool":"find","args":{"query":"Old Hesk river"},"argsBytes":26,"outcome":"ok","partialRejections":0,"resultBytes":2452}
+{"t":1791702671355,"surface":"E","tool":"skill","args":{"name":"prep-sparring"},"argsBytes":24,"outcome":"ok","partialRejections":0,"resultBytes":1465}
+{"t":1791702671705,"surface":"E","tool":"get","args":{"refs":["entity:e38","entity:e39","entity:e55","entity:e54","entity:e34","scene:s2/1","scene:s3/2","scene:s3/1"]},"argsBytes":114,"outcome":"ok","partialRejections":0,"resultBytes":10393}
+{"t":1791702674606,"surface":"E","tool":"get","args":{"ref":"scene:s2/2"},"argsBytes":20,"outcome":"ok","partialRejections":0,"resultBytes":750}

@@ -1,0 +1,65 @@
+{
+ "id": "sonnet-E-T5-1",
+ "client": "sonnet",
+ "surface": "E",
+ "task": "T5",
+ "rep": 1,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "timeframe: spring tide, three sessions",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "finale: chapel at low tide, choir walks out",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "other fields untouched",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no invented frame fields",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "story state untouched",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 3,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 286,
+ "toolSequence": [
+  "skill:frame talk",
+  "get",
+  "frame_update"
+ ],
+ "skillsLoaded": [
+  "frame talk"
+ ],
+ "expectedSkill": "frame-talk",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 40202,
+  "cachedInput": 26652,
+  "output": 554
+ },
+ "ms": 6685,
+ "errors": [],
+ "answer": "The frame for The Drowned Bell now has the new timeframe and finale. I left the other fields as they were.\n\n- **Timeframe:** \"Before the spring tide, about three sessions.\"\n- **Finale:** \"The drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick.\"\n\nNothing is left to do on the update itself. I changed nothing outside the frame.\n\nI noticed two things you may want to look at when you're back. I haven't touched either.\n- **Pressure:** it still says \"The bell rings every second night.\" That may need to match the spring-tide deadline, or it may be fine as it is.\n- **The Pale Abbot:** I didn't check whether this character exists in the story state. The finale now names them."
+}

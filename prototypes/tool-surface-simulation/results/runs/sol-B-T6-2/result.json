@@ -1,0 +1,85 @@
+{
+ "id": "sol-B-T6-2",
+ "client": "sol",
+ "surface": "B",
+ "task": "T6",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "Hesk alive",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "one correction commit with a reason",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no duplicate Hesk",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "nothing else changed",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "basis game_master",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 28,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 934,
+ "toolSequence": [
+  "list_entities",
+  "get_schema",
+  "search_transcripts",
+  "get_frame",
+  "get_entity",
+  "get_entity_history",
+  "read_transcript",
+  "list_sessions",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "correct_story",
+  "get_entity",
+  "get_entity_history"
+ ],
+ "skillsLoaded": [],
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 216356,
+  "cachedInput": 181376,
+  "output": 1028
+ },
+ "ms": 33783,
+ "errors": [],
+ "answer": "Fixed and verified: Old Hesk is now marked alive in Omni-GM. The correction records that he passed out in the water in session 2 and the ferry-house keeper revived him, citing your words.\n\nNo other conflicting references found. Nothing left for you to do."
+}

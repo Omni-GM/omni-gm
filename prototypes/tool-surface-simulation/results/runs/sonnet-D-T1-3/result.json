@@ -1,0 +1,70 @@
+{
+ "id": "sonnet-D-T1-3",
+ "client": "sonnet",
+ "surface": "D",
+ "task": "T1",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "session 3 recorded with its date",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript stored byte-exact",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "transcript never passed through model output",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": true
+  },
+  {
+   "name": "4-5 scenes with every gold boundary within 60s",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "scene places named",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no debrief started unasked",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 4,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 1736,
+ "toolSequence": [
+  "get",
+  "session_create",
+  "transcript_upload_url",
+  "scenes_set"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "split-scenes",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [
+  "signed-url"
+ ],
+ "tokens": {
+  "input": 92271,
+  "cachedInput": 80132,
+  "output": 2500
+ },
+ "ms": 22864,
+ "errors": [],
+ "answer": "Session 3 is created, the transcript is uploaded, and it's split into four scenes. I didn't start the debrief, since you didn't ask for one.\n\n**Scenes**\n1. **A boat from Sela** (0:00:05), pier four. The party meets Sela Thorn, who will row them out but never at night.\n2. **The flooded Saltmere Mine** (0:05:48), the mine up the cliff path. They find a hymn-book page pencilled \"M. Brand\".\n3. **Midnight at the drowned chapel** (0:13:40), the shore below the ruins. The bell rings at midnight and pale shapes appear in the water. The choir clock is at three of six.\n4. **Stew and a plan at the Tarred Gull** (0:19:50), the tavern. They plan a daytime low-tide dive with Sela, and Bram talks about Maren.\n\n**Speaker mapping**\n- The GM voices everything labeled \"GM\". Jonas plays Teo, Dana plays Vessa and Priya plays Oren.\n- \"Speaker 1\" is the GM's NPC voices, which I assigned from content:\n  - Sela Thorn, 0:00:27 to 0:01:26.\n  - Sela again at 0:01:06, where the line calls her \"Sella's boat\" (see the open points).\n  - The unnamed fisherman who mentions the Kelp Mother, 0:14:24.\n  - Bram the innkeeper, 0:20:41 to 0:21:02.\n\n**Left for you**\n- **Sela's name:** The transcript has both \"Sela\" and \"Sella\". You said at 0:01:14 that the dockhands say it both ways. I used \"Sela\", which is how she introduces herself, but tell me if you want \"Sella\" instead.\n- **Debrief:** I haven't read the existing entities or drafted any changes. When you want it, a few things to watch:\n  - Dana and Priya's theory that Maren is in the cult at 0:07:03 is only a player guess. It can touch a thread, not Maren herself.\n  - The Kelp Mother is a rumor, so it becomes a world fact with basis rumor, not an NPC.\n  - The choir clock at three of six is the GM's aside at 0:15:24.\n- **Transcript header:** The talk-time table lists Speaker 1 at 5 minutes. I couldn't confirm that against the transcript."
+}

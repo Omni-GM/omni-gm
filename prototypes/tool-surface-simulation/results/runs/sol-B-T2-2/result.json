@@ -1,0 +1,152 @@
+{
+ "id": "sol-B-T2-2",
+ "client": "sol",
+ "surface": "B",
+ "task": "T2",
+ "rep": 2,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "draft shown, not committed, after turn 1",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "debrief committed after the GM said so",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Sela Thorn: one NPC with played_as",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Bram: NPC with played_as",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "choir clock at 3",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "dive plan on a thread (player_plan)",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "Teo's goal: the M. Brand page",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "mine findings recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "player guess kept off Maren",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "Kelp Mother not an NPC",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "no mechanics recorded",
+   "pass": true,
+   "critical": false
+  },
+  {
+   "name": "80% of quotes found in the transcript",
+   "pass": true,
+   "critical": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 57,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 17633,
+ "toolSequence": [
+  "list_sessions",
+  "get_schema",
+  "get_frame",
+  "list_entities",
+  "read_transcript",
+  "draft_show",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "get_entity",
+  "draft_new_entity:Sela Thorn",
+  "draft_update_entity",
+  "draft_relate",
+  "draft_new_entity:Sela's account of Saltmere's flooding",
+  "draft_relate",
+  "draft_relate",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_new_entity:Is Maren involved with the choir?",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_update_entity",
+  "draft_new_entity:The fishermen's Kelp Mother warning",
+  "draft_relate",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_new_entity:The Tarred Gull",
+  "draft_new_entity:Bram",
+  "draft_update_entity",
+  "draft_relate",
+  "draft_relate",
+  "draft_update_entity",
+  "draft_relate",
+  "draft_update_entity",
+  "draft_update_entity",
+  "draft_relate",
+  "draft_relate",
+  "draft_relate",
+  "draft_show",
+  "draft_new_entity:Unnamed shore fisherman",
+  "draft_relate",
+  "draft_show",
+  "read_transcript",
+  "draft_commit",
+  "list_sessions"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "debrief",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 695746,
+  "cachedInput": 614912,
+  "output": 14112
+ },
+ "ms": 162409,
+ "errors": [],
+ "answer": "Saved session 3’s debrief draft in Omni-GM. [Read the full draft with source quotes](session-3-debrief-draft.md).\n\n- **Pier four:** Added Sela Thorn, also called Sella, her whispered manner, daylight rowing terms, and her unverified account of Saltmere’s flooding.\n- **Saltmere Mine:** Recorded warm black water and the hymn page marked “M. Brand.” Teo’s identification of Mira’s handwriting and the party’s suspicions about Maren remain guesses.\n- **Midnight shore:** Recorded twelve bell strokes, louder humming, and pale shapes beneath the water. The hidden choir clock advances to **3/6**. The Kelp Mother warning remains a rumor.\n- **The Tarred Gull:** Added Bram and his testimony about Maren. Recorded the party’s final location and their plan to meet Sela at first light and dive during daylight at low tide.\n\nAll 31 changes have matching transcript quotes. Nothing is committed. What remains is your review and confirmation. The unnamed fisherman’s further voice and manner are absent from the transcript.\n\nCommitted session 3’s debrief in Omni-GM. All 31 changes applied, and the session status is verified as committed."
+}

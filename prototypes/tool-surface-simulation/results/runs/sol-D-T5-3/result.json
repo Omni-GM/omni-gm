@@ -1,0 +1,63 @@
+{
+ "id": "sol-D-T5-3",
+ "client": "sol",
+ "surface": "D",
+ "task": "T5",
+ "rep": 3,
+ "uploadMode": "signed",
+ "success": true,
+ "score": 1,
+ "checks": [
+  {
+   "name": "timeframe: spring tide, three sessions",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "finale: chapel at low tide, choir walks out",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "other fields untouched",
+   "pass": true,
+   "critical": true
+  },
+  {
+   "name": "no invented frame fields",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  },
+  {
+   "name": "story state untouched",
+   "pass": true,
+   "critical": true,
+   "ruleBreak": false
+  }
+ ],
+ "ruleBreaks": [],
+ "calls": 3,
+ "rejected": 0,
+ "partialRejections": 0,
+ "invalid": 0,
+ "argsBytes": 360,
+ "toolSequence": [
+  "get",
+  "frame_update",
+  "get"
+ ],
+ "skillsLoaded": [],
+ "expectedSkill": "frame-talk",
+ "skillBeforeWrite": false,
+ "promptsFetched": [],
+ "uploadEvents": [],
+ "tokens": {
+  "input": 174056,
+  "cachedInput": 153472,
+  "output": 567
+ },
+ "ms": 26885,
+ "errors": [],
+ "answer": "Updated The Drowned Bell and verified the saved frame:\n\n- Timeframe: “before the spring tide, about three sessions”\n- Finale: “the drowned chapel at low tide, the Pale Abbot ringing the bell while the choir walks out of the sea toward Gullwick.”\n\nEverything else remains unchanged. Nothing left to do."
+}

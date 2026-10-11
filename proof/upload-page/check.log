@@ -1,0 +1,58 @@
+
+> omni-gm@0.1.0 check /home/coder/dev/omni-gm-upload-page
+> pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test
+
+tests/mcp.test.ts:694:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    692 │   const failed = await c.t.fetch(path, {
+    693 │     method: "PUT",
+  > 694 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
+        │           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    695 │   });
+    696 │   expect(failed.status).toBe(400);
+  
+  i Unsafe fix: Use a template literal.
+  
+     692  692 │     const failed = await c.t.fetch(path, {
+     693  693 │       method: "PUT",
+     694      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
+          694 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
+     695  695 │     });
+     696  696 │     expect(failed.status).toBe(400);
+  
+
+Checked 26 files in 29ms. No fixes applied.
+Found 1 info.
+CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
+▌ Developing against deployment:
+▌ [Local] Port 3214 • No Convex account (run npx convex login to link to a project)
+▌ └─ http://127.0.0.1:3214
+- Preparing Convex functions...
+
+Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
+✔ Added table indexes:
+  [+] commits.by_campaign_and_kind   campaign, kind, _creationTime
+✔ 12:52:47 Convex functions ready! (393.69ms)
+Finding component definitions...
+Generating server code...
+Bundling component definitions...
+Bundling component schemas and implementations...
+Downloading current deployment state...
+Uploading functions to Convex...
+Generating TypeScript bindings...
+Running TypeScript...
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-upload-page
+> vitest run
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-upload-page
+
+
+ Test Files  2 passed (2)
+      Tests  34 passed (34)
+   Start at  12:52:52
+   Duration  3.68s (transform 524ms, setup 0ms, import 234ms, tests 3.79s, environment 0ms)
+

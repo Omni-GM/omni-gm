@@ -2,8 +2,8 @@
  RUN  v4.1.0 /home/coder/dev/omni-gm-frame-talk
 
 
- Test Files  1 passed (1)
-      Tests  34 passed (34)
-   Start at  12:52:12
-   Duration  3.75s (transform 275ms, setup 0ms, import 124ms, tests 3.52s, environment 0ms)
+ Test Files  2 passed (2)
+      Tests  38 passed (38)
+   Start at  12:56:39
+   Duration  3.76s (transform 526ms, setup 0ms, import 233ms, tests 3.88s, environment 0ms)
 

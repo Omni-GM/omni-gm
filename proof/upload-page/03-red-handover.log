@@ -1,0 +1,41 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-upload-page
+
+ ❯ tests/upload-page.test.ts (3 tests | 1 failed) 345ms
+   × split-scenes and the upload tool tell a client without a shell to hand over the page link 10ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/upload-page.test.ts > split-scenes and the upload tool tell a client without a shell to hand over the page link
+AssertionError: expected 'Load skill map-speakers and map the s…' to match /cannot run curl[^\n]*pageUrl/
+
+- Expected:
+/cannot run curl[^\n]*pageUrl/
+
++ Received:
+"Load skill map-speakers and map the speakers. Read get transcript:<session> in windows if needed; never repeat the transcript in output.
+Split into scenes at changes of place or situation. Give each a short title, start and optional end timestamp, place and a summary of plot points in one or two lines. Keep the original timestamps. Do not overlap scenes. Leave out rolls, rests, hit points and inventory.
+Call scenes_set with the session and scenes in order. Use get scene:<session>/<n> to check a scene with its utterances. Splitting replaces earlier scenes, so drop existing draft changes first; a committed debrief and its scenes are closed.
+
+Standing rules
+Never draft prep. Propose only on the game master's explicit request, at most three situations built from story-state facts with sources.
+Ask about situations and pressure, never player decisions or outcomes.
+Story state records what happened. The adventure frame records intent. Keep them apart.
+Write in the game master's language."
+
+ ❯ tests/upload-page.test.ts:70:27
+     68|   await c.init();
+     69|   const skill = await c.call("skill", { name: "split-scenes" });
+     70|   expect(skill.procedure).toMatch(/cannot run curl[^\n]*pageUrl/);
+       |                           ^
+     71|   const tools = await c.rpc("tools/list");
+     72|   const upload = tools.result.tools.find(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  12:35:39
+   Duration  556ms (transform 262ms, setup 0ms, import 93ms, tests 345ms, environment 0ms)
+

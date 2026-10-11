@@ -2,28 +2,28 @@
 > omni-gm@0.1.0 check /home/coder/dev/omni-gm-frame-talk
 > pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test
 
-tests/mcp.test.ts:768:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+tests/mcp.test.ts:702:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   i Template literals are preferred over string concatenation.
   
-    766 │   const failed = await c.t.fetch(path, {
-    767 │     method: "PUT",
-  > 768 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
+    700 │   const failed = await c.t.fetch(path, {
+    701 │     method: "PUT",
+  > 702 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
         │           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    769 │   });
-    770 │   expect(failed.status).toBe(400);
+    703 │   });
+    704 │   expect(failed.status).toBe(400);
   
   i Unsafe fix: Use a template literal.
   
-     766  766 │     const failed = await c.t.fetch(path, {
-     767  767 │       method: "PUT",
-     768      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
-          768 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
-     769  769 │     });
-     770  770 │     expect(failed.status).toBe(400);
+     700  700 │     const failed = await c.t.fetch(path, {
+     701  701 │       method: "PUT",
+     702      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
+          702 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
+     703  703 │     });
+     704  704 │     expect(failed.status).toBe(400);
   
 
-Checked 24 files in 36ms. No fixes applied.
+Checked 28 files in 82ms. No fixes applied.
 Found 1 info.
 CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
 ▌ Developing against deployment:
@@ -32,7 +32,7 @@ CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the fut
 - Preparing Convex functions...
 
 Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
-✔ 12:52:18 Convex functions ready! (378.86ms)
+✔ 12:56:46 Convex functions ready! (369.21ms)
 Finding component definitions...
 Generating server code...
 Bundling component definitions...
@@ -49,8 +49,8 @@ Running TypeScript...
  RUN  v4.1.0 /home/coder/dev/omni-gm-frame-talk
 
 
- Test Files  1 passed (1)
-      Tests  34 passed (34)
-   Start at  12:52:23
-   Duration  3.74s (transform 273ms, setup 0ms, import 123ms, tests 3.52s, environment 0ms)
+ Test Files  2 passed (2)
+      Tests  38 passed (38)
+   Start at  12:56:51
+   Duration  3.82s (transform 529ms, setup 0ms, import 231ms, tests 3.94s, environment 0ms)
 

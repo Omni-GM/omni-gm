@@ -1,0 +1,35 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-impl21
+
+ ❯ tests/mcp.test.ts (44 tests | 1 failed | 43 skipped) 514ms
+   × a sparse keyword near the end of a transcript is found in one bounded search 513ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > a sparse keyword near the end of a transcript is found in one bounded search
+AssertionError: expected [] to deeply equal [ 'Moonquartz found.' ]
+
+- Expected
++ Received
+
+- [
+-   "Moonquartz found.",
+- ]
++ []
+
+ ❯ tests/mcp.test.ts:2014:66
+    2012|     types: ["transcript"],
+    2013|   });
+    2014|   expect(result.hits.map((h: { snippet: string }) => h.snippet)).toEqu…
+       |                                                                  ^
+    2015|     "Moonquartz found.",
+    2016|   ]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 43 skipped (44)
+   Start at  13:08:30
+   Duration  746ms (transform 454ms, setup 0ms, import 132ms, tests 514ms, environment 0ms)
+

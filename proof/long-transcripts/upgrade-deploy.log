@@ -1,0 +1,13 @@
+▌ Deploying code to deployment:
+▌ [Preview] omni-gm:omni-gm:preview/legacy-long-transcripts (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/quiet-reindeer-299)
+▌ └─ https://quiet-reindeer-299.convex.cloud
+- Deploying to https://quiet-reindeer-299.convex.cloud...
+
+✔ Deleted table indexes:
+  [-] utterances.by_session_and_seconds   session, seconds, _creationTime
+✔ Added table indexes:
+  [+] entities.by_campaign_and_kind   campaign, kind, _creationTime
+  [+] scenes.by_campaign   campaign, _creationTime
+  [+] utterances.by_campaign   campaign, _creationTime
+  [+] utterances.by_session_and_generation_and_seconds   session, transcriptGeneration, seconds, ordinal, _creationTime
+✔ Deployed Convex functions to https://quiet-reindeer-299.convex.cloud

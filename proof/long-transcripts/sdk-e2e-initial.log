@@ -1,0 +1,23 @@
+Invented fixture: 4801 utterances, 04:00:00 of play, 492924 bytes, SHA-256 ebafaef83dc0381464c7a07d090bf321315788b66c2e99e8deaac5af186707f6
+PASS signed upload of 4,801 utterances in bounded batches
+PASS authenticated download preserves exact UTF-8 bytes and CRLF
+PASS four scenes include the true end at 04:00:00
+PASS 25 transcript pages read every utterance with no gaps or duplicates
+PASS 28 scene pages reproduce the complete transcript without overlap
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Tool get failed: Tool execution failed
+    at call (/home/coder/dev/omni-gm-impl21/scripts/e2e-long-transcripts.ts:29:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (/home/coder/dev/omni-gm-impl21/scripts/e2e-long-transcripts.ts:133:17) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.21.0

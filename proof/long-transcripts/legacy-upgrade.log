@@ -1,0 +1,5 @@
+PASS baseline deployment uploaded 250 old-shape utterances at repeated timestamps through MCP
+PASS upgraded transcript pages and authenticated download preserve every legacy row and original byte
+PASS search reads all 250 legacy utterances without collapsing their shared timestamp
+PASS replacement hides the legacy generation and rejects its old cursor
+LEGACY TRANSCRIPT UPGRADE E2E PASSED

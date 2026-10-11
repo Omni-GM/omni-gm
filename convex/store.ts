@@ -1,5 +1,6 @@
 import { ConvexError, type Infer, v } from "convex/values";
 import { type McpCaller, mcpCallerValidator } from "convex-mcp-gateway";
+import { internal } from "./_generated/api";
 import type { Doc, Id } from "./_generated/dataModel";
 import {
   internalMutation,
@@ -16,6 +17,7 @@ import {
   seconds,
   sessionInfo,
 } from "./model";
+import { continuation, pageArgs, pageLimit, position } from "./pagination";
 export const callerArgs = { caller: mcpCallerValidator };
 export async function campaignFor(
   ctx: QueryCtx,
@@ -177,6 +179,7 @@ export const sessionCreate = internalMutation({
   },
 });
 export const getArgs = {
+  ...pageArgs,
   ...callerArgs,
   ref: v.optional(v.string()),
   refs: v.optional(v.array(v.string())),
@@ -189,6 +192,8 @@ async function read(
   ctx: QueryCtx,
   campaign: Doc<"campaigns">,
   ref: string,
+  limit: number,
+  cursor?: string | null,
 ): Promise<ReadValue> {
   if (ref === "schema") return schemaFor(campaign);
   if (ref === "frame") {
@@ -279,20 +284,33 @@ async function read(
     const [sessionRef, at] = ref.slice(11).split("@");
     const s = await sessionFor(ctx, campaign._id, sessionRef);
     if (!s.transcript) throw new ConvexError("Upload a transcript first");
-    const rows = await ctx.db
+    const scope = JSON.stringify([campaign._id, ref, s.transcript]);
+    const start = position(scope, cursor);
+    const page = await ctx.db
       .query("utterances")
-      .withIndex("by_session_and_seconds", (q) =>
+      .withIndex("by_session_and_generation_and_seconds", (q) =>
         at
           ? q
               .eq("session", s._id)
+              .eq("transcriptGeneration", s.transcriptGeneration)
               .gte("seconds", Math.max(0, seconds(at) - 60))
               .lte("seconds", seconds(at) + 60)
-          : q.eq("session", s._id),
+          : q
+              .eq("session", s._id)
+              .eq("transcriptGeneration", s.transcriptGeneration),
       )
-      .take(2000);
+      .paginate({
+        numItems: limit,
+        cursor: start.cursor,
+        maximumBytesRead: 500_000,
+      });
     return {
       session: s._id,
-      utterances: rows.map(({ at, seconds, speaker, text }) => ({
+      truncated: !page.isDone,
+      nextCursor: page.isDone
+        ? null
+        : continuation(scope, { ...start, cursor: page.continueCursor }),
+      utterances: page.page.map(({ at, seconds, speaker, text }) => ({
         at,
         seconds,
         speaker,
@@ -310,37 +328,43 @@ async function read(
       )
       .unique();
     if (!e) throw new ConvexError("Entity not found");
-    const links = await ctx.db
+    const scope = JSON.stringify([campaign._id, ref]);
+    const start = position(scope, cursor);
+    const page = await ctx.db
       .query("entityHistory")
       .withIndex("by_campaign_and_entity", (q) =>
         q.eq("campaign", campaign._id).eq("entityId", id),
       )
-      .take(2001);
-    if (links.length > 2000)
-      throw new ConvexError(
-        "Entity history exceeds v1 read capacity of 2000 changes",
-      );
+      .paginate({ numItems: Math.min(limit, 10), cursor: start.cursor });
     const history = await Promise.all(
-      links.map((link) => ctx.db.get(link.history)),
+      page.page.map((link) => ctx.db.get(link.history)),
     );
     const from = await ctx.db
       .query("relationships")
       .withIndex("by_campaign_and_from", (q) =>
         q.eq("campaign", campaign._id).eq("from", id),
       )
-      .take(2000);
+      .take(2001);
     const to = await ctx.db
       .query("relationships")
       .withIndex("by_campaign_and_to", (q) =>
         q.eq("campaign", campaign._id).eq("to", id),
       )
-      .take(2000);
+      .take(2001);
+    if (from.length > 2000 || to.length > 2000)
+      throw new ConvexError(
+        "Entity has more than 2000 relationships; narrow relationship reads are required",
+      );
     return {
       id: e.id,
       kind: e.kind,
       name: e.name,
       aliases: e.aliases,
       properties: e.properties,
+      truncated: !page.isDone,
+      nextCursor: page.isDone
+        ? null
+        : continuation(scope, { ...start, cursor: page.continueCursor }),
       relationships: [...from, ...to.filter((r) => r.from !== id)].map(
         ({ type, from, to }) => ({
           type,
@@ -389,18 +413,38 @@ async function read(
     const exclusive =
       s.scenes[ordinal] !== undefined &&
       end === seconds(s.scenes[ordinal].start);
-    const rows = await ctx.db
+    const scope = JSON.stringify([
+      campaign._id,
+      ref,
+      s.transcript,
+      sc.start,
+      end,
+      exclusive,
+    ]);
+    const start = position(scope, cursor);
+    const page = await ctx.db
       .query("utterances")
-      .withIndex("by_session_and_seconds", (q) => {
-        const range = q.eq("session", s._id).gte("seconds", seconds(sc.start));
+      .withIndex("by_session_and_generation_and_seconds", (q) => {
+        const range = q
+          .eq("session", s._id)
+          .eq("transcriptGeneration", s.transcriptGeneration)
+          .gte("seconds", seconds(sc.start));
         return exclusive ? range.lt("seconds", end) : range.lte("seconds", end);
       })
-      .take(2000);
+      .paginate({
+        numItems: limit,
+        cursor: start.cursor,
+        maximumBytesRead: 500_000,
+      });
     return {
       session: s._id,
       ordinal,
       ...sc,
-      utterances: rows.map(({ at, seconds, speaker, text }) => ({
+      truncated: !page.isDone,
+      nextCursor: page.isDone
+        ? null
+        : continuation(scope, { ...start, cursor: page.continueCursor }),
+      utterances: page.page.map(({ at, seconds, speaker, text }) => ({
         at,
         seconds,
         speaker,
@@ -419,12 +463,14 @@ export const get = internalQuery({
   returns: getResult,
   handler: async (
     ctx,
-    { caller, ref, refs },
+    { caller, ref, refs, limit, cursor },
   ): Promise<Infer<typeof getResult>> => {
     const campaign = await campaignFor(ctx, caller);
+    const maximum = pageLimit(limit);
     if ((ref !== undefined) === (refs !== undefined))
       throw new ConvexError("Provide ref or refs, not both");
     if (refs) {
+      if (cursor) throw new ConvexError("Use a single ref with a cursor");
       if (!refs.length || refs.length > 25)
         throw new ConvexError("Use 1 to 25 refs");
       return {
@@ -432,12 +478,25 @@ export const get = internalQuery({
         items: await Promise.all(
           refs.map(async (r) => ({
             ref: r,
-            value: await read(ctx, campaign, r),
+            value: await ctx.runQuery(internal.store.readOne, {
+              caller,
+              ref: r,
+              limit: Math.min(
+                maximum,
+                Math.max(1, Math.floor(200 / refs.length)),
+              ),
+            }),
           })),
         ),
       };
     }
     if (ref === undefined) throw new ConvexError("Provide a ref");
-    return { value: await read(ctx, campaign, ref) };
+    return { value: await read(ctx, campaign, ref, maximum, cursor) };
   },
+});
+export const readOne = internalQuery({
+  args: { ...callerArgs, ...pageArgs, ref: v.string() },
+  returns: readValue,
+  handler: async (ctx, { caller, ref, limit, cursor }): Promise<ReadValue> =>
+    read(ctx, await campaignFor(ctx, caller), ref, pageLimit(limit), cursor),
 });

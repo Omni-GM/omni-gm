@@ -1,0 +1,33 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-impl21
+
+ ❯ tests/mcp.test.ts (26 tests | 1 failed | 25 skipped) 296ms
+   × scene pages follow their continuation without spilling into the next scene 295ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > scene pages follow their continuation without spilling into the next scene
+AssertionError: expected [ { at: '00:01:10', …(3) }, …(1) ] to have a length of 1 but got 2
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ tests/mcp.test.ts:1099:28
+    1097|   const ref = `scene:${s.id}/1`;
+    1098|   const first = await c.call("get", { ref, limit: 1 });
+    1099|   expect(first.utterances).toHaveLength(1);
+       |                            ^
+    1100|   expect(first.truncated).toBe(true);
+    1101|   const second = await c.call("get", { ref, limit: 1, cursor: first.ne…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 25 skipped (26)
+   Start at  12:43:14
+   Duration  521ms (transform 272ms, setup 0ms, import 122ms, tests 296ms, environment 0ms)
+

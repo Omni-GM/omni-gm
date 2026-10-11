@@ -58,11 +58,16 @@ export const scenesSet = internalMutation({
       throw new ConvexError("Keep scene descriptions within 64 KB per session");
     if (s.changes.length)
       throw new ConvexError("Drop draft changes before replacing their scenes");
-    const utterances = await ctx.db
+    const lastUtterance = await ctx.db
       .query("utterances")
-      .withIndex("by_session_and_seconds", (q) => q.eq("session", s._id))
-      .take(2000);
-    const last = utterances.at(-1)?.seconds;
+      .withIndex("by_session_and_generation_and_seconds", (q) =>
+        q
+          .eq("session", s._id)
+          .eq("transcriptGeneration", s.transcriptGeneration),
+      )
+      .order("desc")
+      .first();
+    const last = lastUtterance?.seconds;
     if (last === undefined) throw new ConvexError("Upload a transcript first");
     for (const [i, sc] of scenes.entries()) {
       const start = seconds(sc.start);

@@ -1,0 +1,37 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-impl21
+
+ ❯ tests/mcp.test.ts (23 tests | 1 failed | 22 skipped) 344ms
+   × entity history pages preserve every committed debrief with its basis and source 343ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > entity history pages preserve every committed debrief with its basis and source
+AssertionError: expected [ …(4) ] to deeply equal [ …(2) ]
+
+- Expected
++ Received
+
+  [
+    "000000000000000000010003sessions",
+    "000000000000000000010015sessions",
++   "000000000000000000010026sessions",
++   "000000000000000000010037sessions",
+  ]
+
+ ❯ tests/mcp.test.ts:922:68
+    920|   }
+    921|   const first = await c.call("get", { ref, limit: 2 });
+    922|   expect(first.history.map((h: { session: string }) => h.session)).toE…
+       |                                                                    ^
+    923|   expect(first.truncated).toBe(true);
+    924|   const second = await c.call("get", { ref, limit: 2, cursor: first.ne…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 22 skipped (23)
+   Start at  12:35:43
+   Duration  559ms (transform 258ms, setup 0ms, import 114ms, tests 344ms, environment 0ms)
+

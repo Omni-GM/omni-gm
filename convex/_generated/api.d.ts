@@ -13,6 +13,7 @@ import type * as http from "../http.js";
 import type * as ledger from "../ledger.js";
 import type * as model from "../model.js";
 import type * as oauth from "../oauth.js";
+import type * as pagination from "../pagination.js";
 import type * as schemaChanges from "../schemaChanges.js";
 import type * as search from "../search.js";
 import type * as skills from "../skills.js";
@@ -33,6 +34,7 @@ declare const fullApi: ApiFromModules<{
   ledger: typeof ledger;
   model: typeof model;
   oauth: typeof oauth;
+  pagination: typeof pagination;
   schemaChanges: typeof schemaChanges;
   search: typeof search;
   skills: typeof skills;

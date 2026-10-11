@@ -1,0 +1,33 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-impl21
+
+ ❯ tests/mcp.test.ts (24 tests | 1 failed | 23 skipped) 299ms
+   × find continues past its old candidate cap and keeps utterances at the same timestamp distinct 297ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > find continues past its old candidate cap and keeps utterances at the same timestamp distinct
+AssertionError: expected [ { …(5) } ] to have a length of 100 but got 1
+
+- Expected
++ Received
+
+- 100
++ 1
+
+ ❯ tests/mcp.test.ts:943:22
+    941|   expect((await c.t.fetch(new URL(url).pathname + new URL(url).search,…
+    942|   const first = await c.call("find", { query: "lantern marker", types:…
+    943|   expect(first.hits).toHaveLength(100);
+       |                      ^
+    944|   expect(first.truncated).toBe(true);
+    945|   expect(first.totalIsExact).toBe(false);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 23 skipped (24)
+   Start at  12:36:10
+   Duration  515ms (transform 259ms, setup 0ms, import 115ms, tests 299ms, environment 0ms)
+

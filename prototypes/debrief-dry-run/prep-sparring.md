@@ -30,6 +30,10 @@ Walk the game master's checklist in their order. For each section:
 
 The game master may skip any section or stop at any time.
 
+## Final check
+
+The game master writes their session note themselves; writing it is how they remember it at the table. When they share it, check it against the story state and what they decided in the sparring. Name at most five things: something they decided but left out, or something that contradicts the story state. Never rewrite the note.
+
 ## Output
 
-The game master's notes per section, in their words, plus the list of story-state facts they used.
+The game master's decisions per section, in their words, plus the list of story-state facts they used. This is input for the note they write, not the note.

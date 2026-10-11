@@ -1,0 +1,38 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run -- -t 'source search keeps'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+ ❯ tests/mcp.test.ts (19 tests | 1 failed) 2003ms
+   × source search keeps distinct claims about one entity with their own basis 18ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > source search keeps distinct claims about one entity with their own basis
+AssertionError: expected [ { …(5) } ] to have a length of 2 but got 1
+
+- Expected
++ Received
+
+- 2
++ 1
+
+ ❯ tests/mcp.test.ts:618:23
+    616|   await c.call("debrief_commit",{session:s.id});
+    617|   const result=await c.call("find",{query:"bridge",types:["source"]});
+    618|   expect(result.hits).toHaveLength(2);
+       |                       ^
+    619|   expect(result.hits.map((h:{snippet:string})=>h.snippet)).toEqual(exp…
+    620|     "npc_said: Sera says the bridge is open.","rumor: A rumor says the…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 18 passed (19)
+   Start at  12:16:21
+   Duration  2.21s (transform 258ms, setup 0ms, import 100ms, tests 2.00s, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

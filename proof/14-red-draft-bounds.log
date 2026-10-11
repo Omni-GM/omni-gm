@@ -1,0 +1,41 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run -- -t 'oversized proposals'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+ ❯ tests/mcp.test.ts (16 tests | 1 failed) 1675ms
+   × oversized proposals are rejected individually and temporary entities require tempKey references 16ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > oversized proposals are rejected individually and temporary entities require tempKey references
+AssertionError: expected [ 1 ] to deeply equal [ +0, 2 ]
+
+- Expected
++ Received
+
+  [
+-   0,
+-   2,
++   1,
+  ]
+
+ ❯ tests/mcp.test.ts:578:60
+    576|     {...npcChange(),change:{op:"new",kind:"thread",name:"Keep this"}}
+    577|   ]});
+    578|   expect(result.rejected.map((r:{index:number})=>r.index)).toEqual([0,…
+       |                                                            ^
+    579|   expect(result.rejected[0].reason).toContain("16");
+    580|   expect(result.rejected[1].reason).toContain("$tempKey");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 15 passed (16)
+   Start at  12:14:43
+   Duration  1.87s (transform 258ms, setup 0ms, import 101ms, tests 1.68s, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

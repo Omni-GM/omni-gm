@@ -1,0 +1,32 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+ ❯ tests/mcp.test.ts (1 test | 1 failed) 194ms
+   × the game master starts an adventure, records a session and recalls the seeded schema 194ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > the game master starts an adventure, records a session and recalls the seeded schema
+Error: {"jsonrpc":"2.0","id":2,"error":{"code":-32602,"message":"Unknown tool: adventure_start"}}
+ ❯ Object.call tests/mcp.test.ts:24:59
+     22|   async function call(name: string, args: Record<string, unknown> = {}…
+     23|     const response = await rpc("tools/call", { name, arguments: args }…
+     24|     if (response.error || response.result?.isError) throw new Error(JS…
+       |                                                           ^
+     25|     return response.result.structuredContent;
+     26|   }
+ ❯ tests/mcp.test.ts:32:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  11:41:31
+   Duration  363ms (transform 176ms, setup 0ms, import 70ms, tests 194ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

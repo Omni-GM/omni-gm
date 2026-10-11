@@ -1,0 +1,5 @@
+PASS Claude Sonnet 5.5 loaded debrief before any write and completed
+PASS no transcript reproduction in assistant text or tool inputs
+PASS committed lastTime, voiced NPC playedAs and spelling alias read back
+PASS player guess is a thread and touches no NPC; rumor figure is no NPC
+CLAUDE FIXTURE PROOF PASSED

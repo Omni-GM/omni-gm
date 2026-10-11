@@ -1,0 +1,12 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run -- -t 'find bounds'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+
+ Test Files  1 passed (1)
+      Tests  14 passed (14)
+   Start at  12:14:25
+   Duration  1.84s (transform 251ms, setup 0ms, import 98ms, tests 1.64s, environment 0ms)

@@ -1,0 +1,12 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run -- -t 'Unicode names'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+
+ Test Files  1 passed (1)
+      Tests  15 passed (15)
+   Start at  12:14:41
+   Duration  1.88s (transform 261ms, setup 0ms, import 100ms, tests 1.68s, environment 0ms)

@@ -1,0 +1,31 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+ ❯ tests/mcp.test.ts (11 tests | 1 failed) 514ms
+   × the advertised basis schema repeats the guess rule, and private identity is absent 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > the advertised basis schema repeats the guess rule, and private identity is absent
+AssertionError: the given combination of arguments (undefined and string) is invalid for this assertion. You can use an array, a map, an object, a set, a string, or a weakset instead of a string
+ ❯ tests/mcp.test.ts:551:82
+    549|   const listed = await c.rpc("tools/list");
+    550|   const tool = listed.result.tools.find((t: { name: string }) => t.nam…
+    551|   expect(tool.inputSchema.properties.changes.items.properties.basis.de…
+       |                                                                                  ^
+    552|   expect(tool.inputSchema.properties.caller).toBeUndefined();
+    553|   expect(tool.outputSchema.type).toBe("object");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 passed (11)
+   Start at  11:59:27
+   Duration  714ms (transform 249ms, setup 0ms, import 97ms, tests 514ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

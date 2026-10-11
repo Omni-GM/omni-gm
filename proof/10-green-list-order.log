@@ -1,0 +1,12 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run -- -t 'list mode shows'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  12:13:05
+   Duration  732ms (transform 257ms, setup 0ms, import 99ms, tests 533ms, environment 0ms)

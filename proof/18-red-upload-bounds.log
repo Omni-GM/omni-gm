@@ -1,0 +1,38 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run -- -t 'huge continuation'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+ ❯ tests/mcp.test.ts (20 tests | 1 failed) 2028ms
+   × a huge continuation utterance is rejected as content and its upload URL can still be used 17ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > a huge continuation utterance is rejected as content and its upload URL can still be used
+AssertionError: expected 200 to be 400 // Object.is equality
+
+- Expected
++ Received
+
+- 400
++ 200
+
+ ❯ tests/mcp.test.ts:632:25
+    630|   const path=new URL(url).pathname+new URL(url).search;
+    631|   const failed=await c.t.fetch(path,{method:"PUT",body:"[00:00:00] GM:…
+    632|   expect(failed.status).toBe(400);
+       |                         ^
+    633|   expect(await failed.text()).toContain("32 KB");
+    634|   const retry=await c.t.fetch(path,{method:"PUT",body:"[00:00:00] GM: …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 19 passed (20)
+   Start at  12:16:44
+   Duration  2.23s (transform 253ms, setup 0ms, import 102ms, tests 2.03s, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

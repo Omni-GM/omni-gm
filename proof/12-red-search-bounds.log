@@ -1,0 +1,43 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run -- -t 'find bounds'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+ ❯ tests/mcp.test.ts (14 tests | 1 failed) 1604ms
+   × find bounds query work and validates kind filters 16ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > find bounds query work and validates kind filters
+AssertionError: promise resolved "{ hits: [], …(2) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "hits": [],
++   "query": "one two three four five six seven eight nine",
++   "total": 0,
+  }
+
+ ❯ tests/mcp.test.ts:556:86
+    554| test("find bounds query work and validates kind filters", async () => {
+    555|   const {c}=await prepared();
+    556|   await expect(c.call("find",{query:"one two three four five six seven…
+       |                                                                                      ^
+    557|   await expect(c.call("find",{kinds:["dragon"]})).rejects.toThrow("All…
+    558| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 13 passed (14)
+   Start at  12:13:56
+   Duration  1.81s (transform 253ms, setup 0ms, import 100ms, tests 1.60s, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

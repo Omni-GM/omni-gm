@@ -1,0 +1,40 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+ ❯ tests/mcp.test.ts (9 tests | 1 failed) 493ms
+   × find returns both an entity hit and a source hit when their get ref is the same 18ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > find returns both an entity hit and a source hit when their get ref is the same
+AssertionError: expected [ 'source' ] to deeply equal [ 'entity', 'source' ]
+
+- Expected
++ Received
+
+  [
+-   "entity",
+    "source",
+  ]
+
+ ❯ tests/mcp.test.ts:500:68
+    498|   await c.call("debrief_commit", { session: s.id });
+    499|   const results = await c.call("find", { query: "stones", types: ["ent…
+    500|   expect(results.hits.map((h: { type: string }) => h.type).sort()).toE…
+       |                                                                    ^
+    501|   expect(results.hits[0].ref).toBe(results.hits[1].ref);
+    502| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 8 passed (9)
+   Start at  11:53:06
+   Duration  692ms (transform 246ms, setup 0ms, import 98ms, tests 493ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

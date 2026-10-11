@@ -1,0 +1,12 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-debrief
+> vitest run -- -t 'entity history remains'
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-debrief
+
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  12:13:54
+   Duration  1.83s (transform 250ms, setup 0ms, import 98ms, tests 1.64s, environment 0ms)

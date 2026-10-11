@@ -1,7 +1,7 @@
-Upload page proof against https://diligent-alpaca-196.convex.site (c5a8919+working tree), 2026-10-11T12:46:13Z
+Upload page proof against https://cheerful-duck-685.convex.site (955bc4c), 2026-10-11T12:51:43Z
 
 == Second owner creates a session through MCP
-other owner's page: https://diligent-alpaca-196.convex.site/upload-page?session=k572hg2yrc4fz4p1120c73y7258g2kmw
+other owner's page: https://cheerful-duck-685.convex.site/upload-page?session=k577a1qfmkxm8q6nwnbb3rfdj98g20yz
 
 == Anonymous visitor, fresh browser
 waiting for --text Sign in to upload
@@ -14,18 +14,18 @@ waiting for --url **authkit.app/**
 waiting for input[type="email"]
 screenshot proof/upload-page/screenshots/02-authkit-email.png
 waiting for input[type="password"]
-waiting for --fn location.origin === 'https://diligent-alpaca-196.convex.site' || document.body.innerText.includes('Allow access')
+waiting for --fn location.origin === 'https://cheerful-duck-685.convex.site' || document.body.innerText.includes('Allow access')
 screenshot proof/upload-page/screenshots/03-authkit-consent.png
-waiting for --url https://diligent-alpaca-196.convex.site/upload-page?session=*
+waiting for --url https://cheerful-duck-685.convex.site/upload-page?session=*
 waiting for --text not in your campaign
-URL after sign-in: https://diligent-alpaca-196.convex.site/upload-page?session=k572hg2yrc4fz4p1120c73y7258g2kmw
+URL after sign-in: https://cheerful-duck-685.convex.site/upload-page?session=k577a1qfmkxm8q6nwnbb3rfdj98g20yz
 
 == Signed in, another owner's session is refused
 "This session is not in your campaign. Sign in with the account your AI client uses, or ask it for a new link.\n\nSign out"
 screenshot proof/upload-page/screenshots/04-other-owner-refused.png
 
 == The test user creates their own session through MCP
-own page: https://diligent-alpaca-196.convex.site/upload-page?session=k57bsmc9swq634ybqv87bg57k98g23tf
+own page: https://cheerful-duck-685.convex.site/upload-page?session=k57bzarke6ztbdxyeqw3kck9fd8g2f43
 
 == Own session is ready for a file
 waiting for --text Drop the transcript file here

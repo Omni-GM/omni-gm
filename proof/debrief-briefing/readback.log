@@ -1,0 +1,13 @@
+PROOF TARGET https://amicable-salmon-984.convex.site
+PASS turn one drafts a tide clock that pressures its thread, both Brask ties and the bell condition with npc_said (39 changes)
+PASS the review is the stored draft briefing (509 words, parts in order) plus 5 timestamped questions and 212 words of questions and options, no per-change detail
+  QUESTION 1. **[00:02:20]** Why is the party looking for the red-cloaked courier? Who sent them, and is that person an NPC we should record?
+  QUESTION 2. **[00:09:40]** The tide clock starts at 0/4 from that dusk. Should a segment fill when the party wakes for the fifth-bell low tide, or does it stay at 0/4 until a full day has passed?
+  QUESTION 3. **[00:00:15]** Brother Fen never spoke. What is his concept, and was he present for the whole session?
+  QUESTION 4. **[00:13:20]** What does Osric want? Does he want his father's bell back himself, or is the bell only Hedda's price?
+  QUESTION 5. **[00:10:05]** Is the courier in Calloway's service, or tied to the Brasks in some way? Or was no such tie shown?
+PASS all 5 answer changes carry basis game_master with the game master's words as a source, and the briefing was revised and shown again
+PASS get overview returns the committed briefing, the last draft briefing stored with debrief_add (548 words)
+PASS the store holds Hedda's and Osric's ties, "Osric's ferry bell for Hedda's ledger" with the bell condition on npc_said, and the "Spring tide drowns the causeway" clock pressuring a thread
+PASS the next prep opens with the stored briefing word for word, reads only skill briefing, get overview, and adds the correction written since before What next
+DEBRIEF BRIEFING HEADLESS PROOF PASSED

@@ -1,0 +1,47 @@
+
+== Second owner creates a session through MCP
+other owner's page: https://blissful-alpaca-921.convex.site/upload-page?session=k577y2xxyhg96bpvbpmpsmrrw98g3bv6
+
+== Anonymous visitor, fresh browser
+waiting for --text Sign in to upload
+"Sign in to upload this session's transcript.\n\nSign in"
+screenshot proof/long-transcripts/upload-page/screenshots/01-anonymous.png
+API without sign-in: 401
+
+== Real AuthKit sign-in as the test user
+waiting for --url **authkit.app/**
+waiting for input[type="email"]
+AuthKit capture omitted from public proof
+waiting for input[type="password"]
+waiting for --fn location.origin === 'https://blissful-alpaca-921.convex.site' || document.body.innerText.includes('Allow access')
+AuthKit capture omitted from public proof
+waiting for --url https://blissful-alpaca-921.convex.site/upload-page?session=*
+waiting for --text not in your campaign
+URL after sign-in: https://blissful-alpaca-921.convex.site/upload-page?session=k577y2xxyhg96bpvbpmpsmrrw98g3bv6
+
+== Signed in, another owner's session is refused
+"This session is not in your campaign. Sign in with the account your AI client uses, or ask it for a new link.\n\nSign out"
+screenshot proof/long-transcripts/upload-page/screenshots/04-other-owner-refused.png
+
+== The test user creates their own session through MCP
+own page: https://blissful-alpaca-921.convex.site/upload-page?session=k5792b1mm2tsmzp4772dc8dsx98g3wm8
+
+== Own session is ready for a file
+waiting for --text Drop the transcript file here
+"Session 1, played 2026-01-03.\n\nDrop the transcript file here.\n\nChoose a file\n\nUTF-8 lines like [00:01:10] Speaker: text, at most 8 MB and 20000 utterances.\n\nSign out"
+screenshot proof/long-transcripts/upload-page/screenshots/05-ready-1280.png
+screenshot proof/long-transcripts/upload-page/screenshots/05-ready-768.png
+screenshot proof/long-transcripts/upload-page/screenshots/05-ready-390.png
+
+== Drop the fixture onto the drop zone
+waiting for --text is stored
+"long-upload21.txt is stored. Go back to your AI client and tell it to continue."
+screenshot proof/long-transcripts/upload-page/screenshots/06-stored-1280.png
+screenshot proof/long-transcripts/upload-page/screenshots/06-stored-768.png
+screenshot proof/long-transcripts/upload-page/screenshots/06-stored-390.png
+
+== Stored file is byte-exact (read back through MCP as the same user)
+fixture  492924 bytes sha256 ebafaef83dc0381464c7a07d090bf321315788b66c2e99e8deaac5af186707f6
+stored   492924 bytes sha256 ebafaef83dc0381464c7a07d090bf321315788b66c2e99e8deaac5af186707f6
+utterances parsed: 100
+PASS stored file is byte-exact

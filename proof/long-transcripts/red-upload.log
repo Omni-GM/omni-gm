@@ -1,0 +1,33 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-impl21
+
+ ❯ tests/mcp.test.ts (25 tests | 1 failed | 24 skipped) 300ms
+   × a four-hour transcript uploads, splits at its true end, and reads back completely through pages 299ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > a four-hour transcript uploads, splits at its true end, and reads back completely through pages
+AssertionError: expected 400 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 400
+
+ ❯ tests/mcp.test.ts:967:25
+    965|   const { url } = await c.call("transcript_upload_url", { session: s.i…
+    966|   const upload = await c.t.fetch(new URL(url).pathname + new URL(url).…
+    967|   expect(upload.status).toBe(200);
+       |                         ^
+    968|   await c.call("scenes_set", { session: s.id, scenes: [
+    969|     { title: "Causeway", start: "00:00:00", place: "Road", summary: "T…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 24 skipped (25)
+   Start at  12:39:47
+   Duration  524ms (transform 278ms, setup 0ms, import 122ms, tests 300ms, environment 0ms)
+

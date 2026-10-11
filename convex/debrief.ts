@@ -60,11 +60,16 @@ export const scenesSet = internalMutation({
       throw new ConvexError("Keep scene descriptions within 64 KB per session");
     if (s.changes.length)
       throw new ConvexError("Drop draft changes before replacing their scenes");
-    const utterances = await ctx.db
+    const lastUtterance = await ctx.db
       .query("utterances")
-      .withIndex("by_session_and_seconds", (q) => q.eq("session", s._id))
-      .take(2000);
-    const last = utterances.at(-1)?.seconds;
+      .withIndex("by_session_and_generation_and_seconds", (q) =>
+        q
+          .eq("session", s._id)
+          .eq("transcriptGeneration", s.transcriptGeneration),
+      )
+      .order("desc")
+      .first();
+    const last = lastUtterance?.seconds;
     if (last === undefined) throw new ConvexError("Upload a transcript first");
     for (const [i, sc] of scenes.entries()) {
       const start = seconds(sc.start);
@@ -429,6 +434,37 @@ export const add = internalMutation({
     };
   },
 });
+async function ledgerRowsById(
+  ctx: QueryCtx,
+  campaign: Doc<"campaigns">,
+  s: Doc<"sessions">,
+): Promise<Map<string, LedgerRow>> {
+  const state = await stateFor(ctx, campaign);
+  const rows = new Map<string, LedgerRow>();
+  for (const p of s.changes) {
+    try {
+      rows.set(
+        p.id,
+        ledgerRow(
+          state,
+          p.id,
+          p,
+          applyPendingChange(s, state, p, `draft-${p.id}`),
+        ),
+      );
+    } catch {}
+  }
+  return rows;
+}
+function dependentName(
+  s: Doc<"sessions">,
+  rows: Map<string, LedgerRow>,
+  id: string,
+): string {
+  const { label, subject } = rows.get(id) as LedgerRow;
+  const scene = (s.changes.find((p) => p.id === id) as DraftChange).scene;
+  return `${label} ${subject} (scene ${scene})`;
+}
 export const dropArgs = { ...sessionArgs, changeIds: v.array(v.string()) };
 export const draftResponse = v.object({ draft, ledger });
 export const drop = internalMutation({
@@ -464,10 +500,16 @@ export const drop = internalMutation({
         });
       }
     }
-    if (invalid.length)
+    if (invalid.length) {
+      const shown = await ledgerRowsById(ctx, campaign, s);
+      if (invalid.every((entry) => shown.has(entry.id)))
+        throw new ConvexError(
+          `Drop the dependent changes first: ${invalid.map((entry) => dependentName(s, shown, entry.id)).join(", ")}.`,
+        );
       throw new ConvexError(
         `Drop also requires invalid remaining changes: ${invalid.map((entry) => entry.id).join(", ")}. ${invalid.map((entry) => entry.reason).join(" ")}`,
       );
+    }
     await ctx.db.patch(s._id, { changes });
     return {
       draft: draftResult({ ...s, changes }),

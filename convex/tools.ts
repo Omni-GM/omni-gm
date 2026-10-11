@@ -68,7 +68,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpQuery({
     name: "find",
     description:
-      "With no query lists entities and scenes. Search names, aliases, properties, scenes, sources with basis, and transcript utterances by ranked keywords. Each ref feeds get. Up to 8 keywords. kinds filters entity hits only. Limit 1 to 200; defaults 10 search, 100 list.",
+      "With no query lists entities and scenes. Search names, aliases, properties, scenes, sources with basis, and transcript utterances by keywords. Results are grouped by type and ranked within each page. Each ref feeds get; id distinguishes hits sharing a ref. Up to 8 keywords. kinds filters entity hits only. Limit 1 to 200; defaults 10 search, 100 list. Follow nextCursor with the same arguments as cursor while truncated, even on an empty page. total is cumulative and a lower bound until totalIsExact.",
     fn: internal.search.find,
     identityArg: "caller",
     args: findArgs,
@@ -96,7 +96,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "debrief_drop",
     description:
-      "Drop kept changes from a draft by changeIds. Refuses a drop that leaves invalid retained changes and lists their ids and reasons. Returns the draft.",
+      "Drop kept changes from a draft by changeIds. Refuses a drop that leaves invalid retained changes and names them by scene and subject. Returns the draft.",
     fn: internal.debrief.drop,
     identityArg: "caller",
     args: dropArgs,
@@ -115,7 +115,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "transcript_upload_url",
     description:
-      "Get a signed single-use URL valid for ten minutes and an upload page link. Upload the file with curl -T; never put its contents in a tool call or output. Without a shell, give the game master pageUrl to sign in and drop the file there, then continue. UTF-8 [HH:MM:SS] Speaker: text, at most 2 MB and 2000 utterances.",
+      "Get a signed single-use URL valid for ten minutes and an upload page link. Upload the file with curl -T; never put its contents in a tool call or output. Without a shell, give the game master pageUrl to sign in and drop the file there, then continue. UTF-8 [HH:MM:SS] Speaker: text, at most 8 MB and 20000 utterances.",
     fn: internal.uploads.uploadUrl,
     identityArg: "caller",
     args: uploadArgs,
@@ -141,7 +141,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpQuery({
     name: "get",
     description:
-      "Read overview, frame with its history, schema, entity:<id> with history, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>.",
+      "Read overview, frame with its history, schema, entity:<id> with history, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>. Transcript, scene and history reads return pages with truncated and nextCursor. Follow nextCursor as cursor with the same single ref until it is null. limit accepts 1 to 200, default 100; byte budgets can shorten pages and history returns at most ten changes. Batch items carry independent cursors; continue them individually. Download URLs require the owner's bearer sign-in.",
     fn: internal.store.get,
     identityArg: "caller",
     args: getArgs,

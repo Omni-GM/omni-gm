@@ -34,9 +34,12 @@ Use UTF-8 text with timestamped speakers:
 ```
 
 Continuation lines belong to the preceding utterance. Timestamps must be in
-order. Uploads allow at most 2 MB and 2,000 utterances, with 32 KB per utterance including continuations. Re-upload before
+order. Uploads allow at most 8 MB and 20,000 utterances, with 32 KB per utterance including continuations. Re-upload before
 creating scenes or draft changes. The original bytes are kept in file storage;
-only their parsed utterances go into the story-state queries.
+only their parsed utterances go into the story-state queries. Parsing writes bounded
+batches into a new transcript generation. Reads and search switch to it only
+when the upload finishes. Replaced or abandoned generations are cleaned up
+in bounded batches.
 
 `scenes_set` splits the transcript. `debrief_add` accepts changes with a
 scene, basis, source quotes, and why, and stores the plot-first `lastTime`
@@ -55,8 +58,9 @@ operation, the subject, before and after, basis, source quotes, and why.
 Its only write is Drop, which calls `debrief_drop` and re-renders from the
 returned draft. Both tools also return `ledger` rows for the view. State and
 history commit atomically. The committed debrief, transcript, and scenes
-stay closed. Dropping a parent refuses to break retained dependent changes and lists
-their IDs. Drop them together, then add replacements in dependency order.
+stay closed. Dropping a parent refuses to break retained dependent changes and
+names them by label, subject, and scene, as the Ledger shows them. Drop them
+together, then add replacements in dependency order.
 Later corrections use `story_commit`.
 
 At prep, `get overview` returns the most recently committed `lastTime`.
@@ -70,6 +74,30 @@ window either side. Its `downloadUrl` requires the same owner's bearer
 sign-in and returns the original bytes. One ref returns `{value}`; up to
 25 refs return `{value: null, items: [{ref, value}]}`. Every tool returns
 MCP `structuredContent`.
+
+`get transcript:`, timestamp windows, `get scene:` and `get entity:` history
+return a page with `truncated` and `nextCursor`. Send that cursor back as
+`cursor` with the same single `ref`. `limit` accepts 1 to 200, default 100.
+Transcript and scene pages also stop at a database byte budget; history
+pages contain at most ten changes. Multi-ref reads give each item its own
+continuation. Continue each item separately with its ref. A transcript
+replacement invalidates its earlier cursors.
+
+`find` also returns `truncated`, `nextCursor`, and stable hit `id` values.
+Keep its query, types and kinds unchanged when following the cursor; the
+page size may change. Follow a continuation even when its page has no hits.
+The `total` counts hits seen so far, a lower bound until `totalIsExact` is
+true. Read all pages against an unchanged store for a complete count.
+Search matches whole keywords, ignoring case and stop words, with any
+matched keyword sufficient. Results visit entities, sources, scenes, then
+transcripts; entity kind filters visit each kind in order.
+`order: "type_then_page_relevance"` means more matched keywords rank higher
+within a page. Page order is not a global relevance ranking. Campaign
+indexes bound the scan and avoid Convex text search's 1,024-result ceiling.
+Each request scans up to 4,000 rows, 4 MB of documents, or 400 internal
+pages, stopping sooner when it fills the requested hits. A database page
+can cross the byte budget by one page. Sparse searches in larger stores
+still need continuation, including empty pages.
 
 ## Adventure frame talk
 
@@ -121,7 +149,7 @@ basis, sources and why; `get overview` shows the `story` commit and reason.
 History from a story commit has no session or scene fields.
 
 Source search hits include a structured `basis` alongside the marked quote.
-Source and utterance hits retain keyword relevance rank. Each source ref
+Source and utterance hits rank keyword matches within each page. Each source ref
 reads the entity's history; each utterance ref reads
 `transcript:<session>@<timestamp>` for nearby context. A raw utterance is not
 itself a validated fact.
@@ -202,15 +230,22 @@ spec's second project as resolved in #12. Deployment logs identify each
 proof target. The SDK proof can run again on the same preview; it locates
 its NPC by the current session's history.
 
+`pnpm exec tsx scripts/e2e-long-transcripts.ts` uses the same environment
+variables. It generates an invented four-hour session with 4,801 utterances,
+uploads it, splits four scenes, verifies exact file bytes, and reads every
+utterance through both transcript and scene pages. It also searches all
+4,800 marked utterances and checks batch reads on the hosted preview. A
+unique search marker makes the script repeatable on one deployment.
+Its evidence is under `proof/long-transcripts/`.
+
 The initial store supports up to 500 changes and 512 KB per draft, 16 KB
 per proposal or lastTime block, 100 scenes and 64 KB of scene descriptions
 per session, and 2,000 entities or relationships for debrief replay. Overview
 returns up to 200 recent sessions, adventures, and commits. Entity history
-uses an entity-specific index and allows up to 2,000 changes per entity,
-reporting an error beyond that rather than returning partial history.
-Search accepts up to eight keywords and uses up to 200
-candidates per keyword and type, and returns up to 200 hits; `total` is the
-number of matching candidates. Larger campaigns need paginated read paths.
+uses an entity-specific index and continues beyond 2,000 changes. Search
+accepts up to eight keywords and returns up to 200 hits per page without
+a campaign-wide candidate cap. The overview remains a recent summary; the
+paginated paths cover transcripts, scenes, entity history, and find.
 
 For the deployed frame proof, run the existing fixture seed with `pnpm e2e`,
 then `pnpm exec tsx scripts/frame-e2e.ts` using the same preview URL and

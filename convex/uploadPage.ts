@@ -209,7 +209,7 @@ function html(): string {
       <p>Drop the transcript file here.</p>
       <label class="button" for="file">Choose a file</label>
       <input id="file" type="file" accept=".txt,text/plain">
-      <p class="muted">UTF-8 lines like [00:01:10] Speaker: text, at most 2 MB.</p>
+      <p class="muted">UTF-8 lines like [00:01:10] Speaker: text, at most 8 MB and 20000 utterances.</p>
     </div>
     <button class="signout" type="button">Sign out</button>
   </section>

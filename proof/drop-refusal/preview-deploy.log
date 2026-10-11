@@ -1,0 +1,9 @@
+▌ Deploying code to deployment:
+▌ [Preview] omni-gm:omni-gm:preview/fix-drop-refusal-message (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/brave-gecko-699)
+▌ └─ https://brave-gecko-699.convex.cloud
+- Deploying to https://brave-gecko-699.convex.cloud...
+
+✔ Added table indexes:
+✔ Installed component mcpGateway.
+✔ Deployed Convex functions to https://brave-gecko-699.convex.cloud
+✔ Finished running function "oauth:configure"

@@ -312,7 +312,10 @@ test("prep search returns separately ranked source claims with their basis and t
       },
     ],
   });
-  const sources = await c.call("find", { query: "amber", types: ["source"] });
+  const sources = await c.call("find", {
+    query: "amber seal",
+    types: ["source"],
+  });
   expect(sources.hits).toHaveLength(2);
   expect(sources.hits[0].snippet).toContain(
     "Mira claims the amber seal opens the ferry.",
@@ -320,6 +323,23 @@ test("prep search returns separately ranked source claims with their basis and t
   expect(sources.hits[0].score).toBeGreaterThan(sources.hits[1].score);
   expect(
     sources.hits.flatMap((h: { basis: string[] }) => h.basis).sort(),
+  ).toEqual(["npc_said", "rumor"]);
+  const page = await c.call("find", {
+    query: "amber",
+    types: ["source"],
+    limit: 1,
+  });
+  expect(page.truncated).toBe(true);
+  const next = await c.call("find", {
+    query: "amber",
+    types: ["source"],
+    limit: 1,
+    cursor: page.nextCursor,
+  });
+  expect(
+    [...page.hits, ...next.hits]
+      .flatMap((h: { basis: string[] }) => h.basis)
+      .sort(),
   ).toEqual(["npc_said", "rumor"]);
   const entity = await c.call("get", { ref: sources.hits[0].ref });
   expect(entity.history.map((h: { basis: string[] }) => h.basis)).toEqual([

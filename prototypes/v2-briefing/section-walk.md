@@ -8,7 +8,12 @@ Open the section with at most five short lines of the story state that matter fo
 
 ## 2. Pitches
 
-Offer two or three pitches when they help this section. Skip them when the game master has already brought material, or when the section is mechanical (stat blocks, loot tables).
+The section's own definition in the game master's checklist sets the shape of its pitches. Read it and follow it; ask for it when it is missing.
+
+- **Scenes, strong start, off-screen moves:** two or three pitches, each a situation.
+- **List sections** such as secrets and clues: the count the checklist asks for, in its own form. For secrets and clues in the Lazy DM style that is ten, each one or two sentences (a tweet), something the characters can learn in the very next session and want to know. Vary the kinds: a character, the place's history, a villain, a pin toward a bigger reveal, a hidden place. Small truths the game master can drop anywhere, never a plot twist or the GM's machinery.
+
+Otherwise offer two or three pitches when they help this section. Skip them when the game master has already brought material, or when the section is mechanical (stat blocks, loot tables).
 
 Each pitch is two or three lines:
 

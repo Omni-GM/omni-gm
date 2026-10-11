@@ -9,3 +9,8 @@ Read-only review command: `claude -p --model claude-opus-5-5 --no-session-persis
 5. **README line break: fixed.** Reflowed the upload-page paragraph.
 
 Proof gaps were also addressed: 110 ordinary signed tickets precede the chunk tickets to exercise pagination; interrupted storage and its staged utterance are seeded and removed; headless runs disable hooks and publish their prompts and commands alongside sanitized events. The invented prompt contains the transcript for the initial no-shell run. Provider usage is omitted because the repository's public-data instructions prohibit publishing usage numbers; no acceptance criterion depends on them. AuthKit sign-in remains unchanged and explicitly outside this rerun. Deploy-main is checked after merge.
+
+The [final read-only Opus review](opus-final-review.md) confirmed the original fixes and raised two remaining items:
+
+- **Bash 3.2 empty-array expansion: fixed.** Optional `run_args` expansions use the Bash 3.2-compatible conditional form, so a manual main deployment with no preview name does not fail under `set -u`. `bash -n scripts/deploy.sh` passes; the hosted repeat-deployment proof exercises the edited script.
+- **Stale storage proof pair: resolved while review ran.** The raw `deleteTwice` failure log was removed before commit `3f3c64b`. The committed `storage-proof.ts.txt` now drives the actual `uploads.cleanup` twice, with matching red and green logs linked above. Shared cleanup checks file metadata before deletion, so the expiry race raised in the final review is safe as well. The final reviewer saw the earlier raw artifact during the test-first fix; it does not describe the final committed proof bundle.

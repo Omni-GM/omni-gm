@@ -1,7 +1,7 @@
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/feat-long-transcripts (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/blissful-alpaca-921)
-▌ └─ https://blissful-alpaca-921.convex.cloud
-- Deploying to https://blissful-alpaca-921.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/feat-long-transcripts (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/zealous-viper-580)
+▌ └─ https://zealous-viper-580.convex.cloud
+- Deploying to https://zealous-viper-580.convex.cloud...
 
 ✔ Added table indexes:
   [+] adventures.by_campaign   campaign, _creationTime
@@ -29,5 +29,5 @@
   [+] utterances.by_session_and_generation_and_seconds   session, transcriptGeneration, seconds, ordinal, _creationTime
   [+] utterances.search_text (text)   searchText, filter on campaign
 ✔ Installed component mcpGateway.
-✔ Deployed Convex functions to https://blissful-alpaca-921.convex.cloud
+✔ Deployed Convex functions to https://zealous-viper-580.convex.cloud
 ✔ Finished running function "oauth:configure"

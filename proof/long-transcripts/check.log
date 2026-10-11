@@ -6,28 +6,28 @@
 > omni-gm@0.1.0 build:ledger /home/coder/dev/omni-gm-impl21
 > tsx scripts/build-ledger.ts
 
-tests/mcp.test.ts:709:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+tests/mcp.test.ts:711:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   i Template literals are preferred over string concatenation.
   
-    707 │   const failed = await c.t.fetch(path, {
-    708 │     method: "PUT",
-  > 709 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
+    709 │   const failed = await c.t.fetch(path, {
+    710 │     method: "PUT",
+  > 711 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
         │           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    710 │   });
-    711 │   expect(failed.status).toBe(400);
+    712 │   });
+    713 │   expect(failed.status).toBe(400);
   
   i Unsafe fix: Use a template literal.
   
-     707  707 │     const failed = await c.t.fetch(path, {
-     708  708 │       method: "PUT",
-     709      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
-          709 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
-     710  710 │     });
-     711  711 │     expect(failed.status).toBe(400);
+     709  709 │     const failed = await c.t.fetch(path, {
+     710  710 │       method: "PUT",
+     711      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
+          711 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
+     712  712 │     });
+     713  713 │     expect(failed.status).toBe(400);
   
 
-Checked 44 files in 55ms. No fixes applied.
+Checked 44 files in 47ms. No fixes applied.
 Found 1 info.
 CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
 ▌ Developing against deployment:
@@ -36,7 +36,7 @@ CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the fut
 - Preparing Convex functions...
 
 Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
-✔ 13:14:57 Convex functions ready! (386.11ms)
+✔ 13:16:56 Convex functions ready! (390.4ms)
 Finding component definitions...
 Generating server code...
 Bundling component definitions...
@@ -55,6 +55,6 @@ Running TypeScript...
 
  Test Files  2 passed (2)
       Tests  48 passed (48)
-   Start at  13:15:03
-   Duration  10.15s (transform 846ms, setup 0ms, import 265ms, tests 10.41s, environment 0ms)
+   Start at  13:17:02
+   Duration  10.15s (transform 885ms, setup 0ms, import 253ms, tests 10.42s, environment 0ms)
 

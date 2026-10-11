@@ -1,4 +1,4 @@
-Invented fixture: 4801 utterances, 04:00:00 of play, 564950 bytes, SHA-256 cf98819bba6eac77084821a8187ef19a553aed920a4199c9faaad6308007b14a
+Invented fixture: 4801 utterances, 04:00:00 of play, 564950 bytes, SHA-256 c77f7fa1cb893e848329b47d6dda570523a43ca1dc8f5b8a2363f3eafdf443e7
 PASS signed upload of 4,801 utterances in bounded batches
 PASS authenticated download preserves exact UTF-8 bytes and CRLF
 PASS four scenes include the true end at 04:00:00
@@ -8,5 +8,5 @@ PASS multi-ref reads expose independent cursors and one continues to the complet
 PASS sparse final-utterance search completes in 2 bounded requests
 PASS 25 search pages return all 4,800 matching utterances beyond the old 200-candidate cap
 PASS multi-type search reads native paginated indexes through the SDK
-PROOF SESSION k5701m6dn8f6epdk05vytwpfqs8g2xdw
+PROOF SESSION k577jbqm22taf6cceeg8zkv5ms8g3r33
 LONG TRANSCRIPT SDK E2E PASSED

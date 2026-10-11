@@ -258,7 +258,7 @@ export const find = internalQuery({
             ...streams[start.stream],
             text: query === undefined ? null : words.join(" "),
             cursor: start.cursor,
-            limit: maximum - hits.length,
+            limit: Math.min(maximum - hits.length, 4000 - rowsRead),
           },
         );
         hits.push(...page.hits);

@@ -2,8 +2,8 @@
  RUN  v4.1.0 /home/coder/dev/omni-gm-impl21
 
 
- Test Files  1 passed (1)
-      Tests  28 passed (28)
-   Start at  12:52:17
-   Duration  8.18s (transform 289ms, setup 0ms, import 128ms, tests 7.94s, environment 0ms)
+ Test Files  2 passed (2)
+      Tests  48 passed (48)
+   Start at  13:17:47
+   Duration  10.28s (transform 907ms, setup 0ms, import 261ms, tests 10.56s, environment 0ms)
 

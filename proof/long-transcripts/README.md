@@ -71,3 +71,24 @@ for existing stored rows without rewriting them.
 The existing overview is a recent summary and the debrief write limits
 remain. This ticket does not expand those write contracts. Relationship reads now error explicitly beyond 2,000 rows in either
 direction. Final CI and merge deployment are linked from the PR and ticket.
+
+## Browser capture context
+
+The upload-page browser proof uses the repository's `upload-page-proof.sh`
+workflow with a fresh, named `agent-browser` session and real staging
+AuthKit sign-in. Anonymous access returns 401 and another owner's session
+is refused. The generated four-hour fixture then uploads through the page;
+the SDK download has identical bytes and SHA-256. The displayed 100 parsed
+utterances are the first `get` page, not a total. Complete pagination is
+proved separately by the long-transcript SDK run.
+
+The browser ran against the upload implementation in `eb655c0`. Later
+changes affect the search scan budget and main's Ledger drop-refusal text;
+neither changes upload markup or ingestion. Those captures remain applicable
+and show the current capacity copy at 1,280, 768 and 390 pixels. AuthKit
+screenshots are excluded from public proof to avoid publishing account data.
+
+[source-sha256.txt](source-sha256.txt) records the source inputs used by the
+final local gate and hosted SDK run. The legacy proof's baseline is main
+`67c7c306966ba1ba50112d93f72479100ab75456`, which writes neither generation
+nor ordinal fields. Its isolated preview was upgraded in place, not recreated.

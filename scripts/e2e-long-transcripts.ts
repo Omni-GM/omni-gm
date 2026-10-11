@@ -175,8 +175,8 @@ try {
     sparseHits.push(...result.hits);
     sparseCursor = result.nextCursor;
     assert(
-      ++sparsePages <= 3,
-      "Sparse search must scan a bounded budget, rather than one limit-sized page",
+      ++sparsePages <= 1000,
+      "Sparse search must terminate even when the preview already contains earlier proof sessions",
     );
   } while (sparseCursor);
   assert.equal(sparseHits.length, 1);

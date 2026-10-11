@@ -1,0 +1,37 @@
+
+ RUN  v4.1.0 /tmp/omnigm-impl15
+
+ ❯ tests/prep.test.ts (21 tests | 1 failed) 1009ms
+   × prep search returns separately ranked source claims with their basis and timestamped utterances that get can read 19ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/prep.test.ts > prep search returns separately ranked source claims with their basis and timestamped utterances that get can read
+AssertionError: expected [ undefined, undefined ] to deeply equal [ 'npc_said', 'rumor' ]
+
+- Expected
++ Received
+
+  [
+-   "npc_said",
+-   "rumor",
++   undefined,
++   undefined,
+  ]
+
+ ❯ tests/prep.test.ts:326:5
+    324|   expect(
+    325|     sources.hits.flatMap((h: { basis: string[] }) => h.basis).sort(),
+    326|   ).toEqual(["npc_said", "rumor"]);
+       |     ^
+    327|   const page = await c.call("find", {
+    328|     query: "amber",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 20 passed (21)
+   Start at  13:37:38
+   Duration  1.22s (transform 405ms, setup 0ms, import 104ms, tests 1.01s, environment 0ms)
+

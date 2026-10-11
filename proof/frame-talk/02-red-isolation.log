@@ -1,0 +1,40 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-frame-talk
+
+ ❯ tests/mcp.test.ts (23 tests | 1 failed | 22 skipped) 288ms
+   × frame updates reject missing intent and keep each adventure and owner separate 287ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > frame updates reject missing intent and keep each adventure and owner separate
+AssertionError: promise resolved "{ …(3) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "adventure": "0000000000000000010002adventures",
++   "commit": "0000000000000000000010004commits",
++   "fields": {
++     "goal": "Open the gate",
++   },
+  }
+
+ ❯ tests/mcp.test.ts:951:76
+    949|   const firstFrame = await c.call("get", { ref: "frame" });
+    950|   await expect(c.call("frame_update", { reason: "  ", fields: { goal: …
+    951|   await expect(c.call("frame_update", { reason: "No change", fields: {…
+       |                                                                            ^
+    952|   await expect(c.call("frame_update", { reason: "Invented field", fiel…
+    953|   expect(await c.call("get", { ref: "frame" })).toEqual(firstFrame);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 22 skipped (23)
+   Start at  12:33:28
+   Duration  500ms (transform 255ms, setup 0ms, import 110ms, tests 288ms, environment 0ms)
+

@@ -1,0 +1,26 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-frame-talk
+
+ ❯ tests/mcp.test.ts (24 tests | 1 failed | 23 skipped) 272ms
+   × the frame-talk skill reaches clients with grounded questions, a stopping rule and separate intent 271ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mcp.test.ts > the frame-talk skill reaches clients with grounded questions, a stopping rule and separate intent
+AssertionError: expected [ Array(3) ] to include 'frame-talk'
+ ❯ tests/mcp.test.ts:970:70
+    968|   await c.init();
+    969|   const listed = await c.call("skill");
+    970|   expect(listed.skills.map((skill: { name: string }) => skill.name)).t…
+       |                                                                      ^
+    971|   const loaded = await c.call("skill", { name: "Frame Talk" });
+    972|   expect(loaded.name).toBe("frame-talk");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 23 skipped (24)
+   Start at  12:33:44
+   Duration  488ms (transform 258ms, setup 0ms, import 111ms, tests 272ms, environment 0ms)
+

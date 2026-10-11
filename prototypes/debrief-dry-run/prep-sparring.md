@@ -32,7 +32,7 @@ The game master may skip any section or stop at any time.
 
 ## The session note
 
-At the end, assemble the session note in the game master's template from their own decisions: their words, their sections, at most five short bullets per section, each fact with its source. Add nothing they did not decide. The game master corrects it by talking to you; they never have to transfer the sparring into their notes by hand.
+At the end, assemble the session note in the game master's template from their own decisions: their words, their sections, at most five short bullets per section, each fact with its source. Add nothing they did not decide. For every place in the scenes, add two or three sensory details that set the mood, taken from the game master's own descriptions (narration in transcripts, earlier prep, material they supplied), with sources; mark places that have none. The game master corrects it by talking to you; they never have to transfer the sparring into their notes by hand.
 
 ## Output
 

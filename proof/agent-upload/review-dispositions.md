@@ -30,7 +30,7 @@ The whole diff was reviewed read-only by Claude Opus 5.5 through native T3 deleg
 | N7, README blank lines | Fixed, same change as native 8. |
 | N8, repeated lock | Fixed, same change as native 7. |
 
-CI initially hit the five-second default timeout in the existing 2,005-history-entry coverage, while every new upload test passed. That single intentionally large test now has a 15-second timeout. Its assertions and data volume are unchanged. The final full gate includes it without skips.
+CI initially hit the five-second default timeout in the existing 2,005-history-entry coverage, while every new upload test passed. Integrated main already carries the same 15-second timeout for that single intentionally large test, so the final diff needs no change to it. Its assertions and data volume are unchanged. The final full gate includes it without skips.
 
 Main's independent prep-sparring change, PR #30, was integrated before the final gate and proof. Its procedures and story corrections remain present beside automatic uploads. No other ticket or map was changed.
 
@@ -48,3 +48,16 @@ The fix also passed [simultaneous maximum run A](sdk-max-concurrent-a.log) and [
 | Nonblocking 2, mismatched duplicate lacks restart hint | Fixed. The error names `restart: true` with index zero. [Endpoint red](08-red-retry-guidance.log) and [green](08-green-retry-guidance.log). |
 | Nonblocking 3, one headless chunk and graphical clients | Clarified in the proof README and PR body. The model uploads one short prompt fixture; SDK proves chunking. Graphical clients are not directly tested. |
 | Nonblocking 4, signed fallback message | No change requested. Signed upload/page callers retain their appropriate fallback message; the no-shell action supplies automatic retry guidance. |
+
+## Final native review
+
+[Round three](opus-native-review-r3.md) found no blockers and confirmed both round-two blockers resolved. It accepted all code fixes and prior rejection reasons. Its optional findings are handled as follows:
+
+| Finding | Disposition |
+| --- | --- |
+| 1, generic final catch lacks direct diagnostics | Follow-up, no raw-error logging added. Arbitrary downstream validation errors can include their arguments, including upload capabilities, so logging an unknown error message is not safely bounded. Convex's mutation logs identified this failure, and the retry logs deliberately contain no input. Stage and error-code diagnostics with explicit redaction are a possible separate improvement. |
+| 2, guard has no dedicated endpoint proof | Clarified. The in-flight guard is fixed and code-reviewed, with no dedicated concurrent endpoint test. The proof README states that gap. Write-rate backoff has actual hosted rejection/recovery evidence, rather than an internal mock. |
+| 3, exact Convex error text | Accepted limitation. The classifier uses the observed rate-rejection phrase and the client dependency is pinned. Retrying unknown errors could replay an ambiguously completed mutation, so broadening the classifier is rejected. A changed server phrase would need a classifier update; automatic final-retry/restart guidance remains available. |
+| 4, shell's unavailable get call | Preserved as observed. The recording shows the failed call and the agent's autonomous recovery. Independent readback and output checks pass. No transcript leaked. |
+
+CodeRabbit skipped review because this PR remained draft. Required cross-family review used native T3 Claude Opus 5.5 and the literal read-only CLI invocation.

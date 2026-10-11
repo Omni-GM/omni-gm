@@ -50,7 +50,8 @@ to campaigns and commits are optional; the two secret tables are new.
 
 ## Headless agent
 
-`preview-deploy.log` identifies the fresh branch preview. `seed.log` uses
+`preview-initial-deploy.log` identifies the fresh branch preview;
+`preview-deploy.log` records its final backend update from source `a9e2269`. `seed.log` uses
 `scripts/briefing-e2e.ts` to commit 22 sourced changes from the invented
 `fixtures/briefing-session.txt`. `before.log` and `story-before.json` capture
 its complete story state and entity histories before the conversation.
@@ -124,6 +125,13 @@ Retain only public conversation events as `claude.jsonl`, tagging each event
 with its fixture turn from 1 to 4, then run
 `pnpm exec tsx scripts/verify-secrets.ts`. Remove the private MCP config
 after use. `OMNI_GM_PROOF_DIR` selects another artifact directory.
+
+## Review
+
+`opus-review.md` and `opus-fix-review.md` are read-only Claude Opus 5.5
+reviews. `review-dispositions.md` records each finding and its fix or
+rejection. The fixes check confirmed the code changes and rejections; its
+remaining stale-log finding is resolved by the final hosted readback.
 
 ## Later reveal integration
 

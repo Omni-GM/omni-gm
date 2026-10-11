@@ -1,9 +1,9 @@
 # Opus review dispositions
 
-One read-only review ran with `claude -p --model claude-opus-5-5`, user
+An initial read-only review and a fixes check ran with `claude -p --model claude-opus-5-5`, user
 settings for provider auth, hooks disabled, an empty strict MCP config, and
 only Read, Glob and Grep tools. The oracle was ticket #39 and spec #35.
-`opus-review.md` is its unedited response. The reviewer found no spec
+`opus-review.md` and `opus-fix-review.md` are their unedited responses. The initial reviewer found no spec
 violations and identified these optional edges and proof improvements.
 
 1. **Closed-secret transitions: rejected.** The spec says the game master
@@ -44,3 +44,15 @@ violations and identified these optional edges and proof improvements.
 
 CodeRabbit skipped its review because the PR remains a draft. The required
 cross-family Opus review ran successfully and was not skipped.
+
+## Fixes check
+
+The follow-up review confirmed both code fixes and all rejected findings.
+It found one medium proof-only issue while the final backend deployment and
+readback were still running: the old hosted log lacked the new link check.
+This is fixed by rerunning the strengthened verifier against the updated
+preview. The final `readback.log` now prints `PASS all 3 about links read
+back as owner-scoped entities` and the final pass banner.
+`preview-deploy.log` identifies final source `a9e2269`; the initial headless
+preview deploy is retained as `preview-initial-deploy.log`. No assertion was
+removed, and no code changed after the fixes check.

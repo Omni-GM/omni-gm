@@ -44,9 +44,10 @@ type Page = {
 };
 async function readAll(
   ref: string,
+  initialCursor: string | null = null,
 ): Promise<{ utterances: TranscriptLine[]; pages: number }> {
   const utterances: TranscriptLine[] = [];
-  let cursor: string | null = null;
+  let cursor: string | null = initialCursor;
   let pages = 0;
   const cursors = new Set<string>();
   do {
@@ -72,6 +73,13 @@ try {
   const fixture = longSession(marker);
   assert.equal(fixture.utterances.length, 4801);
   assert.equal(fixture.utterances.at(-1)?.seconds, 14400);
+  const tailMarker = `${marker}tail`;
+  const last = fixture.utterances.at(-1);
+  assert(last);
+  last.text += ` ${tailMarker}`;
+  fixture.text = `${fixture.utterances
+    .map((u) => `[${u.at}] ${u.speaker}: ${u.text}`)
+    .join("\r\n")}\r\n`;
   const bytes = Buffer.from(fixture.text, "utf8");
   console.log(
     `Invented fixture: ${fixture.utterances.length} utterances, 04:00:00 of play, ${bytes.length} bytes, SHA-256 ${createHash("sha256").update(bytes).digest("hex")}`,
@@ -137,8 +145,16 @@ try {
   assert(
     batch.items.every((item) => item.value.truncated && item.value.nextCursor),
   );
+  const batchTail = await readAll(
+    `transcript:${session.id}`,
+    batch.items[0].value.nextCursor,
+  );
+  assert.deepEqual(
+    [...batch.items[0].value.utterances, ...batchTail.utterances],
+    fixture.utterances,
+  );
   console.log(
-    "PASS multi-ref reads expose an independent continuation for each item",
+    "PASS multi-ref reads expose independent cursors and one continues to the complete transcript",
   );
   type Search = {
     hits: { id: string; ref: string; type: string; snippet: string }[];
@@ -147,6 +163,27 @@ try {
     truncated: boolean;
     nextCursor: string | null;
   };
+  let sparseCursor: string | null = null;
+  const sparseHits: Search["hits"] = [];
+  let sparsePages = 0;
+  do {
+    const result: Search = await call("find", {
+      query: tailMarker,
+      types: ["transcript"],
+      cursor: sparseCursor,
+    });
+    sparseHits.push(...result.hits);
+    sparseCursor = result.nextCursor;
+    assert(
+      ++sparsePages <= 3,
+      "Sparse search must scan a bounded budget, rather than one limit-sized page",
+    );
+  } while (sparseCursor);
+  assert.equal(sparseHits.length, 1);
+  assert.equal(sparseHits[0].ref, `transcript:${session.id}@04:00:00`);
+  console.log(
+    `PASS sparse final-utterance search completes in ${sparsePages} bounded requests`,
+  );
   let cursor: string | null = null;
   const hits: Search["hits"] = [];
   let searchPages = 0;

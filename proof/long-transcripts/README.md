@@ -6,17 +6,17 @@ MCP SDK against an authenticated branch preview. All fixture data is invented.
 
 ## Red and green
 
-[red-endpoints.log](red-endpoints.log) runs the current 28-test file and
+[red-endpoints.log](red-endpoints.log) runs the original feature branch's 28-test file and
 `fixtures/long-session.ts` against the pre-change code at
 `3a41cb15a139a6f2d2d097ffb8e46e09cc6a162e` in a detached worktree. Eight tests
 fail and 20 pass. It includes the changed list-total contract and the seven
 new transcript, history, search, long-upload, scene, large-history, and
 replacement tests. Assertions are unchanged between this baseline replay
-and the current [green-endpoints.log](green-endpoints.log).
+and the initial [green-endpoints.log](green-endpoints.log).
 
 The initial vertical slices also have focused red/green logs. Focused runs
 skip unrelated tests through Vitest's name selector; the full green suite
-and [check.log](check.log) run every test with none skipped.
+and [check.log](check.log) run all 48 integrated endpoint tests with none skipped.
 
 | Behavior | Evidence |
 | --- | --- |
@@ -26,8 +26,12 @@ and [check.log](check.log) run every test with none skipped.
 | Four-hour upload, full transcript read and scene split at the true end | [Baseline red](red-endpoints.log), [green](green-endpoints.log), focused [red](red-upload.log) / [green](green-upload.log) |
 | Scene continuations | [Baseline red](red-endpoints.log), [green](green-endpoints.log), focused [red](red-scene.log) / [green](green-scene.log) |
 | 2,005 history changes and 2,004 distinct source hits; replacement hides old generations | [Baseline red](red-endpoints.log), [green](green-endpoints.log) |
+| Sparse lookup after 400 misses | [red](red-sparse-search.log) / [green](green-sparse-search.log) |
+| Old-shape rows survive deployment upgrade, pagination, search and replacement | [Hosted upgrade](legacy-upgrade.log), [old deployment](legacy-deploy.log), [new deployment](upgrade-deploy.log) |
+| Signed-in upload page stores the four-hour file | [Browser log](upload-page-browser.log), [ready screenshot](upload-page/screenshots/05-ready-1280.png), [stored screenshot](upload-page/screenshots/06-stored-1280.png) |
+| Cross-family findings and individual dispositions | [Opus review](opus-review.md), [dispositions](review-dispositions.md) |
 | Local gate, isolated codegen, both typechecks and complete suite | [pnpm check](check.log) |
-| Authenticated SDK, exact bytes, 4,801 utterances, four scenes, independent batch cursors and 4,800 search hits | [SDK log](sdk-e2e.log), [branch preview deployment](preview-deploy.log) |
+| Authenticated SDK, exact bytes, 4,801 utterances, four scenes, independent batch cursors and 4,800 search hits plus sparse final-utterance recall in two requests | [SDK log](sdk-e2e.log), [branch preview deployment](preview-deploy.log) |
 
 ## Hosted proof
 
@@ -53,7 +57,9 @@ explicitly. This replaces globally ranked bounded candidates with complete
 recall through byte-bounded campaign-index scans. Convex's
 [text-search limits](https://docs.convex.dev/search/text-search#limits) cap
 the index at 1,024 results, so its native text-search pagination cannot
-retrieve the hosted fixture in full. Empty pages still carry a continuation.
+retrieve the hosted fixture in full. A request scans up to 4,000 rows, about 4 MB of documents, or 400 internal
+pages; it stops sooner when enough hits match. Empty pages still carry a
+continuation.
 
 `total` is cumulative and `totalIsExact` becomes true only when no search
 stream remains. Complete counts assume the store is unchanged while the
@@ -63,5 +69,5 @@ transcript continuations. Optional generation fields retain the read path
 for existing stored rows without rewriting them.
 
 The existing overview is a recent summary and the debrief write limits
-remain. This ticket does not expand those write contracts. Review findings,
-dispositions, final CI and merge deployment are linked from the PR and ticket.
+remain. This ticket does not expand those write contracts. Relationship reads now error explicitly beyond 2,000 rows in either
+direction. Final CI and merge deployment are linked from the PR and ticket.

@@ -1,0 +1,8 @@
+▌ Deploying code to deployment:
+▌ [Preview] omni-gm:omni-gm:preview/checklist-38-sdk (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/calculating-cardinal-244)
+▌ └─ https://calculating-cardinal-244.convex.cloud
+- Deploying to https://calculating-cardinal-244.convex.cloud...
+
+✔ Added table indexes:
+  [+] checklists.by_campaign   campaign, _creationTime
+✔ Deployed Convex functions to https://calculating-cardinal-244.convex.cloud

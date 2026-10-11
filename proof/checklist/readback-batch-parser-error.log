@@ -1,0 +1,17 @@
+PROOF TARGET https://youthful-mandrill-164.convex.site
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Saved checklist is confirmed before walking
+    at verifyHeadless (/tmp/omnigm-38/worktree/scripts/checklist-e2e.ts:136:3)
+    at async <anonymous> (/tmp/omnigm-38/worktree/scripts/checklist-e2e.ts:342:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.21.0

@@ -1,0 +1,48 @@
+
+> omni-gm@0.1.0 test /tmp/omnigm-38/worktree
+> vitest run tests/checklist.test.ts
+
+
+ RUN  v4.1.0 /tmp/omnigm-38/worktree
+
+ ❯ tests/checklist.test.ts (3 tests | 1 failed) 546ms
+   × an empty checklist is rejected without changing the current version or history 23ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/checklist.test.ts > an empty checklist is rejected without changing the current version or history
+AssertionError: promise resolved "{ …(2) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "checklist": {
++     "sections": [],
++     "template": "# Session
++ ## Strong start
++ ## Clues
++ ",
++   },
++   "commit": "0000000000000000000010005commits",
+  }
+
+ ❯ tests/checklist.test.ts:54:102
+     52|   await c.call("checklist_set", { ...original, reason: "My prep proces…
+     53|   const before = await c.call("get", { ref: "checklist" });
+     54|   await expect(c.call("checklist_set", { ...original, sections: [], re…
+       |                                                                                                      ^
+     55|   expect(await c.call("get", { ref: "checklist" })).toEqual(before);
+     56| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  19:13:52
+   Duration  734ms (transform 408ms, setup 0ms, import 89ms, tests 546ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

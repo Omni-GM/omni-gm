@@ -9,23 +9,23 @@
 tests/mcp.test.ts:702:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   i Template literals are preferred over string concatenation.
-  
+
     700 │   const failed = await c.t.fetch(path, {
     701 │     method: "PUT",
   > 702 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
         │           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     703 │   });
     704 │   expect(failed.status).toBe(400);
-  
+
   i Unsafe fix: Use a template literal.
-  
+
      700  700 │     const failed = await c.t.fetch(path, {
      701  701 │       method: "PUT",
      702      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
           702 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
      703  703 │     });
      704  704 │     expect(failed.status).toBe(400);
-  
+
 
 Checked 40 files in 41ms. No fixes applied.
 Found 1 info.
@@ -57,4 +57,3 @@ Running TypeScript...
       Tests  40 passed (40)
    Start at  13:03:46
    Duration  4.06s (transform 842ms, setup 0ms, import 232ms, tests 4.36s, environment 0ms)
-

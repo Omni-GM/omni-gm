@@ -1,8 +1,8 @@
-SOURCE COMMIT db66b2ccdbdaf8caa437b6c355bf98f3ba8bd6df
+SOURCE COMMIT 0d94412dd1951888a98576588d4ef25bce65a1fe
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/feat-frame-talk-db66b2c-sdk (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/moonlit-hornet-204)
-▌ └─ https://moonlit-hornet-204.convex.cloud
-- Deploying to https://moonlit-hornet-204.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/feat-frame-talk-0d94412-sdk (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/knowing-cricket-822)
+▌ └─ https://knowing-cricket-822.convex.cloud
+- Deploying to https://knowing-cricket-822.convex.cloud...
 
 ✔ Added table indexes:
   [+] adventures.by_campaign   campaign, _creationTime
@@ -27,5 +27,5 @@ SOURCE COMMIT db66b2ccdbdaf8caa437b6c355bf98f3ba8bd6df
   [+] utterances.by_session_and_seconds   session, seconds, _creationTime
   [+] utterances.search_text (text)   searchText, filter on campaign
 ✔ Installed component mcpGateway.
-✔ Deployed Convex functions to https://moonlit-hornet-204.convex.cloud
+✔ Deployed Convex functions to https://knowing-cricket-822.convex.cloud
 ✔ Finished running function "oauth:configure"

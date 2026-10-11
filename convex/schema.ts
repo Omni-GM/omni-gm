@@ -1,6 +1,8 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 import {
+  checklist,
+  checklistChange,
   commit,
   draftChange,
   entity,
@@ -13,6 +15,10 @@ import {
   secretHistory,
 } from "./model";
 export default defineSchema({
+  checklists: defineTable({
+    campaign: v.id("campaigns"),
+    ...checklist.fields,
+  }).index("by_campaign", ["campaign"]),
   campaigns: defineTable({
     owner: v.string(),
     openSecrets: v.optional(v.number()),
@@ -77,6 +83,7 @@ export default defineSchema({
     reason: v.string(),
     session: v.optional(v.string()),
     schemaChange: commit.fields.schemaChange,
+    checklistChange: v.optional(checklistChange),
     adventure: v.optional(v.id("adventures")),
     before: v.optional(frameFields),
     after: v.optional(frameFields),

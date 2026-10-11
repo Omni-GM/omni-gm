@@ -1,0 +1,43 @@
+{
+  "checklist": {
+    "sections": [
+      {
+        "definition": "the strong start. Give exactly two opening situations, never an outcome, close to where the last session ended.",
+        "name": "Launch"
+      },
+      {
+        "definition": "ten numbered, tweet-short secrets and clues in the Lazy DM style that the characters could learn next session. Small truths I can drop wherever they fit.",
+        "name": "Discoveries"
+      },
+      {
+        "definition": "a mechanical section for the props and stat blocks I already have ready. No pitches. Keep only what I supply.",
+        "name": "Supplies"
+      }
+    ],
+    "template": "# Next session of The Tallow Mill\n## Launch\n## Discoveries\n## Supplies"
+  },
+  "history": [
+    {
+      "after": {
+        "sections": [
+          {
+            "definition": "the strong start. Give exactly two opening situations, never an outcome, close to where the last session ended.",
+            "name": "Launch"
+          },
+          {
+            "definition": "ten numbered, tweet-short secrets and clues in the Lazy DM style that the characters could learn next session. Small truths I can drop wherever they fit.",
+            "name": "Discoveries"
+          },
+          {
+            "definition": "a mechanical section for the props and stat blocks I already have ready. No pitches. Keep only what I supply.",
+            "name": "Supplies"
+          }
+        ],
+        "template": "# Next session of The Tallow Mill\n## Launch\n## Discoveries\n## Supplies"
+      },
+      "before": null,
+      "commit": "jh7c90mx8wh6sg7w8rx7m9mnax8g3d4s",
+      "reason": "Use my prep process in every client"
+    }
+  ]
+}

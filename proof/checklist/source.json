@@ -1,0 +1,15 @@
+{
+  "baseCommit": "94d9e8183996af7e177c5cc9d238a2f19bb20bea",
+  "headlessPreview": "https://youthful-mandrill-164.convex.site",
+  "sdkUpgradePreview": "https://calculating-cardinal-244.convex.site",
+  "sha256": {
+    "convex/checklists.ts": "f1e3d4b3fcf34d9cef94eaa5cc392bda97d101513c450b250717b6fb4614a4e6",
+    "convex/model.ts": "e19e568d94b32f1863f047e9c25e7e5b836b198a9f9633c0ede03095488b86b7",
+    "convex/schema.ts": "99ea4ac6a4556334ee502f794a196cc9d405d4e19153ccadd51864dbd79a3379",
+    "convex/skills.ts": "284fb4a64eb9d3fdcae24152bd9a0542bbfeaaa29d2e31af677667920fa96921",
+    "convex/store.ts": "cc25121c3e353c330c1fc01151b62bbb81a7e18f4568e1e0e23d6c489249a0a5",
+    "convex/tools.ts": "982e4b3e2efbe14f3c5c031c1b2838954380f6c0455544942b834c0614e426af"
+  },
+  "reviewedImplementationCommit": "9a8d6eb98c0776df6a5f1b7dd147bdd00cc03361",
+  "headlessAfterReviewDeployLog": "headless-review-update-deploy.log"
+}

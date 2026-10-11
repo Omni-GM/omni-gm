@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as checklists from "../checklists.js";
 import type * as debrief from "../debrief.js";
 import type * as http from "../http.js";
 import type * as ledger from "../ledger.js";
@@ -30,6 +31,7 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  checklists: typeof checklists;
   debrief: typeof debrief;
   http: typeof http;
   ledger: typeof ledger;

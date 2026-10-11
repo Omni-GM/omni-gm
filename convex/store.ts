@@ -199,6 +199,37 @@ async function read(
   if (ref === "secrets" || ref.startsWith("secret:"))
     return readSecrets(ctx, campaign, ref, limit, cursor);
   if (ref === "schema") return schemaFor(campaign);
+  if (ref === "checklist") {
+    const saved = await ctx.db
+      .query("checklists")
+      .withIndex("by_campaign", (q) => q.eq("campaign", campaign._id))
+      .unique();
+    const scope = JSON.stringify([campaign._id, ref]);
+    const start = position(scope, cursor);
+    const page = await ctx.db
+      .query("commits")
+      .withIndex("by_campaign_and_kind", (q) =>
+        q.eq("campaign", campaign._id).eq("kind", "checklist"),
+      )
+      .paginate({
+        numItems: Math.min(limit, 10),
+        cursor: start.cursor,
+        maximumBytesRead: 500_000,
+      });
+    return {
+      checklist: saved
+        ? { sections: saved.sections, template: saved.template }
+        : null,
+      history: page.page.map((c) => {
+        if (!c.checklistChange) throw new Error("Missing checklist history");
+        return { commit: c._id, reason: c.reason, ...c.checklistChange };
+      }),
+      truncated: !page.isDone,
+      nextCursor: page.isDone
+        ? null
+        : continuation(scope, { ...start, cursor: page.continueCursor }),
+    };
+  }
   if (ref === "frame") {
     const adventure = await currentAdventureFor(ctx, campaign);
     const commits = await ctx.db
@@ -460,7 +491,7 @@ async function read(
   if (ref.startsWith("session:"))
     return sessionResult(await sessionFor(ctx, campaign._id, ref));
   throw new ConvexError(
-    "Allowed refs: overview, frame, schema, secrets, secret:<id>, entity:<id>, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>",
+    "Allowed refs: overview, frame, checklist, schema, secrets, secret:<id>, entity:<id>, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>",
   );
 }
 export const get = internalQuery({

@@ -1,0 +1,60 @@
+
+> omni-gm@0.1.0 test /tmp/omnigm-38/worktree
+> vitest run tests/checklist.test.ts
+
+
+ RUN  v4.1.0 /tmp/omnigm-38/worktree
+
+ ❯ tests/checklist.test.ts (2 tests | 1 failed) 521ms
+   × replacement retains both versions and their reasons through paginated checklist history 27ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/checklist.test.ts > replacement retains both versions and their reasons through paginated checklist history
+AssertionError: expected [] to deeply equal [ { commit: undefined, …(3) } ]
+
+- Expected
++ Received
+
+- [
+-   {
+-     "after": {
+-       "sections": [
+-         {
+-           "definition": "Two or three opening situations.",
+-           "name": "Strong start",
+-         },
+-         {
+-           "definition": "Ten short clues the characters could learn.",
+-           "name": "Clues",
+-         },
+-       ],
+-       "template": "# Session
+- ## Strong start
+- ## Clues
+- ",
+-     },
+-     "before": null,
+-     "commit": undefined,
+-     "reason": "My prep process",
+-   },
+- ]
++ []
+
+ ❯ tests/checklist.test.ts:38:25
+     36|   const page1 = await c.call("get", { ref: "checklist", limit: 1 });
+     37|   expect(page1.checklist).toEqual(replacement);
+     38|   expect(page1.history).toEqual([{ commit: first.commit, reason: "My p…
+       |                         ^
+     39|   expect(page1.truncated).toBe(true);
+     40|   const page2 = await c.call("get", { ref: "checklist", limit: 1, curs…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  19:13:20
+   Duration  710ms (transform 415ms, setup 0ms, import 90ms, tests 521ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

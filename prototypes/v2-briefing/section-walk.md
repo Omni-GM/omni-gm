@@ -31,7 +31,8 @@ Never ask the game master to restate what the store or their own words already h
 
 ## 4. After the game master answers
 
-- Record what they picked or reshaped, in their words, in the session-note draft for this section. A pitch they ignored leaves no trace.
+- Record what they picked or reshaped, in their words, in the session-note draft for this section, and show that entry back in two or three lines. A mix of pitches is a pick. A pitch they ignored leaves no trace.
+- A new deadline they set becomes a clock in the note.
 - Background they decide that the table has not seen is a secret: intent, open to change. Never write it as story state.
 - Check only what matters, one line each: does it serve the frame's goal, fit its timeframe, keep its pressure? Does it contradict a name, how an NPC was played, what the players know, a thread, or a clock? Never repair their decision yourself.
 - Close with what next: the next section first, then one or two alternatives such as going back to a section or stopping with the note so far. The game master may skip a section or stop at any time.

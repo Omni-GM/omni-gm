@@ -1,0 +1,13 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-wt40
+
+ ✓ tests/debrief-briefing.test.ts > the committed debrief stores its briefing, and the overview returns it with the corrections written since 504ms
+ ✓ tests/debrief-briefing.test.ts > a debrief without a briefing is refused at commit 27ms
+ ✓ tests/debrief-briefing.test.ts > a briefing over 16 KB is refused and leaves the draft as it was 24ms
+ ✓ tests/debrief-briefing.test.ts > past 200 corrections, the overview keeps the newest ones written since the debrief 396ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  19:29:37
+   Duration  1.14s (transform 406ms, setup 0ms, import 94ms, tests 952ms, environment 0ms)
+

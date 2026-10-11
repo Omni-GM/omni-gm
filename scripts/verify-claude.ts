@@ -89,12 +89,12 @@ async function call<T>(
   return result.structuredContent as T;
 }
 try {
-  const draft = await call<{ value: { status: string; lastTime: string } }>(
+  const draft = await call<{ value: { status: string; briefing: string } }>(
     "get",
     { ref: `debrief:${commit.input.session}` },
   );
   assert.equal(draft.value.status, "committed");
-  assert(draft.value.lastTime.length > 0);
+  assert(draft.value.briefing.length > 0);
   const found = await call<{ hits: { ref: string }[] }>("find", {
     query: "Sera Venn",
     types: ["entity"],
@@ -121,7 +121,7 @@ try {
   for (const h of npc.value.history)
     assert(!h.basis.every((b) => b === "player_guess" || b === "player_plan"));
   console.log(
-    "PASS committed lastTime, voiced NPC playedAs and spelling alias read back",
+    "PASS committed briefing, voiced NPC playedAs and spelling alias read back",
   );
   const npcs = await call<{ hits: { ref: string; title: string }[] }>("find", {
     types: ["entity"],

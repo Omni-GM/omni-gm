@@ -179,7 +179,7 @@ try {
   const added = await call<{ rejected: unknown[] }>("debrief_add", {
     session: session.id,
     changes: changes.map((c) => ({ scene: 1, ...c })),
-    lastTime:
+    briefing:
       "At Amber Landing. The seal is missing. Ferry bell: 1/4, visible. Rowan's guess remains open.",
   });
   assert.deepEqual(added.rejected, []);

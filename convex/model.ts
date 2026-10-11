@@ -186,7 +186,7 @@ export const draft = v.object({
   session: v.string(),
   status: v.union(v.literal("draft"), v.literal("committed")),
   changes: v.array(draftChange),
-  lastTime: v.string(),
+  briefing: v.string(),
 });
 export const frameFields = v.object({
   goal: v.optional(v.string()),
@@ -271,7 +271,14 @@ export const sessionInfo = v.object({
   ordinal: v.number(),
   scenes: v.array(scene),
   status: v.union(v.literal("draft"), v.literal("committed")),
-  lastTime: v.string(),
+});
+export const storedBriefing = v.object({
+  session: v.string(),
+  commit: v.string(),
+  text: v.string(),
+  correctionsSince: v.array(
+    v.object({ commit: v.string(), reason: v.string() }),
+  ),
 });
 export const schemaInfo = v.object({
   retiredProperties: v.record(
@@ -347,7 +354,7 @@ export const readValue = v.union(
     openSecrets: v.number(),
     currentAdventure: v.union(v.string(), v.null()),
     frame: v.union(frame, v.null()),
-    lastTime: v.string(),
+    briefing: v.union(storedBriefing, v.null()),
   }),
   frameRead,
   checklistRead,

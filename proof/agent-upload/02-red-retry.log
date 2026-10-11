@@ -1,0 +1,32 @@
+
+> omni-gm@0.1.0 test /tmp/omnigm-impl26
+> vitest run tests/transcript-append.test.ts
+
+
+ RUN  v4.1.0 /tmp/omnigm-impl26
+
+ ❯ tests/transcript-append.test.ts (2 tests | 1 failed) 523ms
+   × duplicate chunks and a lost final reply can be retried without duplicating the transcript 21ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/transcript-append.test.ts > duplicate chunks and a lost final reply can be retried without duplicating the transcript
+Error: {"jsonrpc":"2.0","id":5,"result":{"content":[{"type":"text","text":"Missing or out-of-order chunk; send index 1"}],"isError":true}}
+ ❯ Object.call tests/mcp-client.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/transcript-append.test.ts:51:10
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  13:28:38
+   Duration  714ms (transform 414ms, setup 0ms, import 93ms, tests 523ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

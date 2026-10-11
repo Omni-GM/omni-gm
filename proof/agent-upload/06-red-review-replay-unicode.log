@@ -1,0 +1,68 @@
+
+> omni-gm@0.1.0 test /tmp/omnigm-impl26
+> vitest run tests/transcript-append.test.ts
+
+
+ RUN  v4.1.0 /tmp/omnigm-impl26
+
+ ❯ tests/transcript-append.test.ts (11 tests | 2 failed) 1071ms
+   × a final retry cannot claim that a later signed replacement is the appended transcript 24ms
+   × a chunk cannot split a Unicode character 12ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/transcript-append.test.ts > a final retry cannot claim that a later signed replacement is the appended transcript
+AssertionError: promise resolved "{ bytes: 28, nextIndex: 1, …(1) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "bytes": 28,
++   "nextIndex": 1,
++   "uploaded": true,
+  }
+
+ ❯ tests/transcript-append.test.ts:122:52
+    120|   const replacement = "[00:00:00] GM: New lantern.\n";
+    121|   expect((await c.t.fetch(target.pathname + target.search, { method: "…
+    122|   await expect(c.call("transcript_append", upload)).rejects.toThrow("r…
+       |                                                    ^
+    123|   expect((await downloaded(c, s.id)).text).toBe(replacement);
+    124| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/transcript-append.test.ts > a chunk cannot split a Unicode character
+AssertionError: promise resolved "{ bytes: 18, nextIndex: 1, …(1) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "bytes": 18,
++   "nextIndex": 1,
++   "uploaded": false,
+  }
+
+ ❯ tests/transcript-append.test.ts:128:119
+    126| test("a chunk cannot split a Unicode character", async () => {
+    127|   const { c, s } = await session();
+    128|   await expect(c.call("transcript_append", { session: s.id, chunk: "[0…
+       |                                                                                                                       ^
+    129| });
+    130|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 9 passed (11)
+   Start at  13:44:45
+   Duration  1.27s (transform 411ms, setup 0ms, import 98ms, tests 1.07s, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

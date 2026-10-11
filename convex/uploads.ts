@@ -12,7 +12,7 @@ import {
 import { seconds, utterance } from "./model";
 import { callerArgs, campaignFor, sessionFor } from "./store";
 
-const MAX_BYTES = 8_000_000;
+export const MAX_BYTES = 8_000_000;
 const MAX_LINES = 20000;
 export const uploadArgs = { ...callerArgs, session: v.string() };
 export const uploadResult = v.object({ url: v.string(), pageUrl: v.string() });
@@ -41,7 +41,7 @@ async function issueToken(
   });
   return { token, session: s._id };
 }
-function isLocked(session: Doc<"sessions">): boolean {
+export function isLocked(session: Doc<"sessions">): boolean {
   return (
     session.status === "committed" ||
     session.scenes.length > 0 ||
@@ -128,12 +128,19 @@ export const expire = internalMutation({
   handler: async (ctx, { ticket }) => {
     const row = await ctx.db.get(ticket);
     if (row) {
-      if (row.storage)
+      if (row.storage && !row.appendState?.completed)
         await ctx.scheduler.runAfter(0, internal.uploads.cleanup, {
           session: row.session,
           storage: row.storage,
           generation: row.storage,
         });
+      if (row.appendState) {
+        const chunks = await ctx.db
+          .query("transcriptChunks")
+          .withIndex("by_upload_and_index", (q) => q.eq("upload", ticket))
+          .take(128);
+        for (const chunk of chunks) await ctx.db.delete(chunk._id);
+      }
       await ctx.db.delete(ticket);
     }
     return null;
@@ -191,7 +198,11 @@ export const finish = internalMutation({
       transcript: storage,
       transcriptGeneration: storage,
     });
-    await ctx.db.delete(ticket._id);
+    if (ticket.appendState)
+      await ctx.db.patch(ticket._id, {
+        appendState: { ...ticket.appendState, completed: true },
+      });
+    else await ctx.db.delete(ticket._id);
     if (session.transcript)
       await ctx.scheduler.runAfter(0, internal.uploads.cleanup, {
         session: session._id,
@@ -206,13 +217,18 @@ export const abort = internalMutation({
   returns: v.null(),
   handler: async (ctx, { token, storage }) => {
     const ticket = await ticketFor(ctx, token);
-    if (ticket?.storage === storage) {
+    if (ticket?.storage === storage && !ticket.appendState?.completed) {
       await ctx.scheduler.runAfter(0, internal.uploads.cleanup, {
         session: ticket.session,
         storage,
         generation: storage,
       });
-      await ctx.db.delete(ticket._id);
+      if (ticket.appendState)
+        await ctx.db.patch(ticket._id, {
+          storage: undefined,
+          count: undefined,
+        });
+      else await ctx.db.delete(ticket._id);
     }
     return null;
   },
@@ -264,7 +280,7 @@ const lockedTranscript = {
   status: 409,
   message: "Transcript is locked once scenes or a debrief exist",
 };
-async function store(
+export async function storeTranscript(
   ctx: ActionCtx,
   token: string,
   request: Request,
@@ -272,7 +288,20 @@ async function store(
 ): Promise<Response> {
   if (Number(request.headers.get("content-length")) > MAX_BYTES)
     return new Response("Transcript too large", { status: 413 });
-  const body = new Uint8Array(await request.arrayBuffer());
+  return storeBytes(
+    ctx,
+    token,
+    new Uint8Array(await request.arrayBuffer()),
+    refused,
+  );
+}
+export async function storeBytes(
+  ctx: ActionCtx,
+  token: string,
+  body: Uint8Array<ArrayBuffer>,
+  refused: { status: number; message: string },
+  failed = "Upload failed; request a new upload URL or retry from the upload page",
+): Promise<Response> {
   if (body.length > MAX_BYTES)
     return new Response("Transcript too large", { status: 413 });
   let lines: Infer<typeof utterance>[];
@@ -285,7 +314,9 @@ async function store(
     );
   }
   const storage = await ctx.storage.store(
-    new Blob([body], { type: "text/plain;charset=utf-8" }),
+    new Blob([body], {
+      type: "text/plain;charset=utf-8",
+    }),
   );
   let claimed = false;
   try {
@@ -303,12 +334,28 @@ async function store(
         bytes += size;
         end++;
       }
-      await ctx.runMutation(internal.uploads.append, {
-        token,
-        storage,
-        start,
-        utterances: lines.slice(start, end),
-      });
+      for (let attempt = 0; ; attempt++) {
+        try {
+          await ctx.runMutation(internal.uploads.append, {
+            token,
+            storage,
+            start,
+            utterances: lines.slice(start, end),
+          });
+          break;
+        } catch (error) {
+          if (
+            attempt >= 3 ||
+            !(error instanceof Error) ||
+            !error.message.includes("Too many writes per second")
+          )
+            throw error;
+          console.warn("Transcript batch hit deployment write rate; retrying");
+          await new Promise((resolve) =>
+            setTimeout(resolve, 1000 * 2 ** attempt),
+          );
+        }
+      }
       start = end;
     }
     await ctx.runMutation(internal.uploads.finish, {
@@ -328,10 +375,7 @@ async function store(
       error.data.code === "UPLOAD_CAPABILITY";
     if (capability)
       return new Response(refused.message, { status: refused.status });
-    return new Response(
-      "Upload failed; request a new upload URL or retry from the upload page",
-      { status: 500 },
-    );
+    return new Response(failed, { status: 500 });
   }
   return Response.json({ uploaded: true });
 }
@@ -339,7 +383,7 @@ export const upload = httpAction(async (ctx, request) => {
   const token = new URL(request.url).searchParams.get("token") ?? "";
   if (!(await ctx.runQuery(internal.uploads.valid, { token })))
     return new Response("Expired or used URL", { status: 403 });
-  return store(ctx, token, request, refusedUrl);
+  return storeTranscript(ctx, token, request, refusedUrl);
 });
 const pageSessionResult = v.union(
   v.null(),
@@ -398,7 +442,7 @@ export const pageSessionApi = httpAction(async (ctx, request) => {
     if (error instanceof ConvexError) return locked();
     throw error;
   }
-  return store(ctx, token, request, lockedTranscript);
+  return storeTranscript(ctx, token, request, lockedTranscript);
 });
 export const transcriptFile = internalQuery({
   args: { ...callerArgs, session: v.string() },

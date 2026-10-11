@@ -1,4 +1,5 @@
 import {
+  defineMcpAction,
   defineMcpMutation,
   defineMcpQuery,
   type McpToolRegistration,
@@ -27,8 +28,18 @@ import {
   getResult,
   sessionArgs,
 } from "./store";
+import { appendArgs, appendResult } from "./transcriptAppend";
 import { uploadArgs, uploadResult } from "./uploads";
 export const tools: McpToolRegistration[] = [
+  defineMcpAction({
+    name: "transcript_append",
+    description:
+      "Without a shell, upload the transcript yourself in exact ordered chunks of at most 64000 UTF-8 bytes. At most 128 chunks. Start index at 0, increase by 1, set final only on the last chunk. Identical retries are safe, including the final chunk. Use nextIndex after an ordering error. To replace bad input or cancel an incomplete upload, use restart: true at index 0 and resend every chunk. The chunk upload expires after one hour. Preserve all text and line endings; never split a Unicode character. At most 8 MB and 20000 utterances. Never ask the game master to upload when this tool is available. With a shell, use transcript_upload_url and curl -T from disk instead.",
+    fn: internal.transcriptAppend.append,
+    identityArg: "caller",
+    args: appendArgs,
+    returns: appendResult,
+  }),
   defineMcpMutation({
     name: "story_commit",
     description:
@@ -115,7 +126,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "transcript_upload_url",
     description:
-      "Get a signed single-use URL valid for ten minutes and an upload page link. Upload the file with curl -T; never put its contents in a tool call or output. Without a shell, give the game master pageUrl to sign in and drop the file there, then continue. UTF-8 [HH:MM:SS] Speaker: text, at most 8 MB and 20000 utterances.",
+      "With a shell, upload the transcript yourself from disk with curl -T to this signed single-use URL, valid for ten minutes; no transcript in tool calls or chat output. Without a shell, upload it yourself through transcript_append. Never ask the game master to upload when a tool path exists. pageUrl is a signed-in fallback only if neither path can access the transcript. UTF-8 [HH:MM:SS] Speaker: text, at most 8 MB and 20000 utterances.",
     fn: internal.uploads.uploadUrl,
     identityArg: "caller",
     args: uploadArgs,

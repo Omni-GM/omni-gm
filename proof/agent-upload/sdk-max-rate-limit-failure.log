@@ -1,0 +1,18 @@
+Invented four-hour fixture: 4801 utterances, 8000000 UTF-8 bytes, SHA-256 0f12feb6542f7815b218a57d95780d6e0901e5abc1341d064bcc05aa896dcd4c
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: [{"type":"text","text":"Upload failed; retry the identical final chunk, or restart at index 0 to resend all chunks"}]
+    at call (/tmp/omnigm-impl26/scripts/e2e-agent-upload.ts:26:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (/tmp/omnigm-impl26/scripts/e2e-agent-upload.ts:79:20) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.21.0

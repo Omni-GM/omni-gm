@@ -1,0 +1,35 @@
+
+> omni-gm@0.1.0 test /tmp/omnigm-impl26
+> vitest run tests/transcript-append.test.ts
+
+
+ RUN  v4.1.0 /tmp/omnigm-impl26
+
+ ❯ tests/transcript-append.test.ts (13 tests | 1 failed) 1124ms
+   × duplicate chunks and a lost final reply can be retried without duplicating the transcript 28ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/transcript-append.test.ts > duplicate chunks and a lost final reply can be retried without duplicating the transcript
+AssertionError: expected [Function] to throw error including 'send restart: true with index 0' but got '{"jsonrpc":"2.0","id":6,"result":{"co…'
+
+Expected: "send restart: true with index 0"
+Received: "{"jsonrpc":"2.0","id":6,"result":{"content":[{"type":"text","text":"Chunk already received with different content or final flag"}],"isError":true}}"
+
+ ❯ tests/transcript-append.test.ts:74:4
+     72|   await expect(
+     73|     c.call("transcript_append", { ...first, chunk: "different" }),
+     74|   ).rejects.toThrow("send restart: true with index 0");
+       |    ^
+     75|   const final = {
+     76|     session: s.id,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 12 passed (13)
+   Start at  14:00:21
+   Duration  1.32s (transform 416ms, setup 0ms, import 100ms, tests 1.12s, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

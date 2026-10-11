@@ -1,0 +1,59 @@
+
+> omni-gm@0.1.0 check /tmp/omnigm-impl26
+> pnpm build:ledger && pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test
+
+
+> omni-gm@0.1.0 build:ledger /tmp/omnigm-impl26
+> tsx scripts/build-ledger.ts
+
+tests/mcp.test.ts:711:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+
+    709 │   const failed = await c.t.fetch(path, {
+    710 │     method: "PUT",
+  > 711 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
+        │           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    712 │   });
+    713 │   expect(failed.status).toBe(400);
+
+  i Unsafe fix: Use a template literal.
+
+     709  709 │     const failed = await c.t.fetch(path, {
+     710  710 │       method: "PUT",
+     711      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
+          711 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
+     712  712 │     });
+     713  713 │     expect(failed.status).toBe(400);
+
+
+Checked 48 files in 102ms. No fixes applied.
+Found 1 info.
+CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
+▌ Developing against deployment:
+▌ [Local] Port 3212 • No Convex account (run npx convex login to link to a project)
+▌ └─ http://127.0.0.1:3212
+- Preparing Convex functions...
+
+Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
+✔ 13:38:37 Convex functions ready! (392.28ms)
+Finding component definitions...
+Generating server code...
+Bundling component definitions...
+Bundling component schemas and implementations...
+Downloading current deployment state...
+Uploading functions to Convex...
+Generating TypeScript bindings...
+Running TypeScript...
+
+> omni-gm@0.1.0 test /tmp/omnigm-impl26
+> vitest run
+
+
+ RUN  v4.1.0 /tmp/omnigm-impl26
+
+
+ Test Files  3 passed (3)
+      Tests  57 passed (57)
+   Start at  13:38:43
+   Duration  10.31s (transform 1.37s, setup 0ms, import 413ms, tests 11.63s, environment 0ms)

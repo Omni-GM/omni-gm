@@ -1,0 +1,47 @@
+
+> omni-gm@0.1.0 test /tmp/omnigm-impl26
+> vitest run tests/upload-page.test.ts
+
+
+ RUN  v4.1.0 /tmp/omnigm-impl26
+
+ ❯ tests/upload-page.test.ts (4 tests | 1 failed) 537ms
+   × procedures and upload tools tell every client to upload itself, keeping the page as a fallback 15ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/upload-page.test.ts > procedures and upload tools tell every client to upload itself, keeping the page as a fallback
+AssertionError: expected 'If the session has no stored transcri…' to contain 'transcript_append'
+
+- Expected
++ Received
+
+- transcript_append
++ If the session has no stored transcript, call transcript_upload_url and upload the file from disk with curl -T <file> <url>. If you cannot run curl, give the game master pageUrl, ask them to sign in there and drop the file, and continue once they say it is stored; get transcript:<session> confirms it.
++ Load skill map-speakers and map the speakers. Read get transcript:<session> in pages or timestamp windows; follow nextCursor as cursor with the same ref while truncated. Never repeat the transcript in output.
++ Split into scenes at changes of place or situation. Give each a short title, start and optional end timestamp, place and a summary of plot points in one or two lines. Keep the original timestamps. Do not overlap scenes. Leave out rolls, rests, hit points and inventory.
++ Call scenes_set with the session and scenes in order. Use get scene:<session>/<n> to check a scene with its utterances. Splitting replaces earlier scenes, so drop existing draft changes first; a committed debrief and its scenes are closed.
++
++ Standing rules
++ Never draft prep. Propose only on the game master's explicit request, at most three situations built from story-state facts with sources.
++ Ask about situations and pressure, never player decisions or outcomes.
++ Story state records what happened. The adventure frame records intent. Keep them apart.
++ Write in the game master's language.
+
+ ❯ tests/upload-page.test.ts:93:27
+     91|   await c.init();
+     92|   const skill = await c.call("skill", { name: "split-scenes" });
+     93|   expect(skill.procedure).toContain("transcript_append");
+       |                           ^
+     94|   expect(skill.procedure).toContain("upload the transcript yourself");
+     95|   for (const name of ["map-speakers", "debrief"]) {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed (4)
+   Start at  13:31:01
+   Duration  731ms (transform 417ms, setup 0ms, import 92ms, tests 537ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

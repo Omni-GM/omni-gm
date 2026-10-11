@@ -1,0 +1,18 @@
+Invented four-hour fixture: 4801 utterances, 8000005 UTF-8 bytes, SHA-256 b0b503551b195297c5cf697110fc03af2de07e738417447b4b33506973afb382
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: [{"type":"text","text":"Transcript too large; at most 8 MB"}]
+    at call (/tmp/omnigm-impl26/scripts/.proof-max-upload.ts:26:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (/tmp/omnigm-impl26/scripts/.proof-max-upload.ts:66:20) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.21.0

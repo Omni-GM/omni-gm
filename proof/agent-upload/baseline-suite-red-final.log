@@ -1,0 +1,248 @@
+
+> omni-gm@0.1.0 test /tmp/omnigm-impl26-baseline
+> vitest run tests/transcript-append.test.ts tests/upload-page.test.ts
+
+
+ RUN  v4.1.0 /tmp/omnigm-impl26-baseline
+
+ ❯ tests/upload-page.test.ts (4 tests | 1 failed) 539ms
+   × procedures and upload tools tell every client to upload itself, keeping the page as a fallback 18ms
+ ❯ tests/transcript-append.test.ts (13 tests | 13 failed) 640ms
+   × an agent uploads chunks without a shell and stores the signed path's exact bytes and utterances 476ms
+   × duplicate chunks and a lost final reply can be retried without duplicating the transcript 17ms
+   × an invalid final upload leaves the old transcript readable and the agent can restart with corrected bytes 15ms
+   × a final retry cannot claim that a later signed replacement is the appended transcript 14ms
+   × a chunk cannot split a Unicode character 15ms
+   × expired staging is cleaned without deleting a completed transcript, and the agent can upload again 13ms
+   × the agent restarts an expired incomplete upload and stores the transcript 11ms
+   × missing and out-of-order chunks cannot publish, and sending the missing index recovers 13ms
+   × chunk uploads are private to their owner and locked once scenes exist 16ms
+   × chunk and total size limits count UTF-8 bytes and leave rejected chunks retryable 13ms
+   × chunk uploads enforce the signed path's timestamp order limit 11ms
+   × chunk uploads enforce the signed path's utterance bytes limit 12ms
+   × chunk uploads enforce the signed path's utterance count limit 13ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 14 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/transcript-append.test.ts > an agent uploads chunks without a shell and stores the signed path's exact bytes and utterances
+Error: {"jsonrpc":"2.0","id":4,"error":{"code":-32602,"message":"Unknown tool: transcript_append"}}
+ ❯ Object.call tests/mcp-client.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/transcript-append.test.ts:32:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/14]⎯
+
+ FAIL  tests/transcript-append.test.ts > duplicate chunks and a lost final reply can be retried without duplicating the transcript
+Error: {"jsonrpc":"2.0","id":4,"error":{"code":-32602,"message":"Unknown tool: transcript_append"}}
+ ❯ Object.call tests/mcp-client.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/transcript-append.test.ts:70:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/14]⎯
+
+ FAIL  tests/transcript-append.test.ts > an invalid final upload leaves the old transcript readable and the agent can restart with corrected bytes
+Error: {"jsonrpc":"2.0","id":4,"error":{"code":-32602,"message":"Unknown tool: transcript_append"}}
+ ❯ Object.call tests/mcp-client.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/transcript-append.test.ts:94:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/14]⎯
+
+ FAIL  tests/transcript-append.test.ts > a final retry cannot claim that a later signed replacement is the appended transcript
+Error: {"jsonrpc":"2.0","id":4,"error":{"code":-32602,"message":"Unknown tool: transcript_append"}}
+ ❯ Object.call tests/mcp-client.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/transcript-append.test.ts:124:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/14]⎯
+
+ FAIL  tests/transcript-append.test.ts > a chunk cannot split a Unicode character
+AssertionError: expected [Function] to throw error including 'Unicode' but got '{"jsonrpc":"2.0","id":4,"error":{"cod…'
+
+Expected: "Unicode"
+Received: "{"jsonrpc":"2.0","id":4,"error":{"code":-32602,"message":"Unknown tool: transcript_append"}}"
+
+ ❯ tests/transcript-append.test.ts:149:4
+    147|       final: false,
+    148|     }),
+    149|   ).rejects.toThrow("Unicode");
+       |    ^
+    150| });
+    151|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/14]⎯
+
+ FAIL  tests/transcript-append.test.ts > expired staging is cleaned without deleting a completed transcript, and the agent can upload again
+Error: {"jsonrpc":"2.0","id":4,"error":{"code":-32602,"message":"Unknown tool: transcript_append"}}
+ ❯ Object.call tests/mcp-client.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/transcript-append.test.ts:161:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/14]⎯
+
+ FAIL  tests/transcript-append.test.ts > the agent restarts an expired incomplete upload and stores the transcript
+Error: {"jsonrpc":"2.0","id":4,"error":{"code":-32602,"message":"Unknown tool: transcript_append"}}
+ ❯ Object.call tests/mcp-client.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/transcript-append.test.ts:180:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/14]⎯
+
+ FAIL  tests/transcript-append.test.ts > missing and out-of-order chunks cannot publish, and sending the missing index recovers
+AssertionError: expected [Function] to throw error including 'index 0' but got '{"jsonrpc":"2.0","id":4,"error":{"cod…'
+
+Expected: "index 0"
+Received: "{"jsonrpc":"2.0","id":4,"error":{"code":-32602,"message":"Unknown tool: transcript_append"}}"
+
+ ❯ tests/transcript-append.test.ts:203:4
+    201|   await expect(
+    202|     c.call("transcript_append", { ...first, index: 1, final: true }),
+    203|   ).rejects.toThrow("index 0");
+       |    ^
+    204|   await c.call("transcript_append", first);
+    205|   await expect(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/14]⎯
+
+ FAIL  tests/transcript-append.test.ts > chunk uploads are private to their owner and locked once scenes exist
+AssertionError: expected [Function] to throw error including 'Session not found' but got '{"jsonrpc":"2.0","id":4,"error":{"cod…'
+
+Expected: "Session not found"
+Received: "{"jsonrpc":"2.0","id":4,"error":{"code":-32602,"message":"Unknown tool: transcript_append"}}"
+
+ ❯ tests/transcript-append.test.ts:231:56
+    229|     final: true,
+    230|   };
+    231|   await expect(other.call("transcript_append", upload)).rejects.toThro…
+       |                                                        ^
+    232|     "Session not found",
+    233|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/14]⎯
+
+ FAIL  tests/transcript-append.test.ts > chunk and total size limits count UTF-8 bytes and leave rejected chunks retryable
+AssertionError: expected [Function] to throw error including '64000' but got '{"jsonrpc":"2.0","id":4,"error":{"cod…'
+
+Expected: "64000"
+Received: "{"jsonrpc":"2.0","id":4,"error":{"code":-32602,"message":"Unknown tool: transcript_append"}}"
+
+ ❯ tests/transcript-append.test.ts:264:52
+    262|     final: false,
+    263|   };
+    264|   await expect(c.call("transcript_append", upload)).rejects.toThrow("6…
+       |                                                    ^
+    265|   for (let index = 0; index < 125; index++) {
+    266|     const chunk =
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/14]⎯
+
+ FAIL  tests/transcript-append.test.ts > chunk uploads enforce the signed path's timestamp order limit
+AssertionError: expected [Function] to throw error including 'timestamps must be in order' but got '{"jsonrpc":"2.0","id":4,"error":{"cod…'
+
+Expected: "timestamps must be in order"
+Received: "{"jsonrpc":"2.0","id":4,"error":{"code":-32602,"message":"Unknown tool: transcript_append"}}"
+
+ ❯ tests/transcript-append.test.ts:311:27
+    309|       });
+    310|       if (index === chunks.length - 1)
+    311|         await expect(call).rejects.toThrow(error);
+       |                           ^
+    312|       else await call;
+    313|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/14]⎯
+
+ FAIL  tests/transcript-append.test.ts > chunk uploads enforce the signed path's utterance bytes limit
+AssertionError: expected [Function] to throw error including '32 KB' but got '{"jsonrpc":"2.0","id":4,"error":{"cod…'
+
+Expected: "32 KB"
+Received: "{"jsonrpc":"2.0","id":4,"error":{"code":-32602,"message":"Unknown tool: transcript_append"}}"
+
+ ❯ tests/transcript-append.test.ts:311:27
+    309|       });
+    310|       if (index === chunks.length - 1)
+    311|         await expect(call).rejects.toThrow(error);
+       |                           ^
+    312|       else await call;
+    313|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/14]⎯
+
+ FAIL  tests/transcript-append.test.ts > chunk uploads enforce the signed path's utterance count limit
+Error: {"jsonrpc":"2.0","id":4,"error":{"code":-32602,"message":"Unknown tool: transcript_append"}}
+ ❯ Object.call tests/mcp-client.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/transcript-append.test.ts:312:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/14]⎯
+
+ FAIL  tests/upload-page.test.ts > procedures and upload tools tell every client to upload itself, keeping the page as a fallback
+AssertionError: expected 'If the session has no stored transcri…' to contain 'transcript_append'
+
+- Expected
++ Received
+
+- transcript_append
++ If the session has no stored transcript, call transcript_upload_url and upload the file from disk with curl -T <file> <url>. If you cannot run curl, give the game master pageUrl, ask them to sign in there and drop the file, and continue once they say it is stored; get transcript:<session> confirms it.
++ Load skill map-speakers and map the speakers. Read get transcript:<session> in pages or timestamp windows; follow nextCursor as cursor with the same ref while truncated. Never repeat the transcript in output.
++ Split into scenes at changes of place or situation. Give each a short title, start and optional end timestamp, place and a summary of plot points in one or two lines. Keep the original timestamps. Do not overlap scenes. Leave out rolls, rests, hit points and inventory.
++ Call scenes_set with the session and scenes in order. Use get scene:<session>/<n> to check a scene with its utterances. Splitting replaces earlier scenes, so drop existing draft changes first; a committed debrief and its scenes are closed.
++
++ Standing rules
++ Never draft prep. Propose only on the game master's explicit request, at most three situations built from story-state facts with sources.
++ Ask about situations and pressure, never player decisions or outcomes.
++ Story state records what happened. The adventure frame records intent. Keep them apart.
++ Write in the game master's language.
+
+ ❯ tests/upload-page.test.ts:93:27
+     91|   await c.init();
+     92|   const skill = await c.call("skill", { name: "split-scenes" });
+     93|   expect(skill.procedure).toContain("transcript_append");
+       |                           ^
+     94|   expect(skill.procedure).toContain("upload the transcript yourself");
+     95|   for (const name of ["map-speakers", "debrief"]) {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/14]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  14 failed | 3 passed (17)
+   Start at  14:02:22
+   Duration  848ms (transform 851ms, setup 0ms, import 203ms, tests 1.18s, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

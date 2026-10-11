@@ -91,7 +91,23 @@ export default defineSchema({
     expires: v.number(),
     storage: v.optional(v.id("_storage")),
     count: v.optional(v.number()),
-  }).index("by_token", ["token"]),
+    appendState: v.optional(
+      v.object({
+        nextIndex: v.number(),
+        bytes: v.number(),
+        finalIndex: v.optional(v.number()),
+        completed: v.boolean(),
+      }),
+    ),
+  })
+    .index("by_token", ["token"])
+    .index("by_session", ["session"]),
+  transcriptChunks: defineTable({
+    upload: v.id("uploads"),
+    index: v.number(),
+    text: v.string(),
+    final: v.boolean(),
+  }).index("by_upload_and_index", ["upload", "index"]),
   utterances: defineTable({
     campaign: v.id("campaigns"),
     session: v.id("sessions"),

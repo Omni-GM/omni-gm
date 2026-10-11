@@ -212,7 +212,7 @@ try {
   assert(mira, "Find the NPC from this proof session");
   await mkdir(".convex", { recursive: true });
   await writeFile(
-    ".convex/prep-fixture.json",
+    `.convex/prep-${new URL(url).hostname}.json`,
     JSON.stringify({ session: session.id, mira: mira.id }),
   );
   console.log(

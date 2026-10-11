@@ -59,7 +59,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpQuery({
     name: "skill",
     description:
-      "List procedures without a name, or load map-speakers, split-scenes, debrief frame-talk, prep-sparring or plank-questions, including standing rules. Load the matching procedure before a workflow.",
+      "List procedures without a name, or load map-speakers, split-scenes, debrief, frame-talk, prep-sparring or plank-questions, including standing rules. Load the matching procedure before a workflow.",
     fn: internal.skills.skill,
     identityArg: "caller",
     args: skillArgs,

@@ -181,6 +181,8 @@ class DraftState {
       throw new ConvexError(
         "At least one basis, one non-empty source and why are required",
       );
+    for (const source of p.sources)
+      if (source.at !== undefined) seconds(source.at);
     const guess = p.basis.every(
       (b) => b === "player_guess" || b === "player_plan",
     );
@@ -333,7 +335,6 @@ async function stateFor(
 function validScene(s: Doc<"sessions">, p: Proposed): void {
   if (!Number.isInteger(p.scene) || p.scene < 1 || p.scene > s.scenes.length)
     throw new ConvexError("Use an existing scene ordinal");
-  for (const source of p.sources) if (source.at) seconds(source.at);
 }
 function applyPendingChange(
   session: Doc<"sessions">,
@@ -590,10 +591,14 @@ export const storyCommit = internalMutation({
       throw new ConvexError("Keep each story change within 16 KB");
     const campaign = await campaignFor(ctx, caller);
     const state = await stateFor(ctx, campaign);
-    const records = changes.map((p) => {
-      for (const source of p.sources)
-        if (source.at !== undefined) seconds(source.at);
-      return { p, ...state.apply(p, crypto.randomUUID()) };
+    const records = changes.map((p, index) => {
+      try {
+        return { p, ...state.apply(p, crypto.randomUUID()) };
+      } catch (error) {
+        const message =
+          error instanceof Error ? error.message : "Invalid change";
+        throw new ConvexError(`Change ${index + 1}: ${message}`);
+      }
     });
     const id = await ctx.db.insert("commits", {
       campaign: campaign._id,

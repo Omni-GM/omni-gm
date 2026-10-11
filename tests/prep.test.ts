@@ -119,7 +119,9 @@ test("a rejected story batch leaves state, relationships, sources and commit his
         }),
       ],
     }),
-  ).rejects.toThrow("alive, dead, gone, unknown");
+  ).rejects.toThrow(
+    "Change 4: Allowed value for npc.status: alive, dead, gone, unknown",
+  );
   expect(await c.call("get", { ref })).toEqual(before);
   expect(await c.call("get", { ref: "overview" })).toEqual(overview);
   expect(
@@ -304,7 +306,7 @@ test("prep search returns separately ranked source claims with their basis and t
             entity: "$mira",
             properties: { knows: "A rumor about the seal" },
           },
-          "A rumor says the amber seal is hollow.",
+          "A rumor says the amber token is hollow.",
         ),
         basis: ["rumor"],
       },
@@ -312,6 +314,9 @@ test("prep search returns separately ranked source claims with their basis and t
   });
   const sources = await c.call("find", { query: "amber", types: ["source"] });
   expect(sources.hits).toHaveLength(2);
+  expect(sources.hits[0].snippet).toContain(
+    "Mira claims the amber seal opens the ferry.",
+  );
   expect(sources.hits[0].score).toBeGreaterThan(sources.hits[1].score);
   expect(
     sources.hits.flatMap((h: { basis: string[] }) => h.basis).sort(),
@@ -330,15 +335,16 @@ test("prep search returns separately ranked source claims with their basis and t
     (
       await c.t.fetch(location.pathname + location.search, {
         method: "PUT",
-        body: "[00:00:00] GM: Start at the landing.\n[00:05:00] GM as Mira: The amber seal opens the ferry.\n[00:05:30] Rowan: An amber seal?\n[00:10:00] GM: The bell rings.\n",
+        body: "[00:00:00] GM: Start at the landing.\n[00:05:00] GM as Mira: The amber seal opens the ferry.\n[00:05:30] Rowan: An amber token?\n[00:10:00] GM: The bell rings.\n",
       })
     ).status,
   ).toBe(200);
   const transcript = await c.call("find", {
-    query: "amber",
+    query: "amber seal",
     types: ["transcript"],
   });
   expect(transcript.hits).toHaveLength(2);
+  expect(transcript.hits[0].ref).toBe(`transcript:${session.id}@00:05:00`);
   expect(transcript.hits[0].score).toBeGreaterThan(transcript.hits[1].score);
   expect(transcript.hits.map((h: { ref: string }) => h.ref).sort()).toEqual([
     `transcript:${session.id}@00:05:00`,
@@ -529,4 +535,41 @@ test("guesses stay on threads, mixed basis remains explicit and link corrections
       after: null,
     });
   }
+});
+
+test("debrief changes and story corrections reject an empty source timestamp under the same rule", async () => {
+  const c = await campaign();
+  const session = await c.call("session_create", { playedOn: "2026-01-03" });
+  const { url } = await c.call("transcript_upload_url", {
+    session: session.id,
+  });
+  const path = new URL(url);
+  await c.t.fetch(path.pathname + path.search, {
+    method: "PUT",
+    body: "[00:00:00] GM: Mira waits.\n",
+  });
+  await c.call("scenes_set", {
+    session: session.id,
+    scenes: [
+      {
+        title: "Mira",
+        start: "00:00:00",
+        place: "Landing",
+        summary: "Mira waits",
+      },
+    ],
+  });
+  const invalid = {
+    ...answer({ op: "new", kind: "npc", name: "Mira" }),
+    sources: [{ quote: "Mira waits.", at: "" }],
+  };
+  const added = await c.call("debrief_add", {
+    session: session.id,
+    changes: [{ scene: 1, ...invalid }],
+  });
+  expect(added.draft.changes).toEqual([]);
+  expect(added.rejected[0].reason).toContain("timestamp");
+  await expect(
+    c.call("story_commit", { reason: "Wrong timestamp", changes: [invalid] }),
+  ).rejects.toThrow("timestamp");
 });

@@ -1,0 +1,70 @@
+
+ RUN  v4.1.0 /tmp/omnigm-impl15
+
+ ❯ tests/prep.test.ts (21 tests | 2 failed) 991ms
+   × a rejected story batch leaves state, relationships, sources and commit history unchanged 35ms
+   × debrief changes and story corrections reject an empty source timestamp under the same rule 19ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/prep.test.ts > a rejected story batch leaves state, relationships, sources and commit history unchanged
+AssertionError: expected [Function] to throw error including 'Change 4: Allowed value for npc.statu…' but got '{"jsonrpc":"2.0","id":7,"result":{"co…'
+
+Expected: "Change 4: Allowed value for npc.status: alive, dead, gone, unknown"
+Received: "{"jsonrpc":"2.0","id":7,"result":{"content":[{"type":"text","text":"Allowed value for npc.status: alive, dead, gone, unknown"}],"isError":true}}"
+
+ ❯ tests/prep.test.ts:122:4
+    120|       ],
+    121|     }),
+    122|   ).rejects.toThrow("Change 4: Allowed value for npc.status: alive, de…
+       |    ^
+    123|   expect(await c.call("get", { ref })).toEqual(before);
+    124|   expect(await c.call("get", { ref: "overview" })).toEqual(overview);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/prep.test.ts > debrief changes and story corrections reject an empty source timestamp under the same rule
+AssertionError: expected [ { basis: [ 'game_master' ], …(5) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "basis": [
++       "game_master",
++     ],
++     "change": {
++       "kind": "npc",
++       "name": "Mira",
++       "op": "new",
++     },
++     "id": "c1",
++     "scene": 1,
++     "sources": [
++       {
++         "at": "",
++         "quote": "Mira waits.",
++       },
++     ],
++     "why": "Record the game master's plank answer",
++   },
++ ]
+
+ ❯ tests/prep.test.ts:545:31
+    543|   const invalid = { ...answer({ op: "new", kind: "npc", name: "Mira" }…
+    544|   const added = await c.call("debrief_add", { session: session.id, cha…
+    545|   expect(added.draft.changes).toEqual([]);
+       |                               ^
+    546|   expect(added.rejected[0].reason).toContain("timestamp");
+    547|   await expect(c.call("story_commit", { reason: "Wrong timestamp", cha…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 19 passed (21)
+   Start at  13:22:28
+   Duration  1.19s (transform 398ms, setup 0ms, import 99ms, tests 991ms, environment 0ms)
+

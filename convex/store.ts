@@ -18,6 +18,7 @@ import {
   sessionInfo,
   type storedBriefing as storedBriefingValue,
 } from "./model";
+import { currentNote } from "./notes";
 import { continuation, pageArgs, pageLimit, position } from "./pagination";
 import { readSecrets } from "./secrets";
 export const callerArgs = { caller: mcpCallerValidator };
@@ -225,6 +226,7 @@ async function read(
 ): Promise<ReadValue> {
   if (ref === "secrets" || ref.startsWith("secret:"))
     return readSecrets(ctx, campaign, ref, limit, cursor);
+  if (ref === "note") return { note: await currentNote(ctx, campaign) };
   if (ref === "schema") return schemaFor(campaign);
   if (ref === "checklist") {
     const saved = await ctx.db
@@ -313,7 +315,25 @@ async function read(
       )
       .order("desc")
       .first();
+    const note = await currentNote(ctx, campaign);
+    const open =
+      note?.entries.filter((e) => e.status === "open").map((e) => e.section) ??
+      [];
     return {
+      prep: note
+        ? {
+            session: note.session,
+            status: note.status,
+            done: note.entries
+              .filter((e) => e.status === "done")
+              .map((e) => e.section),
+            skipped: note.entries
+              .filter((e) => e.status === "skipped")
+              .map((e) => e.section),
+            open,
+            nextSection: open[0] ?? null,
+          }
+        : null,
       openSecrets: campaign.openSecrets ?? 0,
       adventures: adventures.map((a) => ({
         id: a._id,
@@ -517,7 +537,7 @@ async function read(
   if (ref.startsWith("session:"))
     return sessionResult(await sessionFor(ctx, campaign._id, ref));
   throw new ConvexError(
-    "Allowed refs: overview, frame, checklist, schema, secrets, secret:<id>, entity:<id>, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>",
+    "Allowed refs: overview, frame, checklist, note, schema, secrets, secret:<id>, entity:<id>, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>",
   );
 }
 export const get = internalQuery({

@@ -18,6 +18,7 @@ import {
 } from "./debrief";
 import { carriesLedger } from "./ledger";
 import { adventure, frameUpdateResult, sessionInfo } from "./model";
+import { noteArgs, noteResult } from "./notes";
 import { schemaChangeArgs, schemaChangeResult } from "./schemaChanges";
 import { findArgs, findResult } from "./search";
 import { secretArgs, secretResult } from "./secrets";
@@ -31,6 +32,15 @@ import {
 } from "./store";
 import { uploadArgs, uploadResult } from "./uploads";
 export const tools: McpToolRegistration[] = [
+  defineMcpMutation({
+    name: "note_write",
+    description:
+      "Save a pick or status in the current session note. Use session from get note, keyed to the latest committed debrief; stale-session writes are refused. op upsert needs section and entry and/or status open, done or skipped; other sections and omitted fields stay untouched. Section names must match this prep's saved checklist. op finish requires no open sections. A finished note is read-only until op reopen with a non-empty reason. Save changes after reopening, not in the same call. Entry at most 16 KB UTF-8, reopen reason 2 KB, total note 128 KB. Checklist and template are kept with the prep on its first write. Read get note and overview.prep to resume at nextSection. Assemble finished markdown in the client from note.checklist.template and the saved picks; the server does not render it.",
+    fn: internal.notes.write,
+    identityArg: "caller",
+    args: noteArgs,
+    returns: noteResult,
+  }),
   defineMcpMutation({
     name: "secret_write",
     description:
@@ -161,7 +171,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpQuery({
     name: "get",
     description:
-      "Read overview with openSecrets count, frame with its history, checklist with ordered sections, definitions, markdown template and replacement history, schema, secrets (hidden and partly_revealed), secret:<id> with history, entity:<id> with history, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>. checklist is null when not yet stored. Each secrets page includes writtenSinceDebrief ids for background written or changed after the latest committed debrief. Secrets, transcript, scene and history reads return pages with truncated and nextCursor. Follow nextCursor as cursor with the same single ref until it is null. limit accepts 1 to 200, default 100; byte budgets can shorten pages and history returns at most ten changes. Batch items carry independent cursors; continue them individually. Download URLs require the owner's bearer sign-in.",
+      "Read overview with openSecrets count and prep progress (done, skipped, open and nextSection), note with the current prep entries, status and saved checklist/template, frame with its history, checklist with ordered sections, definitions, markdown template and replacement history, schema, secrets (hidden and partly_revealed), secret:<id> with history, entity:<id> with history, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>. checklist is null when not yet stored. note and overview.prep are null until a checklist and committed debrief exist; a new debrief starts a new note. Each secrets page includes writtenSinceDebrief ids for background written or changed after the latest committed debrief. Secrets, transcript, scene and history reads return pages with truncated and nextCursor. Follow nextCursor as cursor with the same single ref until it is null. limit accepts 1 to 200, default 100; byte budgets can shorten pages and history returns at most ten changes. Batch items carry independent cursors; continue them individually. Download URLs require the owner's bearer sign-in.",
     fn: internal.store.get,
     identityArg: "caller",
     args: getArgs,

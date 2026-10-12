@@ -15,14 +15,19 @@ type Call = { name: string; input: Record<string, unknown> };
 type Turn = { calls: Call[]; text: string };
 
 const coreQuestions = {
-  goal: /\babout\b|\bgoal\b/i,
-  stakes: /\brisk\b|\bstakes?\b|\bgain\b|\blose\b/i,
+  goal: /\bgoal\b|\babout\?/i,
+  stakes: /\brisk\b|\bstakes?\b|\bgain\b/i,
   timeframe: /\btimeframe\b|\bdeadline\b|how long|how many sessions/i,
 };
-const optionalTopic = /finale|pressure|next session|release|main plot/i;
+const optionalHeading =
+  /finale|pressure|release|main plot|next session|pulls? in/i;
+const optionalQuestion =
+  /\bfinale\b|\bpressure\b|moments? of release|main plot|next session/i;
 const outcomeQuestion =
-  /\bend\b|\bends\b|who wins|\bwin\b|players? (will )?(choose|decide|do)/i;
-const sectionWalk = /^(#+|\*\*)\s*Strong start/m;
+  /how (does|should|will|would) .*\bend\b|who wins|\bwin\b|players? (will )?(choose|decide)/i;
+const mandatoryOffer =
+  /mandatory|required|\bmust\b|have to|need to|can(not|'t) skip|before (choosing|picking)/i;
+const sectionWalk = /^(#+\s*|\*\*)?Strong start(\*\*)?:?\s*$/m;
 
 function turnsOf(events: TranscriptEvent[]): Turn[] {
   const turns: Turn[] = [{ calls: [], text: "" }];
@@ -55,13 +60,14 @@ const headingsOf = (text: string) =>
   [...text.matchAll(/^(?:#+\s*(.+)|\*\*([^*]+)\*\*)/gm)].map(
     (match) => match[1] ?? match[2],
   );
-function whatNextOptions(text: string): string[] {
-  return text
+const isOption = (line: string) => /^\s*\d[.)]/.test(line);
+const whatNextLines = (text: string) =>
+  text
     .slice(text.lastIndexOf("What next"))
     .split("\n")
-    .filter((line) => /^\s*\d[.)]/.test(line))
-    .map((line) => line.trim());
-}
+    .slice(1)
+    .map((line) => line.trim())
+    .filter(Boolean);
 function storedBody(storedBriefing: string): string {
   return storedBriefing
     .slice(0, storedBriefing.lastIndexOf("What next"))
@@ -74,31 +80,45 @@ function checkOffer(briefing: Turn, storedBriefing: string): string {
   assert(
     briefing.calls.every((c) => ["skill", "get", "find"].includes(tool(c))),
   );
-  assert(briefing.text.trimStart().startsWith(storedBody(storedBriefing)));
-  const [offer, ...others] = whatNextOptions(briefing.text);
+  const shown = briefing.text.trim();
+  const body = storedBody(storedBriefing);
+  assert(shown.startsWith(body));
+  assert.match(shown.slice(body.length).trimStart(), /^\**What next\**\s*\n/);
+  const lines = whatNextLines(shown);
+  for (const line of lines) {
+    assert.doesNotMatch(line, mandatoryOffer);
+    assert.doesNotMatch(line, sectionWalk);
+  }
+  const [offer, ...others] = lines.filter(isOption);
   assert(others.length >= 1 && others.length <= 3, briefing.text);
   assert.match(offer, /short frame talk/i);
   assert.match(offer, /recommended/i);
-  assert.doesNotMatch(offer, /mandatory|\bmust\b|can(not|'t) skip/i);
   assert(others.some((o) => /checklist|first section/i.test(o)));
   assert(others.every((o) => !/recommended/i.test(o)));
   return `PASS prep opened with the stored briefing word for word, and its what-next options lead with the recommended short frame talk: ${offer}`;
 }
 
+const coreFields = Object.keys(coreQuestions);
+const label = (heading: string) => heading.toLowerCase().replace(/[^a-z]/g, "");
+
+export function frameTalkQuestionField(turnText: string): string {
+  const questions = questionsOf(turnText);
+  assert.equal(questions.length, 1, turnText);
+  const headings = headingsOf(turnText);
+  for (const heading of headings) assert.doesNotMatch(heading, optionalHeading);
+  assert.doesNotMatch(questions[0], optionalQuestion);
+  assert.doesNotMatch(questions[0], outcomeQuestion);
+  const headed = headings.map(label).filter((h) => coreFields.includes(h));
+  if (headed.length === 1) return headed[0];
+  const fields = Object.entries(coreQuestions)
+    .filter(([, pattern]) => pattern.test(questions[0]))
+    .map(([field]) => field);
+  assert.equal(fields.length, 1, questions[0]);
+  return fields[0];
+}
+
 function checkFrameTalk(questionTurns: Turn[]): string {
-  const asked = questionTurns.map((turn) => {
-    const questions = questionsOf(turn.text);
-    assert.equal(questions.length, 1, turn.text);
-    for (const heading of headingsOf(turn.text))
-      assert.doesNotMatch(heading, optionalTopic);
-    assert.doesNotMatch(questions[0], optionalTopic);
-    assert.doesNotMatch(questions[0], outcomeQuestion);
-    const fields = Object.entries(coreQuestions)
-      .filter(([, pattern]) => pattern.test(questions[0]))
-      .map(([field]) => field);
-    assert.equal(fields.length, 1, questions[0]);
-    return fields[0];
-  });
+  const asked = questionTurns.map((turn) => frameTalkQuestionField(turn.text));
   assert.deepEqual(asked.sort(), ["goal", "stakes", "timeframe"]);
   return "PASS frame-talk asked exactly one question per turn, once each for goal, stakes and timeframe, with no optional topic or outcome";
 }

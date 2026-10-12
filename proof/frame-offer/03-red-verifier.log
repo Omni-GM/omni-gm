@@ -1,0 +1,52 @@
+
+ RUN  v4.1.0 /home/coder/.cache/omnigm-wt/56
+
+ ❯ tests/verify-frame-offer.test.ts (7 tests | 3 failed) 25ms
+   × a frame talk the game master must finish before other options fails the transcript checks 3ms
+   × a section walk started under a plain heading before the options fails the transcript checks 2ms
+   × frame-talk questions count by the core field they ask, not by incidental words 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/verify-frame-offer.test.ts > a frame talk the game master must finish before other options fails the transcript checks
+AssertionError: expected [Function] to throw an error
+ ❯ tests/verify-frame-offer.test.ts:84:67
+     82|     ),
+     83|   );
+     84|   expect(() => checkFrameOfferTranscript(events, storedBriefing)).toTh…
+       |                                                                   ^
+     85| });
+     86|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/verify-frame-offer.test.ts > a section walk started under a plain heading before the options fails the transcript checks
+AssertionError: expected [Function] to throw an error
+ ❯ tests/verify-frame-offer.test.ts:94:67
+     92|     ),
+     93|   );
+     94|   expect(() => checkFrameOfferTranscript(events, storedBriefing)).toTh…
+       |                                                                   ^
+     95| });
+     96|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/verify-frame-offer.test.ts > frame-talk questions count by the core field they ask, not by incidental words
+TypeError: frameTalkQuestionField is not a function
+ ❯ tests/verify-frame-offer.test.ts:99:5
+     97| test("frame-talk questions count by the core field they ask, not by in…
+     98|   expect(
+     99|     frameTalkQuestionField(
+       |     ^
+    100|       "**Stakes.** Given what we know about Holloway, what is at risk,…
+    101|     ),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 4 passed (7)
+   Start at  19:34:19
+   Duration  204ms (transform 29ms, setup 0ms, import 43ms, tests 25ms, environment 0ms)
+

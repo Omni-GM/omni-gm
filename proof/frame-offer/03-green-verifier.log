@@ -1,0 +1,9 @@
+
+ RUN  v4.1.0 /home/coder/.cache/omnigm-wt/56
+
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  19:34:43
+   Duration  187ms (transform 30ms, setup 0ms, import 44ms, tests 24ms, environment 0ms)
+

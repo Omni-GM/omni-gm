@@ -11,8 +11,11 @@ Every fixture, name and decision is invented. No live campaign data is used.
   client on a branch preview, read back by an independent SDK client.
 - **Verifier seam** (`tests/verify-frame-offer.test.ts`): the transcript
   checks in `scripts/frame-offer-transcript.ts` pass the recorded run and
-  reject a mandatory offer, a briefing that announces the section walk
-  instead of the stored text, and a frame talk that asks about the finale.
+  reject a mandatory offer (also one the game master must finish before
+  other options), a briefing that announces the section walk instead of the
+  stored text or under a plain heading before the options, and a frame talk
+  that asks about the finale. Valid questions that mention other words
+  ("about Holloway", "their release") still count for their core field.
 
 ## Endpoint proof
 
@@ -28,8 +31,10 @@ Every fixture, name and decision is invented. No live campaign data is used.
 - `02-red-stored-what-next.log`, `02-green-stored-what-next.log`: after the
   review, the briefing names its one exception to showing a stored briefing
   exactly: the What next change, with every other stored line word for word.
+- `03-red-verifier.log`, `03-green-verifier.log`: the round-2 refutations
+  of the transcript checks fail before the fix and pass after.
 - `check.log`: the full gate (`pnpm check`) on the final tree merged with
-  `main`, 118 tests, none skipped.
+  `main`, 121 tests, none skipped.
 
 ## Headless client proof
 

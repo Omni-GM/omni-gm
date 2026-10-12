@@ -206,8 +206,20 @@ also returns `writtenSinceDebrief` ids so a stored briefing can add just the
 background written or changed since its debrief.
 `get secret:<id>` reads any status with paginated history, at most ten rows
 per page. `get overview` returns the exact `openSecrets` count. Secret
-writes do not enter entity or source search. Reveals in the debrief are a
-separate v2 ticket; this change includes their record and history fields.
+writes do not enter entity or source search.
+
+The debrief reads open secrets with the transcript. `debrief_add` also takes
+`reveals: [{secret, scene, learned, sources, whole}]` for a `hidden` or
+`partly_revealed` secret of the caller's campaign, at most one per secret in a
+draft; an unknown, closed or other owner's secret is rejected individually in
+`rejectedReveals`. `get debrief:<session>` lists them, and `debrief_drop`
+drops a reveal by its id like a change. `debrief_commit` applies changes and
+reveals together or not at all: a whole reveal sets `revealed` and lowers
+`openSecrets`, a partial one sets `partly_revealed` and keeps the secret and
+its text readable in `get secrets`. Each appends a `reveal` history entry with
+the debrief commit, session, scene, `learned`, and transcript `sources`. What
+the players learned is also written as ordinary draft changes; the unseen rest
+stays secret.
 
 `story_commit` also corrects committed mistakes outside a debrief. Supply
 `reason` and `changes: [{change, basis, sources, why}]`, without a session

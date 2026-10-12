@@ -7,13 +7,16 @@ import {
 } from "./_generated/server";
 import {
   type DraftChange,
+  type DraftReveal,
   draft,
   type Entity,
   type History,
   type LedgerRow,
   ledger,
   type Proposed,
+  type ProposedReveal,
   proposed,
+  proposedReveal,
   type Relationship,
   type SchemaInfo,
   type StoryChange,
@@ -23,6 +26,7 @@ import {
   sessionInfo,
   storyChange,
 } from "./model";
+import { reveal, secretToReveal } from "./secrets";
 import { callerArgs, campaignFor, sessionFor, sessionResult } from "./store";
 export const sessionArgs = { ...callerArgs, session: v.string() };
 export const scenesArgs = { ...sessionArgs, scenes: v.array(scene) };
@@ -40,6 +44,7 @@ export function draftResult(s: Doc<"sessions">): Infer<typeof draft> {
     session: s._id,
     status: s.status,
     changes: s.changes,
+    reveals: s.reveals ?? [],
     briefing: s.briefing ?? "",
   };
 }
@@ -58,8 +63,10 @@ export const scenesSet = internalMutation({
       throw new ConvexError("Use 1 to 100 scenes");
     if (encodedSize(scenes) > 64_000)
       throw new ConvexError("Keep scene descriptions within 64 KB per session");
-    if (s.changes.length)
-      throw new ConvexError("Drop draft changes before replacing their scenes");
+    if (s.changes.length || s.reveals?.length)
+      throw new ConvexError(
+        "Drop draft changes and reveals before replacing their scenes",
+      );
     const lastUtterance = await ctx.db
       .query("utterances")
       .withIndex("by_session_and_generation_and_seconds", (q) =>
@@ -337,7 +344,7 @@ async function stateFor(
     schemaFor(campaign),
   );
 }
-function validScene(s: Doc<"sessions">, p: Proposed): void {
+function validScene(s: Doc<"sessions">, p: { scene: number }): void {
   if (!Number.isInteger(p.scene) || p.scene < 1 || p.scene > s.scenes.length)
     throw new ConvexError("Use an existing scene ordinal");
 }
@@ -357,29 +364,79 @@ function applyPendingChange(
     );
   }
 }
+async function checkReveal(
+  ctx: QueryCtx,
+  campaign: Doc<"campaigns">,
+  s: Doc<"sessions">,
+  proposal: ProposedReveal,
+  others: DraftReveal[],
+): Promise<Doc<"secrets">> {
+  if (encodedSize(proposal) > 16_000)
+    throw new ConvexError("Keep each reveal within 16 KB");
+  validScene(s, proposal);
+  if (!proposal.learned.trim())
+    throw new ConvexError("A reveal needs what the players learned");
+  if (!proposal.sources.length || proposal.sources.some((s) => !s.quote.trim()))
+    throw new ConvexError("A reveal needs at least one non-empty source");
+  for (const source of proposal.sources)
+    if (source.at !== undefined) seconds(source.at);
+  if (others.some((other) => other.secret === proposal.secret))
+    throw new ConvexError("This secret already has a reveal in this draft");
+  return secretToReveal(ctx, campaign, proposal.secret);
+}
+async function checkPendingReveal(
+  ctx: QueryCtx,
+  campaign: Doc<"campaigns">,
+  s: Doc<"sessions">,
+  pending: DraftReveal,
+): Promise<Doc<"secrets">> {
+  const others = (s.reveals ?? []).filter((other) => other.id !== pending.id);
+  try {
+    return await checkReveal(ctx, campaign, s, pending, others);
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : "Invalid reveal";
+    throw new ConvexError(
+      `Pending reveal ${pending.id} is no longer valid: ${reason}. Use debrief_drop to remove it first.`,
+    );
+  }
+}
+const rejection = v.array(v.object({ index: v.number(), reason: v.string() }));
+type Rejection = Infer<typeof rejection>[number];
+function rejectionOf(index: number, error: unknown): Rejection {
+  return {
+    index,
+    reason: error instanceof Error ? error.message : "Invalid entry",
+  };
+}
 export const addArgs = {
   ...sessionArgs,
   changes: v.array(proposed),
+  reveals: v.optional(v.array(proposedReveal)),
   briefing: v.optional(v.string()),
 };
 export const addResult = v.object({
   draft,
   ledger,
-  rejected: v.array(v.object({ index: v.number(), reason: v.string() })),
+  rejected: rejection,
+  rejectedReveals: rejection,
 });
 export const add = internalMutation({
   args: addArgs,
   returns: addResult,
   handler: async (
     ctx,
-    { caller, session, changes, briefing },
+    { caller, session, changes, reveals = [], briefing },
   ): Promise<Infer<typeof addResult>> => {
     const campaign = await campaignFor(ctx, caller);
     const s = await sessionFor(ctx, campaign._id, session);
     unlocked(s);
     if (!s.scenes.length) throw new ConvexError("Call scenes_set first");
-    if (s.changes.length + changes.length > 500)
-      throw new ConvexError("Use at most 500 draft changes");
+    const keptReveals: DraftReveal[] = [...(s.reveals ?? [])];
+    if (
+      s.changes.length + keptReveals.length + changes.length + reveals.length >
+      500
+    )
+      throw new ConvexError("Use at most 500 draft changes and reveals");
     if (encodedSize(briefing ?? s.briefing) > 16_000)
       throw new ConvexError("Keep the briefing within 16 KB");
     const state = await stateFor(ctx, campaign);
@@ -394,36 +451,50 @@ export const add = internalMutation({
         ),
       );
     const kept: DraftChange[] = [...s.changes];
-    const rejected: { index: number; reason: string }[] = [];
+    const rejected: Rejection[] = [];
+    const rejectedReveals: Rejection[] = [];
     let nextChange = s.nextChange;
+    const fitsDraft = (entry: DraftChange | DraftReveal) => {
+      if (encodedSize([...kept, ...keptReveals, entry]) > 512_000)
+        throw new ConvexError(
+          "Keep the draft within 512 KB; drop or shorten proposals",
+        );
+    };
     for (const [index, p] of changes.entries()) {
       const id = `c${nextChange}`;
       try {
         if (encodedSize(p) > 16_000)
           throw new ConvexError("Keep each proposed change within 16 KB");
-        if (encodedSize([...kept, { ...p, id }]) > 512_000)
-          throw new ConvexError(
-            "Keep the draft within 512 KB; drop or shorten proposals",
-          );
+        fitsDraft({ ...p, id });
         validScene(s, p);
         rows.push(ledgerRow(state, id, p, state.apply(p, `draft-${id}`)));
         kept.push({ ...p, id });
         nextChange++;
       } catch (error) {
-        rejected.push({
-          index,
-          reason: error instanceof Error ? error.message : "Invalid change",
-        });
+        rejected.push(rejectionOf(index, error));
+      }
+    }
+    for (const [index, proposal] of reveals.entries()) {
+      const pending = { ...proposal, id: `r${nextChange}` };
+      try {
+        fitsDraft(pending);
+        await checkReveal(ctx, campaign, s, proposal, keptReveals);
+        keptReveals.push(pending);
+        nextChange++;
+      } catch (error) {
+        rejectedReveals.push(rejectionOf(index, error));
       }
     }
     const updated = {
       ...s,
       changes: kept,
+      reveals: keptReveals,
       briefing: briefing ?? s.briefing,
       nextChange,
     };
     await ctx.db.patch(s._id, {
       changes: kept,
+      reveals: keptReveals,
       briefing: updated.briefing,
       nextChange,
     });
@@ -431,6 +502,7 @@ export const add = internalMutation({
       draft: draftResult(updated),
       ledger: { scenes: scenesOf(s), rows },
       rejected,
+      rejectedReveals,
     };
   },
 });
@@ -477,9 +549,11 @@ export const drop = internalMutation({
     const campaign = await campaignFor(ctx, caller);
     const s = await sessionFor(ctx, campaign._id, session);
     unlocked(s);
-    if (changeIds.some((id) => !s.changes.some((p) => p.id === id)))
-      throw new ConvexError("Change not found in this draft");
+    const drafted = [...s.changes, ...(s.reveals ?? [])];
+    if (changeIds.some((id) => !drafted.some((entry) => entry.id === id)))
+      throw new ConvexError("Change or reveal not found in this draft");
     const changes = s.changes.filter((p) => !changeIds.includes(p.id));
+    const reveals = (s.reveals ?? []).filter((r) => !changeIds.includes(r.id));
     const state = await stateFor(ctx, campaign);
     const invalid: { id: string; reason: string }[] = [];
     const rows: LedgerRow[] = [];
@@ -510,9 +584,9 @@ export const drop = internalMutation({
         `Drop also requires invalid remaining changes: ${invalid.map((entry) => entry.id).join(", ")}. ${invalid.map((entry) => entry.reason).join(" ")}`,
       );
     }
-    await ctx.db.patch(s._id, { changes });
+    await ctx.db.patch(s._id, { changes, reveals });
     return {
-      draft: draftResult({ ...s, changes }),
+      draft: draftResult({ ...s, changes, reveals }),
       ledger: { scenes: scenesOf(s), rows },
     };
   },
@@ -581,6 +655,12 @@ export const commit = internalMutation({
     const records = s.changes.map((p) => {
       return { p, ...applyPendingChange(s, state, p, crypto.randomUUID()) };
     });
+    const revealed: { pending: DraftReveal; row: Doc<"secrets"> }[] = [];
+    for (const pending of s.reveals ?? [])
+      revealed.push({
+        pending,
+        row: await checkPendingReveal(ctx, campaign, s, pending),
+      });
     const id = await ctx.db.insert("commits", {
       campaign: campaign._id,
       kind: "debrief",
@@ -604,6 +684,8 @@ export const commit = internalMutation({
         },
         r.ids,
       );
+    for (const { pending, row } of revealed)
+      await reveal(ctx, row, pending, { commit: id, session: s._id });
     await ctx.db.patch(s._id, { status: "committed" });
     return { commit: id, draft: draftResult({ ...s, status: "committed" }) };
   },

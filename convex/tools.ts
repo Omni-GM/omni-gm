@@ -106,7 +106,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "debrief_add",
     description:
-      "Add scene changes and the draft briefing to a draft. Invalid changes are rejected individually. A basis of only player_guess/player_plan may touch only a thread or character_goal.",
+      "Add scene changes, reveals of open secrets and the draft briefing to a draft. Invalid changes and reveals are rejected individually. A reveal {secret, scene, learned, sources, whole} records what the players learned of a hidden or partly_revealed secret, at most one per secret in a draft; whole false keeps the unseen rest secret. Write what they learned also as changes. A basis of only player_guess/player_plan may touch only a thread or character_goal.",
     fn: internal.debrief.add,
     identityArg: "caller",
     args: addArgs,
@@ -116,7 +116,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "debrief_drop",
     description:
-      "Drop kept changes from a draft by changeIds. Refuses a drop that leaves invalid retained changes and names them by scene and subject. Returns the draft.",
+      "Drop kept changes or reveals from a draft by their ids in changeIds. Refuses a drop that leaves invalid retained changes and names them by scene and subject. Returns the draft.",
     fn: internal.debrief.drop,
     identityArg: "caller",
     args: dropArgs,
@@ -126,7 +126,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "debrief_commit",
     description:
-      "Apply the draft, append history and keep its briefing as one commit. Refused without a briefing. Only after the game master says the draft is right.",
+      "Apply the draft's changes and reveals, append story and secret history and keep its briefing as one commit, all or nothing. A whole reveal sets its secret revealed, a partial one partly_revealed. Refused without a briefing or when a reveal's secret is no longer hidden or partly_revealed. Only after the game master says the draft is right.",
     fn: internal.debrief.commit,
     identityArg: "caller",
     args: debriefSessionArgs,
@@ -194,6 +194,11 @@ describeInput(
   "debrief_add",
   ["properties", "changes", "items", "properties", "sources"],
   "At least one short verbatim transcript quote, or the game master's own answer. With npc_said identify the NPC in the quote or why.",
+);
+describeInput(
+  "debrief_add",
+  ["properties", "reveals", "items", "properties", "learned"],
+  "Only what the players learned of the secret, in plain words. Never the part the table has not seen.",
 );
 describeInput(
   "session_create",

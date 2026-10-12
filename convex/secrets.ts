@@ -1,8 +1,12 @@
 import { ConvexError, type Infer, v } from "convex/values";
 import { mcpCallerValidator } from "convex-mcp-gateway";
 import type { Doc } from "./_generated/dataModel";
-import { internalMutation, type QueryCtx } from "./_generated/server";
-import { type ReadValue, type Secret, secret } from "./model";
+import {
+  internalMutation,
+  type MutationCtx,
+  type QueryCtx,
+} from "./_generated/server";
+import { type DraftReveal, type ReadValue, type Secret, secret } from "./model";
 import { continuation, position } from "./pagination";
 import { campaignFor } from "./store";
 
@@ -175,6 +179,53 @@ export const write = internalMutation({
     return { commit, secret: after };
   },
 });
+
+export async function secretToReveal(
+  ctx: QueryCtx,
+  campaign: Doc<"campaigns">,
+  ref: string,
+): Promise<Doc<"secrets">> {
+  if (new TextEncoder().encode(ref).length > 200)
+    throw new ConvexError("Keep secret refs within 200 bytes");
+  const row = await secretFor(ctx, campaign, ref);
+  if (row.status !== "hidden" && row.status !== "partly_revealed")
+    throw new ConvexError(
+      "Only a hidden or partly revealed secret can be revealed",
+    );
+  return row;
+}
+
+export async function reveal(
+  ctx: MutationCtx,
+  row: Doc<"secrets">,
+  { whole, scene, learned, sources }: DraftReveal,
+  debrief: { commit: string; session: string },
+): Promise<void> {
+  const before = record(row);
+  const after: Secret = {
+    ...before,
+    status: whole ? "revealed" : "partly_revealed",
+  };
+  await ctx.db.patch(row._id, { status: after.status });
+  const campaign = await ctx.db.get(row.campaign);
+  if (whole && campaign)
+    await ctx.db.patch(campaign._id, {
+      openSecrets: (campaign.openSecrets ?? 0) - 1,
+    });
+  await ctx.db.insert("secretHistory", {
+    campaign: row.campaign,
+    secret: before.id,
+    commit: debrief.commit,
+    op: "reveal",
+    reason: whole ? "Revealed at the table" : "Partly revealed at the table",
+    before,
+    after,
+    session: debrief.session,
+    scene,
+    learned,
+    sources,
+  });
+}
 
 export async function readSecrets(
   ctx: QueryCtx,

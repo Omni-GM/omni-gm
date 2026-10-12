@@ -1,0 +1,34 @@
+Omni-GM  Omni-GM.spec.md
+  trust levels: game master, upload URL holder, visitor, operator, campaign store
+  (no invariants)
+  practices  Omni-GM.practice.md
+  prove a slice red then green  established, version 70cba735, 2 enacted; 5 steps (3 name their evidence), 2 pitfalls
+Convex  convex/Convex.spec.md
+  owner isolation  invariant
+      totality oracle "another owner stays scoped when reusing an MCP transport session and cannot read, edit, upload or download the campaign" over a second signed-in owner reusing the first owner's MCP transport session, calling find, get, transcript_upload_url, debrief_add, debrief_drop, debrief_commit and scenes_set and downloading the transcript, against the first owner's committed debrief: verified 2026-10-12
+      crossing game master -> campaign store
+      kinds read, storage, identity: 13 shapes apply, 1 declared, 12 dismissed
+  secret owner isolation  invariant
+      totality oracle "secret writes and reveals isolate owners and reject invalid or oversized input without recording a commit" over a second signed-in owner reading, changing, fixing and dropping the first owner's secret, drafting and committing a reveal of it in their own debrief and through the first owner's debrief, and linking a secret to the first owner's entity, and the first owner fixing their own secret from the second owner's story commit: verified 2026-10-12
+      crossing game master -> campaign store
+      kinds read, storage, identity: 13 shapes apply, 1 declared, 12 dismissed
+  checklist owner isolation  invariant
+      totality oracle "another owner cannot see or overwrite the checklist, its history or a borrowed continuation" over a second signed-in owner reading the first owner's checklist and its history, replacing it, and following a borrowed continuation: verified 2026-10-12
+      crossing game master -> campaign store
+      kinds read, storage, identity: 13 shapes apply, 1 declared, 12 dismissed
+  session note owner isolation  invariant
+      totality oracle "another owner cannot read, overwrite or spoof the note's owner" over a second signed-in owner reading, overwriting and claiming ownership of the first owner's session note: verified 2026-10-12
+      crossing game master -> campaign store
+      kinds read, storage, identity: 13 shapes apply, 1 declared, 12 dismissed
+  upload page owner isolation  invariant
+      totality oracle "the upload page refuses anonymous visitors and sessions of another owner, and stores the owner's file byte-exact" over an anonymous visitor and a second signed-in owner reading and uploading to the first owner's session through the upload page: verified 2026-10-12
+      crossing game master -> campaign store
+      kinds read, storage, identity: 13 shapes apply, 1 declared, 12 dismissed
+Scripts  scripts/Scripts.spec.md
+  (no invariants)
+  practices  scripts/Scripts.practice.md
+  verify with a real client  candidate, version c164445e, 0 enacted; 4 steps (3 name their evidence), 2 pitfalls
+3 components, 5 bullets: 5 invariants, 0 requirements
+lacking: enforcement 0, refutation 0, kinds 0, checklist 0, because 0; unfilled placeholders 0; 0 problems; latest run 2026-10-12T19:13:31.102Z (19 runs)
+2 practices: 1 established, 1 candidate
+exit 0

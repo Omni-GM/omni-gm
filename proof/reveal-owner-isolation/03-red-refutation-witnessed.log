@@ -1,0 +1,5 @@
+refuted convex/secret owner isolation (totality oracle): secretToReveal in convex/secrets.ts looked the secret up by id across every campaign instead of the caller's
+  the detector went red: 1 of 1 tests under "secret writes and reveals isolate owners and reject invalid or oversized input without recording a commit" failed: secret writes and reveals isolate owners and reject invalid or oversized input without recording a commit
+  recorded in .coherence/runs/22c68aa9-63fa-4794-b65f-b0a24894758c.jsonl at 2026-10-12T19:13:17.417Z
+now restore the code and run: run — the refutation counts as witnessed once a later run finds the same totality oracle passing
+exit 0

@@ -1,0 +1,116 @@
+BASE 926ecb4e3fc70887a2e8dc2c6439f4dd2413e092 (origin/main) plus only tests/reveals.test.ts
+
+ RUN  v4.1.0 /tmp/omnigm-red43
+
+ ❯ tests/reveals.test.ts (4 tests | 1 failed | 3 skipped) 511ms
+   × a debrief commit reveals one secret whole and one in part, with history, next to its story changes 510ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/reveals.test.ts > a debrief commit reveals one secret whole and one in part, with history, next to its story changes
+Error: {"jsonrpc":"2.0","id":8,"result":{"content":[{"type":"text","text":"Tool execution failed"}],"isError":true}}
+ ❯ Object.call tests/mcp-client.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/reveals.test.ts:100:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 skipped (4)
+   Start at  03:10:56
+   Duration  710ms (transform 435ms, setup 0ms, import 101ms, tests 511ms, environment 0ms)
+
+
+BASE 926ecb4e3fc70887a2e8dc2c6439f4dd2413e092 (origin/main) plus only tests/reveals.test.ts
+
+ RUN  v4.1.0 /tmp/omnigm-red43
+
+ ❯ tests/reveals.test.ts (4 tests | 1 failed | 3 skipped) 521ms
+   × a reveal of an unknown, dropped, or other owner's secret is rejected and leaves the draft as it was 520ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/reveals.test.ts > a reveal of an unknown, dropped, or other owner's secret is rejected and leaves the draft as it was
+Error: {"jsonrpc":"2.0","id":9,"result":{"content":[{"type":"text","text":"Tool execution failed"}],"isError":true}}
+ ❯ Object.call tests/mcp-client.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/reveals.test.ts:193:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 skipped (4)
+   Start at  03:10:58
+   Duration  715ms (transform 432ms, setup 0ms, import 96ms, tests 521ms, environment 0ms)
+
+
+BASE 926ecb4e3fc70887a2e8dc2c6439f4dd2413e092 (origin/main) plus only tests/reveals.test.ts
+
+ RUN  v4.1.0 /tmp/omnigm-red43
+
+ ❯ tests/reveals.test.ts (4 tests | 1 failed | 3 skipped) 512ms
+   × a commit applies reveals and changes together or not at all 511ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/reveals.test.ts > a commit applies reveals and changes together or not at all
+Error: {"jsonrpc":"2.0","id":8,"result":{"content":[{"type":"text","text":"Tool execution failed"}],"isError":true}}
+ ❯ Object.call tests/mcp-client.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/reveals.test.ts:220:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 skipped (4)
+   Start at  03:10:59
+   Duration  712ms (transform 432ms, setup 0ms, import 101ms, tests 512ms, environment 0ms)
+
+
+BASE 926ecb4e3fc70887a2e8dc2c6439f4dd2413e092 (origin/main) plus only tests/reveals.test.ts
+
+ RUN  v4.1.0 /tmp/omnigm-red43
+
+ ❯ tests/reveals.test.ts (4 tests | 1 failed | 3 skipped) 509ms
+   × a reveal is dropped like a change, and the commit leaves its secret hidden 508ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/reveals.test.ts > a reveal is dropped like a change, and the commit leaves its secret hidden
+Error: {"jsonrpc":"2.0","id":8,"result":{"content":[{"type":"text","text":"Tool execution failed"}],"isError":true}}
+ ❯ Object.call tests/mcp-client.ts:45:13
+     43|     const response = await rpc("tools/call", { name, arguments: args }…
+     44|     if (response.error || response.result?.isError)
+     45|       throw new Error(JSON.stringify(response));
+       |             ^
+     46|     expect(response.result.structuredContent).toBeDefined();
+     47|     return name === "get"
+ ❯ tests/reveals.test.ts:258:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 skipped (4)
+   Start at  03:11:01
+   Duration  706ms (transform 434ms, setup 0ms, import 99ms, tests 509ms, environment 0ms)
+
+

@@ -23,61 +23,16 @@ tests/mcp.test.ts:713:11 lint/style/useTemplate  FIXABLE  ━━━━━━━�
      715  715 │     expect(failed.status).toBe(400);
   
 
-Checked 68 files in 96ms. No fixes applied.
+Checked 68 files in 57ms. No fixes applied.
 Found 1 info.
 CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
-✔ Configured a local deployment for http://127.0.0.1:3210 and saved its:
-    name as CONVEX_DEPLOYMENT
-    client URL as CONVEX_URL
-    HTTP actions URL as CONVEX_SITE_URL
- to .env.local
-  Added ".env.local" to .gitignore
-
-Write your Convex functions in convex/
-Give us feedback at https://convex.dev/community or support@convex.dev
-View the Convex dashboard at null
-
 ▌ Developing against deployment:
 ▌ [Local] Port 3210 • No Convex account (run npx convex login to link to a project)
 ▌ └─ http://127.0.0.1:3210
 - Preparing Convex functions...
 
 Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
-✔ Added table indexes:
-  [+] adventures.by_campaign   campaign, _creationTime
-  [+] campaigns.by_owner   owner, _creationTime
-  [+] checklists.by_campaign   campaign, _creationTime
-  [+] commits.by_campaign   campaign, _creationTime
-  [+] commits.by_campaign_and_adventure   campaign, adventure, _creationTime
-  [+] commits.by_campaign_and_kind   campaign, kind, _creationTime
-  [+] entities.by_campaign   campaign, _creationTime
-  [+] entities.by_campaign_and_id   campaign, id, _creationTime
-  [+] entities.by_campaign_and_kind   campaign, kind, _creationTime
-  [+] entities.search_text (text)   searchText, filters on campaign, kind
-  [+] entityHistory.by_campaign_and_entity   campaign, entityId, _creationTime
-  [+] history.by_campaign   campaign, _creationTime
-  [+] history.by_campaign_and_commit   campaign, commit, _creationTime
-  [+] history.search_text (text)   searchText, filter on campaign
-  [+] notes.by_campaign_and_session   campaign, session, _creationTime
-  [+] relationships.by_campaign   campaign, _creationTime
-  [+] relationships.by_campaign_and_from   campaign, from, _creationTime
-  [+] relationships.by_campaign_and_to   campaign, to, _creationTime
-  [+] scenes.by_campaign   campaign, _creationTime
-  [+] scenes.by_session   session, _creationTime
-  [+] scenes.search_text (text)   searchText, filter on campaign
-  [+] secretHistory.by_campaign_and_secret   campaign, secret, _creationTime
-  [+] secrets.by_campaign_and_id   campaign, id, _creationTime
-  [+] secrets.by_campaign_and_status   campaign, status, _creationTime
-  [+] sessions.by_campaign   campaign, _creationTime
-  [+] sessions.by_campaign_and_ordinal   campaign, ordinal, _creationTime
-  [+] sessions.by_campaign_and_playedOn   campaign, playedOn, _creationTime
-  [+] uploads.by_session   session, _creationTime
-  [+] uploads.by_token   token, _creationTime
-  [+] utterances.by_campaign   campaign, _creationTime
-  [+] utterances.by_session_and_generation_and_seconds   session, transcriptGeneration, seconds, ordinal, _creationTime
-  [+] utterances.search_text (text)   searchText, filter on campaign
-✔ Installed component mcpGateway.
-✔ 19:07:58 Convex functions ready! (1.79s)
+✔ 19:13:37 Convex functions ready! (435.59ms)
 Finding component definitions...
 Generating server code...
 Bundling component definitions...
@@ -96,6 +51,6 @@ Running TypeScript...
 
 [2m Test Files [22m [1m[32m12 passed[39m[22m[90m (12)[39m
 [2m      Tests [22m [1m[32m110 passed[39m[22m[90m (110)[39m
-[2m   Start at [22m 19:08:06
-[2m   Duration [22m 12.50s[2m (transform 3.88s, setup 0ms, import 2.14s, tests 21.03s, environment 1ms)[22m
+[2m   Start at [22m 19:13:45
+[2m   Duration [22m 12.24s[2m (transform 3.96s, setup 0ms, import 2.36s, tests 20.35s, environment 1ms)[22m
 

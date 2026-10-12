@@ -34,8 +34,8 @@ async function discoverMetadata(
   const metadataUrl = challenge.headers
     .get("www-authenticate")
     ?.match(/resource_metadata="([^"]+)"/)?.[1];
-  if (!metadataUrl) throw new Error("Missing resource_metadata challenge");
-  const metadata = await t.fetch(new URL(metadataUrl).pathname);
+  expect(metadataUrl).toBe(`${site}/.well-known/oauth-protected-resource/mcp`);
+  const metadata = await t.fetch(new URL(String(metadataUrl)).pathname);
   expect(metadata.status).toBe(200);
   return metadata.json();
 }

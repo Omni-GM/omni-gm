@@ -10,13 +10,15 @@ Code against a branch preview is the seam for sign-in.
 follows the `resource_metadata` link in the 401 challenge, and hands the
 metadata to the MCP SDK's `selectResourceURL`, the check Claude Code runs.
 
-- `01-red-resource.log`: the test on the branch before the fix. The metadata
+- `01-red-resource.log`: the test with `convex/oauth.ts` from `main`. The metadata
   names `https://some.convex.site/mcp/` instead of the documented
   `https://some.convex.site/mcp`.
 - `01-green-resource.log`: the same test passes after `oauth:configure` sets the
   gateway's `resourceUrl` override to `<CONVEX_SITE_URL>/mcp`. Both
   registrations get the documented resource and the SDK accepts it.
-- `check.log`: the full gate (`pnpm check`), 110 of 110 tests.
+- `check.log`: the full gate (`pnpm check`), 110 of 110 tests, on the final
+  tree. `scripts/codegen.sh` calls `rg`, which this machine only has as a shell
+  function, so the gate ran with Claude Code's bundled ripgrep on `PATH`.
 - `coherence.log`: `coherence spec --check` and `coherence run`, 5 of 5 pass.
 
 ## Claude Code proof
@@ -34,3 +36,7 @@ metadata to the MCP SDK's `selectResourceURL`, the check Claude Code runs.
   Both URLs reach "Needs authentication".
 - `metadata.log`: the preview's 401 challenge and the metadata on both
   well-known paths, each naming `<site>/mcp`.
+
+## Review
+
+`review-dispositions.md`: one low finding, fixed.

@@ -32,18 +32,18 @@ Scripts  scripts/Scripts.spec.md
 lacking: enforcement 0, refutation 0, kinds 0, checklist 0, because 0; unfilled placeholders 0; 0 problems; latest run 2026-10-12T10:38:16.129Z (12 runs)
 2 practices: 1 established, 1 candidate
 convex/owner isolation
-  totality oracle: pass (1.6 s, one invocation for every test the bullets name); refutation witnessed
+  totality oracle: pass (1.8 s, one invocation for every test the bullets name); refutation witnessed
     1 test under "another owner stays scoped when reusing an MCP transport session and cannot read, edit, upload or download the campaign" passed in one invocation of pnpm exec vitest run -t <5 names> --reporter=json --outputFile=<report>
 convex/secret owner isolation
-  totality oracle: pass (1.6 s, one invocation for every test the bullets name); refutation witnessed
+  totality oracle: pass (1.8 s, one invocation for every test the bullets name); refutation witnessed
     1 test under "secret writes isolate owners and reject invalid or oversized input without recording a commit" passed in one invocation of pnpm exec vitest run -t <5 names> --reporter=json --outputFile=<report>
 convex/checklist owner isolation
-  totality oracle: pass (1.6 s, one invocation for every test the bullets name); refutation witnessed
+  totality oracle: pass (1.8 s, one invocation for every test the bullets name); refutation witnessed
     1 test under "another owner cannot see or overwrite the checklist, its history or a borrowed continuation" passed in one invocation of pnpm exec vitest run -t <5 names> --reporter=json --outputFile=<report>
 convex/session note owner isolation
-  totality oracle: pass (1.6 s, one invocation for every test the bullets name); refutation witnessed
+  totality oracle: pass (1.8 s, one invocation for every test the bullets name); refutation witnessed
     1 test under "another owner cannot read, overwrite or spoof the note's owner" passed in one invocation of pnpm exec vitest run -t <5 names> --reporter=json --outputFile=<report>
 convex/upload page owner isolation
-  totality oracle: pass (1.6 s, one invocation for every test the bullets name); refutation witnessed
+  totality oracle: pass (1.8 s, one invocation for every test the bullets name); refutation witnessed
     1 test under "the upload page refuses anonymous visitors and sessions of another owner, and stores the owner's file byte-exact" passed in one invocation of pnpm exec vitest run -t <5 names> --reporter=json --outputFile=<report>
-run recorded in .coherence/runs/local-57.jsonl: 5 enforcements, 5 pass, 0 fail, 0 not run; instrument typescript (cold); 1.7 s
+run recorded in .coherence/runs/local-57.jsonl: 5 enforcements, 5 pass, 0 fail, 0 not run; instrument typescript (cold); 1.9 s

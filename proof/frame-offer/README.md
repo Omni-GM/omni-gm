@@ -9,6 +9,10 @@ Every fixture, name and decision is invented. No live campaign data is used.
   `frame-talk` and `get` contracts tell it to do with that. No table reads.
 - **Headless agent seam** (`scripts/verify-frame-offer.ts`): a real headless
   client on a branch preview, read back by an independent SDK client.
+- **Verifier seam** (`tests/verify-frame-offer.test.ts`): the transcript
+  checks in `scripts/frame-offer-transcript.ts` pass the recorded run and
+  reject a mandatory offer, a briefing that announces the section walk
+  instead of the stored text, and a frame talk that asks about the finale.
 
 ## Endpoint proof
 
@@ -21,8 +25,11 @@ Every fixture, name and decision is invented. No live campaign data is used.
   `current` (goal, stakes and timeframe set), `stale` (a debrief committed
   since), `current` (a frame edit after the debrief) and `missing` (a
   blank timeframe).
-- `check.log`: the full gate (`pnpm check`) on the final tree, 111 tests,
-  none skipped.
+- `02-red-stored-what-next.log`, `02-green-stored-what-next.log`: after the
+  review, the briefing names its one exception to showing a stored briefing
+  exactly: the What next change, with every other stored line word for word.
+- `check.log`: the full gate (`pnpm check`) on the final tree merged with
+  `main`, 118 tests, none skipped.
 
 ## Headless client proof
 
@@ -45,24 +52,30 @@ store.
 `claude-readback.log` runs `scripts/verify-frame-offer.ts` with a fresh SDK
 client. It checks, from the conversation and the store:
 
-- turn one loads only `briefing`, calls only `skill`, `get` and `find`, shows
-  the stored briefing, and its What next options lead with the short frame
-  talk, with the checklist option after it;
+- turn one loads only `briefing`, calls only `skill`, `get` and `find`, opens
+  with the stored briefing body word for word, and its What next options lead
+  with the recommended short frame talk, never mandatory, with a checklist
+  option after it and no other option marked recommended;
 - the pick loads `frame-talk`; every frame-talk turn asks exactly one
-  question, and no question opens pressure, the finale or where the next
-  session starts;
-- the only writes are `frame_update` calls after the answers; after the last
-  one, `prep-sparring` takes the game master to the first section;
+  question, the three questions cover goal, stakes and timeframe once each,
+  and no question or heading opens an optional topic or asks for an outcome;
+- no turn before the frame is saved loads `prep-sparring` or opens a
+  section; the only writes are `frame_update` calls after the answers; after
+  the last one, `prep-sparring` opens Strong start;
 - the stored frame holds exactly goal, stakes and timeframe in the game
   master's words, every frame commit has a reason, and `currency` is
   `current`;
 - story state, the stored briefing and the checklist are unchanged.
 
-Parsing fixes during the readback never loosened an assertion: the first
-draft searched the whole turn for "pressure" and failed on the agent's
+This run is on the final tree merged with `main`, after the review.
+`pre-review/` keeps the first run, on the procedure text before the review
+fixes; it also passes the current transcript checks.
+
+Parsing fixes during the first readback never loosened an assertion: the
+first draft searched the whole turn for "pressure" and failed on the agent's
 explanation ("when we measure pressure in prep"); the check now reads the
-question sentence. The field checks compare the game master's full phrases
-and allow a capital at the start of the sentence. This is one
+question sentence and the turn's headings. The field checks compare the game
+master's full phrases and allow a capital at the start of the sentence. This is one
 model-behavior proof, not a guarantee that every model follows a skill.
 
 The stale case is endpoint coverage only; the headless run proves the
@@ -92,5 +105,5 @@ four remaining inputs in order. The private MCP config holds only the
 preview URL and its bearer token and is removed after use. Publish each turn
 as its game-master input, assistant text, tool calls, tool results and the
 result, without thinking, usage or session identifiers, as `claude.jsonl`,
-then run `pnpm exec tsx scripts/verify-frame-offer.ts`. The preview was
-deleted after the readback.
+then run `pnpm exec tsx scripts/verify-frame-offer.ts`. Both previews were
+deleted after their readback.

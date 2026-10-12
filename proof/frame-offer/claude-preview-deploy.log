@@ -1,9 +1,9 @@
-SOURCE COMMIT 19ffce8902660226fdf88aae7c181a2d521082bb
+SOURCE COMMIT c2741727aab86088d57c04344d23b3fc8e21470b
 SOURCE BRANCH feat/frame-offer-before-section-walk
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/feat-frame-offer-headless-1 (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/deafening-lyrebird-493)
-▌ └─ https://deafening-lyrebird-493.convex.cloud
-- Deploying to https://deafening-lyrebird-493.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/feat-frame-offer-headless-2 (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/uncommon-penguin-937)
+▌ └─ https://uncommon-penguin-937.convex.cloud
+- Deploying to https://uncommon-penguin-937.convex.cloud...
 
 ✔ Added table indexes:
   [+] adventures.by_campaign   campaign, _creationTime
@@ -39,4 +39,4 @@ SOURCE BRANCH feat/frame-offer-before-section-walk
   [+] utterances.by_session_and_generation_and_seconds   session, transcriptGeneration, seconds, ordinal, _creationTime
   [+] utterances.search_text (text)   searchText, filter on campaign
 ✔ Installed component mcpGateway.
-✔ Deployed Convex functions to https://deafening-lyrebird-493.convex.cloud
+✔ Deployed Convex functions to https://uncommon-penguin-937.convex.cloud

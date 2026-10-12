@@ -1,0 +1,49 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-impl41
+
+ ❯ tests/reference-sessions.test.ts (2 tests | 1 failed) 533ms
+   × reference sessions refuse every scene and debrief operation while keeping their transcript 25ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/reference-sessions.test.ts > reference sessions refuse every scene and debrief operation while keeping their transcript
+AssertionError: promise resolved "{ …(7) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "adventure": "0000000000000000010002adventures",
++   "id": "000000000000000000010003sessions",
++   "lastTime": "",
++   "ordinal": 1,
++   "playedOn": "2026-01-03",
++   "scenes": [
++     {
++       "place": "River",
++       "start": "00:01:10",
++       "summary": "Crossing",
++       "title": "The ferry",
++     },
++   ],
++   "status": "reference",
+  }
+
+ ❯ tests/reference-sessions.test.ts:106:6
+    104|     await expect(
+    105|       c.call(name, { session: reference.id, ...args }),
+    106|     ).rejects.toThrow(/Reference sessions/);
+       |      ^
+    107|   }
+    108|   expect(await c.call("get", { ref: `session:${reference.id}` })).toEq…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  19:13:40
+   Duration  729ms (transform 404ms, setup 0ms, import 96ms, tests 533ms, environment 0ms)
+

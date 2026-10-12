@@ -1,0 +1,8 @@
+▌ Deploying code to deployment:
+▌ [Preview] omni-gm:omni-gm:preview/reference-sessions-41-r4 (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/beloved-caribou-152)
+▌ └─ https://beloved-caribou-152.convex.cloud
+- Deploying to https://beloved-caribou-152.convex.cloud...
+
+✔ Added table indexes:
+  [+] sessions.by_campaign_and_playedOn   campaign, playedOn, _creationTime
+✔ Deployed Convex functions to https://beloved-caribou-152.convex.cloud

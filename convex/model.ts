@@ -270,7 +270,11 @@ export const sessionInfo = v.object({
   playedOn: v.string(),
   ordinal: v.number(),
   scenes: v.array(scene),
-  status: v.union(v.literal("draft"), v.literal("committed")),
+  status: v.union(
+    v.literal("draft"),
+    v.literal("committed"),
+    v.literal("reference"),
+  ),
 });
 export const storedBriefing = v.object({
   session: v.string(),
@@ -354,6 +358,7 @@ export const readValue = v.union(
   v.object({
     adventures: v.array(adventure),
     sessions: v.array(sessionInfo),
+    latestSession: v.union(sessionInfo, v.null()),
     commits: v.array(commit),
     openSecrets: v.number(),
     currentAdventure: v.union(v.string(), v.null()),

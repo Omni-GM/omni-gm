@@ -1,0 +1,223 @@
+{
+  "overview": {
+    "adventures": [
+      {
+        "id": "j572mzwh852ct80c8sfyvjgxps8g46et",
+        "name": "The Copper Ferry",
+        "reason": "Invented older-transcript proof"
+      }
+    ],
+    "briefing": {
+      "commit": "jh7f7xfa2gccv30ktz87djejw58g4e5b",
+      "correctionsSince": [],
+      "session": "kh76jtbzxhg43jydd2q3gyejks8g5tne",
+      "text": "The party camps at the copper ferry [00:00:10]. The old ferry duty roster names Rook [00:01:00]. Next: 1. Walk the strong start. 2. Check the frame."
+    },
+    "commits": [
+      {
+        "id": "jh7ej8gn00g2tw0q4eq7cjzw6x8g5vhp",
+        "kind": "checklist",
+        "reason": "The game master's invented checklist for this proof"
+      },
+      {
+        "id": "jh723g09a6vvnm4rqzza44c3dn8g5acd",
+        "kind": "frame",
+        "reason": "Invented prep frame"
+      },
+      {
+        "id": "jh7f7xfa2gccv30ktz87djejw58g4e5b",
+        "kind": "debrief",
+        "reason": "Commit reviewed debrief",
+        "session": "kh76jtbzxhg43jydd2q3gyejks8g5tne"
+      },
+      {
+        "id": "jh77pnjhagb899kseh1c1mvmjh8g5ddg",
+        "kind": "seed",
+        "reason": "Apply starter schema"
+      }
+    ],
+    "currentAdventure": "j572mzwh852ct80c8sfyvjgxps8g46et",
+    "frame": {
+      "adventure": "j572mzwh852ct80c8sfyvjgxps8g46et",
+      "fields": {
+        "goal": "Cross the river",
+        "next_session_starts": "At the camp",
+        "stakes": "The party needs the ferry",
+        "timeframe": "Tonight"
+      },
+      "name": "The Copper Ferry"
+    },
+    "latestSession": {
+      "adventure": "j572mzwh852ct80c8sfyvjgxps8g46et",
+      "id": "kh76jtbzxhg43jydd2q3gyejks8g5tne",
+      "ordinal": 1,
+      "playedOn": "2026-03-07",
+      "scenes": [
+        {
+          "place": "Copper ferry",
+          "start": "00:00:10",
+          "summary": "The party camps and recalls the keeper's name.",
+          "title": "The ferry camp"
+        }
+      ],
+      "status": "committed"
+    },
+    "openSecrets": 0,
+    "sessions": [
+      {
+        "adventure": "j572mzwh852ct80c8sfyvjgxps8g46et",
+        "id": "kh76jtbzxhg43jydd2q3gyejks8g5tne",
+        "ordinal": 1,
+        "playedOn": "2026-03-07",
+        "scenes": [
+          {
+            "place": "Copper ferry",
+            "start": "00:00:10",
+            "summary": "The party camps and recalls the keeper's name.",
+            "title": "The ferry camp"
+          }
+        ],
+        "status": "committed"
+      },
+      {
+        "adventure": "j572mzwh852ct80c8sfyvjgxps8g46et",
+        "id": "kh7ek6vy2tvr224ebvn89nbb158g4e1w",
+        "ordinal": 2,
+        "playedOn": "2026-01-03",
+        "scenes": [],
+        "status": "reference"
+      }
+    ]
+  },
+  "entities": [
+    {
+      "aliases": [],
+      "history": [
+        {
+          "after": {
+            "aliases": [],
+            "id": "ba343df2-2b68-4fe7-a31b-e13dd16425a2",
+            "kind": "npc",
+            "name": "Rook",
+            "properties": {
+              "role": "Old ferry keeper"
+            }
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "kind": "npc",
+            "name": "Rook",
+            "op": "new",
+            "properties": {
+              "role": "Old ferry keeper"
+            }
+          },
+          "commit": "jh7f7xfa2gccv30ktz87djejw58g4e5b",
+          "scene": 1,
+          "session": "kh76jtbzxhg43jydd2q3gyejks8g5tne",
+          "sources": [
+            {
+              "at": "00:01:00",
+              "quote": "The old ferry duty roster names Rook."
+            }
+          ],
+          "why": "Keep the keeper's name"
+        }
+      ],
+      "id": "ba343df2-2b68-4fe7-a31b-e13dd16425a2",
+      "kind": "npc",
+      "name": "Rook",
+      "nextCursor": null,
+      "properties": {
+        "role": "Old ferry keeper"
+      },
+      "relationships": [],
+      "truncated": false
+    },
+    {
+      "aliases": [],
+      "history": [
+        {
+          "after": {
+            "aliases": [],
+            "id": "44e1ac93-fb99-4c92-92bf-6fb889fb142e",
+            "kind": "place",
+            "name": "Copper ferry",
+            "properties": {
+              "detailsShown": "The party's camp"
+            }
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "kind": "place",
+            "name": "Copper ferry",
+            "op": "new",
+            "properties": {
+              "detailsShown": "The party's camp"
+            }
+          },
+          "commit": "jh7f7xfa2gccv30ktz87djejw58g4e5b",
+          "scene": 1,
+          "session": "kh76jtbzxhg43jydd2q3gyejks8g5tne",
+          "sources": [
+            {
+              "at": "00:00:10",
+              "quote": "The party camps at the copper ferry."
+            }
+          ],
+          "why": "Keep the camp"
+        }
+      ],
+      "id": "44e1ac93-fb99-4c92-92bf-6fb889fb142e",
+      "kind": "place",
+      "name": "Copper ferry",
+      "nextCursor": null,
+      "properties": {
+        "detailsShown": "The party's camp"
+      },
+      "relationships": [],
+      "truncated": false
+    }
+  ],
+  "checklist": {
+    "checklist": {
+      "sections": [
+        {
+          "definition": "An opening situation I can run at the table.",
+          "name": "Strong start"
+        }
+      ],
+      "template": "# Next session\n## Strong start\n"
+    },
+    "history": [
+      {
+        "after": {
+          "sections": [
+            {
+              "definition": "An opening situation I can run at the table.",
+              "name": "Strong start"
+            }
+          ],
+          "template": "# Next session\n## Strong start\n"
+        },
+        "before": null,
+        "commit": "jh7ej8gn00g2tw0q4eq7cjzw6x8g5vhp",
+        "reason": "The game master's invented checklist for this proof"
+      }
+    ],
+    "nextCursor": null,
+    "truncated": false
+  },
+  "secrets": {
+    "nextCursor": "{\"scope\":\"[\\\"j976v65wt0j85tqj4k8w89gg9x8g517c\\\",\\\"secrets\\\"]\",\"stream\":1,\"cursor\":null,\"seen\":0}",
+    "secrets": [],
+    "truncated": true,
+    "writtenSinceDebrief": []
+  }
+}

@@ -9,6 +9,7 @@ import {
 } from "./_generated/server";
 import {
   adventure,
+  type frameCurrency,
   frameFields,
   frameUpdateResult,
   type ReadValue,
@@ -193,6 +194,27 @@ export const getResult = v.object({
   value: v.union(readValue, v.null()),
   items: v.optional(v.array(v.object({ ref: v.string(), value: readValue }))),
 });
+const frameCore = ["goal", "stakes", "timeframe"] as const;
+async function frameCurrencyFor(
+  ctx: QueryCtx,
+  adventure: Doc<"adventures">,
+  latestDebrief: Doc<"commits"> | null,
+): Promise<Infer<typeof frameCurrency>> {
+  if (frameCore.some((field) => !adventure.frame?.[field]?.trim()))
+    return "missing";
+  if (!latestDebrief) return "current";
+  const changedSinceDebrief = await ctx.db
+    .query("commits")
+    .withIndex("by_campaign_and_adventure", (q) =>
+      q
+        .eq("campaign", adventure.campaign)
+        .eq("adventure", adventure._id)
+        .gt("_creationTime", latestDebrief._creationTime),
+    )
+    .filter((q) => q.eq(q.field("kind"), "frame"))
+    .first();
+  return changedSinceDebrief ? "current" : "stale";
+}
 async function storedBriefing(
   ctx: QueryCtx,
   campaign: Id<"campaigns">,
@@ -365,6 +387,7 @@ async function read(
             adventure: current._id,
             name: current.name,
             fields: current.frame ?? {},
+            currency: await frameCurrencyFor(ctx, current, latestDebrief),
           }
         : null,
       briefing: latestDebrief

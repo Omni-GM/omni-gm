@@ -57,6 +57,9 @@ The operator's tooling: end-to-end walks and real-client verifications run again
 - verify debrief briefing: the operator verifies a debrief's briefing with a real client
   handler: verify-debrief-briefing.ts
   trust: operator
+- verify frame offer: the operator verifies prep's frame offer with a real client
+  handler: verify-frame-offer.ts
+  trust: operator
 - verify frame talk: the operator verifies frame talk with a real client
   handler: verify-frame-talk.ts
   trust: operator

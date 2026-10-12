@@ -1,0 +1,686 @@
+{
+  "version": 1,
+  "concepts": [
+    {
+      "name": "world",
+      "definition": "The game master's own persistent setting. Several campaigns play out in the same world over the years.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "universe",
+          "because": "GLOSSARY.md listed it to avoid for world"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "Setting: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "NPC",
+      "definition": "A character the game master plays, either prepared ahead or invented at the table.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "non-player character",
+          "because": "GLOSSARY.md listed it to avoid for NPC"
+        },
+        {
+          "alternative": "side character",
+          "because": "GLOSSARY.md listed it to avoid for NPC"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7"
+      }
+    },
+    {
+      "name": "adventure frame",
+      "definition": "The game master's intent for the current adventure: its goal, stakes, timeframe, pressure, and finale, and how it moves the main plot forward. It is intent, not story state.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "adventure plan",
+          "because": "GLOSSARY.md listed it to avoid for adventure frame"
+        },
+        {
+          "alternative": "arc",
+          "because": "GLOSSARY.md listed it to avoid for adventure frame"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "outline: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "adventure",
+      "definition": "A self-contained story inside a campaign, a few sessions long, with clear stakes, a clear timeframe, and a finale.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "arc",
+          "because": "GLOSSARY.md listed it to avoid for adventure"
+        },
+        {
+          "alternative": "chapter",
+          "because": "GLOSSARY.md listed it to avoid for adventure"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "module: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "basis",
+      "definition": "Where a story-state change comes from: narrated by the game master, said by an NPC, a rumor, a player guess, a player plan, or the game master's own answer. It keeps facts apart from claims and guesses.",
+      "status": "settled",
+      "rejected": [],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "Source type, confidence: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "briefing",
+      "definition": "The one-page, plot-first digest that opens prep, generated from the story state and the adventure frame: where the party stands, the threads that pull, the NPCs in play and what they want, the clocks and pressure, and a few off-screen moves or complications to pick from.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "dossier",
+          "because": "GLOSSARY.md listed it to avoid for briefing"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "report, digest: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "campaign",
+      "definition": "A long series of sessions with one group of players in the world, carried by one main plot.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "chronicle",
+          "because": "GLOSSARY.md listed it to avoid for campaign"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "Game: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "character goal",
+      "definition": "What a player wants for their player character, which the game master ties into the story.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "player plot",
+          "because": "GLOSSARY.md listed it to avoid for character goal"
+        },
+        {
+          "alternative": "personal quest",
+          "because": "GLOSSARY.md listed it to avoid for character goal"
+        },
+        {
+          "alternative": "backstory hook",
+          "because": "GLOSSARY.md listed it to avoid for character goal"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7"
+      }
+    },
+    {
+      "name": "clock",
+      "definition": "A track that counts down or fills up toward an event, either shown to the players or kept by the game master.",
+      "status": "settled",
+      "rejected": [],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "Timer, countdown, counter: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "debrief",
+      "definition": "The step after a session that turns what happened at the table into changes to the story state. Each change carries the scene it happened in and why, and all changes from one session are recorded together.",
+      "status": "settled",
+      "rejected": [],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "Import, sync, update: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "encounter",
+      "definition": "A prepared fight: its opponents, their stat blocks, and the place it happens.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "combat",
+          "because": "GLOSSARY.md listed it to avoid for encounter"
+        },
+        {
+          "alternative": "battle",
+          "because": "GLOSSARY.md listed it to avoid for encounter"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7"
+      }
+    },
+    {
+      "name": "faction",
+      "definition": "A group or power in the world with its own goal, which acts whether or not the players are present.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "power group",
+          "because": "GLOSSARY.md listed it to avoid for faction"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "Organization: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "fizzle",
+      "definition": "A campaign losing momentum until it stalls: players no longer see progress, and the game master loses the energy to prep it.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "burnout",
+          "because": "GLOSSARY.md listed it to avoid for fizzle"
+        },
+        {
+          "alternative": "campaign death",
+          "because": "GLOSSARY.md listed it to avoid for fizzle"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7"
+      }
+    },
+    {
+      "name": "frame talk",
+      "definition": "The conversation in which the AI asks, grounded in the story state, and the game master writes or updates the adventure frame. It runs when a new adventure starts, or briefly when the briefing flags frame fields that the last session put in question.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "planning session",
+          "because": "GLOSSARY.md listed it to avoid for frame talk"
+        },
+        {
+          "alternative": "frame interview",
+          "because": "GLOSSARY.md listed it to avoid for frame talk"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7"
+      }
+    },
+    {
+      "name": "idea",
+      "definition": "A loose thought for the campaign that comes to the game master between sessions, before it has a place in prep.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "inspiration",
+          "because": "GLOSSARY.md listed it to avoid for idea"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "Note: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "main plot",
+      "definition": "The story that spans a whole campaign and that its adventures move forward.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "metaplot",
+          "because": "GLOSSARY.md listed it to avoid for main plot"
+        },
+        {
+          "alternative": "overarching story",
+          "because": "GLOSSARY.md listed it to avoid for main plot"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7"
+      }
+    },
+    {
+      "name": "off-screen move",
+      "definition": "Something a faction does between sessions while the players are elsewhere, together with its effect on the world.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "background event",
+          "because": "GLOSSARY.md listed it to avoid for off-screen move"
+        },
+        {
+          "alternative": "downtime action",
+          "because": "GLOSSARY.md listed it to avoid for off-screen move"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7"
+      }
+    },
+    {
+      "name": "pitch",
+      "definition": "A short idea the AI offers during prep, such as a scene, a twist, or an off-screen move, built on named story-state facts and framed as a situation, never an outcome. The game master picks, reshapes, or ignores it; an ignored pitch leaves no trace.",
+      "status": "settled",
+      "rejected": [],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "Suggestion, proposal, draft: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "plank question",
+      "definition": "One targeted question the AI asks during prep when the main plot has a gap in the story state. The answer becomes a secret, unless it corrects what the table already saw.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "backfill",
+          "because": "GLOSSARY.md listed it to avoid for plank question"
+        },
+        {
+          "alternative": "lore interview",
+          "because": "GLOSSARY.md listed it to avoid for plank question"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7"
+      }
+    },
+    {
+      "name": "player character",
+      "definition": "A character played by one of the players.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "PC",
+          "because": "GLOSSARY.md listed it to avoid for player character"
+        },
+        {
+          "alternative": "hero",
+          "because": "GLOSSARY.md listed it to avoid for player character"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7"
+      }
+    },
+    {
+      "name": "prep checklist",
+      "definition": "The game master's own ordered list of prep sections, such as strong start, scenes, or secrets and clues, each with its definition in their words. A section's definition decides what a good entry, and a good pitch, looks like for it.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "prep template",
+          "because": "GLOSSARY.md listed it to avoid for prep checklist"
+        },
+        {
+          "alternative": "prep steps",
+          "because": "GLOSSARY.md listed it to avoid for prep checklist"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7"
+      }
+    },
+    {
+      "name": "prep sparring",
+      "definition": "The part of prep after the briefing: the AI walks the game master's own prep checklist, opening each section with the facts that matter for it and offering pitches, and assembles the session note from the game master's decisions only.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "co-writing",
+          "because": "GLOSSARY.md listed it to avoid for prep sparring"
+        },
+        {
+          "alternative": "prep assistant",
+          "because": "GLOSSARY.md listed it to avoid for prep sparring"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7"
+      }
+    },
+    {
+      "name": "prep",
+      "definition": "The game master's work between two sessions to get ready for the next one.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "preparation",
+          "because": "GLOSSARY.md listed it to avoid for prep"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "planning: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "pressure",
+      "definition": "The urgency that pushes the players toward the main plot, usually from a clock or a threat, alternating with moments of release.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "tension",
+          "because": "GLOSSARY.md listed it to avoid for pressure"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "stakes: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "recap",
+      "definition": "The opening text the game master reads to the players at the start of a session to remind them of the story so far.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "previously-on",
+          "because": "GLOSSARY.md listed it to avoid for recap"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "Summary: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "recording",
+      "definition": "The audio captured during a session.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "voice memo",
+          "because": "GLOSSARY.md listed it to avoid for recording"
+        },
+        {
+          "alternative": "audio log",
+          "because": "GLOSSARY.md listed it to avoid for recording"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7"
+      }
+    },
+    {
+      "name": "reveal",
+      "definition": "The moment the table learns part or all of a secret during a session. What the players learned becomes story state; the part they have not seen stays a secret.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "disclosure",
+          "because": "GLOSSARY.md listed it to avoid for reveal"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "discovery: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "reward",
+      "definition": "Loot and items the players can gain in a session.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "treasure",
+          "because": "GLOSSARY.md listed it to avoid for reward"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "drops: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "scene",
+      "definition": "One continuous part of a session, in one place and situation. Sessions break down into scenes, and what changes in the story state is tied to the scene where it happened.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "beat",
+          "because": "GLOSSARY.md listed it to avoid for scene"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "Encounter: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "secret",
+      "definition": "Background the game master has decided but the table has not yet seen, such as who a villain really was. It is the game master's intent, open to change at any time, and becomes story state only once it is revealed at the table or the game master declares it fixed.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "lore",
+          "because": "GLOSSARY.md listed it to avoid for secret"
+        },
+        {
+          "alternative": "hidden fact",
+          "because": "GLOSSARY.md listed it to avoid for secret"
+        },
+        {
+          "alternative": "GM canon",
+          "because": "GLOSSARY.md listed it to avoid for secret"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7"
+      }
+    },
+    {
+      "name": "session note",
+      "definition": "The game master's document for one session: the prep before it, and the notes and summary after it.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "session log",
+          "because": "GLOSSARY.md listed it to avoid for session note"
+        },
+        {
+          "alternative": "prep doc",
+          "because": "GLOSSARY.md listed it to avoid for session note"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7"
+      }
+    },
+    {
+      "name": "session summary",
+      "definition": "A scene-by-scene digest of what happened in a session, focused on the plot points that matter for the story.",
+      "status": "settled",
+      "rejected": [],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "Recap, minutes: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "session",
+      "definition": "One meeting of the group at the table.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "episode",
+          "because": "GLOSSARY.md listed it to avoid for session"
+        },
+        {
+          "alternative": "game night",
+          "because": "GLOSSARY.md listed it to avoid for session"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7"
+      }
+    },
+    {
+      "name": "story state",
+      "definition": "The current truth of the world and the campaign as of the last session: open threads, NPCs as they were played, places, world facts, clocks, faction positions, and character goals. It records what happened, not what the game master intends for the main plot or the next adventure.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "campaign state",
+          "because": "GLOSSARY.md listed it to avoid for story state"
+        },
+        {
+          "alternative": "world state",
+          "because": "GLOSSARY.md listed it to avoid for story state"
+        },
+        {
+          "alternative": "canon",
+          "because": "GLOSSARY.md listed it to avoid for story state"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7"
+      }
+    },
+    {
+      "name": "strong start",
+      "definition": "The opening scene that drops the players straight into action at the start of a session.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "cold open",
+          "because": "GLOSSARY.md listed it to avoid for strong start"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "hook: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "thread",
+      "definition": "An open story element that the players could follow: a lead, a promise, an unanswered question.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "loose end",
+          "because": "GLOSSARY.md listed it to avoid for thread"
+        },
+        {
+          "alternative": "plotline",
+          "because": "GLOSSARY.md listed it to avoid for thread"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "Hook: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "transcript",
+      "definition": "The verbatim text of a recording, with speakers attributed.",
+      "status": "settled",
+      "rejected": [],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "Log, protocol: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "world entry",
+      "definition": "A lasting page for one NPC, place, or faction of the world, kept apart from any single session.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "wiki page",
+          "because": "GLOSSARY.md listed it to avoid for world entry"
+        },
+        {
+          "alternative": "lore note",
+          "because": "GLOSSARY.md listed it to avoid for world entry"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7",
+        "also_avoided": "codex entry: avoided in GLOSSARY.md, not rejected because the word is in ordinary use in code or prose or names another concept"
+      }
+    },
+    {
+      "name": "world fact",
+      "definition": "Something the table established as true about the world that does not belong to one NPC or place, such as a custom, a law, or a past event.",
+      "status": "settled",
+      "rejected": [
+        {
+          "alternative": "lore",
+          "because": "GLOSSARY.md listed it to avoid for world fact"
+        },
+        {
+          "alternative": "canon",
+          "because": "GLOSSARY.md listed it to avoid for world fact"
+        }
+      ],
+      "provenance": {
+        "defined_by": "owner, GLOSSARY.md",
+        "migrated": "2026-10-12, decision d-a186a2a7"
+      }
+    },
+    {
+      "name": "skill",
+      "definition": "A named procedure the server hands an AI client, such as debrief, briefing, frame-talk or prep-sparring, which the client loads before it runs that step of the game master's work."
+    },
+    {
+      "name": "schema",
+      "definition": "The campaign's own rules for story state: its entity kinds, their properties and enums, and the relationship types and their endpoints. The game master changes it only on explicit request, and every change records its reason."
+    }
+  ]
+}

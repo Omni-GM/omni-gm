@@ -64,11 +64,23 @@ async function snapshot() {
     { types: ["entity"], limit: 200 },
   );
   assert(!entities.truncated);
+  const secretPages = [];
+  let cursor: string | undefined;
+  do {
+    const page = (
+      await call<{ value: { nextCursor: string | null } }>("get", {
+        ref: "secrets",
+        ...(cursor ? { cursor } : {}),
+      })
+    ).value;
+    secretPages.push(page);
+    cursor = page.nextCursor ?? undefined;
+  } while (cursor);
   return {
     overview,
     entities: await Promise.all(entities.hits.map((hit) => get(hit.ref))),
     checklist: await get("checklist"),
-    secrets: await get("secrets"),
+    secrets: secretPages,
   };
 }
 try {
@@ -225,6 +237,12 @@ try {
       `${proof}/before.json`,
       `${JSON.stringify(await snapshot(), null, 2)}\n`,
     );
+  } else if (process.argv.includes("--snapshot")) {
+    await writeFile(
+      `${proof}/before.json`,
+      `${JSON.stringify(await snapshot(), null, 2)}\n`,
+    );
+    console.log("PASS captured the pre-headless state with every secrets page");
   } else if (process.argv.includes("--verify")) {
     const events = (await readFile(`${proof}/claude.jsonl`, "utf8"))
       .trim()
@@ -268,6 +286,28 @@ try {
       "The section walk reads its stored checklist",
     );
     const before = JSON.parse(await readFile(`${proof}/before.json`, "utf8"));
+    const storyRead = calls.findIndex(
+      (c) =>
+        c.name.endsWith("__get") &&
+        JSON.stringify(c.input).includes(
+          `entity:${before.entities.find((e: { name: string }) => e.name === "Rook").id}`,
+        ),
+    );
+    assert(storyRead >= 0, "Rook's committed entity and history were read");
+    assert(
+      calls
+        .slice(0, storyRead)
+        .every(
+          (c) =>
+            !(
+              c.name.endsWith("__find") &&
+              c.input.query &&
+              (!Array.isArray(c.input.types) ||
+                c.input.types.includes("transcript"))
+            ),
+        ),
+      "No mixed or transcript search before checking committed story state",
+    );
     const lookup = calls.findIndex(
       (c) =>
         c.name.endsWith("__find") &&
@@ -331,7 +371,7 @@ try {
       "PASS fresh MCP readback: story state, session records, commits, frame, briefing, checklist and secrets unchanged",
     );
     console.log("HEADLESS OLDER-TRANSCRIPT CONTRADICTION PASSED");
-  } else throw new Error("Use --base, --reference or --verify");
+  } else throw new Error("Use --base, --reference, --snapshot or --verify");
 } finally {
   await client.close();
 }

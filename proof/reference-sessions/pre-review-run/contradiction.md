@@ -1,0 +1,1 @@
+**Conflict:** your start has Rook alive and guarding the ferry, but an older session says: "Rook dies when the ferry chain snaps. You bury him beside the landing." [S2 00:04:00, played 2026-01-03, kept for reference only]. Right after that, Tamsin said: "We should find a new keeper." [S2 00:05:00]

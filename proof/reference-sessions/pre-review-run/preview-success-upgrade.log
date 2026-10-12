@@ -1,0 +1,8 @@
+▌ Deploying code to deployment:
+▌ [Preview] omni-gm:omni-gm:preview/reference-sessions-41-r3 (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/peaceful-blackbird-827)
+▌ └─ https://peaceful-blackbird-827.convex.cloud
+- Deploying to https://peaceful-blackbird-827.convex.cloud...
+
+✔ Added table indexes:
+  [+] sessions.by_campaign_and_playedOn   campaign, playedOn, _creationTime
+✔ Deployed Convex functions to https://peaceful-blackbird-827.convex.cloud

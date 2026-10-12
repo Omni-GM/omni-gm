@@ -25,14 +25,26 @@ makes an agent do. Neither inspects tables or calls internal functions.
     entity does not exist, and the secret history only has write and drop;
   - `debrief_drop` drops a reveal by its id like a change, and the commit then
     leaves the secret hidden with only its write in history.
-- `check.log`: the full gate (`pnpm check`) on the final tree.
+- `02-red-stale-reveal.log` and `02-green-stale-reveal.log`: the review
+  found that a reveal drafted before `secret_write change` widened its secret
+  would still close the wider secret. The new test fails on the branch before
+  the fix (the commit goes through) and passes after it: each draft reveal
+  records `secretVersion`, the secret's latest history commit when it was
+  drafted, and `debrief_commit` refuses when the secret changed since, leaving
+  the secret `hidden` with its new text and `openSecrets` unchanged.
+- `check.log`: the full gate (`pnpm check`) on the final tree, merged with
+  `main` after #55; `coherence spec --check` passes there too.
 
 ## Headless client proof
 
-`preview-deploy.log` names the source commit, the merge of this branch with
-`main` after #42, #44 and #50 landed, and a fresh staging branch preview. The
-same run on the branch before that merge is kept in `pre-merge/`; it passed
-the same readback. `seed.log` seeds it with `scripts/reveals-e2e.ts`: an adventure, one
+`preview-deploy.log` names the source commit, the final tree merged with
+`main` after #55, and a fresh staging branch preview. Earlier runs are kept:
+`pre-merge/` (before merging #42, #44 and #50) and `pre-review/` (after that
+merge, before the review fixes) passed the readback as it was then.
+`rejected-attempt-2/` failed it: after the review's stronger checks, the model
+noted Coll's secret as unconfirmed but asked only about the knife's crest,
+never whether the secret counts as revealed. The debrief procedure now asks
+every unsure reveal as its own question, and the final run passes. `seed.log` seeds it with `scripts/reveals-e2e.ts`: an adventure, one
 session, the invented 24-line transcript `fixtures/reveals-session.txt`, and
 the three hidden secrets of `fixtures/reveals-secrets.json`:
 
@@ -64,8 +76,9 @@ checks, from the conversation and the store:
   listed in `get secrets` with her full text, Coll `hidden` with only its
   write; both reveals carry the debrief commit, session, scene, `learned` and
   sources in their history, and `openSecrets` is 2;
-- what the players learned of both secrets is committed story state on the
-  same transcript lines, no entity holds the unseen rest, and the stored
+- what the players learned of both secrets is a committed story change on
+  the reveal's transcript lines that names its subject and states the fact
+  (the poisoning; Wenna's orders or signal), not on a guess basis, no entity holds the unseen rest, and the stored
   briefing names it only on a line marked "(secret)".
 
 This is one model-behavior proof, not a guarantee that every model follows a
@@ -86,4 +99,4 @@ secret is `partly_revealed` with its reveal on the debrief commit.
 with `--preview-create`. That replaced the preview with a new, empty
 deployment instead of upgrading it, so it proves nothing and was redone.
 
-All three previews were deleted after their proof.
+Every preview of this ticket was deleted after its proof.

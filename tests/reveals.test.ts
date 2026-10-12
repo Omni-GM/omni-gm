@@ -1,11 +1,10 @@
 import { expect, test } from "vitest";
 import { client } from "./mcp-client";
-
-const briefing = `Where the party stands
-On the salt road at dusk [00:01:10].
-
-What next
-1. Go to the first checklist section (recommended).`;
+import {
+  saltRoadBriefing,
+  saltRoadSession,
+  tobinNamesTheAbbess,
+} from "./salt-road";
 
 async function debriefWithSecrets(c = client()) {
   await c.init();
@@ -13,34 +12,7 @@ async function debriefWithSecrets(c = client()) {
     name: "The Salt Road",
     reason: "Invented reveal proof",
   });
-  const s = await c.call("session_create", { playedOn: "2026-02-07" });
-  const { url } = await c.call("transcript_upload_url", { session: s.id });
-  await c.t.fetch(new URL(url).pathname + new URL(url).search, {
-    method: "PUT",
-    body: [
-      "[00:01:10] GM as Tobin Marsh: The toll was raised by the abbess herself.",
-      "[00:02:20] Ilse: So the abbey owns the road now?",
-      "[00:03:30] GM: Behind the altar you find a ledger stamped with a heron.",
-      "",
-    ].join("\n"),
-  });
-  await c.call("scenes_set", {
-    session: s.id,
-    scenes: [
-      {
-        title: "The toll gate",
-        start: "00:01:10",
-        place: "Salt road",
-        summary: "Tobin names the abbess.",
-      },
-      {
-        title: "The abbey",
-        start: "00:03:30",
-        place: "Abbey of the Heron",
-        summary: "The party finds the ledger.",
-      },
-    ],
-  });
+  const session = await saltRoadSession(c);
   const write = async (text: string) =>
     (
       await c.call("secret_write", {
@@ -55,7 +27,7 @@ async function debriefWithSecrets(c = client()) {
   const ledger = await write(
     "The heron ledger lists every bribed toll-keeper.",
   );
-  return { c, session: s.id as string, abbess, ledger };
+  return { c, session, abbess, ledger };
 }
 
 async function openSecrets(c: ReturnType<typeof client>) {
@@ -69,24 +41,6 @@ async function openSecrets(c: ReturnType<typeof client>) {
   return secrets;
 }
 
-const tobinNamesTheAbbess = {
-  scene: 1,
-  change: {
-    op: "new",
-    kind: "world_fact",
-    name: "The abbess raised the toll",
-    properties: { statement: "The abbess raised the salt road toll." },
-  },
-  basis: ["npc_said"],
-  sources: [
-    {
-      quote: "The toll was raised by the abbess herself.",
-      at: "00:01:10",
-    },
-  ],
-  why: "Tobin Marsh named who raised the toll",
-};
-
 test("a debrief commit reveals one secret whole and one in part, with history, next to its story changes", async () => {
   const { c, session, abbess, ledger } = await debriefWithSecrets();
   const tollSource = {
@@ -99,7 +53,7 @@ test("a debrief commit reveals one secret whole and one in part, with history, n
   };
   const added = await c.call("debrief_add", {
     session,
-    briefing,
+    briefing: saltRoadBriefing,
     changes: [tobinNamesTheAbbess],
     reveals: [
       {
@@ -192,7 +146,7 @@ test("a reveal of an unknown, dropped, or other owner's secret is rejected and l
   });
   const added = await c.call("debrief_add", {
     session,
-    briefing,
+    briefing: saltRoadBriefing,
     changes: [],
     reveals: [
       revealOf("secret:invented-unknown"),
@@ -219,7 +173,7 @@ test("a commit applies reveals and changes together or not at all", async () => 
   const { c, session, abbess } = await debriefWithSecrets();
   await c.call("debrief_add", {
     session,
-    briefing,
+    briefing: saltRoadBriefing,
     changes: [tobinNamesTheAbbess],
     reveals: [
       {
@@ -257,7 +211,7 @@ test("a reveal is dropped like a change, and the commit leaves its secret hidden
   const { c, session, abbess } = await debriefWithSecrets();
   const added = await c.call("debrief_add", {
     session,
-    briefing,
+    briefing: saltRoadBriefing,
     changes: [tobinNamesTheAbbess],
     reveals: [
       {
@@ -288,7 +242,7 @@ test("a commit refuses a reveal whose secret changed after it was drafted", asyn
   const { c, session, ledger } = await debriefWithSecrets();
   await c.call("debrief_add", {
     session,
-    briefing,
+    briefing: saltRoadBriefing,
     changes: [tobinNamesTheAbbess],
     reveals: [
       {

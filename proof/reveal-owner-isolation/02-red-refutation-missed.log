@@ -1,0 +1,4 @@
+refute: the totality oracle "secret writes isolate owners and reject invalid or oversized input without recording a commit" still passed with the break staged, so nothing was refuted and nothing was recorded.
+  1 test under "secret writes isolate owners and reject invalid or oversized input without recording a commit" passed in one invocation of pnpm exec vitest run -t <1 names> --reporter=json --outputFile=<report>
+  Stage a break that this totality oracle detects, or, if the break it describes cannot be staged, make the bullet a requirement and say why.
+exit 1

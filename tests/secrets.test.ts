@@ -1,5 +1,10 @@
 import { expect, test } from "vitest";
 import { client } from "./mcp-client";
+import {
+  saltRoadBriefing,
+  saltRoadSession,
+  tobinNamesTheAbbess,
+} from "./salt-road";
 
 async function campaign() {
   const c = client();
@@ -158,7 +163,7 @@ test("fix and drop append history and close secrets, and a fix needs a sourced g
   ).toBe(false);
 });
 
-test("secret writes isolate owners and reject invalid or oversized input without recording a commit", async () => {
+test("secret writes and reveals isolate owners and reject invalid or oversized input without recording a commit", async () => {
   const { c, ref } = await campaign();
   const written = await c.call("secret_write", {
     op: "write",
@@ -199,6 +204,62 @@ test("secret writes isolate owners and reject invalid or oversized input without
         reason: "Wrong owner",
       }),
     ).rejects.toThrow("Secret not found");
+  const revealOfWritten = {
+    secret: written.secret.id,
+    scene: 1,
+    learned: written.secret.text,
+    sources: tobinNamesTheAbbess.sources,
+    whole: true,
+  };
+  const ownDebrief = await saltRoadSession(c);
+  await c.call("debrief_add", {
+    session: ownDebrief,
+    briefing: saltRoadBriefing,
+    changes: [tobinNamesTheAbbess],
+    reveals: [revealOfWritten],
+  });
+  const ownDraft = await c.call("get", { ref: `debrief:${ownDebrief}` });
+  const [{ id: ownReveal }] = ownDraft.reveals;
+  for (const [tool, args] of [
+    ["debrief_add", { changes: [], reveals: [revealOfWritten] }],
+    ["debrief_drop", { changeIds: [ownReveal] }],
+    ["debrief_commit", {}],
+  ] as const)
+    await expect(
+      stranger.call(tool, { session: ownDebrief, ...args }),
+    ).rejects.toThrow("Session not found");
+  expect(await c.call("get", { ref: `debrief:${ownDebrief}` })).toEqual(
+    ownDraft,
+  );
+  const strangerSecret = await stranger.call("secret_write", {
+    op: "write",
+    text: "The other ferry runs on stolen amber.",
+    reason: "Other owner's background",
+  });
+  const strangerDebrief = await saltRoadSession(stranger);
+  const crossed = await stranger.call("debrief_add", {
+    session: strangerDebrief,
+    briefing: saltRoadBriefing,
+    changes: [tobinNamesTheAbbess],
+    reveals: [
+      revealOfWritten,
+      { ...revealOfWritten, secret: strangerSecret.secret.id },
+    ],
+  });
+  await stranger.call("debrief_commit", { session: strangerDebrief });
+  expect(await c.call("get", { ref: written.secret.id })).toMatchObject({
+    status: "hidden",
+    history: [{ op: "write" }],
+  });
+  expect(crossed.rejectedReveals).toEqual([
+    { index: 0, reason: "Secret not found" },
+  ]);
+  expect(
+    await stranger.call("get", { ref: strangerSecret.secret.id }),
+  ).toMatchObject({
+    status: "revealed",
+    history: [{ op: "write" }, { op: "reveal" }],
+  });
   const before = await c.call("get", { ref: "overview" });
   const saved = await c.call("get", { ref: written.secret.id });
   for (const args of [

@@ -53,9 +53,9 @@ The Convex backend: the MCP tools, the upload page and the story-state store beh
   checklist: durable-dispatch-intent dismissed: nothing is dispatched outside the transaction
   checklist: declared-target-coverage dismissed: no write fans out across targets
   checklist: completion-evidence dismissed: whose records a call reaches is decided inside the call; the upload expiry and cleanup it schedules act only on that owner's upload by its id
-- secret owner isolation: A game master writes, changes, fixes and reads only their own secrets, about only their own entities and story commits.
-  over: a second signed-in owner reading, changing, fixing and dropping the first owner's secret and linking a secret to the first owner's entity, and the first owner fixing their own secret from the second owner's story commit
-  via: secret writes isolate owners and reject invalid or oversized input without recording a commit
+- secret owner isolation: A game master writes, changes, fixes, reveals and reads only their own secrets, about only their own entities and story commits.
+  over: a second signed-in owner reading, changing, fixing and dropping the first owner's secret, drafting and committing a reveal of it in their own debrief and through the first owner's debrief, and linking a secret to the first owner's entity, and the first owner fixing their own secret from the second owner's story commit
+  via: secret writes and reveals isolate owners and reject invalid or oversized input without recording a commit
   because: a secret is the game master's unplayed background, the one thing the players must not see; another owner reading or binding it would leak it
   crossing: game master -> campaign store
   entrances: route /mcp

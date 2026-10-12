@@ -1,0 +1,24 @@
+[00:00:20] GM: Thornwick, a mill village on the Lisse. Marta, Jory and Sable arrive at noon. Half the village is sick, and the well has a rope across it.
+[00:01:10] GM as Reeve Alda Crane: Three dead this week. Folk say the water turned bad overnight.
+[00:01:50] Marta: Who draws water first in the morning?
+[00:02:30] GM as Reeve Alda Crane: The miller, Bram Oake. He's been strange since spring.
+[00:03:15] GM: The mill stands at the end of the lane. Bram Oake is a heavy man with flour in his beard. He will not meet your eyes.
+[00:04:05] Jory: We know about the well, Bram. Tell us before the reeve hangs the wrong man.
+[00:04:40] GM as Bram Oake: All right. I poisoned the well. Nightshade, three nights running. I did it, and nobody made me say it.
+[00:05:20] Sable: Why would you poison your own neighbours?
+[00:05:55] GM as Bram Oake: That's all you get from me. Take me to Alda.
+[00:07:00] GM: Scene change. At dusk you walk Bram to the reeve's house. On the way you pass the chapel on the hill.
+[00:07:45] GM: A lantern flashes three times from the chapel tower. Down at the river, a boat without lights answers with three flashes.
+[00:08:30] Marta: Who's up in the tower?
+[00:09:10] GM: Sister Wenna comes down the tower stairs with the lantern still warm in her hand.
+[00:09:50] GM as Sister Wenna: Evening prayers. The tower is the closest place to heaven in Thornwick.
+[00:10:35] Jory: I grab the boatman when he lands.
+[00:11:20] GM as Boatman Pell: Let go! I only carry what the sister tells me to carry. Wenna gives the orders on this river, not me.
+[00:12:05] GM: Sister Wenna's face goes still. She walks back into the chapel and bars the door.
+[00:13:00] GM: Scene change. Night, at the ferry landing. The ferryman Coll waits to take you across to the reeve's island house.
+[00:13:40] GM as Coll: Mind the gunwale. The old lord built this ferry, and it's older than me.
+[00:14:25] Sable: He has the Thornwick crest carved on his knife handle. Maybe Coll is the old lord's lost son?
+[00:15:05] GM: Coll just shrugs and looks out over the water.
+[00:15:50] Jory: Or he stole the knife. Let's get Bram to Alda.
+[00:16:30] GM as Reeve Alda Crane: Bram Oake. I'll hold him in the cellar until the assize comes in five days.
+[00:17:10] GM: That's where we stop for tonight.

@@ -1,0 +1,40 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-reveals
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 3 skipped (4)
+   Start at  07:42:33
+   Duration  609ms (transform 296ms, setup 0ms, import 103ms, tests 406ms, environment 0ms)
+
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-reveals
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 3 skipped (4)
+   Start at  07:42:34
+   Duration  692ms (transform 404ms, setup 0ms, import 104ms, tests 486ms, environment 0ms)
+
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-reveals
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 3 skipped (4)
+   Start at  07:42:36
+   Duration  2.13s (transform 992ms, setup 0ms, import 268ms, tests 949ms, environment 0ms)
+
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-reveals
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 3 skipped (4)
+   Start at  07:42:38
+   Duration  1.14s (transform 680ms, setup 0ms, import 433ms, tests 447ms, environment 0ms)
+
+

@@ -489,6 +489,7 @@ async function read(
       session: s._id,
       status: s.status,
       changes: s.changes,
+      reveals: s.reveals ?? [],
       briefing: s.briefing ?? "",
     };
   }

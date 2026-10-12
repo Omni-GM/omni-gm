@@ -1540,7 +1540,11 @@ test("debrief_add and debrief_drop return the draft and the rejected changes as 
     ],
   });
   expect(added.rejected).toEqual([]);
-  expect(Object.keys(added).sort()).toEqual(["draft", "rejected"]);
+  expect(Object.keys(added).sort()).toEqual([
+    "draft",
+    "rejected",
+    "rejectedReveals",
+  ]);
   const [sera, raiders, link] = added.draft.changes.map(
     (p: { id: string }) => p.id,
   );

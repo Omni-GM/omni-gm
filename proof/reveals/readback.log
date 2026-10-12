@@ -1,0 +1,11 @@
+PROOF TARGET https://giddy-finch-806.convex.site
+PASS turn one reads the open secrets and drafts the well whole and Wenna in part, with transcript timestamps, and no reveal for Coll (2 reveals)
+  REVEAL whole scene 2: Bram Oake poisoned the Thornwick well with nightshade.
+  REVEAL partial scene 3: Boatman Pell said Sister Wenna gives the orders on the river and tells him what to carry, after she signalled his lightless boat from the chapel tower.
+PASS the review asks about the unsure third reveal as one of 3 timestamped questions
+  QUESTION 1. [00:14:25] Did the table learn anything true about who Coll's parents are when Sable guessed he's the old lord's lost son, or is it still only her guess?
+PASS the commit closed the well as revealed, kept Wenna partly_revealed and readable in get secrets with its text, left Coll hidden, each reveal with debrief commit, session, scene, learned and sources in its history; openSecrets is 2
+  LEARNED Bram Oake [narrated, npc_said]: {"aliases":["Bram"],"kind":"npc","name":"Bram Oake","op":"new","properties":{"knows":"Says he poisoned the well with nightshade, three nights running, and that nobody made him say it. Refuses to say w
+  LEARNED Sister Wenna [narrated, npc_said]: {"aliases":["Wenna"],"kind":"npc","name":"Sister Wenna","op":"new","properties":{"playedAs":"Calm, pious deflection (\"evening prayers\"); when exposed her face goes still and she withdraws without a 
+PASS what the players learned of both secrets is committed story state on the same transcript lines (57 changes), and the unseen rest of Wenna's secret appears in no entity and only as a (secret) line in the briefing
+REVEALS HEADLESS PROOF PASSED

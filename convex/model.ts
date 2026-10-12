@@ -182,10 +182,25 @@ export const secretHistory = v.object({
   sources: v.optional(storyChange.fields.sources),
 });
 export type Secret = Infer<typeof secret>;
+export const proposedReveal = v.object({
+  secret: v.string(),
+  scene: v.number(),
+  learned: v.string(),
+  sources: storyChange.fields.sources,
+  whole: v.boolean(),
+});
+export const draftReveal = v.object({
+  id: v.string(),
+  ...proposedReveal.fields,
+  secretVersion: v.string(),
+});
+export type ProposedReveal = Infer<typeof proposedReveal>;
+export type DraftReveal = Infer<typeof draftReveal>;
 export const draft = v.object({
   session: v.string(),
   status: v.union(v.literal("draft"), v.literal("committed")),
   changes: v.array(draftChange),
+  reveals: v.array(draftReveal),
   briefing: v.string(),
 });
 export const frameFields = v.object({

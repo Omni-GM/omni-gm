@@ -1,8 +1,8 @@
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/session-note-42 (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/next-goat-579)
-▌ └─ https://next-goat-579.convex.cloud
-- Deploying to https://next-goat-579.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/session-note-42-integrated (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/cool-antelope-983)
+▌ └─ https://cool-antelope-983.convex.cloud
+- Deploying to https://cool-antelope-983.convex.cloud...
 
 ✔ Added table indexes:
   [+] notes.by_campaign_and_session   campaign, session, _creationTime
-✔ Deployed Convex functions to https://next-goat-579.convex.cloud
+✔ Deployed Convex functions to https://cool-antelope-983.convex.cloud

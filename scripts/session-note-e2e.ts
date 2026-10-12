@@ -229,24 +229,28 @@ async function verifyConversation() {
   ) as Awaited<ReturnType<typeof snapshot>>;
   const after = await snapshot();
   const secrets = calls.filter((c) => c.name === "secret_write");
+  assert(secrets.length === 1 || secrets.length === 2);
+  assert(secrets.every((c) => c.turn === 3 && c.input.op === "write"));
+  const expectedSecrets =
+    secrets.length === 1
+      ? [picks[1]]
+      : [
+          "Am Fenster klebt rotes Wachs.",
+          "Im Keller liegt ein nasser Handschuh.",
+        ];
   assert.deepEqual(
-    secrets.map((c) => [c.turn, c.input.op, c.input.text]),
-    [
-      [3, "write", "Am Fenster klebt rotes Wachs."],
-      [3, "write", "Im Keller liegt ein nasser Handschuh."],
-    ],
-    "Only the GM's two unplayed clues are recorded as secrets",
+    secrets.map((c) => c.input.text).sort(),
+    [...expectedSecrets].sort(),
+    "Only the GM's exact two clues are stored, together or separately",
   );
   const savedSecrets = await get<{
     secrets: { text: string; status: string }[];
   }>("secrets");
   assert.deepEqual(
-    savedSecrets.secrets.map((secret) => [secret.text, secret.status]),
-    [
-      ["Am Fenster klebt rotes Wachs.", "hidden"],
-      ["Im Keller liegt ein nasser Handschuh.", "hidden"],
-    ],
+    savedSecrets.secrets.map((secret) => secret.text).sort(),
+    [...expectedSecrets].sort(),
   );
+  assert(savedSecrets.secrets.every((secret) => secret.status === "hidden"));
   const beforeOverview = before.overview as typeof before.overview & {
     commits: { kind: string }[];
     openSecrets: number;
@@ -256,11 +260,14 @@ async function verifyConversation() {
     openSecrets: number;
   };
   assert.deepEqual(
-    afterOverview.commits.slice(0, 2).map((c) => c.kind),
-    ["secret", "secret"],
+    afterOverview.commits.slice(0, secrets.length).map((c) => c.kind),
+    Array.from({ length: secrets.length }, () => "secret"),
   );
-  afterOverview.commits = afterOverview.commits.slice(2);
-  assert.equal(afterOverview.openSecrets, beforeOverview.openSecrets + 2);
+  afterOverview.commits = afterOverview.commits.slice(secrets.length);
+  assert.equal(
+    afterOverview.openSecrets,
+    beforeOverview.openSecrets + secrets.length,
+  );
   afterOverview.openSecrets = beforeOverview.openSecrets;
   const { secrets: _afterSecrets, ...unchangedAfter } = after;
   const { secrets: _beforeSecrets, ...unchangedBefore } = before;

@@ -1,0 +1,47 @@
+{
+  "checklist": {
+    "sections": [
+      {
+        "definition": "Zwei mögliche Starts als Situationen. Ich wähle einen oder bringe eigenes Material.",
+        "name": "Auftakt"
+      },
+      {
+        "definition": "Zehn kurze Geheimnisse und Hinweise. Nur meine gewählten Hinweise kommen in die Notiz.",
+        "name": "Spuren"
+      },
+      {
+        "definition": "Mechanisch: nur die Requisiten, die ich mitbringe. Keine Vorschläge.",
+        "name": "Requisiten"
+      },
+      {
+        "definition": "Mechanisch: nur meine vorbereiteten Belohnungen. Keine Vorschläge.",
+        "name": "Belohnungen"
+      }
+    ],
+    "template": "# Nächste Sitzung: Die Talgmühle\n\n## Auftakt\n\n## Spuren\n\n## Requisiten\n\n## Belohnungen\n"
+  },
+  "entries": [
+    {
+      "entry": "Am Wehr reißt ein Tau. Die Gruppe sieht eine treibende Laterne und entscheidet selbst, ob sie eingreift.",
+      "section": "Auftakt",
+      "status": "done"
+    },
+    {
+      "entry": "Am Fenster klebt rotes Wachs. Im Keller liegt ein nasser Handschuh.",
+      "section": "Spuren",
+      "status": "done"
+    },
+    {
+      "entry": "",
+      "section": "Requisiten",
+      "status": "open"
+    },
+    {
+      "entry": "",
+      "section": "Belohnungen",
+      "status": "open"
+    }
+  ],
+  "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+  "status": "in_progress"
+}

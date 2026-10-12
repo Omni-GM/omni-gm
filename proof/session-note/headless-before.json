@@ -2,46 +2,75 @@
   "overview": {
     "adventures": [
       {
-        "id": "j57602da5d7e5aqgcy2av1yhtd8g5zdt",
+        "id": "j57bzb350skts7jwk3nkdpp7js8g418d",
         "name": "The Tallow Mill",
         "reason": "Invented briefing proof"
       }
     ],
     "briefing": {
-      "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+      "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
       "correctionsSince": [],
-      "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+      "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
       "text": "In the mill yard of the tallow mill at Hollin's Weir, end of the first day. Pulling forward: the missing apprentices Pell and Nia (scratched latch, the party will search the cellar), the night barges of Dace slipping past the weir (the party will watch the weir tomorrow night), and Corwin's debt to Dace, so far only Dace's claim. Harvest fair clock: 1/3, shown; at the fair Reeve Holloway closes the mill. Weir flood clock: 2/4, hidden. Also open: the haunted-cellar rumor and Tamsin's unsigned letter."
     },
     "commits": [
       {
-        "id": "jh78v71wj8wz00r5512f2wg5t98g40xd",
+        "id": "jh736dmayv733gcj3jnszqwndx8g5eag",
         "kind": "checklist",
         "reason": "Meine Vorbereitung in jedem Client"
       },
       {
-        "id": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+        "id": "jh755125dfs11pzqbkppex3a458g4fn4",
         "kind": "debrief",
         "reason": "Commit reviewed debrief",
-        "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp"
+        "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90"
       },
       {
-        "id": "jh70n7jfn5by3rt7hq6gr4njb58g5emq",
+        "id": "jh78zgmav8w48k1p65xqkgc52d8g4sjx",
         "kind": "seed",
         "reason": "Apply starter schema"
       }
     ],
-    "currentAdventure": "j57602da5d7e5aqgcy2av1yhtd8g5zdt",
+    "currentAdventure": "j57bzb350skts7jwk3nkdpp7js8g418d",
     "frame": {
-      "adventure": "j57602da5d7e5aqgcy2av1yhtd8g5zdt",
+      "adventure": "j57bzb350skts7jwk3nkdpp7js8g418d",
       "fields": {},
       "name": "The Tallow Mill"
+    },
+    "latestSession": {
+      "adventure": "j57bzb350skts7jwk3nkdpp7js8g418d",
+      "id": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
+      "ordinal": 1,
+      "playedOn": "2026-02-07",
+      "scenes": [
+        {
+          "end": "00:11:59",
+          "place": "The tallow mill",
+          "start": "00:00:10",
+          "summary": "Widow Ferrant hires the party to find Pell and Nia. Corwin shows the loft; the latch is scratched from outside.",
+          "title": "The empty loft"
+        },
+        {
+          "end": "00:17:59",
+          "place": "Town hall",
+          "start": "00:12:00",
+          "summary": "Reeve Holloway will close the mill at the harvest fair. The widow keeps the weir gate key, he says.",
+          "title": "The reeve's deadline"
+        },
+        {
+          "place": "The weir",
+          "start": "00:18:00",
+          "summary": "Dace's barges slip past the weir. Dace names Corwin his debtor and mentions Sister Ulla.",
+          "title": "Lanterns on the river"
+        }
+      ],
+      "status": "committed"
     },
     "openSecrets": 0,
     "sessions": [
       {
-        "adventure": "j57602da5d7e5aqgcy2av1yhtd8g5zdt",
-        "id": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+        "adventure": "j57bzb350skts7jwk3nkdpp7js8g418d",
+        "id": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
         "ordinal": 1,
         "playedOn": "2026-02-07",
         "scenes": [
@@ -71,7 +100,7 @@
     ]
   },
   "frame": {
-    "adventure": "j57602da5d7e5aqgcy2av1yhtd8g5zdt",
+    "adventure": "j57bzb350skts7jwk3nkdpp7js8g418d",
     "fields": {},
     "history": [],
     "name": "The Tallow Mill"
@@ -249,7 +278,7 @@
           "template": "# Nächste Sitzung: Die Talgmühle\n\n## Auftakt\n\n## Spuren\n\n## Requisiten\n\n## Belohnungen\n"
         },
         "before": null,
-        "commit": "jh78v71wj8wz00r5512f2wg5t98g40xd",
+        "commit": "jh736dmayv733gcj3jnszqwndx8g5eag",
         "reason": "Meine Vorbereitung in jedem Client"
       }
     ],
@@ -257,15 +286,15 @@
     "truncated": false
   },
   "secrets": {
-    "nextCursor": "{\"scope\":\"[\\\"j9770zwy384e5jrsx9cwydh7s98g5r83\\\",\\\"secrets\\\"]\",\"stream\":1,\"cursor\":null,\"seen\":0}",
+    "nextCursor": "{\"scope\":\"[\\\"j9784wp5z01fp7h8ef2tj4w5c98g40j1\\\",\\\"secrets\\\"]\",\"stream\":1,\"cursor\":null,\"seen\":0}",
     "secrets": [],
     "truncated": true,
     "writtenSinceDebrief": []
   },
   "sessions": [
     {
-      "adventure": "j57602da5d7e5aqgcy2av1yhtd8g5zdt",
-      "id": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+      "adventure": "j57bzb350skts7jwk3nkdpp7js8g418d",
+      "id": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
       "ordinal": 1,
       "playedOn": "2026-02-07",
       "scenes": [
@@ -300,7 +329,7 @@
         {
           "after": {
             "aliases": [],
-            "id": "35ecbdab-d67e-4de6-ba87-d4ccc808e5cf",
+            "id": "6c12ef7f-50b7-4981-8e47-f77ef43ae99e",
             "kind": "character_goal",
             "name": "The unsigned letter",
             "properties": {
@@ -324,9 +353,9 @@
             },
             "tempKey": "letter"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 3,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:26:30",
@@ -337,8 +366,8 @@
         },
         {
           "after": {
-            "from": "c76b17ef-19f8-460d-9104-a9163e89d9ae",
-            "to": "35ecbdab-d67e-4de6-ba87-d4ccc808e5cf",
+            "from": "7a1e0a7c-a1b5-4df3-9af5-639b305b6f0d",
+            "to": "6c12ef7f-50b7-4981-8e47-f77ef43ae99e",
             "type": "pursues"
           },
           "basis": [
@@ -351,9 +380,9 @@
             "to": "$letter",
             "type": "pursues"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 3,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:26:30",
@@ -363,7 +392,7 @@
           "why": "Remember the invented session for the briefing"
         }
       ],
-      "id": "35ecbdab-d67e-4de6-ba87-d4ccc808e5cf",
+      "id": "6c12ef7f-50b7-4981-8e47-f77ef43ae99e",
       "kind": "character_goal",
       "name": "The unsigned letter",
       "nextCursor": null,
@@ -374,10 +403,10 @@
       },
       "relationships": [
         {
-          "from": "c76b17ef-19f8-460d-9104-a9163e89d9ae",
+          "from": "7a1e0a7c-a1b5-4df3-9af5-639b305b6f0d",
           "inverseLabel": "pursued by",
           "label": "pursues",
-          "to": "35ecbdab-d67e-4de6-ba87-d4ccc808e5cf",
+          "to": "6c12ef7f-50b7-4981-8e47-f77ef43ae99e",
           "type": "pursues"
         }
       ],
@@ -389,7 +418,7 @@
         {
           "after": {
             "aliases": [],
-            "id": "9054abf5-d909-4aa7-baf7-a117be459db7",
+            "id": "8d35deb8-ea9a-469b-a8a0-a0229877a5ef",
             "kind": "clock",
             "name": "Harvest fair",
             "properties": {
@@ -415,9 +444,9 @@
             },
             "tempKey": "fair"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 2,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:12:50",
@@ -428,8 +457,8 @@
         },
         {
           "after": {
-            "from": "9054abf5-d909-4aa7-baf7-a117be459db7",
-            "to": "5bae5b17-43d1-42e2-80ae-152007d925ca",
+            "from": "8d35deb8-ea9a-469b-a8a0-a0229877a5ef",
+            "to": "e3b8d2fc-c987-46b7-b573-c92c6d1a7fca",
             "type": "pressures"
           },
           "basis": [
@@ -442,9 +471,9 @@
             "to": "$apprentices",
             "type": "pressures"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 2,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:13:40",
@@ -454,7 +483,7 @@
           "why": "Remember the invented session for the briefing"
         }
       ],
-      "id": "9054abf5-d909-4aa7-baf7-a117be459db7",
+      "id": "8d35deb8-ea9a-469b-a8a0-a0229877a5ef",
       "kind": "clock",
       "name": "Harvest fair",
       "nextCursor": null,
@@ -466,10 +495,10 @@
       },
       "relationships": [
         {
-          "from": "9054abf5-d909-4aa7-baf7-a117be459db7",
+          "from": "8d35deb8-ea9a-469b-a8a0-a0229877a5ef",
           "inverseLabel": "pressured by",
           "label": "pressures",
-          "to": "5bae5b17-43d1-42e2-80ae-152007d925ca",
+          "to": "e3b8d2fc-c987-46b7-b573-c92c6d1a7fca",
           "type": "pressures"
         }
       ],
@@ -481,7 +510,7 @@
         {
           "after": {
             "aliases": [],
-            "id": "87a85aa3-ce26-4208-bb96-630a170bd4a9",
+            "id": "5ccba406-5d71-4a2e-91b0-abbb0254b114",
             "kind": "clock",
             "name": "Weir flood",
             "properties": {
@@ -507,9 +536,9 @@
             },
             "tempKey": "flood"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 3,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:24:00",
@@ -520,8 +549,8 @@
         },
         {
           "after": {
-            "from": "87a85aa3-ce26-4208-bb96-630a170bd4a9",
-            "to": "29ebb2ed-a76e-4e0a-ac1a-1dabd5ff2844",
+            "from": "5ccba406-5d71-4a2e-91b0-abbb0254b114",
+            "to": "d83b7564-731d-4e34-9a6a-164f346cb9fb",
             "type": "pressures"
           },
           "basis": [
@@ -534,9 +563,9 @@
             "to": "$mill",
             "type": "pressures"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 3,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:24:00",
@@ -546,7 +575,7 @@
           "why": "Remember the invented session for the briefing"
         }
       ],
-      "id": "87a85aa3-ce26-4208-bb96-630a170bd4a9",
+      "id": "5ccba406-5d71-4a2e-91b0-abbb0254b114",
       "kind": "clock",
       "name": "Weir flood",
       "nextCursor": null,
@@ -558,10 +587,10 @@
       },
       "relationships": [
         {
-          "from": "87a85aa3-ce26-4208-bb96-630a170bd4a9",
+          "from": "5ccba406-5d71-4a2e-91b0-abbb0254b114",
           "inverseLabel": "pressured by",
           "label": "pressures",
-          "to": "29ebb2ed-a76e-4e0a-ac1a-1dabd5ff2844",
+          "to": "d83b7564-731d-4e34-9a6a-164f346cb9fb",
           "type": "pressures"
         }
       ],
@@ -573,7 +602,7 @@
         {
           "after": {
             "aliases": [],
-            "id": "63cb9782-6fd0-4acd-bfee-846ce62053ea",
+            "id": "13d32ef2-7562-4b2f-a4ba-c45e8c4c076d",
             "kind": "npc",
             "name": "Widow Ferrant",
             "properties": {
@@ -601,9 +630,9 @@
             },
             "tempKey": "ferrant"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 1,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:01:55",
@@ -614,8 +643,8 @@
         },
         {
           "after": {
-            "from": "5bae5b17-43d1-42e2-80ae-152007d925ca",
-            "to": "63cb9782-6fd0-4acd-bfee-846ce62053ea",
+            "from": "e3b8d2fc-c987-46b7-b573-c92c6d1a7fca",
+            "to": "13d32ef2-7562-4b2f-a4ba-c45e8c4c076d",
             "type": "raised_by"
           },
           "basis": [
@@ -628,9 +657,9 @@
             "to": "$ferrant",
             "type": "raised_by"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 1,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:01:30",
@@ -640,7 +669,7 @@
           "why": "Remember the invented session for the briefing"
         }
       ],
-      "id": "63cb9782-6fd0-4acd-bfee-846ce62053ea",
+      "id": "13d32ef2-7562-4b2f-a4ba-c45e8c4c076d",
       "kind": "npc",
       "name": "Widow Ferrant",
       "nextCursor": null,
@@ -653,10 +682,10 @@
       },
       "relationships": [
         {
-          "from": "5bae5b17-43d1-42e2-80ae-152007d925ca",
+          "from": "e3b8d2fc-c987-46b7-b573-c92c6d1a7fca",
           "inverseLabel": "raised",
           "label": "raised by",
-          "to": "63cb9782-6fd0-4acd-bfee-846ce62053ea",
+          "to": "13d32ef2-7562-4b2f-a4ba-c45e8c4c076d",
           "type": "raised_by"
         }
       ],
@@ -668,7 +697,7 @@
         {
           "after": {
             "aliases": [],
-            "id": "b870c4c0-3d5d-4829-91cc-82a2a55030c3",
+            "id": "2581bb86-a19e-4213-8880-bf549751ddb3",
             "kind": "npc",
             "name": "Corwin Ashe",
             "properties": {
@@ -694,9 +723,9 @@
             },
             "tempKey": "corwin"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 1,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:05:20",
@@ -707,8 +736,8 @@
         },
         {
           "after": {
-            "from": "b870c4c0-3d5d-4829-91cc-82a2a55030c3",
-            "to": "29ebb2ed-a76e-4e0a-ac1a-1dabd5ff2844",
+            "from": "2581bb86-a19e-4213-8880-bf549751ddb3",
+            "to": "d83b7564-731d-4e34-9a6a-164f346cb9fb",
             "type": "last_seen_at"
           },
           "basis": [
@@ -721,9 +750,9 @@
             "to": "$mill",
             "type": "last_seen_at"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 1,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:05:20",
@@ -733,7 +762,7 @@
           "why": "Remember the invented session for the briefing"
         }
       ],
-      "id": "b870c4c0-3d5d-4829-91cc-82a2a55030c3",
+      "id": "2581bb86-a19e-4213-8880-bf549751ddb3",
       "kind": "npc",
       "name": "Corwin Ashe",
       "nextCursor": null,
@@ -745,10 +774,10 @@
       },
       "relationships": [
         {
-          "from": "b870c4c0-3d5d-4829-91cc-82a2a55030c3",
+          "from": "2581bb86-a19e-4213-8880-bf549751ddb3",
           "inverseLabel": "last seen here",
           "label": "last seen at",
-          "to": "29ebb2ed-a76e-4e0a-ac1a-1dabd5ff2844",
+          "to": "d83b7564-731d-4e34-9a6a-164f346cb9fb",
           "type": "last_seen_at"
         }
       ],
@@ -760,7 +789,7 @@
         {
           "after": {
             "aliases": [],
-            "id": "b46fc75e-2f99-463b-9545-84129d8bf5f0",
+            "id": "eb43a06e-9a9d-4a01-b876-e57e53d3e9e8",
             "kind": "npc",
             "name": "Reeve Holloway",
             "properties": {
@@ -786,9 +815,9 @@
             },
             "tempKey": "holloway"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 2,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:12:00",
@@ -798,7 +827,7 @@
           "why": "Remember the invented session for the briefing"
         }
       ],
-      "id": "b46fc75e-2f99-463b-9545-84129d8bf5f0",
+      "id": "eb43a06e-9a9d-4a01-b876-e57e53d3e9e8",
       "kind": "npc",
       "name": "Reeve Holloway",
       "nextCursor": null,
@@ -817,7 +846,7 @@
         {
           "after": {
             "aliases": [],
-            "id": "bc47b1c7-07a1-4f3e-8fb7-3bdecb38d977",
+            "id": "b0725e11-06b1-4d7e-9531-6cfe39915e2d",
             "kind": "npc",
             "name": "Dace",
             "properties": {
@@ -843,9 +872,9 @@
             },
             "tempKey": "dace"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 3,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:19:40",
@@ -856,8 +885,8 @@
         },
         {
           "after": {
-            "from": "06eecc76-76c4-4dec-946a-198b0a1df932",
-            "to": "bc47b1c7-07a1-4f3e-8fb7-3bdecb38d977",
+            "from": "f5dd615f-ac36-47c1-897a-87c3de9bb27b",
+            "to": "b0725e11-06b1-4d7e-9531-6cfe39915e2d",
             "type": "raised_by"
           },
           "basis": [
@@ -870,9 +899,9 @@
             "to": "$dace",
             "type": "raised_by"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 3,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:20:30",
@@ -882,7 +911,7 @@
           "why": "Remember the invented session for the briefing"
         }
       ],
-      "id": "bc47b1c7-07a1-4f3e-8fb7-3bdecb38d977",
+      "id": "b0725e11-06b1-4d7e-9531-6cfe39915e2d",
       "kind": "npc",
       "name": "Dace",
       "nextCursor": null,
@@ -894,10 +923,10 @@
       },
       "relationships": [
         {
-          "from": "06eecc76-76c4-4dec-946a-198b0a1df932",
+          "from": "f5dd615f-ac36-47c1-897a-87c3de9bb27b",
           "inverseLabel": "raised",
           "label": "raised by",
-          "to": "bc47b1c7-07a1-4f3e-8fb7-3bdecb38d977",
+          "to": "b0725e11-06b1-4d7e-9531-6cfe39915e2d",
           "type": "raised_by"
         }
       ],
@@ -909,7 +938,7 @@
         {
           "after": {
             "aliases": [],
-            "id": "4d6efc82-cfc5-48f2-aec9-74ecdaa42f12",
+            "id": "78e04d76-d461-4927-91bd-784167b8a9a6",
             "kind": "npc",
             "name": "Sister Ulla",
             "properties": {
@@ -930,9 +959,9 @@
               "status": "unknown"
             }
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 3,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:22:00",
@@ -942,7 +971,7 @@
           "why": "Remember the invented session for the briefing"
         }
       ],
-      "id": "4d6efc82-cfc5-48f2-aec9-74ecdaa42f12",
+      "id": "78e04d76-d461-4927-91bd-784167b8a9a6",
       "kind": "npc",
       "name": "Sister Ulla",
       "nextCursor": null,
@@ -959,7 +988,7 @@
         {
           "after": {
             "aliases": [],
-            "id": "29ebb2ed-a76e-4e0a-ac1a-1dabd5ff2844",
+            "id": "d83b7564-731d-4e34-9a6a-164f346cb9fb",
             "kind": "place",
             "name": "The tallow mill",
             "properties": {
@@ -979,9 +1008,9 @@
             },
             "tempKey": "mill"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 1,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:00:10",
@@ -992,8 +1021,8 @@
         },
         {
           "after": {
-            "from": "b870c4c0-3d5d-4829-91cc-82a2a55030c3",
-            "to": "29ebb2ed-a76e-4e0a-ac1a-1dabd5ff2844",
+            "from": "2581bb86-a19e-4213-8880-bf549751ddb3",
+            "to": "d83b7564-731d-4e34-9a6a-164f346cb9fb",
             "type": "last_seen_at"
           },
           "basis": [
@@ -1006,9 +1035,9 @@
             "to": "$mill",
             "type": "last_seen_at"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 1,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:05:20",
@@ -1019,8 +1048,8 @@
         },
         {
           "after": {
-            "from": "87a85aa3-ce26-4208-bb96-630a170bd4a9",
-            "to": "29ebb2ed-a76e-4e0a-ac1a-1dabd5ff2844",
+            "from": "5ccba406-5d71-4a2e-91b0-abbb0254b114",
+            "to": "d83b7564-731d-4e34-9a6a-164f346cb9fb",
             "type": "pressures"
           },
           "basis": [
@@ -1033,9 +1062,9 @@
             "to": "$mill",
             "type": "pressures"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 3,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:24:00",
@@ -1045,7 +1074,7 @@
           "why": "Remember the invented session for the briefing"
         }
       ],
-      "id": "29ebb2ed-a76e-4e0a-ac1a-1dabd5ff2844",
+      "id": "d83b7564-731d-4e34-9a6a-164f346cb9fb",
       "kind": "place",
       "name": "The tallow mill",
       "nextCursor": null,
@@ -1054,17 +1083,17 @@
       },
       "relationships": [
         {
-          "from": "b870c4c0-3d5d-4829-91cc-82a2a55030c3",
+          "from": "2581bb86-a19e-4213-8880-bf549751ddb3",
           "inverseLabel": "last seen here",
           "label": "last seen at",
-          "to": "29ebb2ed-a76e-4e0a-ac1a-1dabd5ff2844",
+          "to": "d83b7564-731d-4e34-9a6a-164f346cb9fb",
           "type": "last_seen_at"
         },
         {
-          "from": "87a85aa3-ce26-4208-bb96-630a170bd4a9",
+          "from": "5ccba406-5d71-4a2e-91b0-abbb0254b114",
           "inverseLabel": "pressured by",
           "label": "pressures",
-          "to": "29ebb2ed-a76e-4e0a-ac1a-1dabd5ff2844",
+          "to": "d83b7564-731d-4e34-9a6a-164f346cb9fb",
           "type": "pressures"
         }
       ],
@@ -1076,7 +1105,7 @@
         {
           "after": {
             "aliases": [],
-            "id": "c76b17ef-19f8-460d-9104-a9163e89d9ae",
+            "id": "7a1e0a7c-a1b5-4df3-9af5-639b305b6f0d",
             "kind": "player_character",
             "name": "Tamsin",
             "properties": {
@@ -1096,9 +1125,9 @@
             },
             "tempKey": "tamsin"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 3,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:07:45",
@@ -1109,8 +1138,8 @@
         },
         {
           "after": {
-            "from": "c76b17ef-19f8-460d-9104-a9163e89d9ae",
-            "to": "35ecbdab-d67e-4de6-ba87-d4ccc808e5cf",
+            "from": "7a1e0a7c-a1b5-4df3-9af5-639b305b6f0d",
+            "to": "6c12ef7f-50b7-4981-8e47-f77ef43ae99e",
             "type": "pursues"
           },
           "basis": [
@@ -1123,9 +1152,9 @@
             "to": "$letter",
             "type": "pursues"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 3,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:26:30",
@@ -1135,7 +1164,7 @@
           "why": "Remember the invented session for the briefing"
         }
       ],
-      "id": "c76b17ef-19f8-460d-9104-a9163e89d9ae",
+      "id": "7a1e0a7c-a1b5-4df3-9af5-639b305b6f0d",
       "kind": "player_character",
       "name": "Tamsin",
       "nextCursor": null,
@@ -1144,10 +1173,10 @@
       },
       "relationships": [
         {
-          "from": "c76b17ef-19f8-460d-9104-a9163e89d9ae",
+          "from": "7a1e0a7c-a1b5-4df3-9af5-639b305b6f0d",
           "inverseLabel": "pursued by",
           "label": "pursues",
-          "to": "35ecbdab-d67e-4de6-ba87-d4ccc808e5cf",
+          "to": "6c12ef7f-50b7-4981-8e47-f77ef43ae99e",
           "type": "pursues"
         }
       ],
@@ -1159,7 +1188,7 @@
         {
           "after": {
             "aliases": [],
-            "id": "5bae5b17-43d1-42e2-80ae-152007d925ca",
+            "id": "e3b8d2fc-c987-46b7-b573-c92c6d1a7fca",
             "kind": "thread",
             "name": "The missing apprentices",
             "properties": {
@@ -1183,9 +1212,9 @@
             },
             "tempKey": "apprentices"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 1,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:01:30",
@@ -1196,8 +1225,8 @@
         },
         {
           "after": {
-            "from": "5bae5b17-43d1-42e2-80ae-152007d925ca",
-            "to": "63cb9782-6fd0-4acd-bfee-846ce62053ea",
+            "from": "e3b8d2fc-c987-46b7-b573-c92c6d1a7fca",
+            "to": "13d32ef2-7562-4b2f-a4ba-c45e8c4c076d",
             "type": "raised_by"
           },
           "basis": [
@@ -1210,9 +1239,9 @@
             "to": "$ferrant",
             "type": "raised_by"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 1,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:01:30",
@@ -1223,8 +1252,8 @@
         },
         {
           "after": {
-            "from": "9054abf5-d909-4aa7-baf7-a117be459db7",
-            "to": "5bae5b17-43d1-42e2-80ae-152007d925ca",
+            "from": "8d35deb8-ea9a-469b-a8a0-a0229877a5ef",
+            "to": "e3b8d2fc-c987-46b7-b573-c92c6d1a7fca",
             "type": "pressures"
           },
           "basis": [
@@ -1237,9 +1266,9 @@
             "to": "$apprentices",
             "type": "pressures"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 2,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:13:40",
@@ -1249,7 +1278,7 @@
           "why": "Remember the invented session for the briefing"
         }
       ],
-      "id": "5bae5b17-43d1-42e2-80ae-152007d925ca",
+      "id": "e3b8d2fc-c987-46b7-b573-c92c6d1a7fca",
       "kind": "thread",
       "name": "The missing apprentices",
       "nextCursor": null,
@@ -1260,17 +1289,17 @@
       },
       "relationships": [
         {
-          "from": "5bae5b17-43d1-42e2-80ae-152007d925ca",
+          "from": "e3b8d2fc-c987-46b7-b573-c92c6d1a7fca",
           "inverseLabel": "raised",
           "label": "raised by",
-          "to": "63cb9782-6fd0-4acd-bfee-846ce62053ea",
+          "to": "13d32ef2-7562-4b2f-a4ba-c45e8c4c076d",
           "type": "raised_by"
         },
         {
-          "from": "9054abf5-d909-4aa7-baf7-a117be459db7",
+          "from": "8d35deb8-ea9a-469b-a8a0-a0229877a5ef",
           "inverseLabel": "pressured by",
           "label": "pressures",
-          "to": "5bae5b17-43d1-42e2-80ae-152007d925ca",
+          "to": "e3b8d2fc-c987-46b7-b573-c92c6d1a7fca",
           "type": "pressures"
         }
       ],
@@ -1282,7 +1311,7 @@
         {
           "after": {
             "aliases": [],
-            "id": "552be355-6f9e-4790-9711-12d201dc73f7",
+            "id": "05113635-8fce-418e-96e4-b8957d799c04",
             "kind": "thread",
             "name": "The night barges",
             "properties": {
@@ -1304,9 +1333,9 @@
             },
             "tempKey": "barges"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 3,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:18:00",
@@ -1318,7 +1347,7 @@
         {
           "after": {
             "aliases": [],
-            "id": "552be355-6f9e-4790-9711-12d201dc73f7",
+            "id": "05113635-8fce-418e-96e4-b8957d799c04",
             "kind": "thread",
             "name": "The night barges",
             "properties": {
@@ -1333,7 +1362,7 @@
           ],
           "before": {
             "aliases": [],
-            "id": "552be355-6f9e-4790-9711-12d201dc73f7",
+            "id": "05113635-8fce-418e-96e4-b8957d799c04",
             "kind": "thread",
             "name": "The night barges",
             "properties": {
@@ -1348,9 +1377,9 @@
               "nextStep": "The party plans to watch the weir tomorrow night"
             }
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 3,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:23:10",
@@ -1364,7 +1393,7 @@
           "why": "Keep Tamsin's guess and the party's plan on the thread"
         }
       ],
-      "id": "552be355-6f9e-4790-9711-12d201dc73f7",
+      "id": "05113635-8fce-418e-96e4-b8957d799c04",
       "kind": "thread",
       "name": "The night barges",
       "nextCursor": null,
@@ -1382,7 +1411,7 @@
         {
           "after": {
             "aliases": [],
-            "id": "06eecc76-76c4-4dec-946a-198b0a1df932",
+            "id": "f5dd615f-ac36-47c1-897a-87c3de9bb27b",
             "kind": "thread",
             "name": "Corwin's debt",
             "properties": {
@@ -1404,9 +1433,9 @@
             },
             "tempKey": "debt"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 3,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:20:30",
@@ -1417,8 +1446,8 @@
         },
         {
           "after": {
-            "from": "06eecc76-76c4-4dec-946a-198b0a1df932",
-            "to": "bc47b1c7-07a1-4f3e-8fb7-3bdecb38d977",
+            "from": "f5dd615f-ac36-47c1-897a-87c3de9bb27b",
+            "to": "b0725e11-06b1-4d7e-9531-6cfe39915e2d",
             "type": "raised_by"
           },
           "basis": [
@@ -1431,9 +1460,9 @@
             "to": "$dace",
             "type": "raised_by"
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 3,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:20:30",
@@ -1443,7 +1472,7 @@
           "why": "Remember the invented session for the briefing"
         }
       ],
-      "id": "06eecc76-76c4-4dec-946a-198b0a1df932",
+      "id": "f5dd615f-ac36-47c1-897a-87c3de9bb27b",
       "kind": "thread",
       "name": "Corwin's debt",
       "nextCursor": null,
@@ -1453,10 +1482,10 @@
       },
       "relationships": [
         {
-          "from": "06eecc76-76c4-4dec-946a-198b0a1df932",
+          "from": "f5dd615f-ac36-47c1-897a-87c3de9bb27b",
           "inverseLabel": "raised",
           "label": "raised by",
-          "to": "bc47b1c7-07a1-4f3e-8fb7-3bdecb38d977",
+          "to": "b0725e11-06b1-4d7e-9531-6cfe39915e2d",
           "type": "raised_by"
         }
       ],
@@ -1468,7 +1497,7 @@
         {
           "after": {
             "aliases": [],
-            "id": "b40dafa1-f591-4879-8769-fd9979fcfe71",
+            "id": "fec56a36-9cfc-4823-be9a-e57fb8a5b887",
             "kind": "world_fact",
             "name": "The haunted cellar",
             "properties": {
@@ -1487,9 +1516,9 @@
               "statement": "Town rumor says the mill cellar is haunted by the old miller who drowned there"
             }
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 1,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:09:15",
@@ -1499,7 +1528,7 @@
           "why": "Remember the invented session for the briefing"
         }
       ],
-      "id": "b40dafa1-f591-4879-8769-fd9979fcfe71",
+      "id": "fec56a36-9cfc-4823-be9a-e57fb8a5b887",
       "kind": "world_fact",
       "name": "The haunted cellar",
       "nextCursor": null,
@@ -1515,7 +1544,7 @@
         {
           "after": {
             "aliases": [],
-            "id": "81f712fe-d2b2-4787-b2d5-94e7d133d85c",
+            "id": "b29a1eca-bb06-44ff-a38c-7f23bf669361",
             "kind": "world_fact",
             "name": "The weir gate key",
             "properties": {
@@ -1534,9 +1563,9 @@
               "statement": "According to Reeve Holloway, Widow Ferrant keeps the key"
             }
           },
-          "commit": "jh7b76ppwjx7369mk89wv6tcn18g4fbb",
+          "commit": "jh755125dfs11pzqbkppex3a458g4fn4",
           "scene": 2,
-          "session": "kn7a9gw8vr5yhmgyzgxz6gcbyd8g5nvp",
+          "session": "kn78kwhskk4k2jyyjqzgtndqjx8g5x90",
           "sources": [
             {
               "at": "00:15:30",
@@ -1546,7 +1575,7 @@
           "why": "Remember the invented session for the briefing"
         }
       ],
-      "id": "81f712fe-d2b2-4787-b2d5-94e7d133d85c",
+      "id": "b29a1eca-bb06-44ff-a38c-7f23bf669361",
       "kind": "world_fact",
       "name": "The weir gate key",
       "nextCursor": null,

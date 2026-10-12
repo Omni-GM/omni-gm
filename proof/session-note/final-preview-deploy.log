@@ -1,7 +1,7 @@
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/session-note-42-final (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/formal-giraffe-614)
-▌ └─ https://formal-giraffe-614.convex.cloud
-- Deploying to https://formal-giraffe-614.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/session-note-42-merged-r2 (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/canny-kingfisher-270)
+▌ └─ https://canny-kingfisher-270.convex.cloud
+- Deploying to https://canny-kingfisher-270.convex.cloud...
 
 ✔ Added table indexes:
   [+] adventures.by_campaign   campaign, _creationTime
@@ -30,10 +30,11 @@
   [+] secrets.by_campaign_and_status   campaign, status, _creationTime
   [+] sessions.by_campaign   campaign, _creationTime
   [+] sessions.by_campaign_and_ordinal   campaign, ordinal, _creationTime
+  [+] sessions.by_campaign_and_playedOn   campaign, playedOn, _creationTime
   [+] uploads.by_session   session, _creationTime
   [+] uploads.by_token   token, _creationTime
   [+] utterances.by_campaign   campaign, _creationTime
   [+] utterances.by_session_and_generation_and_seconds   session, transcriptGeneration, seconds, ordinal, _creationTime
   [+] utterances.search_text (text)   searchText, filter on campaign
 ✔ Installed component mcpGateway.
-✔ Deployed Convex functions to https://formal-giraffe-614.convex.cloud
+✔ Deployed Convex functions to https://canny-kingfisher-270.convex.cloud

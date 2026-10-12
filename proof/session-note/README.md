@@ -33,7 +33,8 @@ first successful full gate before the final proof-script corrections.
 ## Existing-record compatibility
 
 [Baseline deployment](baseline-deploy.log) deploys unchanged
-`926ecb4` into the owned preview `session-note-42`.
+`839fb35`, including reference sessions, into the owned preview
+`session-note-42-integrated`.
 [Seed](baseline-seed.log) stores the invented Tallow Mill debrief with its
 transcript, scenes and 22 sourced changes. [Before](before-upgrade.log)
 captures [the MCP reads](before-upgrade.json). [Upgrade](upgrade-deploy.log)
@@ -44,8 +45,11 @@ until a checklist is supplied.
 
 ## Stop, fresh resume and finish
 
-The final run's [deployment](final-preview-deploy.log) and
-[seed](final-preview-seed.log) identify a fresh owned preview.
+[Final deployment](final-preview-deploy.log) and [seed](final-preview-seed.log)
+identify the fresh owned preview `session-note-42-merged-r2`, on the combined
+code and with invented data only. The populated-store compatibility proof
+above ran separately on `session-note-42-integrated` using that same code.
+The endpoint run is [integrated-endpoint.log](integrated-endpoint.log).
 [Headless seed](headless-seed.log) stores the invented German checklist and
 note template. [Before](headless-before.json) captures the existing store.
 
@@ -69,7 +73,9 @@ order and the game master's wording.
 
 The two unplayed clues supplied by the game master also become hidden
 secrets, as spec #35 requires. Readback verifies their exact texts and that
-only those two secret commits were added. Story state, sessions, frame,
+only those secret commits were added. The oracle allows the two clues to
+be stored together or separately; the verifier checks their exact text
+rather than prescribing how many secret records the client must use. Story state, sessions, frame,
 schema, checklist and existing history remain unchanged.
 
 ### Retained first attempt
@@ -127,3 +133,24 @@ TypeScript, PNPM and Convex. A real ripgrep must be on `PATH` for codegen.
 and [dispositions](review-dispositions.md) retain both findings, their fixes
 and the reviewer's coverage limits. The final review has no remaining
 findings. CodeRabbit skipped the draft PR under its default policy.
+
+## Integration with reference sessions
+
+PR #50 merged before this ticket. Conflicts were resolved by retaining the
+note progress plus the reference-session played-date ordering, latest
+committed session, and story-state-first contradiction lookup. The note
+session test now also creates an older reference and confirms that it does
+not restart prep or change overview.latestSession. The full local gate is
+104 tests on the combined tree. The populated preview upgrade, five-turn
+stop/resume proof and actual vault export are rerun on that tree.
+
+The earlier accepted 99-test proof is preserved under `pre-main-merge/`,
+including its review, cleanup and preview records. It was superseded by the
+combined-tree proof, not rejected for behavior. The originally rejected
+numbered-list run remains under `rejected-formatting/`.
+
+The first combined-tree headless run correctly saved, resumed and finished
+the note, but did not store the clue material as hidden background. It is
+retained under `rejected-integration/`. The final fixture explicitly says
+that both clues are decided background the players have not seen, resolving
+that ambiguity without changing the note entry or its exact expectation.

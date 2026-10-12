@@ -1,1 +1,0 @@
-Mira wants the seal returned before the fourth bell. Please record that answer on Mira's wants, as "The seal returned before the fourth bell", with my reason "Fill the keeper's main-plot background". That's the background decision. I'm satisfied with these sections; assemble my session note now.

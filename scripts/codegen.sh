@@ -2,7 +2,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 mkdir -p .codegen
-if [[ -f .codegen/.env.local ]] && ! rg -q '^CONVEX_DEPLOYMENT=anonymous:' .codegen/.env.local; then
+if [[ -f .codegen/.env.local ]] && ! grep -q '^CONVEX_DEPLOYMENT=anonymous:' .codegen/.env.local; then
   echo 'Codegen only uses an anonymous local deployment.' >&2
   exit 1
 fi

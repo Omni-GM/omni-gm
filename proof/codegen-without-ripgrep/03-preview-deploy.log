@@ -1,12 +1,18 @@
-SOURCE COMMIT 868d1aad9682bbcd80d363714d23bddcca14cc99
+SOURCE COMMIT f5ddc14240c4434915e6cd4ddbb48614427f912d plus the uncommitted review fixes
+SOURCE BRANCH chore/retire-v1-sparring-proof
+ proof/codegen-without-ripgrep/README.md | 11 ++++++++---
+ scripts/prep-e2e.ts                     | 17 ++++++++++-------
+ tests/codegen.test.ts                   |  4 ++--
+ 3 files changed, 20 insertions(+), 12 deletions(-)
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/feat-prep-sparring-claude-v2 (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/quaint-gerbil-696)
-▌ └─ https://quaint-gerbil-696.convex.cloud
-- Deploying to https://quaint-gerbil-696.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/chore-retire-v1-sparring-proof-58 (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/utmost-perch-678)
+▌ └─ https://utmost-perch-678.convex.cloud
+- Deploying to https://utmost-perch-678.convex.cloud...
 
 ✔ Added table indexes:
   [+] adventures.by_campaign   campaign, _creationTime
   [+] campaigns.by_owner   owner, _creationTime
+  [+] checklists.by_campaign   campaign, _creationTime
   [+] commits.by_campaign   campaign, _creationTime
   [+] commits.by_campaign_and_adventure   campaign, adventure, _creationTime
   [+] commits.by_campaign_and_kind   campaign, kind, _creationTime
@@ -16,19 +22,26 @@ SOURCE COMMIT 868d1aad9682bbcd80d363714d23bddcca14cc99
   [+] entities.search_text (text)   searchText, filters on campaign, kind
   [+] entityHistory.by_campaign_and_entity   campaign, entityId, _creationTime
   [+] history.by_campaign   campaign, _creationTime
+  [+] history.by_campaign_and_commit   campaign, commit, _creationTime
   [+] history.search_text (text)   searchText, filter on campaign
+  [+] notes.by_campaign_and_session   campaign, session, _creationTime
   [+] relationships.by_campaign   campaign, _creationTime
   [+] relationships.by_campaign_and_from   campaign, from, _creationTime
   [+] relationships.by_campaign_and_to   campaign, to, _creationTime
   [+] scenes.by_campaign   campaign, _creationTime
   [+] scenes.by_session   session, _creationTime
   [+] scenes.search_text (text)   searchText, filter on campaign
+  [+] secretHistory.by_campaign_and_secret   campaign, secret, _creationTime
+  [+] secrets.by_campaign_and_id   campaign, id, _creationTime
+  [+] secrets.by_campaign_and_status   campaign, status, _creationTime
   [+] sessions.by_campaign   campaign, _creationTime
   [+] sessions.by_campaign_and_ordinal   campaign, ordinal, _creationTime
+  [+] sessions.by_campaign_and_playedOn   campaign, playedOn, _creationTime
+  [+] uploads.by_session   session, _creationTime
   [+] uploads.by_token   token, _creationTime
   [+] utterances.by_campaign   campaign, _creationTime
   [+] utterances.by_session_and_generation_and_seconds   session, transcriptGeneration, seconds, ordinal, _creationTime
   [+] utterances.search_text (text)   searchText, filter on campaign
 ✔ Installed component mcpGateway.
-✔ Deployed Convex functions to https://quaint-gerbil-696.convex.cloud
+✔ Deployed Convex functions to https://utmost-perch-678.convex.cloud
 ✔ Finished running function "oauth:configure"

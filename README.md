@@ -243,9 +243,8 @@ per change and 512 KB for the reason and batch together. The existing
 
 Run `pnpm exec tsx scripts/prep-e2e.ts` on a staging branch preview with
 `OMNI_GM_MCP_URL` and `OMNI_GM_ACCESS_TOKEN`. It seeds only invented data
-and can run again on the same preview. Use `--seed-only` for the headless
-sparring fixture. `proof/prep-sparring/` holds the endpoint red/green runs,
-full gate, SDK run, headless conversation and independent readback.
+and can run again on the same preview. `proof/checklist/` and
+`proof/session-note/` hold the headless section-walk proof.
 `proof/secrets/` holds the v2 secret endpoint, populated-store upgrade, and
 headless plank-to-secret-to-briefing proof; reproduce its readback with
 `pnpm exec tsx scripts/verify-secrets.ts`.

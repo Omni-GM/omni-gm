@@ -1,0 +1,9 @@
+$ curl -si -X POST https://exciting-elephant-72.convex.site/mcp (anonymous initialize)
+HTTP/2 401 
+www-authenticate: Bearer resource_metadata="https://exciting-elephant-72.convex.site/.well-known/oauth-protected-resource/mcp"
+
+$ curl -s https://exciting-elephant-72.convex.site/.well-known/oauth-protected-resource/mcp
+{"resource":"https://exciting-elephant-72.convex.site/mcp","authorization_servers":["https://creative-milk-86-staging.authkit.app"],"bearer_methods_supported":["header"]}
+
+$ curl -s https://exciting-elephant-72.convex.site/.well-known/oauth-protected-resource/mcp/
+{"resource":"https://exciting-elephant-72.convex.site/mcp","authorization_servers":["https://creative-milk-86-staging.authkit.app"],"bearer_methods_supported":["header"]}

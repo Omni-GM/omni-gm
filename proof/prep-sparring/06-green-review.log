@@ -1,9 +1,0 @@
-
- RUN  v4.1.0 /tmp/omnigm-impl15
-
-
- Test Files  1 passed (1)
-      Tests  21 passed (21)
-   Start at  13:22:48
-   Duration  1.19s (transform 396ms, setup 0ms, import 99ms, tests 989ms, environment 0ms)
-

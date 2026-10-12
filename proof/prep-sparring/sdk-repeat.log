@@ -1,7 +1,0 @@
-PROOF TARGET https://joyous-flamingo-619.convex.site
-PASS seeded a committed invented debrief, frame, source claims, a player guess, a visible clock and two places
-PASS invalid later change rolls back the entire batch and guess-only NPC correction is rejected
-PASS plank answer stored with exact words, game_master basis and history; committed debrief unchanged
-PASS the known two-keyword GM answer ranks ahead of single-keyword claims within the page
-PASS source search ranks and preserves NPC claims, player guesses and GM answers; utterance refs read timestamp context
-PREP SDK E2E PASSED

@@ -1,0 +1,34 @@
+
+[1m[46m RUN [49m[22m [36mv4.1.0 [39m[90m/home/coder/.cache/omnigm-wt/58[39m
+
+ [31m❯[39m tests/codegen.test.ts [2m([22m[2m2 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 37[2mms[22m[39m
+[31m   [31m×[31m codegen regenerates types from an anonymous deployment on a machine without ripgrep[39m[32m 16[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/codegen.test.ts[2m > [22mcodegen regenerates types from an anonymous deployment on a machine without ripgrep
+[31m[1mAssertionError[22m: expected '/tmp/omni-gm-codegen-tG3UCC/project/s…' to be '' // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[31m+ /tmp/omni-gm-codegen-tG3UCC/project/scripts/codegen.sh: line 5: rg: command not found[39m
+[31m+ Codegen only uses an anonymous local deployment.[39m
+[31m+[39m
+
+[36m [2m❯[22m tests/codegen.test.ts:[2m84:25[22m[39m
+    [90m 82|[39m   )[33m;[39m
+    [90m 83|[39m   [35mconst[39m result [33m=[39m [34mrun[39m()[33m;[39m
+    [90m 84|[39m   [34mexpect[39m(result[33m.[39mstderr)[33m.[39m[34mtoBe[39m([32m""[39m)[33m;[39m
+    [90m   |[39m                         [31m^[39m
+    [90m 85|[39m   [34mexpect[39m(result[33m.[39mstatus)[33m.[39m[34mtoBe[39m([34m0[39m)[33m;[39m
+    [90m 86|[39m   [34mexpect[39m([35mawait[39m [34mpnpmCalls[39m())[33m.[39m[34mtoContain[39m([32m"exec convex codegen"[39m)[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (2)[39m
+[2m   Start at [22m 19:08:03
+[2m   Duration [22m 202ms[2m (transform 22ms, setup 0ms, import 35ms, tests 37ms, environment 0ms)[22m
+

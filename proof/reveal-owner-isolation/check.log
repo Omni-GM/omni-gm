@@ -1,0 +1,57 @@
+
+> omni-gm@0.1.0 check /home/coder/.cache/omnigm-wt/59
+> pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test
+
+tests/mcp.test.ts:713:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    711 │   const failed = await c.t.fetch(path, {
+    712 │     method: "PUT",
+  > 713 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
+        │           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    714 │   });
+    715 │   expect(failed.status).toBe(400);
+  
+  i Unsafe fix: Use a template literal.
+  
+     711  711 │     const failed = await c.t.fetch(path, {
+     712  712 │       method: "PUT",
+     713      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
+          713 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
+     714  714 │     });
+     715  715 │     expect(failed.status).toBe(400);
+  
+
+Checked 69 files in 53ms. No fixes applied.
+Found 1 info.
+CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
+▌ Developing against deployment:
+▌ [Local] Port 3210 • No Convex account (run npx convex login to link to a project)
+▌ └─ http://127.0.0.1:3210
+- Preparing Convex functions...
+
+Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
+✔ 19:16:19 Convex functions ready! (464.31ms)
+Finding component definitions...
+Generating server code...
+Bundling component definitions...
+Bundling component schemas and implementations...
+Downloading current deployment state...
+Uploading functions to Convex...
+Generating TypeScript bindings...
+Running TypeScript...
+
+> omni-gm@0.1.0 test /home/coder/.cache/omnigm-wt/59
+> vitest run
+
+
+ RUN  v4.1.0 /home/coder/.cache/omnigm-wt/59
+
+
+ Test Files  12 passed (12)
+      Tests  110 passed (110)
+   Start at  19:16:27
+   Duration  12.39s (transform 4.08s, setup 0ms, import 2.25s, tests 21.03s, environment 1ms)
+
+exit 0

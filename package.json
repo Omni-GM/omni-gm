@@ -6,10 +6,8 @@
   "packageManager": "pnpm@10.28.2",
   "scripts": {
     "test": "vitest run",
-    "check": "pnpm build:ledger && pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test",
-    "e2e": "tsx scripts/e2e.ts",
-    "build:ledger": "tsx scripts/build-ledger.ts",
-    "ledger:host": "tsx scripts/ledger-host.ts"
+    "check": "pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test",
+    "e2e": "tsx scripts/e2e.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.29.0",
@@ -18,20 +16,10 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.15",
-    "@modelcontextprotocol/ext-apps": "1.7.5",
-    "@tailwindcss/vite": "4.3.3",
     "@types/node": "26.6.5",
-    "@types/react": "19.3.0",
-    "@types/react-dom": "19.3.0",
-    "@vitejs/plugin-react": "6.1.2",
     "convex-test": "0.0.61",
-    "react": "19.3.0",
-    "react-dom": "19.3.0",
-    "tailwindcss": "4.3.3",
     "tsx": "4.23.15",
     "typescript": "5.9.3",
-    "vite": "8.0.2",
-    "vite-plugin-singlefile": "2.3.3",
     "vitest": "4.1.0",
     "zod": "4.6.5"
   }

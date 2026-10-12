@@ -7,9 +7,7 @@
       "!proof",
       "!.codegen",
       "!.convex",
-      "!.ledger",
-      "!.retirement-*",
-      "!convex/ledgerHtml.generated.ts"
+      "!.retirement-*"
     ]
   },
   "formatter": {
@@ -25,11 +23,6 @@
       "source": {
         "organizeImports": "on"
       }
-    }
-  },
-  "css": {
-    "parser": {
-      "tailwindDirectives": true
     }
   }
 }

@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.15",
+    "@posthog/coherence": "^1.7.2",
     "@types/node": "26.6.5",
     "convex-test": "0.0.61",
     "tsx": "4.23.15",

@@ -120,3 +120,10 @@ after the additive deploy for compatibility proof. The headless runner
 performs `--stopped` readback between the two fresh runs and full readback
 at the end. It requires Claude CLI, Python 3 and jq. The implementation uses
 TypeScript, PNPM and Convex. A real ripgrep must be on `PATH` for codegen.
+
+## Review
+
+[Initial review](opus-review-initial.md), [final review](opus-review-final.md)
+and [dispositions](review-dispositions.md) retain both findings, their fixes
+and the reviewer's coverage limits. The final review has no remaining
+findings. CodeRabbit skipped the draft PR under its default policy.

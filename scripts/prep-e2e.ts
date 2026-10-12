@@ -227,9 +227,12 @@ try {
     },
     basis: ["game_master"],
     sources: [
-      { quote: "Mira wants the seal returned before the fourth bell." },
+      {
+        quote:
+          "At the table Mira wanted the seal returned before the fourth bell.",
+      },
     ],
-    why: "Record my plank answer about the keeper",
+    why: "Correct what the table saw of the keeper",
   };
   await reject(
     {
@@ -263,7 +266,7 @@ try {
     "PASS invalid later change rolls back the entire batch and guess-only NPC correction is rejected",
   );
   const committed = await call<{ commit: string }>("story_commit", {
-    reason: "Fill the keeper's main-plot background",
+    reason: "Correct how Mira was played at the table",
     changes: [update],
   });
   const saved = (
@@ -279,7 +282,7 @@ try {
   assert(!Object.hasOwn(saved.history.at(-1) ?? {}, "session"));
   assert.deepEqual(await call("get", { ref: `debrief:${session.id}` }), draft);
   console.log(
-    "PASS plank answer stored with exact words, game_master basis and history; committed debrief unchanged",
+    "PASS table correction stored with exact words, game_master basis and history; committed debrief unchanged",
   );
   const source = await call<{
     hits: { basis?: string[]; score?: number; ref: string }[];
@@ -296,9 +299,9 @@ try {
     hits: { basis?: string[]; snippet?: string }[];
   }>("find", { query: "seal returned", types: ["source"], limit: 200 });
   assert(relevant.hits[0].basis?.includes("game_master"));
-  assert(relevant.hits[0].snippet?.includes("Mira wants the seal returned"));
+  assert(relevant.hits[0].snippet?.includes("Mira wanted the seal returned"));
   console.log(
-    "PASS the known two-keyword GM answer ranks ahead of single-keyword claims within the page",
+    "PASS the known two-keyword GM correction ranks ahead of single-keyword claims within the page",
   );
   const utterances = await call<{ hits: { ref: string; title: string }[] }>(
     "find",
@@ -313,7 +316,7 @@ try {
   }>("get", { ref: hit.ref });
   assert(context.value.utterances.some((u) => u.text.includes("seal")));
   console.log(
-    "PASS source search ranks and preserves NPC claims, player guesses and GM answers; utterance refs read timestamp context",
+    "PASS source search ranks and preserves NPC claims, player guesses and GM corrections; utterance refs read timestamp context",
   );
   console.log("PREP SDK E2E PASSED");
 } finally {

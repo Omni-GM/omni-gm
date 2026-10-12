@@ -62,12 +62,12 @@ async function projectWithoutRipgrep(deployment: string) {
   const calls = join(root, "pnpm-calls.log");
   await writeFile(
     join(bin, "pnpm"),
-    `#!${locate("bash")}\necho "$*" >> ${calls}\nmkdir -p convex/_generated\necho generated > convex/_generated/api.d.ts\n`,
+    `#!${locate("bash")}\necho "$*" >> "$PNPM_CALLS"\nmkdir -p convex/_generated\necho generated > convex/_generated/api.d.ts\n`,
   );
   await chmod(join(bin, "pnpm"), 0o755);
   const run = () =>
     spawnSync(locate("bash"), [join(project, "scripts/codegen.sh")], {
-      env: { PATH: bin },
+      env: { PATH: bin, PNPM_CALLS: calls },
       encoding: "utf8",
     });
   const pnpmCalls = () => readFile(calls, "utf8").catch(() => "");

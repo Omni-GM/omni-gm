@@ -32,12 +32,22 @@ with a `PATH` that holds only `bash`, `mkdir`, `rm`, `cp`, `ln`, `dirname`,
 This branch removes `scripts/verify-prep-sparring.ts`, `proof/prep-sparring/`,
 the five `fixtures/prep-sparring-*.md` inputs, the script's `Scripts.spec.md`
 entrance, and the `--seed-only` mode of `scripts/prep-e2e.ts`, which only
-seeded that headless fixture. This search finds no reference outside the
-append-only Coherence journal:
+seeded that headless fixture. This search over the README, tests, scripts
+and fixtures finds nothing:
 
 ```sh
-git grep -n -i "verify-prep-sparring\|proof/prep-sparring\|prep-sparring-start\|prep-sparring-.*-answer\|note-correction\|seed-only\|sparring fixture" -- . ':!.coherence/**'
+git grep -n -i "verify-prep-sparring\|proof/prep-sparring\|prep-sparring-start\|prep-sparring-.*-answer\|note-correction\|seed-only\|sparring fixture" -- README.md tests scripts fixtures
 ```
+
+`scripts/prep-e2e.ts` stored Mira's want as a plank answer through
+`story_commit`. In v2, unplayed background goes to `secret_write`, which
+`proof/secrets/` proves, and `story_commit` is for correcting what the table
+saw. The script now records that write as a table correction.
+[03-preview-deploy.log](03-preview-deploy.log) deploys this branch with the
+review fixes to a fresh staging branch preview.
+[Run 1](03-prep-e2e-run1.log) and [run 2](03-prep-e2e-run2.log) of
+`scripts/prep-e2e.ts` pass on it with the staging M2M identity. The second
+run shows the script can run again on the same preview.
 
 The served `prep-sparring` procedure is the v2 section walk and stays.
 `proof/checklist/` and `proof/session-note/` already hold its headless proof.

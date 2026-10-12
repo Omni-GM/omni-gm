@@ -24,6 +24,9 @@ const hit = v.object({
   type: hitType,
   title: v.string(),
   snippet: v.optional(v.string()),
+  session: v.optional(
+    v.object({ id: v.string(), ordinal: v.number(), playedOn: v.string() }),
+  ),
   score: v.optional(v.number()),
   basis: v.optional(v.array(basis)),
 });
@@ -194,14 +197,23 @@ export const searchPage = internalQuery({
       done: page.isDone,
       rowsRead: page.page.length,
       bytesRead: bytes([...page.page, ...sessions.values()]),
-      hits: ranked(visible).map(({ row, score }) => ({
-        id: row._id,
-        ref: `transcript:${row.session}@${row.at}`,
-        type,
-        title: `${row.at} ${row.speaker}`,
-        snippet: row.text.slice(0, 240),
-        ...(score === undefined ? {} : { score }),
-      })),
+      hits: ranked(visible).map(({ row, score }) => {
+        const session = sessions.get(row.session);
+        if (!session) throw new Error("Missing transcript session");
+        return {
+          id: row._id,
+          ref: `transcript:${row.session}@${row.at}`,
+          type,
+          title: `S${session.ordinal} ${session.playedOn} ${row.at} ${row.speaker}`,
+          session: {
+            id: session._id,
+            ordinal: session.ordinal,
+            playedOn: session.playedOn,
+          },
+          snippet: row.text.slice(0, 240),
+          ...(score === undefined ? {} : { score }),
+        };
+      }),
     };
   },
 });

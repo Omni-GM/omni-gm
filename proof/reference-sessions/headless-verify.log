@@ -1,0 +1,5 @@
+PROOF TARGET https://beloved-caribou-152.convex.site
+PASS Opus loaded the section walk, checked entity history before searching older utterances, read the death's timestamp window, and flagged the slip in one line with both sources
+GM now: "Rook is alive and guarding the ferry"; older: "Rook dies when the ferry chain snaps. You bury him beside the landing." [S2 00:04:00]
+PASS fresh MCP readback: story state, session records, commits, frame, briefing, checklist and secrets unchanged
+HEADLESS OLDER-TRANSCRIPT CONTRADICTION PASSED

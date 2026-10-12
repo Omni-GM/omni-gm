@@ -1,0 +1,3 @@
+PASS confirmed previewIdentifier reference-sessions-41-r3 belongs to peaceful-blackbird-827 and has deploymentType preview
+POST /v1/deployments/peaceful-blackbird-827/delete
+PASS fresh deployment list confirms this preview is absent; no other deletion was requested

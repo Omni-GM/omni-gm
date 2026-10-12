@@ -18,6 +18,7 @@ import {
   sessionInfo,
   type storedBriefing as storedBriefingValue,
 } from "./model";
+import { currentNote } from "./notes";
 import { continuation, pageArgs, pageLimit, position } from "./pagination";
 import { readSecrets } from "./secrets";
 export const callerArgs = { caller: mcpCallerValidator };
@@ -142,11 +143,15 @@ export const adventureStart = internalMutation({
     return { id, name, reason };
   },
 });
-export const sessionArgs = { ...callerArgs, playedOn: v.string() };
+export const sessionArgs = {
+  ...callerArgs,
+  playedOn: v.string(),
+  reference: v.optional(v.boolean()),
+};
 export const sessionCreate = internalMutation({
   args: sessionArgs,
   returns: sessionInfo,
-  handler: async (ctx, { caller, playedOn }) => {
+  handler: async (ctx, { caller, playedOn, reference }) => {
     const campaign = await campaignFor(ctx, caller);
     if (!campaign.currentAdventure)
       throw new ConvexError("Call adventure_start first");
@@ -169,7 +174,7 @@ export const sessionCreate = internalMutation({
       playedOn,
       ordinal: (latest?.ordinal ?? 0) + 1,
       scenes: [],
-      status: "draft",
+      status: reference ? "reference" : "draft",
       changes: [],
       nextChange: 1,
     });
@@ -225,6 +230,7 @@ async function read(
 ): Promise<ReadValue> {
   if (ref === "secrets" || ref.startsWith("secret:"))
     return readSecrets(ctx, campaign, ref, limit, cursor);
+  if (ref === "note") return { note: await currentNote(ctx, campaign) };
   if (ref === "schema") return schemaFor(campaign);
   if (ref === "checklist") {
     const saved = await ctx.db
@@ -290,7 +296,9 @@ async function read(
   if (ref === "overview") {
     const sessions = await ctx.db
       .query("sessions")
-      .withIndex("by_campaign", (q) => q.eq("campaign", campaign._id))
+      .withIndex("by_campaign_and_playedOn", (q) =>
+        q.eq("campaign", campaign._id),
+      )
       .order("desc")
       .take(200);
     const adventures = await ctx.db
@@ -313,7 +321,28 @@ async function read(
       )
       .order("desc")
       .first();
+    const note = await currentNote(ctx, campaign);
+    const open =
+      note?.entries.filter((e) => e.status === "open").map((e) => e.section) ??
+      [];
+    const latestSession = latestDebrief?.session
+      ? await sessionFor(ctx, campaign._id, latestDebrief.session)
+      : null;
     return {
+      prep: note
+        ? {
+            session: note.session,
+            status: note.status,
+            done: note.entries
+              .filter((e) => e.status === "done")
+              .map((e) => e.section),
+            skipped: note.entries
+              .filter((e) => e.status === "skipped")
+              .map((e) => e.section),
+            open,
+            nextSection: open[0] ?? null,
+          }
+        : null,
       openSecrets: campaign.openSecrets ?? 0,
       adventures: adventures.map((a) => ({
         id: a._id,
@@ -321,6 +350,7 @@ async function read(
         reason: a.reason,
       })),
       sessions: sessions.map(sessionResult),
+      latestSession: latestSession ? sessionResult(latestSession) : null,
       commits: commits.map((c) => ({
         id: c._id,
         kind: c.kind,
@@ -453,6 +483,8 @@ async function read(
   }
   if (ref.startsWith("debrief:")) {
     const s = await sessionFor(ctx, campaign._id, ref.slice(8));
+    if (s.status === "reference")
+      throw new ConvexError("Reference sessions have no debrief");
     return {
       session: s._id,
       status: s.status,
@@ -517,7 +549,7 @@ async function read(
   if (ref.startsWith("session:"))
     return sessionResult(await sessionFor(ctx, campaign._id, ref));
   throw new ConvexError(
-    "Allowed refs: overview, frame, checklist, schema, secrets, secret:<id>, entity:<id>, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>",
+    "Allowed refs: overview, frame, checklist, note, schema, secrets, secret:<id>, entity:<id>, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>",
   );
 }
 export const get = internalQuery({

@@ -1,0 +1,12 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-42
+> vitest run tests/session-note.test.ts
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-42
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  03:07:12
+   Duration  837ms (transform 437ms, setup 0ms, import 98ms, tests 641ms, environment 0ms)

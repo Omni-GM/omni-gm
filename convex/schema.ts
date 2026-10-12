@@ -13,8 +13,13 @@ import {
   schemaInfo,
   secret,
   secretHistory,
+  sessionNote,
 } from "./model";
 export default defineSchema({
+  notes: defineTable({
+    campaign: v.id("campaigns"),
+    ...sessionNote.fields,
+  }).index("by_campaign_and_session", ["campaign", "session"]),
   checklists: defineTable({
     campaign: v.id("campaigns"),
     ...checklist.fields,
@@ -37,7 +42,11 @@ export default defineSchema({
     playedOn: v.string(),
     ordinal: v.number(),
     scenes: v.array(scene),
-    status: v.union(v.literal("draft"), v.literal("committed")),
+    status: v.union(
+      v.literal("draft"),
+      v.literal("committed"),
+      v.literal("reference"),
+    ),
     lastTime: v.optional(v.string()),
     briefing: v.optional(v.string()),
     changes: v.array(draftChange),
@@ -46,7 +55,8 @@ export default defineSchema({
     transcriptGeneration: v.optional(v.id("_storage")),
   })
     .index("by_campaign", ["campaign"])
-    .index("by_campaign_and_ordinal", ["campaign", "ordinal"]),
+    .index("by_campaign_and_ordinal", ["campaign", "ordinal"])
+    .index("by_campaign_and_playedOn", ["campaign", "playedOn"]),
   secrets: defineTable({
     campaign: v.id("campaigns"),
     ...secret.fields,

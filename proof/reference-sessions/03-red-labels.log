@@ -1,0 +1,53 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-impl41
+
+ ❯ tests/reference-sessions.test.ts (3 tests | 1 failed) 592ms
+   × find labels utterances with their stable session ordinal and played date across references and played sessions 30ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/reference-sessions.test.ts > find labels utterances with their stable session ordinal and played date across references and played sessions
+AssertionError: expected [ Array(2) ] to deeply equal [ { …(2) }, { …(2) } ]
+
+- Expected
++ Received
+
+  [
+    {
+-     "session": {
+-       "id": "000000000000000000010003sessions",
+-       "ordinal": 1,
+-       "playedOn": "2026-03-07",
+-     },
+-     "title": "S1 2026-03-07 00:01:10 GM",
++     "session": undefined,
++     "title": "00:01:10 GM",
+    },
+    {
+-     "session": {
+-       "id": "000000000000000000010008sessions",
+-       "ordinal": 2,
+-       "playedOn": "2026-01-03",
+-     },
+-     "title": "S2 2026-01-03 00:01:10 GM",
++     "session": undefined,
++     "title": "00:01:10 GM",
+    },
+  ]
+
+ ❯ tests/reference-sessions.test.ts:150:5
+    148|       }),
+    149|     ),
+    150|   ).toEqual([
+       |     ^
+    151|     {
+    152|       title: "S1 2026-03-07 00:01:10 GM",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  19:14:04
+   Duration  782ms (transform 407ms, setup 0ms, import 92ms, tests 592ms, environment 0ms)
+

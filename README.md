@@ -391,3 +391,45 @@ state stay intact. Preview proof uses the same script with a preview branch
 name as its only argument. The migration files are deployed only for the
 cleanup and are absent from the final deployment. Later deployments skip
 the migration once staging is empty.
+
+Prep picks are saved immediately with `note_write`. `get note` returns the
+current prep's ordered entries and its saved checklist/template;
+`get overview` includes `prep` with `done`, `skipped`, `open` and the first
+open `nextSection`. Both are null until a checklist and committed debrief
+exist. The note is keyed to the latest committed debrief, so draft sessions
+and reference transcripts do not restart prep. A new committed debrief
+starts a new note. Each write must name the session returned by `get note`;
+a stale client is refused rather than writing into the next prep.
+
+Use `op: upsert` with `section` and `entry` and/or `status` (`open`, `done`,
+`skipped`). Omitted fields and other sections stay unchanged. The first
+write keeps that prep's checklist definitions and template, so later
+checklist replacements apply to the next prep. `op: finish` requires every
+section to be done or skipped. Finished notes are read-only until
+`op: reopen` with a non-empty reason, followed by separate edits. The note
+keeps the latest reopen reason. Entries are bounded at 16,000 UTF-8 bytes,
+reopen reasons at 2,000, and the complete note at 128,000 JSON bytes; rejection
+writes nothing.
+
+The served `prep-sparring` procedure resumes from saved progress and
+assembles the finished entries in the saved template, in the game master's
+words and language. Claude Code also writes the finished markdown into the
+vault; clients without vault access show markdown to paste. Rendering and
+vault writes happen in the client, never on the server. The endpoint and
+fresh-conversation stop/resume proof is in `proof/session-note/`.
+
+### Older transcripts
+
+Create an older transcript-only reference with `session_create` using
+`playedOn: "YYYY-MM-DD"` and `reference: true`, then use the ordinary signed
+transcript upload. References have status `reference` and cannot receive
+scenes or a debrief. The overview orders sessions by played date;
+`latestSession` identifies the session behind the most recent debrief commit and its stored briefing,
+excluding references and undebriefed drafts. Stable session ordinals do not
+change when an older transcript is added.
+
+Transcript `find` hits include the session id, ordinal and played date. The
+section walk checks committed story state first and searches older transcripts
+only when a doubt needs them, citing the current game-master words and the
+older timestamp in one line. It never bulk-debriefs reference sessions.
+See [the proof bundle](proof/reference-sessions/README.md).

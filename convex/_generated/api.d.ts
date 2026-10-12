@@ -13,6 +13,7 @@ import type * as debrief from "../debrief.js";
 import type * as http from "../http.js";
 import type * as ledger from "../ledger.js";
 import type * as model from "../model.js";
+import type * as notes from "../notes.js";
 import type * as oauth from "../oauth.js";
 import type * as pagination from "../pagination.js";
 import type * as schemaChanges from "../schemaChanges.js";
@@ -36,6 +37,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   ledger: typeof ledger;
   model: typeof model;
+  notes: typeof notes;
   oauth: typeof oauth;
   pagination: typeof pagination;
   schemaChanges: typeof schemaChanges;

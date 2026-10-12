@@ -13,8 +13,13 @@ import {
   schemaInfo,
   secret,
   secretHistory,
+  sessionNote,
 } from "./model";
 export default defineSchema({
+  notes: defineTable({
+    campaign: v.id("campaigns"),
+    ...sessionNote.fields,
+  }).index("by_campaign_and_session", ["campaign", "session"]),
   checklists: defineTable({
     campaign: v.id("campaigns"),
     ...checklist.fields,

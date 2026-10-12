@@ -223,6 +223,27 @@ export const checklist = v.object({
   sections: v.array(v.object({ name: v.string(), definition: v.string() })),
   template: v.string(),
 });
+export const noteEntry = v.object({
+  section: v.string(),
+  entry: v.string(),
+  status: v.union(v.literal("open"), v.literal("done"), v.literal("skipped")),
+});
+export const sessionNote = v.object({
+  session: v.string(),
+  checklist,
+  entries: v.array(noteEntry),
+  reopenReason: v.optional(v.string()),
+  status: v.union(v.literal("in_progress"), v.literal("finished")),
+});
+export const noteRead = v.object({ note: v.union(sessionNote, v.null()) });
+export const prepProgress = v.object({
+  session: v.string(),
+  status: sessionNote.fields.status,
+  done: v.array(v.string()),
+  skipped: v.array(v.string()),
+  open: v.array(v.string()),
+  nextSection: v.union(v.string(), v.null()),
+});
 export const checklistChange = v.object({
   before: v.union(checklist, v.null()),
   after: checklist,
@@ -361,12 +382,14 @@ export const readValue = v.union(
     latestSession: v.union(sessionInfo, v.null()),
     commits: v.array(commit),
     openSecrets: v.number(),
+    prep: v.union(prepProgress, v.null()),
     currentAdventure: v.union(v.string(), v.null()),
     frame: v.union(frame, v.null()),
     briefing: v.union(storedBriefing, v.null()),
   }),
   frameRead,
   checklistRead,
+  noteRead,
   schemaInfo,
   sessionInfo,
   draft,

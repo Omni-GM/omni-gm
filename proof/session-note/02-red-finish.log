@@ -1,0 +1,35 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-42
+> vitest run tests/session-note.test.ts
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-42
+
+ ❯ tests/session-note.test.ts (2 tests | 1 failed) 586ms
+   × finished notes reject edits until reopened with a reason 31ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/session-note.test.ts > finished notes reject edits until reopened with a reason
+AssertionError: expected [Function] to throw error including 'Resolve open sections' but got '{"jsonrpc":"2.0","id":9,"result":{"co…'
+
+Expected: "Resolve open sections"
+Received: "{"jsonrpc":"2.0","id":9,"result":{"content":[{"type":"text","text":"Tool execution failed"}],"isError":true}}"
+
+ ❯ tests/session-note.test.ts:71:64
+     69| test("finished notes reject edits until reopened with a reason", async…
+     70|   const { c, session } = await prep();
+     71|   await expect(c.call("note_write", { session, op: "finish" })).reject…
+       |                                                                ^
+     72|   for (const section of ["Launch", "Discoveries", "Supplies"])
+     73|     await c.call("note_write", { session, op: "upsert", section, statu…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  03:06:30
+   Duration  785ms (transform 433ms, setup 0ms, import 99ms, tests 586ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

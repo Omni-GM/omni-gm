@@ -1,0 +1,29 @@
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-42
+> vitest run tests/session-note.test.ts
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-42
+
+ ❯ tests/session-note.test.ts (1 test | 1 failed) 403ms
+   × picks and status updates keep every other section untouched and a fresh client resumes 402ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/session-note.test.ts > picks and status updates keep every other section untouched and a fresh client resumes
+Error: identityArg "caller" is not a key of args for tool "note_write".
+ ❯ build node_modules/.pnpm/convex-mcp-gateway@2.1.1_convex@1.46.0_react@19.3.0_/node_modules/convex-mcp-gateway/src/client/index.ts:421:11
+ ❯ defineMcpMutation node_modules/.pnpm/convex-mcp-gateway@2.1.1_convex@1.46.0_react@19.3.0_/node_modules/convex-mcp-gateway/src/client/index.ts:572:10
+ ❯ convex/tools.ts:35:3
+
+ ❯ convex/http.ts:7:1
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  03:06:01
+   Duration  600ms (transform 390ms, setup 0ms, import 96ms, tests 403ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

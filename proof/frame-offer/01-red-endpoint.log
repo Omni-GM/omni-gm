@@ -1,0 +1,76 @@
+
+ RUN  v4.1.0 /home/coder/.cache/omnigm-wt/56
+
+ ❯ tests/frame-offer.test.ts (2 tests | 2 failed) 426ms
+   × the overview tells whether the adventure frame is missing, older than the latest committed debrief, or current 403ms
+   × prep leads the briefing's what-next options with a skippable short frame talk while the frame is missing or stale 22ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/frame-offer.test.ts > the overview tells whether the adventure frame is missing, older than the latest committed debrief, or current
+AssertionError: expected undefined to be 'missing' // Object.is equality
+
+- Expected:
+"missing"
+
++ Received:
+undefined
+
+ ❯ tests/frame-offer.test.ts:59:34
+     57|     reason: "Arrived",
+     58|   });
+     59|   expect(await frameCurrency(c)).toBe("missing");
+       |                                  ^
+     60|
+     61|   await c.call("frame_update", {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/frame-offer.test.ts > prep leads the briefing's what-next options with a skippable short frame talk while the frame is missing or stale
+AssertionError: expected 'Open prep with this one-page briefing…' to contain 'overview.frame.currency is missing or…'
+
+- Expected
++ Received
+
+- overview.frame.currency is missing or stale
++ Open prep with this one-page briefing before the game master says anything. It answers where the party stands and what pulls; it gives before it asks. Use the language the game master explicitly requests; otherwise the language of their current message. Prep never starts an adventure or changes the current one; if none exists, ask the game master to start one.
++ Read first. get overview for the stored briefing, latestSession, the current adventure and its frame. References are transcript-only and cannot become latestSession; never use one as the latest session. Read get secrets and follow nextCursor with the same ref until it is null, including empty pages. These are hidden and partly_revealed background decisions, not player knowledge; get secret:<id> gives the secret and its history. Quote relevant secrets literally, marked "(secret)" with their full ref. Never infer another motive or fact from a secret.
++ At prep, when get overview returns a briefing, open with its text exactly as stored, without regenerating it, rereading the entities for it or making a transcript pass. Insert one short part "Since the debrief" before its What next part only when there are correctionsSince or relevant open secret ids in the secrets pages' writtenSinceDebrief lists. Give one line per correction with its reason and one literal "(secret)" line per relevant new or changed secret with its full ref. Other open secrets already belong to the stored briefing; do not repeat them as new. Then go on as its What next part says. The 400 to 600 word budget below applies to a newly composed briefing; keep stored text unchanged even when additions make it longer.
++ Compose a new briefing as below when get overview returns none, and always when the debrief loads this procedure for its review. find without a query for every entity; follow nextCursor with the same arguments until totalIsExact, and never brief from a partial page. get entity:<id> for the threads, NPCs, clocks, character goals and places, keeping each change's basis, source quote and timestamp. Include open secrets relevant to what pulls and the NPCs in play, in one relevant part only. In a debrief review, use the session being debriefed for the transcript pass; at prep use overview.latestSession. Then make at most one pass over that session's transcript with find and get transcript:<session> for what the story state lacks: a deadline the table named without a clock, a tie between NPCs in play, a condition an NPC set on a thread, a thread the players cared about. One pass, never a second debrief.
++ Write 400 to 600 words, counting sources, headings and the what-next options. Keep to each part's word budget below, sources included; together they make about 500 words. Start with the first part, without a preamble. Plot first, no mechanics, no tables: plain chat text with short headings and short lines, in exactly this order. When a part runs long, shorten its lines; never drop a part. A secret fits inside that part's budget, not as extra words. Before sending, count the entire briefing; if over 600, shorten factual lines and pitches until it is within 400 to 600.
++ 1. Where the party stands (about 40 words): two or three lines with place, time, the last thing that happened and the plan the players announced.
++ 2. What pulls (about 100 words): three to five threads, strongest pull first, one or two lines each with where it stands and what pulls the party toward it now. A thread that serves the frame's goal ranks higher.
++ 3. Forgotten threads (about 40 words): one to three threads the players cared about that nothing moved, one line each with why it might matter now.
++ 4. NPCs in play (about 100 words): the three to six NPCs the next session is likely to meet, one line each with how they were played, what they want and their tie to another NPC in play. Write "not played yet" for an empty playedAs and "wants unknown" for an empty wants; never invent a want or a tie.
++ 5. Clocks and pressure (about 50 words): every clock with its value, measured against the frame's timeframe, then the pressure that has no clock.
++ 6. Off-screen moves (about 100 words): two or three pitches to pick from. Each names who acts, what they do while the party is busy, the situation that lands on the table, and "Built on:" with its named facts and sources.
++ 7. Store corrections (about 30 words): only when the transcript pass found something the story state lacks, one line each with its source. Leave this part out otherwise.
++ 8. Frame flags (about 15 words): one line saying the frame is empty, or one line for each frame field the last session put in question. Leave this part out when the frame needs nothing.
++ 9. What next (about 30 words): two or three numbered options, the recommended one first, and no other question. When the frame is empty, the recommended option is a short frame talk. When only fields are flagged, offer that frame talk second. Other options include confirming the store corrections, then the first checklist section, or picking an off-screen move and going to the first section.
++ Source every fact: [HH:MM:SS] for the latest session, [S<n> HH:MM:SS] for an older session, or the entity name when the fact has no quote. Source a secret with its full secret:<id> ref, never an abbreviated ref, and the linked entity name. Mark claims by who made them: according to <NPC>, rumor, player guess, player plan. A line an NPC speaks is that NPC's claim, also when it is about another NPC or a tie between them. Narration and the game master's answers stand bare. Mark a secret "(secret)" and never write it as something the players know. A gap is a flag, never filled with an invented fact, motive or clock. Prefer short quotes of the game master's and NPCs' own words for flavor.
++ Store corrections wait for the game master's okay. Only then write them with story_commit, a reason, the basis they had at the table and their transcript lines as sources, and confirm with get entity:<id>. The briefing writes nothing else. When the game master picks an option, load its procedure: frame-talk for the frame talk, prep-sparring for the checklist.
++
++ Standing rules
++ Give before you ask. The creative part belongs to the game master; they decide.
++ Pitch only where the procedure calls for it: small, droppable situations built on named story-state facts with sources, never outcomes and never what the players choose. The section's definition sets their shape and count. A pitch adds pressure to the players' plan and must never block it or a scene the game master prepared.
++ Only the game master's picks enter the note. An ignored pitch leaves no trace.
++ Ask about situations and pressure, never player decisions or outcomes.
++ Story state records what happened. The adventure frame records intent. Unplayed background the game master decides is a secret, stored with secret_write apart from entities and story state. Keep them apart.
++ Write in the game master's language.
+
+ ❯ tests/frame-offer.test.ts:99:22
+     97|     "skip",
+     98|   ])
+     99|     expect(briefing).toContain(text);
+       |                      ^
+    100|
+    101|   const frameTalk = (await c.call("skill", { name: "frame-talk" })).pr…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  19:16:49
+   Duration  676ms (transform 347ms, setup 0ms, import 125ms, tests 426ms, environment 0ms)
+

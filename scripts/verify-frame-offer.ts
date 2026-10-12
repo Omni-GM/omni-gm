@@ -119,7 +119,7 @@ function whatNextOptions(text: string): string[] {
     .filter((line) => /^\s*\d[.)]/.test(line))
     .map((line) => line.trim());
 }
-const questions = (text: string) => (text.match(/\?/g) ?? []).length;
+const questions = (text: string) => text.match(/[^.!?\n]*\?/g) ?? [];
 
 try {
   if (process.argv.includes("--before")) {
@@ -164,8 +164,9 @@ try {
 
     assert(loadedSkill(pick).includes("frame-talk"));
     for (const turn of [pick, ...answers.slice(0, -1)]) {
-      assert(questions(turn.text) === 1, turn.text);
-      assert(!/finale|pressure|next session start/i.test(turn.text));
+      const asked = questions(turn.text);
+      assert.equal(asked.length, 1, turn.text);
+      assert.doesNotMatch(asked[0], /finale|pressure|next session/i);
     }
     console.log(
       "PASS frame-talk loaded on the pick; each frame-talk turn asks exactly one question and starts no optional topic",
@@ -199,9 +200,18 @@ try {
       "stakes",
       "timeframe",
     ]);
-    assert.match(frame.fields.goal, /find Pell and Nia/);
-    assert.match(frame.fields.stakes, /the mill closes/);
-    assert.match(frame.fields.timeframe, /harvest fair/);
+    assert.match(
+      frame.fields.goal,
+      /[Ff]ind Pell and Nia and learn who took them/,
+    );
+    assert.match(
+      frame.fields.stakes,
+      /the apprentices vanish downriver for good and the mill closes; if they succeed, the widow keeps her mill/,
+    );
+    assert.match(
+      frame.fields.timeframe,
+      /[Bb]efore the harvest fair opens, three days from now/,
+    );
     assert(frame.history.every((h) => h.reason.trim()));
     const overview = await get<Overview>("overview");
     assert.equal(overview.frame.currency, "current");

@@ -10,8 +10,6 @@ import {
   draft,
   type Entity,
   type History,
-  type LedgerRow,
-  ledger,
   type Proposed,
   proposed,
   type Relationship,
@@ -120,14 +118,6 @@ type Applied = {
   after: Entity | Relationship | null;
   ids: string[];
 };
-function fields(entity: Entity | null, keys: string[]): LedgerRow["after"] {
-  const values: LedgerRow["after"] = {};
-  for (const key of keys) {
-    const value = entity?.properties[key];
-    if (value !== undefined) values[key] = value;
-  }
-  return values;
-}
 class DraftState {
   readonly entities = new Map<string, Entity>();
   readonly temps = new Map<string, string>();
@@ -259,59 +249,20 @@ class DraftState {
     return { before: rel, after: null, ids: [from.id, to.id] };
   }
 }
-function ledgerRow(
+function changeName(
   state: DraftState,
-  id: string,
   { change }: Proposed,
   { before, after }: Applied,
-): LedgerRow {
+): string {
   if (change.op === "relate" || change.op === "unrelate") {
     const rel = (after ?? before) as Relationship;
     const { label } = state.schema.relationshipTypes[rel.type];
-    return {
-      id,
-      label: change.op === "relate" ? "link" : "unlink",
-      subject: `${state.name(rel.from)} ${label} ${state.name(rel.to)}`,
-      before: {},
-      after: {},
-    };
+    const verb = change.op === "relate" ? "link" : "unlink";
+    return `${verb} ${state.name(rel.from)} ${label} ${state.name(rel.to)}`;
   }
-  const entity = after as Entity;
-  if (change.op === "new")
-    return {
-      id,
-      label: "new",
-      subject: entity.name,
-      kind: entity.kind,
-      before: {},
-      after: {
-        ...(entity.aliases.length
-          ? { aliases: entity.aliases.join(", ") }
-          : {}),
-        ...entity.properties,
-      },
-    };
-  const was = before as Entity;
-  const keys = Object.keys(change.properties ?? {});
-  const added = entity.aliases.filter((a) => !was.aliases.includes(a));
-  return {
-    id,
-    label: change.properties?.status === "closed" ? "closed" : "change",
-    subject: entity.name,
-    kind: entity.kind,
-    before: fields(was, keys),
-    after: {
-      ...fields(entity, keys),
-      ...(added.length ? { addAliases: added.join(", ") } : {}),
-    },
-  };
-}
-function scenesOf(s: Doc<"sessions">): Infer<typeof ledger>["scenes"] {
-  return s.scenes.map(({ title, place }, i) => ({
-    ordinal: i + 1,
-    title,
-    place,
-  }));
+  const { name } = after as Entity;
+  if (change.op === "new") return `new ${name}`;
+  return `${change.properties?.status === "closed" ? "closed" : "change"} ${name}`;
 }
 async function stateFor(
   ctx: QueryCtx,
@@ -368,7 +319,6 @@ export const addArgs = {
 };
 export const addResult = v.object({
   draft,
-  ledger,
   rejected: v.array(v.object({ index: v.number(), reason: v.string() })),
 });
 export const add = internalMutation({
@@ -387,16 +337,7 @@ export const add = internalMutation({
     if (encodedSize(briefing ?? s.briefing) > 16_000)
       throw new ConvexError("Keep the briefing within 16 KB");
     const state = await stateFor(ctx, campaign);
-    const rows: LedgerRow[] = [];
-    for (const p of s.changes)
-      rows.push(
-        ledgerRow(
-          state,
-          p.id,
-          p,
-          applyPendingChange(s, state, p, `draft-${p.id}`),
-        ),
-      );
+    for (const p of s.changes) applyPendingChange(s, state, p, `draft-${p.id}`);
     const kept: DraftChange[] = [...s.changes];
     const rejected: { index: number; reason: string }[] = [];
     let nextChange = s.nextChange;
@@ -410,7 +351,7 @@ export const add = internalMutation({
             "Keep the draft within 512 KB; drop or shorten proposals",
           );
         validScene(s, p);
-        rows.push(ledgerRow(state, id, p, state.apply(p, `draft-${id}`)));
+        state.apply(p, `draft-${id}`);
         kept.push({ ...p, id });
         nextChange++;
       } catch (error) {
@@ -433,44 +374,37 @@ export const add = internalMutation({
     });
     return {
       draft: draftResult(updated),
-      ledger: { scenes: scenesOf(s), rows },
       rejected,
     };
   },
 });
-async function ledgerRowsById(
+async function changeNamesById(
   ctx: QueryCtx,
   campaign: Doc<"campaigns">,
   s: Doc<"sessions">,
-): Promise<Map<string, LedgerRow>> {
+): Promise<Map<string, string>> {
   const state = await stateFor(ctx, campaign);
-  const rows = new Map<string, LedgerRow>();
+  const names = new Map<string, string>();
   for (const p of s.changes) {
     try {
-      rows.set(
+      names.set(
         p.id,
-        ledgerRow(
-          state,
-          p.id,
-          p,
-          applyPendingChange(s, state, p, `draft-${p.id}`),
-        ),
+        changeName(state, p, applyPendingChange(s, state, p, `draft-${p.id}`)),
       );
     } catch {}
   }
-  return rows;
+  return names;
 }
 function dependentName(
   s: Doc<"sessions">,
-  rows: Map<string, LedgerRow>,
+  names: Map<string, string>,
   id: string,
 ): string {
-  const { label, subject } = rows.get(id) as LedgerRow;
   const scene = (s.changes.find((p) => p.id === id) as DraftChange).scene;
-  return `${label} ${subject} (scene ${scene})`;
+  return `${names.get(id)} (scene ${scene})`;
 }
 export const dropArgs = { ...sessionArgs, changeIds: v.array(v.string()) };
-export const draftResponse = v.object({ draft, ledger });
+export const draftResponse = v.object({ draft });
 export const drop = internalMutation({
   args: dropArgs,
   returns: draftResponse,
@@ -486,17 +420,9 @@ export const drop = internalMutation({
     const changes = s.changes.filter((p) => !changeIds.includes(p.id));
     const state = await stateFor(ctx, campaign);
     const invalid: { id: string; reason: string }[] = [];
-    const rows: LedgerRow[] = [];
     for (const p of changes) {
       try {
-        rows.push(
-          ledgerRow(
-            state,
-            p.id,
-            p,
-            applyPendingChange(s, state, p, `draft-${p.id}`),
-          ),
-        );
+        applyPendingChange(s, state, p, `draft-${p.id}`);
       } catch (error) {
         invalid.push({
           id: p.id,
@@ -505,7 +431,7 @@ export const drop = internalMutation({
       }
     }
     if (invalid.length) {
-      const shown = await ledgerRowsById(ctx, campaign, s);
+      const shown = await changeNamesById(ctx, campaign, s);
       if (invalid.every((entry) => shown.has(entry.id)))
         throw new ConvexError(
           `Drop the dependent changes first: ${invalid.map((entry) => dependentName(s, shown, entry.id)).join(", ")}.`,
@@ -515,10 +441,7 @@ export const drop = internalMutation({
       );
     }
     await ctx.db.patch(s._id, { changes });
-    return {
-      draft: draftResult({ ...s, changes }),
-      ledger: { scenes: scenesOf(s), rows },
-    };
+    return { draft: draftResult({ ...s, changes }) };
   },
 });
 async function persist(

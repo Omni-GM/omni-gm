@@ -11,7 +11,6 @@
 import type * as checklists from "../checklists.js";
 import type * as debrief from "../debrief.js";
 import type * as http from "../http.js";
-import type * as ledger from "../ledger.js";
 import type * as model from "../model.js";
 import type * as notes from "../notes.js";
 import type * as oauth from "../oauth.js";
@@ -35,7 +34,6 @@ declare const fullApi: ApiFromModules<{
   checklists: typeof checklists;
   debrief: typeof debrief;
   http: typeof http;
-  ledger: typeof ledger;
   model: typeof model;
   notes: typeof notes;
   oauth: typeof oauth;

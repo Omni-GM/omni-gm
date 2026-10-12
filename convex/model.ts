@@ -260,26 +260,6 @@ export const checklistRead = v.object({
   ),
   ...pageInfo,
 });
-export const ledgerRow = v.object({
-  id: v.string(),
-  label: v.union(
-    v.literal("new"),
-    v.literal("change"),
-    v.literal("closed"),
-    v.literal("link"),
-    v.literal("unlink"),
-  ),
-  subject: v.string(),
-  kind: v.optional(v.string()),
-  before: propertyValues,
-  after: propertyValues,
-});
-export const ledger = v.object({
-  scenes: v.array(
-    v.object({ ordinal: v.number(), title: v.string(), place: v.string() }),
-  ),
-  rows: v.array(ledgerRow),
-});
 export const adventure = v.object({
   id: v.string(),
   name: v.string(),
@@ -430,7 +410,6 @@ export type Entity = Infer<typeof entity>;
 export type Relationship = Infer<typeof relationship>;
 export type DraftChange = Infer<typeof draftChange>;
 export type History = Infer<typeof history>;
-export type LedgerRow = Infer<typeof ledgerRow>;
 export type ReadValue = Infer<typeof readValue>;
 export function seconds(at: string): number {
   if (!/^\d{1,3}:\d{2}(?::\d{2})?$/.test(at))

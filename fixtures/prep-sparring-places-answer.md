@@ -1,1 +1,0 @@
-Use Amber Landing and the Empty Loft. At the Landing, talk with Mira about the seal. At the Loft, let the party investigate Rowan's guess; it is still a guess. Those are my place decisions. Let's move to Main-plot background.

@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
@@ -55,7 +55,7 @@ type StoredEntity = Entity & { history: History[]; relationships: unknown[] };
 try {
   await call("adventure_start", {
     name: "The Amber Ferry",
-    reason: "Invented sparring proof",
+    reason: "Invented prep proof",
   });
   const session = await call<{ id: string }>("session_create", {
     playedOn: "2026-01-03",
@@ -210,124 +210,112 @@ try {
       mira = candidate;
   }
   assert(mira, "Find the NPC from this proof session");
-  await mkdir(".convex", { recursive: true });
-  await writeFile(
-    `.convex/prep-${new URL(url).hostname}.json`,
-    JSON.stringify({ session: session.id, mira: mira.id }),
-  );
   console.log(
     "PASS seeded a committed invented debrief, frame, source claims, a player guess, a visible clock and two places",
   );
-  if (process.argv.includes("--seed-only")) {
-    console.log("PREP FIXTURE READY");
-  } else {
-    for (const name of ["prep sparring", "plank questions"]) {
-      const skill = await call<{ procedure: string }>("skill", { name });
-      assert(skill.procedure.includes("Only the game master's picks"));
-    }
-    const before = await call("get", { ref: "overview" });
-    const draft = await call("get", { ref: `debrief:${session.id}` });
-    const update = {
-      change: {
-        op: "update",
-        entity: mira.id,
-        properties: { wants: "The seal returned before the fourth bell" },
-      },
-      basis: ["game_master"],
-      sources: [
-        { quote: "Mira wants the seal returned before the fourth bell." },
-      ],
-      why: "Record my plank answer about the keeper",
-    };
-    await reject(
-      {
-        reason: "Bad batch",
-        changes: [
-          update,
-          {
-            ...update,
-            change: {
-              op: "update",
-              entity: mira.id,
-              properties: { status: "invisible" },
-            },
-          },
-        ],
-      },
-      "alive, dead, gone, unknown",
-    );
-    assert.deepEqual(await call("get", { ref: `entity:${mira.id}` }), {
-      value: mira,
-    });
-    assert.deepEqual(await call("get", { ref: "overview" }), before);
-    await reject(
-      {
-        reason: "A guess cannot change Mira",
-        changes: [{ ...update, basis: ["player_guess"] }],
-      },
-      "only thread or character_goal",
-    );
-    console.log(
-      "PASS invalid later change rolls back the entire batch and guess-only NPC correction is rejected",
-    );
-    const committed = await call<{ commit: string }>("story_commit", {
-      reason: "Fill the keeper's main-plot background",
-      changes: [update],
-    });
-    const saved = (
-      await call<{ value: StoredEntity }>("get", { ref: `entity:${mira.id}` })
-    ).value;
-    assert.equal(
-      saved.properties.wants,
-      "The seal returned before the fourth bell",
-    );
-    assert.deepEqual(saved.history.at(-1)?.basis, ["game_master"]);
-    assert.deepEqual(saved.history.at(-1)?.sources, update.sources);
-    assert.equal(saved.history.at(-1)?.commit, committed.commit);
-    assert(!Object.hasOwn(saved.history.at(-1) ?? {}, "session"));
-    assert.deepEqual(
-      await call("get", { ref: `debrief:${session.id}` }),
-      draft,
-    );
-    console.log(
-      "PASS plank answer stored with exact words, game_master basis and history; committed debrief unchanged",
-    );
-    const source = await call<{
-      hits: { basis?: string[]; score?: number; ref: string }[];
-    }>("find", { query: "seal", types: ["source"], limit: 200 });
-    assert(source.hits.some((h) => h.basis?.includes("npc_said")));
-    assert(source.hits.some((h) => h.basis?.includes("player_guess")));
-    assert(source.hits.some((h) => h.basis?.includes("game_master")));
-    assert(
-      source.hits.every(
-        (h, i) => i === 0 || (source.hits[i - 1].score ?? 0) >= (h.score ?? 0),
-      ),
-    );
-    const relevant = await call<{
-      hits: { basis?: string[]; snippet?: string }[];
-    }>("find", { query: "seal returned", types: ["source"], limit: 200 });
-    assert(relevant.hits[0].basis?.includes("game_master"));
-    assert(relevant.hits[0].snippet?.includes("Mira wants the seal returned"));
-    console.log(
-      "PASS the known two-keyword GM answer ranks ahead of single-keyword claims within the page",
-    );
-    const utterances = await call<{ hits: { ref: string; title: string }[] }>(
-      "find",
-      { query: "seal", types: ["transcript"], limit: 200 },
-    );
-    const hit = utterances.hits.find((h) =>
-      h.ref.startsWith(`transcript:${session.id}@`),
-    );
-    assert(hit);
-    const context = await call<{
-      value: { utterances: { speaker: string; text: string }[] };
-    }>("get", { ref: hit.ref });
-    assert(context.value.utterances.some((u) => u.text.includes("seal")));
-    console.log(
-      "PASS source search ranks and preserves NPC claims, player guesses and GM answers; utterance refs read timestamp context",
-    );
-    console.log("PREP SDK E2E PASSED");
+  for (const name of ["prep sparring", "plank questions"]) {
+    const skill = await call<{ procedure: string }>("skill", { name });
+    assert(skill.procedure.includes("Only the game master's picks"));
   }
+  const before = await call("get", { ref: "overview" });
+  const draft = await call("get", { ref: `debrief:${session.id}` });
+  const update = {
+    change: {
+      op: "update",
+      entity: mira.id,
+      properties: { wants: "The seal returned before the fourth bell" },
+    },
+    basis: ["game_master"],
+    sources: [
+      { quote: "Mira wants the seal returned before the fourth bell." },
+    ],
+    why: "Record my plank answer about the keeper",
+  };
+  await reject(
+    {
+      reason: "Bad batch",
+      changes: [
+        update,
+        {
+          ...update,
+          change: {
+            op: "update",
+            entity: mira.id,
+            properties: { status: "invisible" },
+          },
+        },
+      ],
+    },
+    "alive, dead, gone, unknown",
+  );
+  assert.deepEqual(await call("get", { ref: `entity:${mira.id}` }), {
+    value: mira,
+  });
+  assert.deepEqual(await call("get", { ref: "overview" }), before);
+  await reject(
+    {
+      reason: "A guess cannot change Mira",
+      changes: [{ ...update, basis: ["player_guess"] }],
+    },
+    "only thread or character_goal",
+  );
+  console.log(
+    "PASS invalid later change rolls back the entire batch and guess-only NPC correction is rejected",
+  );
+  const committed = await call<{ commit: string }>("story_commit", {
+    reason: "Fill the keeper's main-plot background",
+    changes: [update],
+  });
+  const saved = (
+    await call<{ value: StoredEntity }>("get", { ref: `entity:${mira.id}` })
+  ).value;
+  assert.equal(
+    saved.properties.wants,
+    "The seal returned before the fourth bell",
+  );
+  assert.deepEqual(saved.history.at(-1)?.basis, ["game_master"]);
+  assert.deepEqual(saved.history.at(-1)?.sources, update.sources);
+  assert.equal(saved.history.at(-1)?.commit, committed.commit);
+  assert(!Object.hasOwn(saved.history.at(-1) ?? {}, "session"));
+  assert.deepEqual(await call("get", { ref: `debrief:${session.id}` }), draft);
+  console.log(
+    "PASS plank answer stored with exact words, game_master basis and history; committed debrief unchanged",
+  );
+  const source = await call<{
+    hits: { basis?: string[]; score?: number; ref: string }[];
+  }>("find", { query: "seal", types: ["source"], limit: 200 });
+  assert(source.hits.some((h) => h.basis?.includes("npc_said")));
+  assert(source.hits.some((h) => h.basis?.includes("player_guess")));
+  assert(source.hits.some((h) => h.basis?.includes("game_master")));
+  assert(
+    source.hits.every(
+      (h, i) => i === 0 || (source.hits[i - 1].score ?? 0) >= (h.score ?? 0),
+    ),
+  );
+  const relevant = await call<{
+    hits: { basis?: string[]; snippet?: string }[];
+  }>("find", { query: "seal returned", types: ["source"], limit: 200 });
+  assert(relevant.hits[0].basis?.includes("game_master"));
+  assert(relevant.hits[0].snippet?.includes("Mira wants the seal returned"));
+  console.log(
+    "PASS the known two-keyword GM answer ranks ahead of single-keyword claims within the page",
+  );
+  const utterances = await call<{ hits: { ref: string; title: string }[] }>(
+    "find",
+    { query: "seal", types: ["transcript"], limit: 200 },
+  );
+  const hit = utterances.hits.find((h) =>
+    h.ref.startsWith(`transcript:${session.id}@`),
+  );
+  assert(hit);
+  const context = await call<{
+    value: { utterances: { speaker: string; text: string }[] };
+  }>("get", { ref: hit.ref });
+  assert(context.value.utterances.some((u) => u.text.includes("seal")));
+  console.log(
+    "PASS source search ranks and preserves NPC claims, player guesses and GM answers; utterance refs read timestamp context",
+  );
+  console.log("PREP SDK E2E PASSED");
 } finally {
   await client.close();
 }

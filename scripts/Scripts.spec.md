@@ -60,9 +60,6 @@ The operator's tooling: end-to-end walks and real-client verifications run again
 - verify frame talk: the operator verifies frame talk with a real client
   handler: verify-frame-talk.ts
   trust: operator
-- verify prep sparring: the operator verifies prep sparring with a real client
-  handler: verify-prep-sparring.ts
-  trust: operator
 - verify secrets: the operator verifies secrets with a real client
   handler: verify-secrets.ts
   trust: operator

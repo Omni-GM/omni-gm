@@ -1,0 +1,91 @@
+Fleet heavy: 2 heavy jobs run already; waiting for a free slot.
+
+> omni-gm@0.1.0 check /home/coder/.cache/omnigm-wt/58
+> pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test
+
+tests/mcp.test.ts:713:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    711 │   const failed = await c.t.fetch(path, {
+    712 │     method: "PUT",
+  > 713 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
+        │           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    714 │   });
+    715 │   expect(failed.status).toBe(400);
+  
+  i Unsafe fix: Use a template literal.
+  
+     711  711 │     const failed = await c.t.fetch(path, {
+     712  712 │       method: "PUT",
+     713      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
+          713 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
+     714  714 │     });
+     715  715 │     expect(failed.status).toBe(400);
+  
+
+Checked 67 files in 99ms. No fixes applied.
+Found 1 info.
+CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
+▌ Developing against deployment:
+▌ [Local] Port 3210 • No Convex account (run npx convex login to link to a project)
+▌ └─ http://127.0.0.1:3210
+- Preparing Convex functions...
+
+Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
+✔ 19:09:53 Convex functions ready! (444.64ms)
+Finding component definitions...
+Generating server code...
+Bundling component definitions...
+Bundling component schemas and implementations...
+Downloading current deployment state...
+Uploading functions to Convex...
+Generating TypeScript bindings...
+Running TypeScript...
+
+> omni-gm@0.1.0 test /home/coder/.cache/omnigm-wt/58
+> vitest run
+
+
+[1m[46m RUN [49m[22m [36mv4.1.0 [39m[90m/home/coder/.cache/omnigm-wt/58[39m
+
+ [32m✓[39m tests/codegen.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 57[2mms[22m[39m
+ [32m✓[39m tests/transcript-retirement.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 359[2mms[22m[39m
+   [33m[2m✓[22m[39m the tool list has no chunk upload tool and calling it fails [33m 358[2mms[22m[39m
+ [32m✓[39m tests/briefing.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 442[2mms[22m[39m
+   [33m[2m✓[22m[39m prep opens with the briefing skill, and every skill carries the pitch guardrails instead of a ban on drafting prep [33m 415[2mms[22m[39m
+ [32m✓[39m tests/upload-page.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 466[2mms[22m[39m
+   [33m[2m✓[22m[39m transcript_upload_url also links an upload page for clients without a shell [33m 401[2mms[22m[39m
+ [32m✓[39m tests/reveals.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 685[2mms[22m[39m
+   [33m[2m✓[22m[39m a debrief commit reveals one secret whole and one in part, with history, next to its story changes [33m 484[2mms[22m[39m
+[90mstderr[2m | tests/mcp.test.ts[2m > [22m[2manother owner stays scoped when reusing an MCP transport session and cannot read, edit, upload or download the campaign
+[22m[39m[mcp-gateway] a 401 challenge was issued but no OAuth config exists; returning 401 without WWW-Authenticate. Browser clients can't begin OAuth discovery until setOAuthConfig is called.
+
+ [32m✓[39m tests/checklist.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 862[2mms[22m[39m
+   [33m[2m✓[22m[39m the game master stores ordered sections, definitions and the markdown template for any client [33m 422[2mms[22m[39m
+ [32m✓[39m tests/session-note.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 964[2mms[22m[39m
+   [33m[2m✓[22m[39m picks and status updates keep every other section untouched and a fresh client resumes [33m 481[2mms[22m[39m
+ [32m✓[39m tests/secrets.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 1051[2mms[22m[39m
+   [33m[2m✓[22m[39m secret writes and changes keep reasoned before/after history apart from entities and their history [33m 459[2mms[22m[39m
+ [32m✓[39m tests/debrief-briefing.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 1113[2mms[22m[39m
+   [33m[2m✓[22m[39m the committed debrief stores its briefing, and the overview returns it with the corrections written since [33m 459[2mms[22m[39m
+   [33m[2m✓[22m[39m past 200 corrections, the overview keeps the newest ones written since the debrief [33m 580[2mms[22m[39m
+ [32m✓[39m tests/reference-sessions.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 1114[2mms[22m[39m
+   [33m[2m✓[22m[39m a late-added reference sorts by played date and preserves the latest committed session and briefing [33m 473[2mms[22m[39m
+   [33m[2m✓[22m[39m a reference cannot become latest even with a later played date or more references than the overview window [33m 505[2mms[22m[39m
+ [32m✓[39m tests/prep.test.ts [2m([22m[2m21 tests[22m[2m)[22m[33m 1216[2mms[22m[39m
+   [33m[2m✓[22m[39m a confirmed table correction commits new entities, aliases and relationships together with sourced history outside a debrief [33m 432[2mms[22m[39m
+ [32m✓[39m tests/mcp.test.ts [2m([22m[2m44 tests[22m[2m)[22m[33m 11963[2mms[22m[39m
+   [33m[2m✓[22m[39m the game master starts an adventure, records a session and recalls the seeded schema [33m 409[2mms[22m[39m
+   [33m[2m✓[22m[39m an entity history remains readable after more than 2000 unrelated campaign changes [33m 1559[2mms[22m[39m
+   [33m[2m✓[22m[39m frame history never displaces the latest debrief from overview [33m 370[2mms[22m[39m
+   [33m[2m✓[22m[39m overview recalls the last debrief after more schema commits than its recent-history window [33m 1039[2mms[22m[39m
+   [33m[2m✓[22m[39m a four-hour transcript uploads, splits at its true end, and reads back completely through pages [33m 916[2mms[22m[39m
+   [33m[2m✓[22m[39m more than 2000 changes to one entity remain reachable with distinct history and source hits [33m 5357[2mms[22m[39m
+   [33m[2m✓[22m[39m replacing a long transcript hides the old generation and invalidates its continuation [33m 559[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m12 passed[39m[22m[90m (12)[39m
+[2m      Tests [22m [1m[32m111 passed[39m[22m[90m (111)[39m
+[2m   Start at [22m 19:10:01
+[2m   Duration [22m 12.36s[2m (transform 3.69s, setup 0ms, import 1.99s, tests 20.29s, environment 1ms)[22m
+

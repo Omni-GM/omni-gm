@@ -131,8 +131,8 @@ TypeScript, PNPM and Convex. A real ripgrep must be on `PATH` for codegen.
 
 [Initial review](opus-review-initial.md), [final review](opus-review-final.md)
 and [dispositions](review-dispositions.md) retain both findings, their fixes
-and the reviewer's coverage limits. The final review has no remaining
-findings. CodeRabbit skipped the draft PR under its default policy.
+and the reviewer's coverage limits. The final review found no blocking defects. Its low documentation finding
+is fixed in the dispositions; there are no unresolved findings. CodeRabbit skipped the draft PR under its default policy.
 
 ## Integration with reference sessions
 

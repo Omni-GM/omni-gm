@@ -1,0 +1,30 @@
+
+[1m[46m RUN [49m[22m [36mv4.1.0 [39m[90m/home/coder/.cache/omnigm-wt/57[39m
+
+ [31m❯[39m tests/oauth-discovery.test.ts [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 320[2mms[22m[39m
+[31m   [31m×[31m an MCP client registered at /mcp or /mcp/ accepts the documented /mcp resource[39m[33m 319[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/oauth-discovery.test.ts[2m > [22man MCP client registered at /mcp or /mcp/ accepts the documented /mcp resource
+[31m[1mAssertionError[22m: expected 'https://some.convex.site/mcp/' to be 'https://some.convex.site/mcp' // Object.is equality[39m
+
+Expected: [32m"https://some.convex.site/mcp"[39m
+Received: [31m"https://some.convex.site/mcp[7m/[27m"[39m
+
+[36m [2m❯[22m tests/oauth-discovery.test.ts:[2m47:31[22m[39m
+    [90m 45|[39m   [35mfor[39m ([35mconst[39m registeredUrl [35mof[39m [documentedUrl[33m,[39m [32m`[39m[36m${[39mdocumentedUrl[36m}[39m[32m/`[39m]) {
+    [90m 46|[39m     [35mconst[39m metadata [33m=[39m [35mawait[39m [34mdiscoverMetadata[39m(t[33m,[39m registeredUrl)[33m;[39m
+    [90m 47|[39m     [34mexpect[39m(metadata[33m.[39mresource)[33m.[39m[34mtoBe[39m(documentedUrl)[33m;[39m
+    [90m   |[39m                               [31m^[39m
+    [90m 48|[39m     [35mconst[39m resource [33m=[39m [35mawait[39m [34mselectResourceURL[39m(
+    [90m 49|[39m       registeredUrl[33m,[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m   Start at [22m 19:07:39
+[2m   Duration [22m 643ms[2m (transform 314ms, setup 0ms, import 200ms, tests 320ms, environment 0ms)[22m
+

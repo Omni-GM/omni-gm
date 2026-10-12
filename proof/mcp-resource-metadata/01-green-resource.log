@@ -1,0 +1,9 @@
+
+[1m[46m RUN [49m[22m [36mv4.1.0 [39m[90m/home/coder/.cache/omnigm-wt/57[39m
+
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m   Start at [22m 19:07:46
+[2m   Duration [22m 617ms[2m (transform 304ms, setup 0ms, import 182ms, tests 311ms, environment 0ms)[22m
+

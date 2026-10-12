@@ -1,0 +1,21 @@
+$ claude --version
+2.1.296 (Claude Code)
+# preview of unchanged main (299a98b)
+$ claude mcp add --transport http omni-gm https://kindhearted-corgi-594.convex.site/mcp
+Added HTTP MCP server omni-gm with URL: https://kindhearted-corgi-594.convex.site/mcp to local config
+$ claude mcp list
+Checking MCP server health…
+
+omni-gm: https://kindhearted-corgi-594.convex.site/mcp (HTTP) - ✘ Failed to connect — Protected resource https://kindhearted-corgi-594.convex.site/ does not match expected https://kindhearted-corgi-594.convex.site (or origin)
+$ claude mcp remove omni-gm
+Removed MCP server "omni-gm" from local config
+
+$ claude mcp add --transport http omni-gm https://kindhearted-corgi-594.convex.site/mcp/
+Added HTTP MCP server omni-gm with URL: https://kindhearted-corgi-594.convex.site/mcp to local config
+$ claude mcp list
+Checking MCP server health…
+
+omni-gm: https://kindhearted-corgi-594.convex.site/mcp/ (HTTP) - ! Needs authentication
+$ claude mcp remove omni-gm
+Removed MCP server "omni-gm" from local config
+

@@ -29,8 +29,10 @@ makes an agent do. Neither inspects tables or calls internal functions.
 
 ## Headless client proof
 
-`preview-deploy.log` names the source commit and a fresh staging branch
-preview. `seed.log` seeds it with `scripts/reveals-e2e.ts`: an adventure, one
+`preview-deploy.log` names the source commit, the merge of this branch with
+`main` after #42, #44 and #50 landed, and a fresh staging branch preview. The
+same run on the branch before that merge is kept in `pre-merge/`; it passed
+the same readback. `seed.log` seeds it with `scripts/reveals-e2e.ts`: an adventure, one
 session, the invented 24-line transcript `fixtures/reveals-session.txt`, and
 the three hidden secrets of `fixtures/reveals-secrets.json`:
 
@@ -84,4 +86,4 @@ secret is `partly_revealed` with its reveal on the debrief commit.
 with `--preview-create`. That replaced the preview with a new, empty
 deployment instead of upgrading it, so it proves nothing and was redone.
 
-Both previews were deleted after their proof.
+All three previews were deleted after their proof.

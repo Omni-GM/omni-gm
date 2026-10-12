@@ -1,9 +1,9 @@
-SOURCE COMMIT aa46e04e73dcf14cf0ea7efa13d724cdc828b23b
+SOURCE COMMIT 6684e39339821976584e6154fec06066a767d7b4
 SOURCE BRANCH feat/v2-reveals
 ▌ Deploying code to deployment:
-▌ [Preview] omni-gm:omni-gm:preview/feat-v2-reveals-headless-1 (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/calm-chickadee-698)
-▌ └─ https://calm-chickadee-698.convex.cloud
-- Deploying to https://calm-chickadee-698.convex.cloud...
+▌ [Preview] omni-gm:omni-gm:preview/feat-v2-reveals-headless-2 (dashboard: https://dashboard.convex.dev/t/omni-gm/omni-gm/successful-partridge-755)
+▌ └─ https://successful-partridge-755.convex.cloud
+- Deploying to https://successful-partridge-755.convex.cloud...
 
 ✔ Added table indexes:
   [+] adventures.by_campaign   campaign, _creationTime
@@ -20,6 +20,7 @@ SOURCE BRANCH feat/v2-reveals
   [+] history.by_campaign   campaign, _creationTime
   [+] history.by_campaign_and_commit   campaign, commit, _creationTime
   [+] history.search_text (text)   searchText, filter on campaign
+  [+] notes.by_campaign_and_session   campaign, session, _creationTime
   [+] relationships.by_campaign   campaign, _creationTime
   [+] relationships.by_campaign_and_from   campaign, from, _creationTime
   [+] relationships.by_campaign_and_to   campaign, to, _creationTime
@@ -31,11 +32,12 @@ SOURCE BRANCH feat/v2-reveals
   [+] secrets.by_campaign_and_status   campaign, status, _creationTime
   [+] sessions.by_campaign   campaign, _creationTime
   [+] sessions.by_campaign_and_ordinal   campaign, ordinal, _creationTime
+  [+] sessions.by_campaign_and_playedOn   campaign, playedOn, _creationTime
   [+] uploads.by_session   session, _creationTime
   [+] uploads.by_token   token, _creationTime
   [+] utterances.by_campaign   campaign, _creationTime
   [+] utterances.by_session_and_generation_and_seconds   session, transcriptGeneration, seconds, ordinal, _creationTime
   [+] utterances.search_text (text)   searchText, filter on campaign
 ✔ Installed component mcpGateway.
-✔ Deployed Convex functions to https://calm-chickadee-698.convex.cloud
+✔ Deployed Convex functions to https://successful-partridge-755.convex.cloud
 ✔ Finished running function "oauth:configure"

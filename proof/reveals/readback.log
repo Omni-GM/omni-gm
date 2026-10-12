@@ -1,9 +1,9 @@
-PROOF TARGET https://calm-chickadee-698.convex.site
+PROOF TARGET https://successful-partridge-755.convex.site
 PASS turn one reads the open secrets and drafts the well whole and Wenna in part, with transcript timestamps, and no reveal for Coll (2 reveals)
-  REVEAL whole scene 1: Bram Oake confessed that he poisoned the Thornwick well with nightshade, three nights running.
-  REVEAL partial scene 2: Sister Wenna signals an unlit boat on the river from the chapel tower, and its boatman Pell says he carries what she tells him and that she gives the orders on the river.
-PASS the review asks about the unsure third reveal as one of 4 timestamped questions
-  QUESTION 4. [00:15:05] Did Coll's shrug mean the old lord's lost son came out in play, or does that stay only Sable's guess?
+  REVEAL whole scene 2: Bram Oake poisoned the Thornwick well with nightshade.
+  REVEAL partial scene 3: Sister Wenna signals an unlit boat from the chapel tower, and its boatman Pell says he carries what she tells him and that she gives the orders on the river.
+PASS the review asks about the unsure third reveal as one of 3 timestamped questions
+  QUESTION 3. Should the table count as having learned anything true about Coll's parentage at [00:15:05], or does the Coll secret stay fully hidden?
 PASS the commit closed the well as revealed, kept Wenna partly_revealed and readable in get secrets with its text, left Coll hidden, each reveal with debrief commit, session, scene, learned and sources in its history; openSecrets is 2
-PASS what the players learned of both secrets is committed story state on the same transcript lines (51 changes), and the unseen rest of Wenna's secret appears in no entity and only as a (secret) line in the briefing
+PASS what the players learned of both secrets is committed story state on the same transcript lines (61 changes), and the unseen rest of Wenna's secret appears in no entity and only as a (secret) line in the briefing
 REVEALS HEADLESS PROOF PASSED

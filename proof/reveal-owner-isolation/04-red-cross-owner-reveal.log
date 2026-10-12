@@ -1,8 +1,8 @@
 
  RUN  v4.1.0 /home/coder/.cache/omnigm-wt/59
 
- ❯ tests/secrets.test.ts (7 tests | 1 failed | 6 skipped) 514ms
-   × secret writes and reveals isolate owners and reject invalid or oversized input without recording a commit 513ms
+ ❯ tests/secrets.test.ts (7 tests | 1 failed | 6 skipped) 729ms
+   × secret writes and reveals isolate owners and reject invalid or oversized input without recording a commit 728ms
 
 ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
 
@@ -18,7 +18,7 @@ AssertionError: expected { about: [], …(6) } to match object { status: 'hidden
       {
 +       "after": {
 +         "about": [],
-+         "id": "secret:a1de7a1c-cbbb-47a7-ae95-af6397975a35",
++         "id": "secret:ce04fd07-38cd-42f0-824f-8b95a1d9d7db",
 +         "status": "hidden",
 +         "text": "Mira hid the amber seal.",
 +       },
@@ -30,23 +30,23 @@ AssertionError: expected { about: [], …(6) } to match object { status: 'hidden
 +     {
 +       "after": {
 +         "about": [],
-+         "id": "secret:a1de7a1c-cbbb-47a7-ae95-af6397975a35",
++         "id": "secret:ce04fd07-38cd-42f0-824f-8b95a1d9d7db",
 +         "status": "revealed",
 +         "text": "Mira hid the amber seal.",
         },
 -   ],
 +       "before": {
 +         "about": [],
-+         "id": "secret:a1de7a1c-cbbb-47a7-ae95-af6397975a35",
++         "id": "secret:ce04fd07-38cd-42f0-824f-8b95a1d9d7db",
           "status": "hidden",
 +         "text": "Mira hid the amber seal.",
 +       },
-+       "commit": "0000000000000000000010035commits",
++       "commit": "0000000000000000000010038commits",
 +       "learned": "Mira hid the amber seal.",
 +       "op": "reveal",
 +       "reason": "Revealed at the table",
 +       "scene": 1,
-+       "session": "000000000000000000010026sessions",
++       "session": "000000000000000000010029sessions",
 +       "sources": [
 +         {
 +           "at": "00:01:10",
@@ -58,20 +58,20 @@ AssertionError: expected { about: [], …(6) } to match object { status: 'hidden
 +   "status": "revealed",
   }
 
- ❯ tests/secrets.test.ts:242:59
-    240|   });
-    241|   await stranger.call("debrief_commit", { session: strangerDebrief });
-    242|   expect(await c.call("get", { ref: written.secret.id })).toMatchObjec…
+ ❯ tests/secrets.test.ts:250:59
+    248|   });
+    249|   await stranger.call("debrief_commit", { session: strangerDebrief });
+    250|   expect(await c.call("get", { ref: written.secret.id })).toMatchObjec…
        |                                                           ^
-    243|     status: "hidden",
-    244|     history: [{ op: "write" }],
+    251|     status: "hidden",
+    252|     history: [{ op: "write" }],
 
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
 
 
  Test Files  1 failed (1)
       Tests  1 failed | 6 skipped (7)
-   Start at  19:09:01
-   Duration  782ms (transform 348ms, setup 0ms, import 137ms, tests 514ms, environment 0ms)
+   Start at  19:13:18
+   Duration  1.08s (transform 580ms, setup 0ms, import 214ms, tests 729ms, environment 0ms)
 
 exit 1

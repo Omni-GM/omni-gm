@@ -4,7 +4,7 @@
 
  Test Files  1 passed (1)
       Tests  1 passed | 6 skipped (7)
-   Start at  19:09:03
-   Duration  983ms (transform 342ms, setup 0ms, import 134ms, tests 726ms, environment 0ms)
+   Start at  19:13:20
+   Duration  1.05s (transform 373ms, setup 0ms, import 152ms, tests 767ms, environment 0ms)
 
 exit 0

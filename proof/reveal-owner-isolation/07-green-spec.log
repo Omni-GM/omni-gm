@@ -29,6 +29,6 @@ Scripts  scripts/Scripts.spec.md
   practices  scripts/Scripts.practice.md
   verify with a real client  candidate, version c164445e, 0 enacted; 4 steps (3 name their evidence), 2 pitfalls
 3 components, 5 bullets: 5 invariants, 0 requirements
-lacking: enforcement 0, refutation 0, kinds 0, checklist 0, because 0; unfilled placeholders 0; 0 problems; latest run 2026-10-12T19:09:19.881Z (16 runs)
+lacking: enforcement 0, refutation 0, kinds 0, checklist 0, because 0; unfilled placeholders 0; 0 problems; latest run 2026-10-12T19:13:31.102Z (19 runs)
 2 practices: 1 established, 1 candidate
 exit 0

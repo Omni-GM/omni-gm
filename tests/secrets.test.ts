@@ -231,12 +231,20 @@ test("secret writes and reveals isolate owners and reject invalid or oversized i
   expect(await c.call("get", { ref: `debrief:${ownDebrief}` })).toEqual(
     ownDraft,
   );
+  const strangerSecret = await stranger.call("secret_write", {
+    op: "write",
+    text: "The other ferry runs on stolen amber.",
+    reason: "Other owner's background",
+  });
   const strangerDebrief = await saltRoadSession(stranger);
   const crossed = await stranger.call("debrief_add", {
     session: strangerDebrief,
     briefing: saltRoadBriefing,
     changes: [tobinNamesTheAbbess],
-    reveals: [revealOfWritten],
+    reveals: [
+      revealOfWritten,
+      { ...revealOfWritten, secret: strangerSecret.secret.id },
+    ],
   });
   await stranger.call("debrief_commit", { session: strangerDebrief });
   expect(await c.call("get", { ref: written.secret.id })).toMatchObject({
@@ -246,6 +254,12 @@ test("secret writes and reveals isolate owners and reject invalid or oversized i
   expect(crossed.rejectedReveals).toEqual([
     { index: 0, reason: "Secret not found" },
   ]);
+  expect(
+    await stranger.call("get", { ref: strangerSecret.secret.id }),
+  ).toMatchObject({
+    status: "revealed",
+    history: [{ op: "write" }, { op: "reveal" }],
+  });
   const before = await c.call("get", { ref: "overview" });
   const saved = await c.call("get", { ref: written.secret.id });
   for (const args of [

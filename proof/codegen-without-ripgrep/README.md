@@ -55,6 +55,6 @@ The served `prep-sparring` procedure is the v2 section walk and stays.
 ## Gate
 
 [check.log](check.log) is `pnpm check` in a clean `env -i` shell without `rg`,
-run after an earlier codegen left an anonymous `.codegen/.env.local` in place.
-Biome, codegen, both TypeScript projects and all 111 tests pass, with no
+on the tree merged with main, run after an earlier codegen left an anonymous `.codegen/.env.local` in place.
+Biome, codegen, both TypeScript projects and all 112 tests pass, with no
 skipped tests.

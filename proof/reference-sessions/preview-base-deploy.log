@@ -1,0 +1,1 @@
+✖ Error fetching POST  https://api.convex.dev/api/claim_preview_deployment 400 Bad Request: DeploymentQuotaReached: Your team's deployment quota of 40 has been reached. You can upgrade account limits at https://www.convex.dev/plans.

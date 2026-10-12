@@ -1,0 +1,56 @@
+
+[1m[46m RUN [49m[22m [36mv4.1.0 [39m[90m/home/coder/.t3/worktrees/omni-gm/retire-ledger[39m
+
+ [31m❯[39m tests/mcp.test.ts [2m([22m[2m44 tests[22m[2m | [22m[31m2 failed[39m[2m | [22m[33m42 skipped[39m[2m)[22m[33m 520[2mms[22m[39m
+[31m   [31m×[31m no tool carries a UI resource and the server lists no resources[39m[33m 455[2mms[22m[39m
+[31m   [31m×[31m debrief_add and debrief_drop return the draft and the rejected changes as plain data, without view rows[39m[32m 64[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/mcp.test.ts[2m > [22mno tool carries a UI resource and the server lists no resources
+[31m[1mAssertionError[22m: expected { tools: {}, resources: {} } to not have property "resources"[39m
+
+[32m- Expected:[39m
+undefined
+
+[31m+ Received:[39m
+{}
+
+[36m [2m❯[22m tests/mcp.test.ts:[2m1504:47[22m[39m
+    [90m1502|[39m   [35mconst[39m c [33m=[39m [34mclient[39m()[33m;[39m
+    [90m1503|[39m   [35mconst[39m initialized [33m=[39m [35mawait[39m c[33m.[39m[34minit[39m()[33m;[39m
+    [90m1504|[39m   expect(initialized.result.capabilities).not.toHaveProperty("resource…
+    [90m   |[39m                                               [31m^[39m
+    [90m1505|[39m   [35mconst[39m listed [33m=[39m [35mawait[39m c[33m.[39m[34mrpc[39m([32m"resources/list"[39m)[33m;[39m
+    [90m1506|[39m   [34mexpect[39m(listed[33m.[39mresult[33m?.[39mresources [33m??[39m [])[33m.[39m[34mtoEqual[39m([])[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/mcp.test.ts[2m > [22mdebrief_add and debrief_drop return the draft and the rejected changes as plain data, without view rows
+[31m[1mAssertionError[22m: expected [ 'draft', 'ledger', 'rejected' ] to deeply equal [ 'draft', 'rejected' ][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  [[22m
+[2m    "draft",[22m
+[31m+   "ledger",[39m
+[2m    "rejected",[22m
+[2m  ][22m
+
+[36m [2m❯[22m tests/mcp.test.ts:[2m1543:37[22m[39m
+    [90m1541|[39m   })[33m;[39m
+    [90m1542|[39m   [34mexpect[39m(added[33m.[39mrejected)[33m.[39m[34mtoEqual[39m([])[33m;[39m
+    [90m1543|[39m   [34mexpect[39m([33mObject[39m[33m.[39m[34mkeys[39m(added)[33m.[39m[34msort[39m())[33m.[39m[34mtoEqual[39m([[32m"draft"[39m[33m,[39m [32m"rejected"[39m])[33m;[39m
+    [90m   |[39m                                     [31m^[39m
+    [90m1544|[39m   [35mconst[39m [sera[33m,[39m raiders[33m,[39m link] [33m=[39m added[33m.[39mdraft[33m.[39mchanges[33m.[39m[34mmap[39m(
+    [90m1545|[39m     (p[33m:[39m { id[33m:[39m string }) [33m=>[39m p[33m.[39mid[33m,[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[33m42 skipped[39m[90m (44)[39m
+[2m   Start at [22m 03:04:29
+[2m   Duration [22m 767ms[2m (transform 464ms, setup 0ms, import 136ms, tests 520ms, environment 0ms)[22m
+

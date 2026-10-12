@@ -237,6 +237,27 @@ export const checklist = v.object({
   sections: v.array(v.object({ name: v.string(), definition: v.string() })),
   template: v.string(),
 });
+export const noteEntry = v.object({
+  section: v.string(),
+  entry: v.string(),
+  status: v.union(v.literal("open"), v.literal("done"), v.literal("skipped")),
+});
+export const sessionNote = v.object({
+  session: v.string(),
+  checklist,
+  entries: v.array(noteEntry),
+  reopenReason: v.optional(v.string()),
+  status: v.union(v.literal("in_progress"), v.literal("finished")),
+});
+export const noteRead = v.object({ note: v.union(sessionNote, v.null()) });
+export const prepProgress = v.object({
+  session: v.string(),
+  status: sessionNote.fields.status,
+  done: v.array(v.string()),
+  skipped: v.array(v.string()),
+  open: v.array(v.string()),
+  nextSection: v.union(v.string(), v.null()),
+});
 export const checklistChange = v.object({
   before: v.union(checklist, v.null()),
   after: checklist,
@@ -253,26 +274,6 @@ export const checklistRead = v.object({
   ),
   ...pageInfo,
 });
-export const ledgerRow = v.object({
-  id: v.string(),
-  label: v.union(
-    v.literal("new"),
-    v.literal("change"),
-    v.literal("closed"),
-    v.literal("link"),
-    v.literal("unlink"),
-  ),
-  subject: v.string(),
-  kind: v.optional(v.string()),
-  before: propertyValues,
-  after: propertyValues,
-});
-export const ledger = v.object({
-  scenes: v.array(
-    v.object({ ordinal: v.number(), title: v.string(), place: v.string() }),
-  ),
-  rows: v.array(ledgerRow),
-});
 export const adventure = v.object({
   id: v.string(),
   name: v.string(),
@@ -284,7 +285,11 @@ export const sessionInfo = v.object({
   playedOn: v.string(),
   ordinal: v.number(),
   scenes: v.array(scene),
-  status: v.union(v.literal("draft"), v.literal("committed")),
+  status: v.union(
+    v.literal("draft"),
+    v.literal("committed"),
+    v.literal("reference"),
+  ),
 });
 export const storedBriefing = v.object({
   session: v.string(),
@@ -368,14 +373,17 @@ export const readValue = v.union(
   v.object({
     adventures: v.array(adventure),
     sessions: v.array(sessionInfo),
+    latestSession: v.union(sessionInfo, v.null()),
     commits: v.array(commit),
     openSecrets: v.number(),
+    prep: v.union(prepProgress, v.null()),
     currentAdventure: v.union(v.string(), v.null()),
     frame: v.union(frame, v.null()),
     briefing: v.union(storedBriefing, v.null()),
   }),
   frameRead,
   checklistRead,
+  noteRead,
   schemaInfo,
   sessionInfo,
   draft,
@@ -416,7 +424,6 @@ export type Entity = Infer<typeof entity>;
 export type Relationship = Infer<typeof relationship>;
 export type DraftChange = Infer<typeof draftChange>;
 export type History = Infer<typeof history>;
-export type LedgerRow = Infer<typeof ledgerRow>;
 export type ReadValue = Infer<typeof readValue>;
 export function seconds(at: string): number {
   if (!/^\d{1,3}:\d{2}(?::\d{2})?$/.test(at))

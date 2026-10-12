@@ -1,0 +1,53 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-impl41
+
+ ❯ tests/reference-sessions.test.ts (5 tests | 1 failed) 995ms
+   × an undebriefed newer draft does not replace the session behind the stored briefing 42ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/reference-sessions.test.ts > an undebriefed newer draft does not replace the session behind the stored briefing
+AssertionError: expected { …(7) } to deeply equal { …(7) }
+
+- Expected
++ Received
+
+  {
+    "adventure": "0000000000000000010002adventures",
+-   "id": "000000000000000000010003sessions",
+-   "lastTime": "The party crossed the river on the copper ferry.",
+-   "ordinal": 1,
+-   "playedOn": "2026-03-07",
+-   "scenes": [
+-     {
+-       "place": "River",
+-       "start": "00:01:10",
+-       "summary": "The party crosses.",
+-       "title": "The ferry",
+-     },
+-   ],
+-   "status": "committed",
++   "id": "000000000000000000010013sessions",
++   "lastTime": "",
++   "ordinal": 2,
++   "playedOn": "2026-04-04",
++   "scenes": [],
++   "status": "draft",
+  }
+
+ ❯ tests/reference-sessions.test.ts:192:31
+    190|   const after = await c.call("get", { ref: "overview" });
+    191|   expect(after.sessions[0].id).toBe(draft.id);
+    192|   expect(after.latestSession).toEqual(recent);
+       |                               ^
+    193|   expect(after.lastTime).toBe(before.lastTime);
+    194| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  19:30:14
+   Duration  1.19s (transform 421ms, setup 0ms, import 95ms, tests 995ms, environment 0ms)
+

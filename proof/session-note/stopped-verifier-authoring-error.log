@@ -1,0 +1,62 @@
+PROOF TARGET https://next-goat-579.convex.site
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  [
+    {
+      entry: 'Am Wehr reißt ein Tau. Die Gruppe sieht eine treibende Laterne und entscheidet selbst, ob sie eingreift.',
+      section: 'Auftakt',
+      status: 'done'
+    },
+    {
++     entry: '1. Am Fenster klebt rotes Wachs.\n' +
++       '2. Im Keller liegt ein nasser Handschuh.',
+-     entry: 'Am Fenster klebt rotes Wachs. Im Keller liegt ein nasser Handschuh.',
+      section: 'Spuren',
+      status: 'done'
+    },
+    {
+      entry: '',
+
+    at <anonymous> (/home/coder/dev/omni-gm-42/scripts/session-note-e2e.ts:273:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [
+    {
+      entry: 'Am Wehr reißt ein Tau. Die Gruppe sieht eine treibende Laterne und entscheidet selbst, ob sie eingreift.',
+      section: 'Auftakt',
+      status: 'done'
+    },
+    {
+      entry: '1. Am Fenster klebt rotes Wachs.\n' +
+        '2. Im Keller liegt ein nasser Handschuh.',
+      section: 'Spuren',
+      status: 'done'
+    },
+    { entry: '', section: 'Requisiten', status: 'open' },
+    { entry: '', section: 'Belohnungen', status: 'open' }
+  ],
+  expected: [
+    {
+      section: 'Auftakt',
+      entry: 'Am Wehr reißt ein Tau. Die Gruppe sieht eine treibende Laterne und entscheidet selbst, ob sie eingreift.',
+      status: 'done'
+    },
+    {
+      section: 'Spuren',
+      entry: 'Am Fenster klebt rotes Wachs. Im Keller liegt ein nasser Handschuh.',
+      status: 'done'
+    },
+    { section: 'Requisiten', entry: '', status: 'open' },
+    { section: 'Belohnungen', entry: '', status: 'open' }
+  ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.21.0

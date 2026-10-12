@@ -1,0 +1,4 @@
+PASS confirmed previewIdentifier reference-sessions-41-r4 belongs to beloved-caribou-152 and has deploymentType preview
+POST /v1/deployments/beloved-caribou-152/delete
+PASS fresh deployment list confirms our r3 and r4 previews are absent; only our r4 deletion was requested in this cleanup
+The earlier r3 deletion proof is retained in pre-review-run/preview-cleanup.log

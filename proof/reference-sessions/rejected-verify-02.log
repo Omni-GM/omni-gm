@@ -1,0 +1,16 @@
+PROOF TARGET https://peaceful-blackbird-827.convex.site
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The client searched transcript utterances on demand
+    at <anonymous> (/home/coder/dev/omni-gm-impl41/scripts/reference-sessions-e2e.ts:277:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.21.0

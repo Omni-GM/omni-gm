@@ -1,10 +1,6 @@
 
 > omni-gm@0.1.0 check /home/coder/dev/omni-gm-reveals
-> pnpm build:ledger && pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test
-
-
-> omni-gm@0.1.0 build:ledger /home/coder/dev/omni-gm-reveals
-> tsx scripts/build-ledger.ts
+> pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test
 
 tests/mcp.test.ts:713:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -27,16 +23,17 @@ tests/mcp.test.ts:713:11 lint/style/useTemplate  FIXABLE  ━━━━━━━�
      715  715 │     expect(failed.status).toBe(400);
   
 
-Checked 70 files in 59ms. No fixes applied.
+Checked 63 files in 72ms. No fixes applied.
 Found 1 info.
 CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
+waiting for local backend to start...
 ▌ Developing against deployment:
 ▌ [Local] Port 3212 • No Convex account (run npx convex login to link to a project)
 ▌ └─ http://127.0.0.1:3212
 - Preparing Convex functions...
 
 Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
-✔ 03:18:03 Convex functions ready! (393.94ms)
+✔ 07:42:04 Convex functions ready! (882.55ms)
 Finding component definitions...
 Generating server code...
 Bundling component definitions...
@@ -53,8 +50,8 @@ Running TypeScript...
  RUN  v4.1.0 /home/coder/dev/omni-gm-reveals
 
 
- Test Files  9 passed (9)
-      Tests  97 passed (97)
-   Start at  03:18:09
-   Duration  10.50s (transform 3.79s, setup 0ms, import 1.43s, tests 16.27s, environment 1ms)
+ Test Files  11 passed (11)
+      Tests  108 passed (108)
+   Start at  07:42:13
+   Duration  11.12s (transform 4.59s, setup 0ms, import 2.80s, tests 19.03s, environment 1ms)
 

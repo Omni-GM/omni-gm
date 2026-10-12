@@ -1,0 +1,37 @@
+PROOF TARGET https://cool-antelope-983.convex.site
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Only the GM's two unplayed clues are recorded as secrets
++ actual - expected
+
++ []
+- [
+-   [
+-     3,
+-     'write',
+-     'Am Fenster klebt rotes Wachs.'
+-   ],
+-   [
+-     3,
+-     'write',
+-     'Im Keller liegt ein nasser Handschuh.'
+-   ]
+- ]
+
+    at verifyConversation (/home/coder/dev/omni-gm-42/scripts/session-note-e2e.ts:232:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (/home/coder/dev/omni-gm-42/scripts/session-note-e2e.ts:335:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [],
+  expected: [
+    [ 3, 'write', 'Am Fenster klebt rotes Wachs.' ],
+    [ 3, 'write', 'Im Keller liegt ein nasser Handschuh.' ]
+  ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.21.0

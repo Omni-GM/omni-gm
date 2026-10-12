@@ -1498,33 +1498,18 @@ test("overview recalls the last debrief after more schema commits than its recen
   expect(overview.briefing.text).toBe("The ferry awaits at dusk.");
 }, 30000);
 
-test("the Ledger view is served as an MCP Apps resource that debrief_add and debrief_drop carry", async () => {
+test("no tool carries a UI resource and the server lists no resources", async () => {
   const c = client();
-  await c.init();
-  const ledger = "ui://omni-gm/draft-debrief";
+  const initialized = await c.init();
+  expect(initialized.result.capabilities).not.toHaveProperty("resources");
   const listed = await c.rpc("resources/list");
-  expect(listed.result.resources).toContainEqual(
-    expect.objectContaining({
-      uri: ledger,
-      mimeType: "text/html;profile=mcp-app",
-    }),
-  );
-  const read = await c.rpc("resources/read", { uri: ledger });
-  expect(read.result.contents).toEqual([
-    expect.objectContaining({
-      uri: ledger,
-      mimeType: "text/html;profile=mcp-app",
-    }),
-  ]);
-  expect(read.result.contents[0].text).toMatch(/^<!doctype html>/i);
+  expect(listed.result?.resources ?? []).toEqual([]);
   const tools = (await c.rpc("tools/list")).result.tools;
-  for (const name of ["debrief_add", "debrief_drop"])
-    expect(tools.find((t: { name: string }) => t.name === name)._meta).toEqual({
-      ui: { resourceUri: ledger },
-    });
+  expect(tools.length).toBeGreaterThan(0);
+  for (const tool of tools) expect(tool).not.toHaveProperty("_meta");
 });
 
-test("debrief_add and debrief_drop return Ledger rows with label, subject, before and after per scene, listing only the aliases each change adds", async () => {
+test("debrief_add and debrief_drop return the draft and the rejected changes as plain data, without view rows", async () => {
   const { c, s } = await prepared();
   const thread = {
     ...npcChange(),
@@ -1552,109 +1537,26 @@ test("debrief_add and debrief_drop return Ledger rows with label, subject, befor
           to: "$sera",
         },
       },
-      {
-        ...npcChange(),
-        change: {
-          op: "update",
-          entity: "$sera",
-          properties: { wants: "Safe passage home" },
-          addAliases: ["Sera of the Ferry"],
-        },
-      },
-      {
-        ...thread,
-        change: {
-          op: "update",
-          entity: "$raiders",
-          properties: { status: "closed" },
-        },
-      },
     ],
   });
   expect(added.rejected).toEqual([]);
-  const [sera, raiders, link, wants, closed] = added.draft.changes.map(
+  expect(Object.keys(added).sort()).toEqual([
+    "draft",
+    "rejected",
+    "rejectedReveals",
+  ]);
+  const [sera, raiders, link] = added.draft.changes.map(
     (p: { id: string }) => p.id,
   );
-  expect(added.ledger).toEqual({
-    scenes: [{ ordinal: 1, title: "The ferry", place: "Glass Causeway" }],
-    rows: [
-      {
-        id: sera,
-        label: "new",
-        subject: "Sera Venn",
-        kind: "npc",
-        before: {},
-        after: {
-          aliases: "Sarah Ven",
-          playedAs: "Softly, with a snapped final word",
-        },
-      },
-      {
-        id: raiders,
-        label: "new",
-        subject: "Who pays the raiders?",
-        kind: "thread",
-        before: {},
-        after: { status: "open" },
-      },
-      {
-        id: link,
-        label: "link",
-        subject: "Who pays the raiders? raised by Sera Venn",
-        before: {},
-        after: {},
-      },
-      {
-        id: wants,
-        label: "change",
-        subject: "Sera Venn",
-        kind: "npc",
-        before: {},
-        after: {
-          wants: "Safe passage home",
-          addAliases: "Sera of the Ferry",
-        },
-      },
-      {
-        id: closed,
-        label: "closed",
-        subject: "Who pays the raiders?",
-        kind: "thread",
-        before: { status: "open" },
-        after: { status: "closed" },
-      },
-    ],
-  });
   const dropped = await c.call("debrief_drop", {
     session: s.id,
-    changeIds: [closed],
+    changeIds: [link],
   });
+  expect(Object.keys(dropped)).toEqual(["draft"]);
   expect(dropped.draft.changes.map((p: { id: string }) => p.id)).toEqual([
     sera,
     raiders,
-    link,
-    wants,
   ]);
-  expect(dropped.ledger.rows.map((r: { id: string }) => r.id)).toEqual([
-    sera,
-    raiders,
-    link,
-    wants,
-  ]);
-  expect(dropped.ledger.scenes).toEqual(added.ledger.scenes);
-  const more = await c.call("debrief_add", {
-    session: s.id,
-    changes: [
-      {
-        ...npcChange(),
-        change: { op: "update", entity: "$sera", addAliases: ["Ferry Sera"] },
-      },
-    ],
-  });
-  expect(more.ledger.rows.at(-1)).toMatchObject({
-    before: {},
-    after: { addAliases: "Ferry Sera" },
-  });
 });
 
 test("transcript and timestamp-window pages continue through repeated timestamps without gaps", async () => {

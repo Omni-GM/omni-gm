@@ -1,0 +1,103 @@
+
+> omni-gm@0.1.0 check /home/coder/dev/omni-gm-42
+> pnpm build:ledger && pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test
+
+
+> omni-gm@0.1.0 build:ledger /home/coder/dev/omni-gm-42
+> tsx scripts/build-ledger.ts
+
+tests/mcp.test.ts:713:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+
+    711 │   const failed = await c.t.fetch(path, {
+    712 │     method: "PUT",
+  > 713 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
+        │           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    714 │   });
+    715 │   expect(failed.status).toBe(400);
+
+  i Unsafe fix: Use a template literal.
+
+     711  711 │     const failed = await c.t.fetch(path, {
+     712  712 │       method: "PUT",
+     713      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
+          713 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
+     714  714 │     });
+     715  715 │     expect(failed.status).toBe(400);
+
+
+Checked 67 files in 61ms. No fixes applied.
+Found 1 info.
+CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
+✔ Configured a local deployment for http://127.0.0.1:3212 and saved its:
+    name as CONVEX_DEPLOYMENT
+    client URL as VITE_CONVEX_URL
+    HTTP actions URL as VITE_CONVEX_SITE_URL
+ to .env.local
+  Added ".env.local" to .gitignore
+
+Write your Convex functions in convex/
+Give us feedback at https://convex.dev/community or support@convex.dev
+View the Convex dashboard at null
+
+▌ Developing against deployment:
+▌ [Local] Port 3212 • No Convex account (run npx convex login to link to a project)
+▌ └─ http://127.0.0.1:3212
+- Preparing Convex functions...
+
+Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
+✔ Added table indexes:
+  [+] adventures.by_campaign   campaign, _creationTime
+  [+] campaigns.by_owner   owner, _creationTime
+  [+] checklists.by_campaign   campaign, _creationTime
+  [+] commits.by_campaign   campaign, _creationTime
+  [+] commits.by_campaign_and_adventure   campaign, adventure, _creationTime
+  [+] commits.by_campaign_and_kind   campaign, kind, _creationTime
+  [+] entities.by_campaign   campaign, _creationTime
+  [+] entities.by_campaign_and_id   campaign, id, _creationTime
+  [+] entities.by_campaign_and_kind   campaign, kind, _creationTime
+  [+] entities.search_text (text)   searchText, filters on campaign, kind
+  [+] entityHistory.by_campaign_and_entity   campaign, entityId, _creationTime
+  [+] history.by_campaign   campaign, _creationTime
+  [+] history.by_campaign_and_commit   campaign, commit, _creationTime
+  [+] history.search_text (text)   searchText, filter on campaign
+  [+] notes.by_campaign_and_session   campaign, session, _creationTime
+  [+] relationships.by_campaign   campaign, _creationTime
+  [+] relationships.by_campaign_and_from   campaign, from, _creationTime
+  [+] relationships.by_campaign_and_to   campaign, to, _creationTime
+  [+] scenes.by_campaign   campaign, _creationTime
+  [+] scenes.by_session   session, _creationTime
+  [+] scenes.search_text (text)   searchText, filter on campaign
+  [+] secretHistory.by_campaign_and_secret   campaign, secret, _creationTime
+  [+] secrets.by_campaign_and_id   campaign, id, _creationTime
+  [+] secrets.by_campaign_and_status   campaign, status, _creationTime
+  [+] sessions.by_campaign   campaign, _creationTime
+  [+] sessions.by_campaign_and_ordinal   campaign, ordinal, _creationTime
+  [+] uploads.by_session   session, _creationTime
+  [+] uploads.by_token   token, _creationTime
+  [+] utterances.by_campaign   campaign, _creationTime
+  [+] utterances.by_session_and_generation_and_seconds   session, transcriptGeneration, seconds, ordinal, _creationTime
+  [+] utterances.search_text (text)   searchText, filter on campaign
+✔ Installed component mcpGateway.
+✔ 03:09:37 Convex functions ready! (1.21m)
+Finding component definitions...
+Generating server code...
+Bundling component definitions...
+Bundling component schemas and implementations...
+Downloading current deployment state...
+Uploading functions to Convex...
+Generating TypeScript bindings...
+Running TypeScript...
+
+> omni-gm@0.1.0 test /home/coder/dev/omni-gm-42
+> vitest run
+
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-42
+
+
+ Test Files  9 passed (9)
+      Tests  99 passed (99)
+   Start at  03:09:44
+   Duration  10.63s (transform 3.83s, setup 0ms, import 1.38s, tests 16.68s, environment 1ms)

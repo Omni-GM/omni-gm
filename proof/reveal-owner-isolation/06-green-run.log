@@ -1,0 +1,25 @@
+convex/owner isolation
+  totality oracle: pass (1.6 s, one invocation for every test the bullets name); refutation witnessed
+    1 test under "another owner stays scoped when reusing an MCP transport session and cannot read, edit, upload or download the campaign" passed in one invocation of pnpm exec vitest run -t <5 names> --reporter=json --outputFile=<report>
+convex/secret owner isolation
+  totality oracle: pass (1.6 s, one invocation for every test the bullets name); refutation witnessed
+    1 test under "secret writes and reveals isolate owners and reject invalid or oversized input without recording a commit" passed in one invocation of pnpm exec vitest run -t <5 names> --reporter=json --outputFile=<report>
+convex/checklist owner isolation
+  totality oracle: pass (1.6 s, one invocation for every test the bullets name); refutation witnessed
+    1 test under "another owner cannot see or overwrite the checklist, its history or a borrowed continuation" passed in one invocation of pnpm exec vitest run -t <5 names> --reporter=json --outputFile=<report>
+convex/session note owner isolation
+  totality oracle: pass (1.6 s, one invocation for every test the bullets name); refutation witnessed
+    1 test under "another owner cannot read, overwrite or spoof the note's owner" passed in one invocation of pnpm exec vitest run -t <5 names> --reporter=json --outputFile=<report>
+convex/upload page owner isolation
+  totality oracle: pass (1.6 s, one invocation for every test the bullets name); refutation witnessed
+    1 test under "the upload page refuses anonymous visitors and sessions of another owner, and stores the owner's file byte-exact" passed in one invocation of pnpm exec vitest run -t <5 names> --reporter=json --outputFile=<report>
+run recorded in .coherence/runs/22c68aa9-63fa-4794-b65f-b0a24894758c.jsonl: 5 enforcements, 5 pass, 0 fail, 0 not run; instrument typescript (none); 1.7 s
+each alone, in its own invocation:
+  convex/owner isolation: pass (1.4 s)
+  convex/secret owner isolation: pass (1.7 s)
+  convex/checklist owner isolation: pass (1.4 s)
+  convex/session note owner isolation: pass (1.4 s)
+  convex/upload page owner isolation: pass (1.3 s)
+per-test run recorded in .coherence/runs/22c68aa9-63fa-4794-b65f-b0a24894758c.jsonl: 5 alone, 5 pass; 7.2 s
+every totality oracle that passed batched passes alone
+exit 0

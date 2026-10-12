@@ -1,0 +1,6 @@
+✓ convex/owner isolation  totality oracle "another owner stays scoped when reusing an MCP transport session and cannot read, edit, upload or download the campaign": verified 2026-10-12
+✓ convex/secret owner isolation  totality oracle "secret writes and reveals isolate owners and reject invalid or oversized input without recording a commit": verified 2026-10-12
+✓ convex/checklist owner isolation  totality oracle "another owner cannot see or overwrite the checklist, its history or a borrowed continuation": verified 2026-10-12
+✓ convex/session note owner isolation  totality oracle "another owner cannot read, overwrite or spoof the note's owner": verified 2026-10-12
+✓ convex/upload page owner isolation  totality oracle "the upload page refuses anonymous visitors and sessions of another owner, and stores the owner's file byte-exact": verified 2026-10-12
+latest run 2026-10-12T19:09:19.881Z by claude-opus-5-5 (22c68aa9-63fa-4794-b65f-b0a24894758c) at 299a98b, dirty; 16 runs; 0 structural defects

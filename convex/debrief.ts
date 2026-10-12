@@ -30,12 +30,16 @@ function encodedSize(value: unknown): number {
   return new TextEncoder().encode(JSON.stringify(value)).length;
 }
 function unlocked(s: Doc<"sessions">): void {
+  if (s.status === "reference")
+    throw new ConvexError("Reference sessions cannot have scenes or a debrief");
   if (s.status === "committed")
     throw new ConvexError(
       "Debrief and scenes are committed. Later fixes use story_commit.",
     );
 }
 export function draftResult(s: Doc<"sessions">): Infer<typeof draft> {
+  if (s.status === "reference")
+    throw new ConvexError("Reference sessions have no debrief");
   return {
     session: s._id,
     status: s.status,

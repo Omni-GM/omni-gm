@@ -417,7 +417,7 @@ Create an older transcript-only reference with `session_create` using
 `playedOn: "YYYY-MM-DD"` and `reference: true`, then use the ordinary signed
 transcript upload. References have status `reference` and cannot receive
 scenes or a debrief. The overview orders sessions by played date;
-`latestSession` identifies the session behind the most recent debrief commit,
+`latestSession` identifies the session behind the most recent debrief commit and its stored briefing,
 excluding references and undebriefed drafts. Stable session ordinals do not
 change when an older transcript is added.
 

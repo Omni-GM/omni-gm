@@ -21,8 +21,22 @@ endpoint and a headless agent using the served section-walk procedure.
 Session ordinals remain stable identifiers in insertion order. The session
 list sorts by played date, independently of ordinals. `overview.latestSession`
 excludes references, including when the overview list is full of references.
-`lastTime` continues to recall the most recent debrief commit. The schema
+After rebasing onto #40, `briefing` is the full stored briefing record from
+the most recent debrief commit, and `latestSession` identifies that same
+committed session. The schema
 only widens the status enum and adds a played-date index; existing rows need no backfill.
+
+## Resume after #38, #39 and #40
+
+`check-resume.log` is the full local gate on the rebased tree: 98 tests pass.
+The endpoint assertions now compare the stored briefing record from #40.
+The preview seed stores the checklist and template with `checklist_set`,
+and the headless input uses that stored checklist. The verifier requires a
+checklist read and independently compares the checklist and secrets too.
+
+`preview-resume-base-deploy.log` records the resumed branch-preview attempt.
+Convex still refused it with `DeploymentQuotaReached`; no preview was
+created. No live upgrade or headless proof is claimed.
 
 ## Preview and headless proof
 

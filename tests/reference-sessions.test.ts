@@ -73,7 +73,7 @@ test("a late-added reference sorts by played date and preserves the latest commi
   ]);
   expect(after.latestSession).toEqual(before.latestSession);
   expect(after.latestSession.id).toBe(recent.id);
-  expect(after.briefing).toBe(before.briefing);
+  expect(after.briefing).toEqual(before.briefing);
   expect(after.commits).toEqual(before.commits);
   expect(await c.call("get", { ref: `session:${reference.id}` })).toEqual(
     reference,
@@ -190,5 +190,5 @@ test("an undebriefed newer draft does not replace the session behind the stored 
   const after = await c.call("get", { ref: "overview" });
   expect(after.sessions[0].id).toBe(draft.id);
   expect(after.latestSession).toEqual(recent);
-  expect(after.briefing).toBe(before.briefing);
+  expect(after.briefing).toEqual(before.briefing);
 });

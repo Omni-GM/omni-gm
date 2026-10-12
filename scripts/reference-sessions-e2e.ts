@@ -49,7 +49,12 @@ type Session = {
 type Overview = {
   sessions: Session[];
   latestSession: Session | null;
-  lastTime: string;
+  briefing: {
+    session: string;
+    commit: string;
+    text: string;
+    correctionsSince: unknown[];
+  } | null;
   commits: unknown[];
 };
 async function snapshot() {
@@ -62,6 +67,8 @@ async function snapshot() {
   return {
     overview,
     entities: await Promise.all(entities.hits.map((hit) => get(hit.ref))),
+    checklist: await get("checklist"),
+    secrets: await get("secrets"),
   };
 }
 try {
@@ -90,7 +97,7 @@ try {
     });
     const added = await call<{ rejected: unknown[] }>("debrief_add", {
       session: recent.id,
-      lastTime:
+      briefing:
         "The party camps at the copper ferry [00:00:10]. The old ferry duty roster names Rook [00:01:00]. Next: 1. Walk the strong start. 2. Check the frame.",
       changes: [
         {
@@ -134,6 +141,16 @@ try {
         next_session_starts: "At the camp",
       },
     });
+    await call("checklist_set", {
+      sections: [
+        {
+          name: "Strong start",
+          definition: "An opening situation I can run at the table.",
+        },
+      ],
+      template: "# Next session\n## Strong start\n",
+      reason: "The game master's invented checklist for this proof",
+    });
     await mkdir(".convex", { recursive: true });
     await writeFile(privateState, JSON.stringify({ recent: recent.id }));
     console.log(
@@ -160,7 +177,7 @@ try {
       [recent, older.id],
     );
     assert.deepEqual(after.latestSession, before.latestSession);
-    assert.equal(after.lastTime, before.lastTime);
+    assert.deepEqual(after.briefing, before.briefing);
     assert.deepEqual(after.commits, before.commits);
     for (const [name, args] of [
       [
@@ -176,7 +193,7 @@ try {
           ],
         },
       ],
-      ["debrief_add", { changes: [], lastTime: "Must not store" }],
+      ["debrief_add", { changes: [], briefing: "Must not store" }],
       ["debrief_drop", { changeIds: [] }],
       ["debrief_commit", {}],
     ] as const) {
@@ -240,6 +257,16 @@ try {
       ),
       "The lookup writes no story state, scenes or debrief",
     );
+    assert(
+      calls.some(
+        (c) =>
+          c.name.endsWith("__get") &&
+          (c.input.ref === "checklist" ||
+            (Array.isArray(c.input.refs) &&
+              c.input.refs.includes("checklist"))),
+      ),
+      "The section walk reads its stored checklist",
+    );
     const before = JSON.parse(await readFile(`${proof}/before.json`, "utf8"));
     const lookup = calls.findIndex(
       (c) =>
@@ -301,7 +328,7 @@ try {
     );
     console.log(lines[0]);
     console.log(
-      "PASS fresh MCP readback: story state, session records, commits, frame and briefing unchanged",
+      "PASS fresh MCP readback: story state, session records, commits, frame, briefing, checklist and secrets unchanged",
     );
     console.log("HEADLESS OLDER-TRANSCRIPT CONTRADICTION PASSED");
   } else throw new Error("Use --base, --reference or --verify");

@@ -69,3 +69,14 @@ and must not merge until the live acceptance artifacts pass.
 
 The full local gate after the fixes passes 76 tests. No code finding remains
 open. B1 remains the sole merge blocker.
+
+## Resumed integration
+
+The branch was rebased onto `origin/main` after #38, #39 and #40. Their
+checklist, secret and stored-briefing records and procedures remain intact.
+The reference guards, played-date index and search labels are unchanged.
+`latestSession` now pairs with the full stored `briefing` record, using the
+same debrief commit. Tests compare that record deeply. The seed stores the
+checklist, and the verifier reads it and preserves secrets. The resumed
+gate passes 98 tests. Convex still rejected preview creation, so B1 remains
+open and the ticket is parked with "preview slot needed".

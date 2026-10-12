@@ -1,0 +1,1582 @@
+{
+  "found": {
+    "hits": [
+      {
+        "id": "jn776rp7gcxc84mnwz4wwfgqtn8g58km",
+        "ref": "entity:32077e88-ee05-43da-9e07-b803d94baa64",
+        "snippet": "The unsigned letter Find who sent Tamsin's sister's unsigned letter, sealed with a mill wheel Nobody at the mill recognizes the seal open",
+        "title": "The unsigned letter",
+        "type": "entity"
+      },
+      {
+        "id": "jn7cec59abhn6z7kgyz62805xs8g51nt",
+        "ref": "entity:16c430a1-eec7-4759-82ac-0e90d04e679b",
+        "snippet": "Harvest fair Reeve Holloway closes the mill 1 3 shown",
+        "title": "Harvest fair",
+        "type": "entity"
+      },
+      {
+        "id": "jn72gg1zf971kkz17qxezydhk18g5nnb",
+        "ref": "entity:aad70a2c-4101-4cea-85f1-eb23c1010d96",
+        "snippet": "Weir flood The river floods the mill 2 4 hidden",
+        "title": "Weir flood",
+        "type": "entity"
+      },
+      {
+        "id": "jn7ch5gvdqp2kx5rg7ggy6whyh8g5vmw",
+        "ref": "entity:cbb2be65-14e5-433f-a748-097cbe5bf9bd",
+        "snippet": "Widow Ferrant Slow, clipped words; never sits down Employs Corwin Ashe as foreman Owner of the tallow mill alive Her two apprentices found",
+        "title": "Widow Ferrant",
+        "type": "entity"
+      },
+      {
+        "id": "jn7f6zhqejpv32m94062r72kkx8g4ae1",
+        "ref": "entity:198786e7-50a6-49b5-a651-97468fcf3a91",
+        "snippet": "Corwin Ashe Nervous laugh; keeps rubbing flour from his hands Foreman for Widow Ferrant Foreman of the tallow mill alive",
+        "title": "Corwin Ashe",
+        "type": "entity"
+      },
+      {
+        "id": "jn770arfmghnknrmefjpft3nyh8g5yr5",
+        "ref": "entity:0aa6deec-3a7c-426e-bdcb-613ea6aa8995",
+        "snippet": "Reeve Holloway Formal; quotes the town charter at every turn Town reeve of Hollin's Weir alive The children found before the harvest fair",
+        "title": "Reeve Holloway",
+        "type": "entity"
+      },
+      {
+        "id": "jn72rqnpdqzcbvm61tvgc5bvf58g5vp1",
+        "ref": "entity:c2450171-71c6-4c69-a7f4-8ab79523553e",
+        "snippet": "Dace Grins, calls everyone cousin, never stops coiling rope Barge smuggler alive Nobody watching the weir at night",
+        "title": "Dace",
+        "type": "entity"
+      },
+      {
+        "id": "jn7et2tcvfc5t8zvsb14bn748s8g4xrt",
+        "ref": "entity:b6feb943-0021-4f27-b155-733ce2c0c17c",
+        "snippet": "Sister Ulla Hedge-healer who patched up Dace's boatmen, according to Dace unknown",
+        "title": "Sister Ulla",
+        "type": "entity"
+      },
+      {
+        "id": "jn77jpnfd63x4qbhqxj1zy7bes8g5rtj",
+        "ref": "entity:15d6b5ef-62f9-492f-a81d-4f4ba2aee9a2",
+        "snippet": "The tallow mill The wheel turns slower than it should. The cellar smells of old tallow and wet stone.",
+        "title": "The tallow mill",
+        "type": "entity"
+      },
+      {
+        "id": "jn703hbb8486qfrbydpwg3hns18g487n",
+        "ref": "entity:56846b23-1790-448d-8e99-16d22237dc6f",
+        "snippet": "Tamsin Sharp-eyed river guide",
+        "title": "Tamsin",
+        "type": "entity"
+      },
+      {
+        "id": "jn7ez7tf24ymxzh0mjsh6p189s8g41dq",
+        "ref": "entity:551537dd-da32-4a8f-ba56-665a6c244e76",
+        "snippet": "The missing apprentices Search the cellar open Pell and Nia vanished from the mill loft three nights ago; the window latch is scratched from outside",
+        "title": "The missing apprentices",
+        "type": "entity"
+      },
+      {
+        "id": "jn7b3kg8969v9tykd46atypkjn8g43z3",
+        "ref": "entity:5e2cf877-048c-4085-a0f2-0cd087fcdadb",
+        "snippet": "The night barges open Two flat barges slip past the weir at night with lanterns The party plans to watch the weir tomorrow night",
+        "title": "The night barges",
+        "type": "entity"
+      },
+      {
+        "id": "jn70wyfypkg95v5tt0th582wen8g43s1",
+        "ref": "entity:f4b39b9a-904c-48bf-a9a2-4a1c91bbd5db",
+        "snippet": "Corwin's debt open Dace claims Corwin owes him money",
+        "title": "Corwin's debt",
+        "type": "entity"
+      },
+      {
+        "id": "jn7d11g2k80zpdcdrkz9wtgzyh8g5gs0",
+        "ref": "entity:5452aabe-6776-41c8-9134-77f936b259f7",
+        "snippet": "The haunted cellar Town rumor says the mill cellar is haunted by the old miller who drowned there",
+        "title": "The haunted cellar",
+        "type": "entity"
+      },
+      {
+        "id": "jn76fb1b6v1qs5pnrm6ss0p60x8g44cv",
+        "ref": "entity:45c6af56-4d3f-4226-8d5e-e7bc625c40c6",
+        "snippet": "The weir gate key According to Reeve Holloway, Widow Ferrant keeps the key",
+        "title": "The weir gate key",
+        "type": "entity"
+      }
+    ],
+    "nextCursor": null,
+    "order": "type_then_page_relevance",
+    "query": null,
+    "total": 15,
+    "totalIsExact": true,
+    "truncated": false
+  },
+  "entities": [
+    {
+      "aliases": [],
+      "history": [
+        {
+          "after": {
+            "aliases": [],
+            "id": "32077e88-ee05-43da-9e07-b803d94baa64",
+            "kind": "character_goal",
+            "name": "The unsigned letter",
+            "properties": {
+              "goal": "Find who sent Tamsin's sister's unsigned letter, sealed with a mill wheel",
+              "progress": "Nobody at the mill recognizes the seal",
+              "status": "open"
+            }
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "kind": "character_goal",
+            "name": "The unsigned letter",
+            "op": "new",
+            "properties": {
+              "goal": "Find who sent Tamsin's sister's unsigned letter, sealed with a mill wheel",
+              "progress": "Nobody at the mill recognizes the seal",
+              "status": "open"
+            },
+            "tempKey": "letter"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 3,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:26:30",
+              "quote": "I still have that unsigned letter from my sister. The seal had a mill wheel on it."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        },
+        {
+          "after": {
+            "from": "56846b23-1790-448d-8e99-16d22237dc6f",
+            "to": "32077e88-ee05-43da-9e07-b803d94baa64",
+            "type": "pursues"
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "from": "$tamsin",
+            "op": "relate",
+            "to": "$letter",
+            "type": "pursues"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 3,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:26:30",
+              "quote": "I still have that unsigned letter from my sister."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        }
+      ],
+      "id": "32077e88-ee05-43da-9e07-b803d94baa64",
+      "kind": "character_goal",
+      "name": "The unsigned letter",
+      "nextCursor": null,
+      "properties": {
+        "goal": "Find who sent Tamsin's sister's unsigned letter, sealed with a mill wheel",
+        "progress": "Nobody at the mill recognizes the seal",
+        "status": "open"
+      },
+      "relationships": [
+        {
+          "from": "56846b23-1790-448d-8e99-16d22237dc6f",
+          "inverseLabel": "pursued by",
+          "label": "pursues",
+          "to": "32077e88-ee05-43da-9e07-b803d94baa64",
+          "type": "pursues"
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "aliases": [],
+      "history": [
+        {
+          "after": {
+            "aliases": [],
+            "id": "16c430a1-eec7-4759-82ac-0e90d04e679b",
+            "kind": "clock",
+            "name": "Harvest fair",
+            "properties": {
+              "countsToward": "Reeve Holloway closes the mill",
+              "filled": 1,
+              "segments": 3,
+              "visibleToPlayers": "shown"
+            }
+          },
+          "basis": [
+            "npc_said"
+          ],
+          "before": null,
+          "change": {
+            "kind": "clock",
+            "name": "Harvest fair",
+            "op": "new",
+            "properties": {
+              "countsToward": "Reeve Holloway closes the mill",
+              "filled": 1,
+              "segments": 3,
+              "visibleToPlayers": "shown"
+            },
+            "tempKey": "fair"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 2,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:12:50",
+              "quote": "Reeve Holloway: If those children are not found by then, I close the mill."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        },
+        {
+          "after": {
+            "from": "16c430a1-eec7-4759-82ac-0e90d04e679b",
+            "to": "551537dd-da32-4a8f-ba56-665a6c244e76",
+            "type": "pressures"
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "from": "$fair",
+            "op": "relate",
+            "to": "$apprentices",
+            "type": "pressures"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 2,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:13:40",
+              "quote": "The harvest fair clock has three segments; one is filled. You can all see it."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        }
+      ],
+      "id": "16c430a1-eec7-4759-82ac-0e90d04e679b",
+      "kind": "clock",
+      "name": "Harvest fair",
+      "nextCursor": null,
+      "properties": {
+        "countsToward": "Reeve Holloway closes the mill",
+        "filled": 1,
+        "segments": 3,
+        "visibleToPlayers": "shown"
+      },
+      "relationships": [
+        {
+          "from": "16c430a1-eec7-4759-82ac-0e90d04e679b",
+          "inverseLabel": "pressured by",
+          "label": "pressures",
+          "to": "551537dd-da32-4a8f-ba56-665a6c244e76",
+          "type": "pressures"
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "aliases": [],
+      "history": [
+        {
+          "after": {
+            "aliases": [],
+            "id": "aad70a2c-4101-4cea-85f1-eb23c1010d96",
+            "kind": "clock",
+            "name": "Weir flood",
+            "properties": {
+              "countsToward": "The river floods the mill",
+              "filled": 2,
+              "segments": 4,
+              "visibleToPlayers": "hidden"
+            }
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "kind": "clock",
+            "name": "Weir flood",
+            "op": "new",
+            "properties": {
+              "countsToward": "The river floods the mill",
+              "filled": 2,
+              "segments": 4,
+              "visibleToPlayers": "hidden"
+            },
+            "tempKey": "flood"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 3,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:24:00",
+              "quote": "The water behind the weir rises. The weir flood clock stands at two of four. Only I know it."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        },
+        {
+          "after": {
+            "from": "aad70a2c-4101-4cea-85f1-eb23c1010d96",
+            "to": "15d6b5ef-62f9-492f-a81d-4f4ba2aee9a2",
+            "type": "pressures"
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "from": "$flood",
+            "op": "relate",
+            "to": "$mill",
+            "type": "pressures"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 3,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:24:00",
+              "quote": "The water behind the weir rises."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        }
+      ],
+      "id": "aad70a2c-4101-4cea-85f1-eb23c1010d96",
+      "kind": "clock",
+      "name": "Weir flood",
+      "nextCursor": null,
+      "properties": {
+        "countsToward": "The river floods the mill",
+        "filled": 2,
+        "segments": 4,
+        "visibleToPlayers": "hidden"
+      },
+      "relationships": [
+        {
+          "from": "aad70a2c-4101-4cea-85f1-eb23c1010d96",
+          "inverseLabel": "pressured by",
+          "label": "pressures",
+          "to": "15d6b5ef-62f9-492f-a81d-4f4ba2aee9a2",
+          "type": "pressures"
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "aliases": [],
+      "history": [
+        {
+          "after": {
+            "aliases": [],
+            "id": "cbb2be65-14e5-433f-a748-097cbe5bf9bd",
+            "kind": "npc",
+            "name": "Widow Ferrant",
+            "properties": {
+              "playedAs": "Slow, clipped words; never sits down",
+              "relationships": "Employs Corwin Ashe as foreman",
+              "role": "Owner of the tallow mill",
+              "status": "alive",
+              "wants": "Her two apprentices found"
+            }
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "kind": "npc",
+            "name": "Widow Ferrant",
+            "op": "new",
+            "properties": {
+              "playedAs": "Slow, clipped words; never sits down",
+              "relationships": "Employs Corwin Ashe as foreman",
+              "role": "Owner of the tallow mill",
+              "status": "alive",
+              "wants": "Her two apprentices found"
+            },
+            "tempKey": "ferrant"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 1,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:01:55",
+              "quote": "Widow Ferrant speaks in slow, clipped words and never sits down."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        },
+        {
+          "after": {
+            "from": "551537dd-da32-4a8f-ba56-665a6c244e76",
+            "to": "cbb2be65-14e5-433f-a748-097cbe5bf9bd",
+            "type": "raised_by"
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "from": "$apprentices",
+            "op": "relate",
+            "to": "$ferrant",
+            "type": "raised_by"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 1,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:01:30",
+              "quote": "Two of my apprentices are gone. Pell and Nia. Three nights now. Find them."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        }
+      ],
+      "id": "cbb2be65-14e5-433f-a748-097cbe5bf9bd",
+      "kind": "npc",
+      "name": "Widow Ferrant",
+      "nextCursor": null,
+      "properties": {
+        "playedAs": "Slow, clipped words; never sits down",
+        "relationships": "Employs Corwin Ashe as foreman",
+        "role": "Owner of the tallow mill",
+        "status": "alive",
+        "wants": "Her two apprentices found"
+      },
+      "relationships": [
+        {
+          "from": "551537dd-da32-4a8f-ba56-665a6c244e76",
+          "inverseLabel": "raised",
+          "label": "raised by",
+          "to": "cbb2be65-14e5-433f-a748-097cbe5bf9bd",
+          "type": "raised_by"
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "aliases": [],
+      "history": [
+        {
+          "after": {
+            "aliases": [],
+            "id": "198786e7-50a6-49b5-a651-97468fcf3a91",
+            "kind": "npc",
+            "name": "Corwin Ashe",
+            "properties": {
+              "playedAs": "Nervous laugh; keeps rubbing flour from his hands",
+              "relationships": "Foreman for Widow Ferrant",
+              "role": "Foreman of the tallow mill",
+              "status": "alive"
+            }
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "kind": "npc",
+            "name": "Corwin Ashe",
+            "op": "new",
+            "properties": {
+              "playedAs": "Nervous laugh; keeps rubbing flour from his hands",
+              "relationships": "Foreman for Widow Ferrant",
+              "role": "Foreman of the tallow mill",
+              "status": "alive"
+            },
+            "tempKey": "corwin"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 1,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:05:20",
+              "quote": "Corwin Ashe, the mill foreman, shows you the apprentices' loft. He laughs nervously and keeps rubbing flour from his hands."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        },
+        {
+          "after": {
+            "from": "198786e7-50a6-49b5-a651-97468fcf3a91",
+            "to": "15d6b5ef-62f9-492f-a81d-4f4ba2aee9a2",
+            "type": "last_seen_at"
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "from": "$corwin",
+            "op": "relate",
+            "to": "$mill",
+            "type": "last_seen_at"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 1,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:05:20",
+              "quote": "Corwin Ashe, the mill foreman, shows you the apprentices' loft."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        }
+      ],
+      "id": "198786e7-50a6-49b5-a651-97468fcf3a91",
+      "kind": "npc",
+      "name": "Corwin Ashe",
+      "nextCursor": null,
+      "properties": {
+        "playedAs": "Nervous laugh; keeps rubbing flour from his hands",
+        "relationships": "Foreman for Widow Ferrant",
+        "role": "Foreman of the tallow mill",
+        "status": "alive"
+      },
+      "relationships": [
+        {
+          "from": "198786e7-50a6-49b5-a651-97468fcf3a91",
+          "inverseLabel": "last seen here",
+          "label": "last seen at",
+          "to": "15d6b5ef-62f9-492f-a81d-4f4ba2aee9a2",
+          "type": "last_seen_at"
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "aliases": [],
+      "history": [
+        {
+          "after": {
+            "aliases": [],
+            "id": "0aa6deec-3a7c-426e-bdcb-613ea6aa8995",
+            "kind": "npc",
+            "name": "Reeve Holloway",
+            "properties": {
+              "playedAs": "Formal; quotes the town charter at every turn",
+              "role": "Town reeve of Hollin's Weir",
+              "status": "alive",
+              "wants": "The children found before the harvest fair"
+            }
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "kind": "npc",
+            "name": "Reeve Holloway",
+            "op": "new",
+            "properties": {
+              "playedAs": "Formal; quotes the town charter at every turn",
+              "role": "Town reeve of Hollin's Weir",
+              "status": "alive",
+              "wants": "The children found before the harvest fair"
+            },
+            "tempKey": "holloway"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 2,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:12:00",
+              "quote": "Reeve Holloway receives you. He is formal and quotes the town charter at every turn."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        }
+      ],
+      "id": "0aa6deec-3a7c-426e-bdcb-613ea6aa8995",
+      "kind": "npc",
+      "name": "Reeve Holloway",
+      "nextCursor": null,
+      "properties": {
+        "playedAs": "Formal; quotes the town charter at every turn",
+        "role": "Town reeve of Hollin's Weir",
+        "status": "alive",
+        "wants": "The children found before the harvest fair"
+      },
+      "relationships": [],
+      "truncated": false
+    },
+    {
+      "aliases": [],
+      "history": [
+        {
+          "after": {
+            "aliases": [],
+            "id": "c2450171-71c6-4c69-a7f4-8ab79523553e",
+            "kind": "npc",
+            "name": "Dace",
+            "properties": {
+              "playedAs": "Grins, calls everyone cousin, never stops coiling rope",
+              "role": "Barge smuggler",
+              "status": "alive",
+              "wants": "Nobody watching the weir at night"
+            }
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "kind": "npc",
+            "name": "Dace",
+            "op": "new",
+            "properties": {
+              "playedAs": "Grins, calls everyone cousin, never stops coiling rope",
+              "role": "Barge smuggler",
+              "status": "alive",
+              "wants": "Nobody watching the weir at night"
+            },
+            "tempKey": "dace"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 3,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:19:40",
+              "quote": "Dace grins, calls everyone cousin, and never stops coiling rope."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        },
+        {
+          "after": {
+            "from": "f4b39b9a-904c-48bf-a9a2-4a1c91bbd5db",
+            "to": "c2450171-71c6-4c69-a7f4-8ab79523553e",
+            "type": "raised_by"
+          },
+          "basis": [
+            "npc_said"
+          ],
+          "before": null,
+          "change": {
+            "from": "$debt",
+            "op": "relate",
+            "to": "$dace",
+            "type": "raised_by"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 3,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:20:30",
+              "quote": "Dace: Ask your foreman about the money he owes me."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        }
+      ],
+      "id": "c2450171-71c6-4c69-a7f4-8ab79523553e",
+      "kind": "npc",
+      "name": "Dace",
+      "nextCursor": null,
+      "properties": {
+        "playedAs": "Grins, calls everyone cousin, never stops coiling rope",
+        "role": "Barge smuggler",
+        "status": "alive",
+        "wants": "Nobody watching the weir at night"
+      },
+      "relationships": [
+        {
+          "from": "f4b39b9a-904c-48bf-a9a2-4a1c91bbd5db",
+          "inverseLabel": "raised",
+          "label": "raised by",
+          "to": "c2450171-71c6-4c69-a7f4-8ab79523553e",
+          "type": "raised_by"
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "aliases": [],
+      "history": [
+        {
+          "after": {
+            "aliases": [],
+            "id": "b6feb943-0021-4f27-b155-733ce2c0c17c",
+            "kind": "npc",
+            "name": "Sister Ulla",
+            "properties": {
+              "role": "Hedge-healer who patched up Dace's boatmen, according to Dace",
+              "status": "unknown"
+            }
+          },
+          "basis": [
+            "npc_said"
+          ],
+          "before": null,
+          "change": {
+            "kind": "npc",
+            "name": "Sister Ulla",
+            "op": "new",
+            "properties": {
+              "role": "Hedge-healer who patched up Dace's boatmen, according to Dace",
+              "status": "unknown"
+            }
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 3,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:22:00",
+              "quote": "Dace: Sister Ulla patched up my boatmen last spring. She asks no questions."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        }
+      ],
+      "id": "b6feb943-0021-4f27-b155-733ce2c0c17c",
+      "kind": "npc",
+      "name": "Sister Ulla",
+      "nextCursor": null,
+      "properties": {
+        "role": "Hedge-healer who patched up Dace's boatmen, according to Dace",
+        "status": "unknown"
+      },
+      "relationships": [],
+      "truncated": false
+    },
+    {
+      "aliases": [],
+      "history": [
+        {
+          "after": {
+            "aliases": [],
+            "id": "15d6b5ef-62f9-492f-a81d-4f4ba2aee9a2",
+            "kind": "place",
+            "name": "The tallow mill",
+            "properties": {
+              "detailsShown": "The wheel turns slower than it should. The cellar smells of old tallow and wet stone."
+            }
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "kind": "place",
+            "name": "The tallow mill",
+            "op": "new",
+            "properties": {
+              "detailsShown": "The wheel turns slower than it should. The cellar smells of old tallow and wet stone."
+            },
+            "tempKey": "mill"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 1,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:00:10",
+              "quote": "The tallow mill groans on the river, its wheel turning slower than it should."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        },
+        {
+          "after": {
+            "from": "198786e7-50a6-49b5-a651-97468fcf3a91",
+            "to": "15d6b5ef-62f9-492f-a81d-4f4ba2aee9a2",
+            "type": "last_seen_at"
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "from": "$corwin",
+            "op": "relate",
+            "to": "$mill",
+            "type": "last_seen_at"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 1,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:05:20",
+              "quote": "Corwin Ashe, the mill foreman, shows you the apprentices' loft."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        },
+        {
+          "after": {
+            "from": "aad70a2c-4101-4cea-85f1-eb23c1010d96",
+            "to": "15d6b5ef-62f9-492f-a81d-4f4ba2aee9a2",
+            "type": "pressures"
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "from": "$flood",
+            "op": "relate",
+            "to": "$mill",
+            "type": "pressures"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 3,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:24:00",
+              "quote": "The water behind the weir rises."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        }
+      ],
+      "id": "15d6b5ef-62f9-492f-a81d-4f4ba2aee9a2",
+      "kind": "place",
+      "name": "The tallow mill",
+      "nextCursor": null,
+      "properties": {
+        "detailsShown": "The wheel turns slower than it should. The cellar smells of old tallow and wet stone."
+      },
+      "relationships": [
+        {
+          "from": "198786e7-50a6-49b5-a651-97468fcf3a91",
+          "inverseLabel": "last seen here",
+          "label": "last seen at",
+          "to": "15d6b5ef-62f9-492f-a81d-4f4ba2aee9a2",
+          "type": "last_seen_at"
+        },
+        {
+          "from": "aad70a2c-4101-4cea-85f1-eb23c1010d96",
+          "inverseLabel": "pressured by",
+          "label": "pressures",
+          "to": "15d6b5ef-62f9-492f-a81d-4f4ba2aee9a2",
+          "type": "pressures"
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "aliases": [],
+      "history": [
+        {
+          "after": {
+            "aliases": [],
+            "id": "56846b23-1790-448d-8e99-16d22237dc6f",
+            "kind": "player_character",
+            "name": "Tamsin",
+            "properties": {
+              "concept": "Sharp-eyed river guide"
+            }
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "kind": "player_character",
+            "name": "Tamsin",
+            "op": "new",
+            "properties": {
+              "concept": "Sharp-eyed river guide"
+            },
+            "tempKey": "tamsin"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 3,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:07:45",
+              "quote": "The window latch is scratched from outside."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        },
+        {
+          "after": {
+            "from": "56846b23-1790-448d-8e99-16d22237dc6f",
+            "to": "32077e88-ee05-43da-9e07-b803d94baa64",
+            "type": "pursues"
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "from": "$tamsin",
+            "op": "relate",
+            "to": "$letter",
+            "type": "pursues"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 3,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:26:30",
+              "quote": "I still have that unsigned letter from my sister."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        }
+      ],
+      "id": "56846b23-1790-448d-8e99-16d22237dc6f",
+      "kind": "player_character",
+      "name": "Tamsin",
+      "nextCursor": null,
+      "properties": {
+        "concept": "Sharp-eyed river guide"
+      },
+      "relationships": [
+        {
+          "from": "56846b23-1790-448d-8e99-16d22237dc6f",
+          "inverseLabel": "pursued by",
+          "label": "pursues",
+          "to": "32077e88-ee05-43da-9e07-b803d94baa64",
+          "type": "pursues"
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "aliases": [],
+      "history": [
+        {
+          "after": {
+            "aliases": [],
+            "id": "551537dd-da32-4a8f-ba56-665a6c244e76",
+            "kind": "thread",
+            "name": "The missing apprentices",
+            "properties": {
+              "nextStep": "Search the cellar",
+              "status": "open",
+              "whatIsOpen": "Pell and Nia vanished from the mill loft three nights ago; the window latch is scratched from outside"
+            }
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "kind": "thread",
+            "name": "The missing apprentices",
+            "op": "new",
+            "properties": {
+              "nextStep": "Search the cellar",
+              "status": "open",
+              "whatIsOpen": "Pell and Nia vanished from the mill loft three nights ago; the window latch is scratched from outside"
+            },
+            "tempKey": "apprentices"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 1,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:01:30",
+              "quote": "Two of my apprentices are gone. Pell and Nia. Three nights now. Find them."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        },
+        {
+          "after": {
+            "from": "551537dd-da32-4a8f-ba56-665a6c244e76",
+            "to": "cbb2be65-14e5-433f-a748-097cbe5bf9bd",
+            "type": "raised_by"
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "from": "$apprentices",
+            "op": "relate",
+            "to": "$ferrant",
+            "type": "raised_by"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 1,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:01:30",
+              "quote": "Two of my apprentices are gone. Pell and Nia. Three nights now. Find them."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        },
+        {
+          "after": {
+            "from": "16c430a1-eec7-4759-82ac-0e90d04e679b",
+            "to": "551537dd-da32-4a8f-ba56-665a6c244e76",
+            "type": "pressures"
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "from": "$fair",
+            "op": "relate",
+            "to": "$apprentices",
+            "type": "pressures"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 2,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:13:40",
+              "quote": "The harvest fair clock has three segments; one is filled. You can all see it."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        }
+      ],
+      "id": "551537dd-da32-4a8f-ba56-665a6c244e76",
+      "kind": "thread",
+      "name": "The missing apprentices",
+      "nextCursor": null,
+      "properties": {
+        "nextStep": "Search the cellar",
+        "status": "open",
+        "whatIsOpen": "Pell and Nia vanished from the mill loft three nights ago; the window latch is scratched from outside"
+      },
+      "relationships": [
+        {
+          "from": "551537dd-da32-4a8f-ba56-665a6c244e76",
+          "inverseLabel": "raised",
+          "label": "raised by",
+          "to": "cbb2be65-14e5-433f-a748-097cbe5bf9bd",
+          "type": "raised_by"
+        },
+        {
+          "from": "16c430a1-eec7-4759-82ac-0e90d04e679b",
+          "inverseLabel": "pressured by",
+          "label": "pressures",
+          "to": "551537dd-da32-4a8f-ba56-665a6c244e76",
+          "type": "pressures"
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "aliases": [],
+      "history": [
+        {
+          "after": {
+            "aliases": [],
+            "id": "5e2cf877-048c-4085-a0f2-0cd087fcdadb",
+            "kind": "thread",
+            "name": "The night barges",
+            "properties": {
+              "status": "open",
+              "whatIsOpen": "Two flat barges slip past the weir at night with lanterns"
+            }
+          },
+          "basis": [
+            "narrated"
+          ],
+          "before": null,
+          "change": {
+            "kind": "thread",
+            "name": "The night barges",
+            "op": "new",
+            "properties": {
+              "status": "open",
+              "whatIsOpen": "Two flat barges slip past the weir at night with lanterns"
+            },
+            "tempKey": "barges"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 3,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:18:00",
+              "quote": "Lanterns move on the water: two flat barges slipping past the weir."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        },
+        {
+          "after": {
+            "aliases": [],
+            "id": "5e2cf877-048c-4085-a0f2-0cd087fcdadb",
+            "kind": "thread",
+            "name": "The night barges",
+            "properties": {
+              "nextStep": "The party plans to watch the weir tomorrow night",
+              "status": "open",
+              "whatIsOpen": "Two flat barges slip past the weir at night with lanterns"
+            }
+          },
+          "basis": [
+            "player_guess",
+            "player_plan"
+          ],
+          "before": {
+            "aliases": [],
+            "id": "5e2cf877-048c-4085-a0f2-0cd087fcdadb",
+            "kind": "thread",
+            "name": "The night barges",
+            "properties": {
+              "status": "open",
+              "whatIsOpen": "Two flat barges slip past the weir at night with lanterns"
+            }
+          },
+          "change": {
+            "entity": "$barges",
+            "op": "update",
+            "properties": {
+              "nextStep": "The party plans to watch the weir tomorrow night"
+            }
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 3,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:23:10",
+              "quote": "I think the barges carried the children downriver."
+            },
+            {
+              "at": "00:29:00",
+              "quote": "Tomorrow we search the cellar, then we watch the weir at night."
+            }
+          ],
+          "why": "Keep Tamsin's guess and the party's plan on the thread"
+        }
+      ],
+      "id": "5e2cf877-048c-4085-a0f2-0cd087fcdadb",
+      "kind": "thread",
+      "name": "The night barges",
+      "nextCursor": null,
+      "properties": {
+        "nextStep": "The party plans to watch the weir tomorrow night",
+        "status": "open",
+        "whatIsOpen": "Two flat barges slip past the weir at night with lanterns"
+      },
+      "relationships": [],
+      "truncated": false
+    },
+    {
+      "aliases": [],
+      "history": [
+        {
+          "after": {
+            "aliases": [],
+            "id": "f4b39b9a-904c-48bf-a9a2-4a1c91bbd5db",
+            "kind": "thread",
+            "name": "Corwin's debt",
+            "properties": {
+              "status": "open",
+              "whatIsOpen": "Dace claims Corwin owes him money"
+            }
+          },
+          "basis": [
+            "npc_said"
+          ],
+          "before": null,
+          "change": {
+            "kind": "thread",
+            "name": "Corwin's debt",
+            "op": "new",
+            "properties": {
+              "status": "open",
+              "whatIsOpen": "Dace claims Corwin owes him money"
+            },
+            "tempKey": "debt"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 3,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:20:30",
+              "quote": "Dace: Ask your foreman about the money he owes me. Corwin is my favorite debtor."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        },
+        {
+          "after": {
+            "from": "f4b39b9a-904c-48bf-a9a2-4a1c91bbd5db",
+            "to": "c2450171-71c6-4c69-a7f4-8ab79523553e",
+            "type": "raised_by"
+          },
+          "basis": [
+            "npc_said"
+          ],
+          "before": null,
+          "change": {
+            "from": "$debt",
+            "op": "relate",
+            "to": "$dace",
+            "type": "raised_by"
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 3,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:20:30",
+              "quote": "Dace: Ask your foreman about the money he owes me."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        }
+      ],
+      "id": "f4b39b9a-904c-48bf-a9a2-4a1c91bbd5db",
+      "kind": "thread",
+      "name": "Corwin's debt",
+      "nextCursor": null,
+      "properties": {
+        "status": "open",
+        "whatIsOpen": "Dace claims Corwin owes him money"
+      },
+      "relationships": [
+        {
+          "from": "f4b39b9a-904c-48bf-a9a2-4a1c91bbd5db",
+          "inverseLabel": "raised",
+          "label": "raised by",
+          "to": "c2450171-71c6-4c69-a7f4-8ab79523553e",
+          "type": "raised_by"
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "aliases": [],
+      "history": [
+        {
+          "after": {
+            "aliases": [],
+            "id": "5452aabe-6776-41c8-9134-77f936b259f7",
+            "kind": "world_fact",
+            "name": "The haunted cellar",
+            "properties": {
+              "statement": "Town rumor says the mill cellar is haunted by the old miller who drowned there"
+            }
+          },
+          "basis": [
+            "rumor"
+          ],
+          "before": null,
+          "change": {
+            "kind": "world_fact",
+            "name": "The haunted cellar",
+            "op": "new",
+            "properties": {
+              "statement": "Town rumor says the mill cellar is haunted by the old miller who drowned there"
+            }
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 1,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:09:15",
+              "quote": "The cellar is haunted, everybody in town says so. The old miller drowned down there."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        }
+      ],
+      "id": "5452aabe-6776-41c8-9134-77f936b259f7",
+      "kind": "world_fact",
+      "name": "The haunted cellar",
+      "nextCursor": null,
+      "properties": {
+        "statement": "Town rumor says the mill cellar is haunted by the old miller who drowned there"
+      },
+      "relationships": [],
+      "truncated": false
+    },
+    {
+      "aliases": [],
+      "history": [
+        {
+          "after": {
+            "aliases": [],
+            "id": "45c6af56-4d3f-4226-8d5e-e7bc625c40c6",
+            "kind": "world_fact",
+            "name": "The weir gate key",
+            "properties": {
+              "statement": "According to Reeve Holloway, Widow Ferrant keeps the key"
+            }
+          },
+          "basis": [
+            "npc_said"
+          ],
+          "before": null,
+          "change": {
+            "kind": "world_fact",
+            "name": "The weir gate key",
+            "op": "new",
+            "properties": {
+              "statement": "According to Reeve Holloway, Widow Ferrant keeps the key"
+            }
+          },
+          "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+          "scene": 2,
+          "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+          "sources": [
+            {
+              "at": "00:15:30",
+              "quote": "Reeve Holloway: The widow, of course. She will tell you otherwise."
+            }
+          ],
+          "why": "Remember the invented session for the briefing"
+        }
+      ],
+      "id": "45c6af56-4d3f-4226-8d5e-e7bc625c40c6",
+      "kind": "world_fact",
+      "name": "The weir gate key",
+      "nextCursor": null,
+      "properties": {
+        "statement": "According to Reeve Holloway, Widow Ferrant keeps the key"
+      },
+      "relationships": [],
+      "truncated": false
+    }
+  ],
+  "sessions": [
+    {
+      "adventure": "j57fv5wpywma4b72r156y8h9358g4215",
+      "id": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+      "ordinal": 1,
+      "playedOn": "2026-02-07",
+      "scenes": [
+        {
+          "end": "00:11:59",
+          "place": "The tallow mill",
+          "start": "00:00:10",
+          "summary": "Widow Ferrant hires the party to find Pell and Nia. Corwin shows the loft; the latch is scratched from outside.",
+          "title": "The empty loft"
+        },
+        {
+          "end": "00:17:59",
+          "place": "Town hall",
+          "start": "00:12:00",
+          "summary": "Reeve Holloway will close the mill at the harvest fair. The widow keeps the weir gate key, he says.",
+          "title": "The reeve's deadline"
+        },
+        {
+          "place": "The weir",
+          "start": "00:18:00",
+          "summary": "Dace's barges slip past the weir. Dace names Corwin his debtor and mentions Sister Ulla.",
+          "title": "Lanterns on the river"
+        }
+      ],
+      "status": "committed"
+    }
+  ],
+  "schema": {
+    "kinds": {
+      "character_goal": {
+        "goal": "text",
+        "progress": "text",
+        "status": [
+          "open",
+          "closed"
+        ]
+      },
+      "clock": {
+        "countsToward": "text",
+        "filled": "number",
+        "segments": "number",
+        "visibleToPlayers": [
+          "shown",
+          "hidden"
+        ]
+      },
+      "npc": {
+        "knows": "text",
+        "playedAs": "text",
+        "relationships": "text",
+        "role": "text",
+        "status": [
+          "alive",
+          "dead",
+          "gone",
+          "unknown"
+        ],
+        "wants": "text"
+      },
+      "place": {
+        "detailsShown": "text",
+        "state": "text"
+      },
+      "player_character": {
+        "concept": "text"
+      },
+      "thread": {
+        "deadline": "text",
+        "nextStep": "text",
+        "status": [
+          "open",
+          "advanced",
+          "closed"
+        ],
+        "whatIsOpen": "text"
+      },
+      "world_fact": {
+        "statement": "text"
+      }
+    },
+    "relationshipTypes": {
+      "involves": {
+        "from": [
+          "thread",
+          "world_fact"
+        ],
+        "inverseLabel": "involved in",
+        "label": "involves",
+        "to": [
+          "npc",
+          "player_character",
+          "place",
+          "world_fact",
+          "thread",
+          "character_goal"
+        ]
+      },
+      "last_seen_at": {
+        "from": [
+          "npc",
+          "player_character"
+        ],
+        "inverseLabel": "last seen here",
+        "label": "last seen at",
+        "to": [
+          "place"
+        ]
+      },
+      "located_in": {
+        "from": [
+          "place"
+        ],
+        "inverseLabel": "contains",
+        "label": "located in",
+        "to": [
+          "place"
+        ]
+      },
+      "pressures": {
+        "from": [
+          "clock"
+        ],
+        "inverseLabel": "pressured by",
+        "label": "pressures",
+        "to": [
+          "thread",
+          "place",
+          "player_character"
+        ]
+      },
+      "pursues": {
+        "from": [
+          "player_character"
+        ],
+        "inverseLabel": "pursued by",
+        "label": "pursues",
+        "to": [
+          "character_goal"
+        ]
+      },
+      "raised_by": {
+        "from": [
+          "thread"
+        ],
+        "inverseLabel": "raised",
+        "label": "raised by",
+        "to": [
+          "npc",
+          "player_character"
+        ]
+      }
+    },
+    "retiredProperties": {}
+  },
+  "briefing": {
+    "commit": "jh79ys7a3gyjexnp10vex377p98g47w5",
+    "correctionsSince": [],
+    "session": "kn7dbwp9r1gt9rvbg9gt34nxdn8g48f3",
+    "text": "**Where the party stands**\nMill yard of the tallow mill at Hollin's Weir, end of the first day [00:29:30].\nThey met Dace at the weir that night. Player plan: \"Tomorrow we search the cellar, then we watch the weir at night.\" [00:29:00]\n\n**What pulls**\n- **The missing apprentices:** Pell and Nia vanished from the loft three nights ago, and the latch is \"scratched from outside\" [00:07:45]. Next step: the cellar.\n- **The night barges:** two lantern barges slip past the weir [00:18:00]. Player guess: \"the barges carried the children downriver\" [00:23:10]. Player plan: watch the weir tomorrow night.\n- **Corwin's debt:** according to Dace, \"Corwin is my favorite debtor\" [00:20:30]. Nobody has asked Corwin about it yet.\n- **The weir gate:** according to Holloway, the widow keeps the key: \"She will tell you otherwise.\" [00:15:30]\n\n**Forgotten threads**\n- **Tamsin's unsigned letter:** it's sealed with a mill wheel, and \"Nobody at the mill recognizes the seal\" [00:27:10]. The party is about to search the mill itself.\n- **Sister Ulla:** according to Dace, she \"asks no questions\" [00:22:00]. Nobody has followed up on her.\n\n**NPCs in play**\n- **Widow Ferrant:** \"slow, clipped words and never sits down\" [00:01:55]. She wants her apprentices found. She employs Corwin.\n- **Corwin Ashe:** nervous laugh, rubs flour from his hands [00:05:20]. Wants unknown. He's Ferrant's foreman, and according to Dace, he owes Dace money.\n- **Reeve Holloway:** formal, quotes the charter [00:12:00]. He wants the children found before the fair. According to Holloway: \"The widow and I have disagreed about that weir gate for twenty years.\" [00:14:20]\n- **Dace:** grins, calls everyone cousin, keeps coiling rope [00:19:40]. He wants nobody watching the weir at night, which is what the party plans to do next. He named Corwin and Ulla.\n- **Sister Ulla:** not played yet. Wants unknown. According to Dace, she patched up his boatmen.\n\n**Clocks and pressure**\n- **Harvest fair: 1/3, shown.** At the fair, Holloway closes the mill. \"The harvest fair opens in three days.\" [00:12:50]\n- **Weir flood: 2/4, hidden.** \"The water behind the weir rises.\" [00:24:00]\n- **No clock:** according to Ferrant, \"If the gate stays shut past the new moon, the wheel stops for good.\" [00:24:45]\n\n**Off-screen moves**\n1. **Holloway calls at the mill.** While the party is in the cellar, the reeve arrives and quotes article nine to the widow in the yard. The party comes up into an open argument.\n   Built on: Harvest fair clock [00:12:50]; Holloway's 20-year gate dispute [00:14:20].\n2. **Dace's man collects.** A boatman waits at the mill gate and asks for Corwin by name. Corwin laughs too loudly and won't go out.\n   Built on: Corwin's debt [00:20:30]; Corwin played as nervous [00:05:20].\n3. **The cellar weeps.** Fresh water seeps through the cellar's wet stone during the search. Ferrant mutters about the gate.\n   Built on: Weir flood 2/4 [00:24:00]; \"old tallow and wet stone\" [00:08:30]; Ferrant's new-moon condition [00:24:45].\n\n**What next**\n1. Go to the first checklist section (recommended).\n2. Pick an off-screen move and go to the first section.\n"
+  },
+  "checklist": {
+    "checklist": {
+      "sections": [
+        {
+          "definition": "The opening scene of the next session. Drop the characters into action in the first five minutes, close to where the last session ended. A situation, never a plot.",
+          "name": "Strong start"
+        },
+        {
+          "definition": "Ten secrets and clues the characters could discover next session, each a single short sentence the characters want to know.",
+          "name": "Secrets and clues"
+        }
+      ],
+      "template": "# Session 2 – The Tallow Mill\n## Strong start\n## Secrets and clues\n"
+    },
+    "history": [
+      {
+        "after": {
+          "sections": [
+            {
+              "definition": "The opening scene of the next session. Drop the characters into action in the first five minutes, close to where the last session ended. A situation, never a plot.",
+              "name": "Strong start"
+            },
+            {
+              "definition": "Ten secrets and clues the characters could discover next session, each a single short sentence the characters want to know.",
+              "name": "Secrets and clues"
+            }
+          ],
+          "template": "# Session 2 – The Tallow Mill\n## Strong start\n## Secrets and clues\n"
+        },
+        "before": null,
+        "commit": "jh785z2r33zwswtzxwex57jfcx8g4wk9",
+        "reason": "My invented prep checklist for the proof"
+      }
+    ],
+    "nextCursor": null,
+    "truncated": false
+  }
+}

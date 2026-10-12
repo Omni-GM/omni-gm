@@ -220,7 +220,7 @@
     },
     {
       "name": "frame talk",
-      "definition": "The conversation in which the AI asks, grounded in the story state, and the game master writes or updates the adventure frame. It runs when a new adventure starts, or briefly when the briefing flags frame fields that the last session put in question.",
+      "definition": "The conversation in which the AI asks, grounded in the story state, and the game master writes or updates the adventure frame. It runs when a new adventure starts; briefly at prep, for goal, stakes and timeframe, while the frame misses one of them or has not changed since the latest committed debrief; or briefly when the briefing flags frame fields that the last session put in question.",
       "status": "settled",
       "rejected": [
         {

@@ -1,0 +1,7 @@
+PROOF TARGET https://uncommon-penguin-937.convex.site
+PASS prep opened with the stored briefing word for word, and its what-next options lead with the recommended short frame talk: 1. Short frame talk first: the adventure frame is still empty (no goal, stakes or timeframe). You can skip it (recommended).
+PASS frame-talk asked exactly one question per turn, once each for goal, stakes and timeframe, with no optional topic or outcome
+PASS no section walk before the frame was saved; only frame_update wrote, after the answers, then prep-sparring opened Strong start
+PASS the frame names goal, stakes and timeframe in the game master's words and is current: {"goal":"Find Pell and Nia and learn who took them.","stakes":"If they fail, the apprentices vanish downriver for good and the mill closes; if they succeed, the widow keeps her mill and Hollin's Weir owes the party a favor.","timeframe":"Before the harvest fair opens, three days from now."}
+PASS story state, briefing and checklist are unchanged
+HEADLESS FRAME OFFER PROOF PASSED

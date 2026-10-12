@@ -123,14 +123,20 @@ recommended one first. Every fact carries a source: `[HH:MM:SS]` for the
 latest session, `[S<n> HH:MM:SS]` for an older one, or the entity name.
 Claims are marked as an NPC's word, a rumor, a player guess or a player plan.
 A gap is a flag, never an invented fact. Store corrections are written with
-`story_commit` only after your okay. With an empty frame the recommended
-option is a short frame talk; with only flagged fields it comes second.
+`story_commit` only after your okay. While the frame is missing goal, stakes
+or timeframe, or has not changed since the latest committed debrief, the
+"what next" options lead with a short frame talk you can skip, also when the
+briefing is the stored one. With a current frame and only flagged fields it
+comes second.
 
 ## Adventure frame talk
 
 Load `skill` with `name: "frame-talk"` when the briefing offers it or a new
-adventure starts. When the briefing flagged only some fields, the short form
-asks about just those. The AI reads
+adventure starts. The short form covers only goal, stakes and timeframe: it
+asks for the empty ones, or shows a frame older than the latest debrief and
+asks once whether it still holds, stores what you confirm and goes back to
+the section walk. When the briefing flagged only some fields of a current
+frame, it asks about just those. The AI reads
 `get overview`, `get frame`, and the committed story state. It asks one
 question at a time, grounded in a named thread, NPC, clock, or character goal,
 and explains why it asks. You decide the situations and pressure. It never
@@ -147,7 +153,8 @@ with your reason. Omitted fields stay as they were; an empty string clears
 a field by storing `""`. A reason and at least one field are required. It appends a `frame`
 commit with the full before and after, atomically with the edit. Intent never
 changes story state. `get frame` returns the fields and that adventure's
-history; `get overview` includes the current frame beside the stored briefing.
+history; `get overview` includes the current frame beside the stored briefing,
+with `currency`: `missing`, `stale` or `current`.
 Starting another adventure gives it a fresh frame and keeps earlier frames
 and their commits. Each owner's frame remains private.
 

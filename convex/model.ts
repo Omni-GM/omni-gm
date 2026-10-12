@@ -218,6 +218,15 @@ export const frame = v.object({
   name: v.string(),
   fields: frameFields,
 });
+export const frameCurrency = v.union(
+  v.literal("missing"),
+  v.literal("stale"),
+  v.literal("current"),
+);
+export const overviewFrame = v.object({
+  ...frame.fields,
+  currency: frameCurrency,
+});
 export const frameHistory = v.object({
   id: v.string(),
   kind: v.literal("frame"),
@@ -379,7 +388,7 @@ export const readValue = v.union(
     openSecrets: v.number(),
     prep: v.union(prepProgress, v.null()),
     currentAdventure: v.union(v.string(), v.null()),
-    frame: v.union(frame, v.null()),
+    frame: v.union(overviewFrame, v.null()),
     briefing: v.union(storedBriefing, v.null()),
   }),
   frameRead,

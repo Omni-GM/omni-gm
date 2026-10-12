@@ -182,6 +182,11 @@ test("a new committed debrief starts a new note and stale clients cannot change 
   );
   const draft = await c.call("session_create", { playedOn: "2026-01-04" });
   expect((await c.call("get", { ref: "note" })).note.session).toBe(session);
+  await c.call("session_create", { playedOn: "2025-12-01", reference: true });
+  expect((await c.call("get", { ref: "note" })).note.session).toBe(session);
+  expect((await c.call("get", { ref: "overview" })).latestSession.id).toBe(
+    session,
+  );
   const next = await commitSession(c, "2026-01-05");
   expect(next).not.toBe(draft.id);
   const expected = {

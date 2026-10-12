@@ -98,7 +98,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpQuery({
     name: "find",
     description:
-      "With no query lists entities and scenes. Search names, aliases, properties, scenes, sources with basis, and transcript utterances by keywords. Results are grouped by type and ranked within each page. Each ref feeds get; id distinguishes hits sharing a ref. Up to 8 keywords. kinds filters entity hits only. Limit 1 to 200; defaults 10 search, 100 list. Follow nextCursor with the same arguments as cursor while truncated, even on an empty page. total is cumulative and a lower bound until totalIsExact.",
+      "With no query lists entities and scenes. Search names, aliases, properties, scenes, sources with basis, and transcript utterances by keywords. Results are grouped by type and ranked within each page. Each ref feeds get; id distinguishes hits sharing a ref. Utterance hits carry session id, stable ordinal and playedOn, also in their title. Up to 8 keywords. kinds filters entity hits only. Limit 1 to 200; defaults 10 search, 100 list. Follow nextCursor with the same arguments as cursor while truncated, even on an empty page. total is cumulative and a lower bound until totalIsExact.",
     fn: internal.search.find,
     identityArg: "caller",
     args: findArgs,
@@ -107,7 +107,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "scenes_set",
     description:
-      "Replace a stored transcript split with scenes. Locked after commit; drop draft changes before splitting again.",
+      "Replace a stored transcript split with scenes. Reference sessions refuse scenes and all debrief operations. Locked after commit; drop draft changes before splitting again.",
     fn: internal.debrief.scenesSet,
     identityArg: "caller",
     args: scenesArgs,
@@ -162,7 +162,8 @@ export const tools: McpToolRegistration[] = [
   }),
   defineMcpMutation({
     name: "session_create",
-    description: "Record a played session in the current adventure.",
+    description:
+      "Record a played session in the current adventure. Set reference true for an older transcript without scenes or debrief; upload it with transcript_upload_url. Sessions sort by playedOn, and references never become overview.latestSession, the session behind the most recent debrief commit.",
     fn: internal.store.sessionCreate,
     identityArg: "caller",
     args: sessionArgs,
@@ -171,7 +172,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpQuery({
     name: "get",
     description:
-      "Read overview with openSecrets count and prep progress (done, skipped, open and nextSection), note with the current prep entries, status and saved checklist/template, frame with its history, checklist with ordered sections, definitions, markdown template and replacement history, schema, secrets (hidden and partly_revealed), secret:<id> with history, entity:<id> with history, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>. checklist is null when not yet stored. note and overview.prep are null until a checklist and committed debrief exist; a new debrief starts a new note. Each secrets page includes writtenSinceDebrief ids for background written or changed after the latest committed debrief. Secrets, transcript, scene and history reads return pages with truncated and nextCursor. Follow nextCursor as cursor with the same single ref until it is null. limit accepts 1 to 200, default 100; byte budgets can shorten pages and history returns at most ten changes. Batch items carry independent cursors; continue them individually. Download URLs require the owner's bearer sign-in.",
+      "Read overview with openSecrets count and prep progress (done, skipped, open and nextSection), note with the current prep entries, status and saved checklist/template, sessions ordered by playedOn, latestSession and briefing from the most recent debrief commit excluding references and drafts, frame with its history, checklist with ordered sections, definitions, markdown template and replacement history, schema, secrets (hidden and partly_revealed), secret:<id> with history, entity:<id> with history, session:<id>, scene:<session>/<n>, transcript:<session>[@<timestamp>], debrief:<session>. checklist is null when not yet stored. note and overview.prep are null until a checklist and committed debrief exist; a new debrief starts a new note. Each secrets page includes writtenSinceDebrief ids for background written or changed after the latest committed debrief. Secrets, transcript, scene and history reads return pages with truncated and nextCursor. Follow nextCursor as cursor with the same single ref until it is null. limit accepts 1 to 200, default 100; byte budgets can shorten pages and history returns at most ten changes. Batch items carry independent cursors; continue them individually. Download URLs require the owner's bearer sign-in.",
     fn: internal.store.get,
     identityArg: "caller",
     args: getArgs,

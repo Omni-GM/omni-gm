@@ -436,3 +436,19 @@ words and language. Claude Code also writes the finished markdown into the
 vault; clients without vault access show markdown to paste. Rendering and
 vault writes happen in the client, never on the server. The endpoint and
 fresh-conversation stop/resume proof is in `proof/session-note/`.
+
+### Older transcripts
+
+Create an older transcript-only reference with `session_create` using
+`playedOn: "YYYY-MM-DD"` and `reference: true`, then use the ordinary signed
+transcript upload. References have status `reference` and cannot receive
+scenes or a debrief. The overview orders sessions by played date;
+`latestSession` identifies the session behind the most recent debrief commit and its stored briefing,
+excluding references and undebriefed drafts. Stable session ordinals do not
+change when an older transcript is added.
+
+Transcript `find` hits include the session id, ordinal and played date. The
+section walk checks committed story state first and searches older transcripts
+only when a doubt needs them, citing the current game-master words and the
+older timestamp in one line. It never bulk-debriefs reference sessions.
+See [the proof bundle](proof/reference-sessions/README.md).

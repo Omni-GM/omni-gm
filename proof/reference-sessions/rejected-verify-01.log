@@ -1,0 +1,16 @@
+PROOF TARGET https://peaceful-blackbird-827.convex.site
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The current source is named
+    at <anonymous> (/home/coder/dev/omni-gm-impl41/scripts/reference-sessions-e2e.ts:314:12) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: `**One contradiction:** you're saying Rook is alive, but in an older session you narrated "Rook dies when the ferry chain snaps. You bury him beside the landing." [S2 00:04:00, played 2026-01-03], and Tamsin answered "We should find a new keeper." [S2 00:05:00]. That transcript is a reference only, so nothing in the story state says he's dead. Which version holds?`,
+  expected: /\bGM\b|game master|you said|your (?:words|claim|propos|start)/i,
+  operator: 'match',
+  diff: 'simple'
+}
+
+Node.js v24.21.0

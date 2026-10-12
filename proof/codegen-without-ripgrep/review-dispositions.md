@@ -21,3 +21,7 @@ delegated task.
 The reviewer confirmed the retire-not-rewrite call: `proof/checklist/` and
 `proof/session-note/` cover the section walk, and `tests/prep.test.ts`
 keeps the old endpoint behaviors in every gate.
+
+Round 2: the same reviewer and settings, on the tree merged with `main`.
+No new findings. It confirmed each round 1 fix resolves its finding and that
+nothing blocks merge.

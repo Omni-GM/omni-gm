@@ -2,6 +2,7 @@ import { ConvexError, v } from "convex/values";
 import { McpGateway } from "convex-mcp-gateway";
 import { components } from "./_generated/api";
 import { internalMutation } from "./_generated/server";
+import { siteUrl } from "./uploads";
 export const configure = internalMutation({
   args: {},
   returns: v.null(),
@@ -13,6 +14,7 @@ export const configure = internalMutation({
       );
     await new McpGateway(components.mcpGateway).setOAuthConfig(ctx, {
       authServerUrl,
+      resourceUrl: `${siteUrl()}/mcp`,
     });
     return null;
   },

@@ -1,0 +1,19 @@
+PROOF TARGET https://outstanding-alligator-999.convex.site
+PASS turn one reads the open secrets and drafts the well whole and Wenna in part, with transcript timestamps, and no reveal for Coll (2 reveals)
+  REVEAL whole scene 1: Bram Oake confessed that he poisoned the Thornwick well with nightshade.
+  REVEAL partial scene 2: The boatman Pell says he carries what Sister Wenna tells him and that she gives the orders on the river.
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The review asks about the unsure Coll reveal
+    at <anonymous> (/home/coder/dev/omni-gm-reveals/scripts/verify-reveals.ts:175:3) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.21.0

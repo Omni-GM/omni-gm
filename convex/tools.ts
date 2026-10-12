@@ -133,7 +133,7 @@ export const tools: McpToolRegistration[] = [
   defineMcpMutation({
     name: "debrief_commit",
     description:
-      "Apply the draft's changes and reveals, append story and secret history and keep its briefing as one commit, all or nothing. A whole reveal sets its secret revealed, a partial one partly_revealed. Refused without a briefing or when a reveal's secret is no longer hidden or partly_revealed. Only after the game master says the draft is right.",
+      "Apply the draft's changes and reveals, append story and secret history and keep its briefing as one commit, all or nothing. A whole reveal sets its secret revealed, a partial one partly_revealed. Refused without a briefing, or when a reveal's secret is no longer hidden or partly_revealed or changed after the reveal was drafted. Only after the game master says the draft is right.",
     fn: internal.debrief.commit,
     identityArg: "caller",
     args: debriefSessionArgs,

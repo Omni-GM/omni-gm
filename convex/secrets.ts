@@ -180,11 +180,13 @@ export const write = internalMutation({
   },
 });
 
+export type RevealableSecret = { row: Doc<"secrets">; version: string };
+
 export async function secretToReveal(
   ctx: QueryCtx,
   campaign: Doc<"campaigns">,
   ref: string,
-): Promise<Doc<"secrets">> {
+): Promise<RevealableSecret> {
   if (new TextEncoder().encode(ref).length > 200)
     throw new ConvexError("Keep secret refs within 200 bytes");
   const row = await secretFor(ctx, campaign, ref);
@@ -192,7 +194,14 @@ export async function secretToReveal(
     throw new ConvexError(
       "Only a hidden or partly revealed secret can be revealed",
     );
-  return row;
+  const latest = await ctx.db
+    .query("secretHistory")
+    .withIndex("by_campaign_and_secret", (q) =>
+      q.eq("campaign", campaign._id).eq("secret", row.id),
+    )
+    .order("desc")
+    .first();
+  return { row, version: latest?.commit ?? "" };
 }
 
 export async function reveal(

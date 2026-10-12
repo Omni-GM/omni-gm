@@ -233,17 +233,31 @@ try {
 
   const stored = await entities();
   const committedChanges = stored.flatMap((e) =>
-    e.history.filter((h) => h.commit === debrief.id),
+    e.history
+      .filter((h) => h.commit === debrief.id)
+      .map((h) => ({ ...h, subject: e.name })),
   );
-  for (const read of [well, wenna]) {
+  const learnedFacts = [
+    { read: well, about: ["bram", "well"], fact: ["poison", "nightshade"] },
+    { read: wenna, about: ["wenna"], fact: ["orders", "signal", "lantern"] },
+  ];
+  for (const { read, about, fact } of learnedFacts) {
     const at = new Set(
       read.history.at(-1)?.sources?.map((s) => s.at?.padStart(8, "0")),
     );
+    const recorded = committedChanges.find(
+      (h) =>
+        h.sources.some((s) => at.has(s.at?.padStart(8, "0"))) &&
+        mentions([h.subject, h.change], ...about) &&
+        mentions(h.change, ...fact) &&
+        !h.basis.every((b) => b === "player_guess" || b === "player_plan"),
+    );
     assert(
-      committedChanges.some((h) =>
-        h.sources.some((s) => at.has(s.at?.padStart(8, "0"))),
-      ),
-      `What the players learned of ${read.id} is story state on its transcript lines`,
+      recorded,
+      `What the players learned of ${read.id} is a committed story change on its transcript lines`,
+    );
+    console.log(
+      `  LEARNED ${recorded.subject} [${recorded.basis.join(", ")}]: ${JSON.stringify(recorded.change).slice(0, 200)}`,
     );
   }
   for (const e of stored)

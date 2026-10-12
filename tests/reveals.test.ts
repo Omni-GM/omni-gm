@@ -283,3 +283,42 @@ test("a reveal is dropped like a change, and the commit leaves its secret hidden
   expect(read.status).toBe("hidden");
   expect(read.history.map((h: { op: string }) => h.op)).toEqual(["write"]);
 });
+
+test("a commit refuses a reveal whose secret changed after it was drafted", async () => {
+  const { c, session, ledger } = await debriefWithSecrets();
+  await c.call("debrief_add", {
+    session,
+    briefing,
+    changes: [tobinNamesTheAbbess],
+    reveals: [
+      {
+        secret: ledger.id,
+        scene: 2,
+        learned: "The heron ledger lists every bribed toll-keeper.",
+        sources: [
+          {
+            quote: "Behind the altar you find a ledger stamped with a heron.",
+            at: "00:03:30",
+          },
+        ],
+        whole: true,
+      },
+    ],
+  });
+  const changed = await c.call("secret_write", {
+    op: "change",
+    secret: ledger.id,
+    text: "The heron ledger lists every bribed toll-keeper, and the abbess wrote it.",
+    reason: "I add who kept the ledger",
+  });
+
+  await expect(c.call("debrief_commit", { session })).rejects.toThrow(
+    "changed after this reveal was drafted",
+  );
+
+  expect(await c.call("get", { ref: ledger.id })).toMatchObject({
+    ...changed.secret,
+    status: "hidden",
+  });
+  expect((await c.call("get", { ref: "overview" })).openSecrets).toBe(2);
+});

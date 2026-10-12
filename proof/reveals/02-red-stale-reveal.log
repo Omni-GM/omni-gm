@@ -1,0 +1,84 @@
+
+ RUN  v4.1.0 /home/coder/dev/omni-gm-reveals
+
+ ❯ tests/reveals.test.ts (5 tests | 1 failed | 4 skipped) 425ms
+   × a commit refuses a reveal whose secret changed after it was drafted 424ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/reveals.test.ts > a commit refuses a reveal whose secret changed after it was drafted
+AssertionError: promise resolved "{ …(2) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "commit": "0000000000000000000010020commits",
++   "draft": {
++     "briefing": "Where the party stands
++ On the salt road at dusk [00:01:10].
++
++ What next
++ 1. Go to the first checklist section (recommended).",
++     "changes": [
++       {
++         "basis": [
++           "npc_said",
++         ],
++         "change": {
++           "kind": "world_fact",
++           "name": "The abbess raised the toll",
++           "op": "new",
++           "properties": {
++             "statement": "The abbess raised the salt road toll.",
++           },
++         },
++         "id": "c1",
++         "scene": 1,
++         "sources": [
++           {
++             "at": "00:01:10",
++             "quote": "The toll was raised by the abbess herself.",
++           },
++         ],
++         "why": "Tobin Marsh named who raised the toll",
++       },
++     ],
++     "reveals": [
++       {
++         "id": "r2",
++         "learned": "The heron ledger lists every bribed toll-keeper.",
++         "scene": 2,
++         "secret": "secret:44415ba1-9a9e-44d3-86f0-1002a20ba089",
++         "sources": [
++           {
++             "at": "00:03:30",
++             "quote": "Behind the altar you find a ledger stamped with a heron.",
++           },
++         ],
++         "whole": true,
++       },
++     ],
++     "session": "000000000000000000010003sessions",
++     "status": "committed",
++   },
+  }
+
+ ❯ tests/reveals.test.ts:315:54
+    313|   });
+    314|
+    315|   await expect(c.call("debrief_commit", { session })).rejects.toThrow(
+       |                                                      ^
+    316|     "changed after this reveal was drafted",
+    317|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 skipped (5)
+   Start at  11:49:40
+   Duration  721ms (transform 353ms, setup 0ms, import 164ms, tests 425ms, environment 0ms)
+

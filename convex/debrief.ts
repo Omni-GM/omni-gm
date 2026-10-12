@@ -24,7 +24,7 @@ import {
   sessionInfo,
   storyChange,
 } from "./model";
-import { reveal, secretToReveal } from "./secrets";
+import { type RevealableSecret, reveal, secretToReveal } from "./secrets";
 import { callerArgs, campaignFor, sessionFor, sessionResult } from "./store";
 export const sessionArgs = { ...callerArgs, session: v.string() };
 export const scenesArgs = { ...sessionArgs, scenes: v.array(scene) };
@@ -325,7 +325,7 @@ async function checkReveal(
   s: Doc<"sessions">,
   proposal: ProposedReveal,
   others: DraftReveal[],
-): Promise<Doc<"secrets">> {
+): Promise<RevealableSecret> {
   if (encodedSize(proposal) > 16_000)
     throw new ConvexError("Keep each reveal within 16 KB");
   validScene(s, proposal);
@@ -347,7 +347,18 @@ async function checkPendingReveal(
 ): Promise<Doc<"secrets">> {
   const others = (s.reveals ?? []).filter((other) => other.id !== pending.id);
   try {
-    return await checkReveal(ctx, campaign, s, pending, others);
+    const { row, version } = await checkReveal(
+      ctx,
+      campaign,
+      s,
+      pending,
+      others,
+    );
+    if (version !== pending.secretVersion)
+      throw new ConvexError(
+        "The secret changed after this reveal was drafted; review the reveal again",
+      );
+    return row;
   } catch (error) {
     const reason = error instanceof Error ? error.message : "Invalid reveal";
     throw new ConvexError(
@@ -420,10 +431,17 @@ export const add = internalMutation({
       }
     }
     for (const [index, proposal] of reveals.entries()) {
-      const pending = { ...proposal, id: `r${nextChange}` };
+      const id = `r${nextChange}`;
       try {
+        const { version } = await checkReveal(
+          ctx,
+          campaign,
+          s,
+          proposal,
+          keptReveals,
+        );
+        const pending = { ...proposal, id, secretVersion: version };
         fitsDraft(pending);
-        await checkReveal(ctx, campaign, s, proposal, keptReveals);
         keptReveals.push(pending);
         nextChange++;
       } catch (error) {

@@ -210,7 +210,8 @@ The debrief reads open secrets with the transcript. `debrief_add` also takes
 draft; an unknown, closed or other owner's secret is rejected individually in
 `rejectedReveals`. `get debrief:<session>` lists them, and `debrief_drop`
 drops a reveal by its id like a change. `debrief_commit` applies changes and
-reveals together or not at all: a whole reveal sets `revealed` and lowers
+reveals together or not at all, and refuses a reveal whose secret is closed
+or changed after the reveal was drafted: a whole reveal sets `revealed` and lowers
 `openSecrets`, a partial one sets `partly_revealed` and keeps the secret and
 its text readable in `get secrets`. Each appends a `reveal` history entry with
 the debrief commit, session, scene, `learned`, and transcript `sources`. What

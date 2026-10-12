@@ -192,6 +192,7 @@ export const proposedReveal = v.object({
 export const draftReveal = v.object({
   id: v.string(),
   ...proposedReveal.fields,
+  secretVersion: v.string(),
 });
 export type ProposedReveal = Infer<typeof proposedReveal>;
 export type DraftReveal = Infer<typeof draftReveal>;

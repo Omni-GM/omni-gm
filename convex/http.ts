@@ -23,18 +23,14 @@ for (const path of ["/mcp", "/mcp/"]) {
   for (const method of ["POST", "GET", "DELETE"] as const)
     http.route({ path, method, handler: mcp });
 }
+const protectedResourceMetadata = httpAction((ctx, req) =>
+  gateway.serveProtectedResourceMetadata(ctx, req),
+);
 for (const path of [
   "/.well-known/oauth-protected-resource/mcp",
   "/.well-known/oauth-protected-resource/mcp/",
-]) {
-  http.route({
-    path,
-    method: "GET",
-    handler: httpAction((ctx, req) =>
-      gateway.serveProtectedResourceMetadata(ctx, req),
-    ),
-  });
-}
+])
+  http.route({ path, method: "GET", handler: protectedResourceMetadata });
 http.route({ path: "/upload", method: "PUT", handler: upload });
 http.route({ path: "/upload", method: "POST", handler: upload });
 http.route({ path: "/upload-page", method: "GET", handler: page });

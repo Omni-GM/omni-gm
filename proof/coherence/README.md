@@ -10,6 +10,7 @@ Coherence 1.7.2 runs from the project's dev dependency. The durable run and jour
 | Each owner isolation oracle passed, went red when `campaignFor` read the first campaign instead of the caller's, and passed again batched and alone after the restore | [runs](run-status.log), [every run and refutation](runs.log) |
 | The local gate | [pnpm check](check.log), all 104 tests |
 | Scope's first reading | [Structure view](scope-structure.png) |
+| Cross-family review and its fixes | [dispositions](review-dispositions.md) |
 
 The owner isolation tests were green before the adoption; the red runs come only from the staged break, not from a failing history.
 

@@ -7,7 +7,7 @@ The Convex backend: the MCP tools, the upload page and the story-state store beh
   handler: mcp in http.ts
   trust: game master
 - route /.well-known/oauth-protected-resource/mcp: a client discovers how to sign in
-  handler: http in http.ts
+  handler: protectedResourceMetadata in http.ts
   trust: visitor
   control: none — public OAuth discovery metadata that every client must read before sign-in; it reads no campaign record
 - route /upload: the holder of a signed URL uploads a transcript file
@@ -52,9 +52,9 @@ The Convex backend: the MCP tools, the upload page and the story-state store beh
   checklist: commit-ordered-effects dismissed: a scoped write issues no external effect; the server makes no AI calls
   checklist: durable-dispatch-intent dismissed: nothing is dispatched outside the transaction
   checklist: declared-target-coverage dismissed: no write fans out across targets
-  checklist: completion-evidence dismissed: no work is queued; each call commits or refuses
+  checklist: completion-evidence dismissed: whose records a call reaches is decided inside the call; the upload expiry and cleanup it schedules act only on that owner's upload by its id
 - secret owner isolation: A game master writes, changes, fixes and reads only their own secrets, about only their own entities and story commits.
-  over: a second signed-in owner writing secrets about the first owner's entities and fixing them with the first owner's story commit
+  over: a second signed-in owner reading, changing, fixing and dropping the first owner's secret and linking a secret to the first owner's entity, and the first owner fixing their own secret from the second owner's story commit
   via: secret writes isolate owners and reject invalid or oversized input without recording a commit
   because: a secret is the game master's unplayed background, the one thing the players must not see; another owner reading or binding it would leak it
   crossing: game master -> campaign store
@@ -72,7 +72,7 @@ The Convex backend: the MCP tools, the upload page and the story-state store beh
   checklist: commit-ordered-effects dismissed: a scoped write issues no external effect; the server makes no AI calls
   checklist: durable-dispatch-intent dismissed: nothing is dispatched outside the transaction
   checklist: declared-target-coverage dismissed: no write fans out across targets
-  checklist: completion-evidence dismissed: no work is queued; each call commits or refuses
+  checklist: completion-evidence dismissed: whose records a call reaches is decided inside the call; the upload expiry and cleanup it schedules act only on that owner's upload by its id
 - checklist owner isolation: A game master reads and replaces only their own prep checklist and its history.
   over: a second signed-in owner reading the first owner's checklist and its history, replacing it, and following a borrowed continuation
   via: another owner cannot see or overwrite the checklist, its history or a borrowed continuation
@@ -92,7 +92,7 @@ The Convex backend: the MCP tools, the upload page and the story-state store beh
   checklist: commit-ordered-effects dismissed: a scoped write issues no external effect; the server makes no AI calls
   checklist: durable-dispatch-intent dismissed: nothing is dispatched outside the transaction
   checklist: declared-target-coverage dismissed: no write fans out across targets
-  checklist: completion-evidence dismissed: no work is queued; each call commits or refuses
+  checklist: completion-evidence dismissed: whose records a call reaches is decided inside the call; the upload expiry and cleanup it schedules act only on that owner's upload by its id
 - session note owner isolation: A game master reads and writes only their own session note, and the note's owner cannot be spoofed.
   over: a second signed-in owner reading, overwriting and claiming ownership of the first owner's session note
   via: another owner cannot read, overwrite or spoof the note's owner
@@ -112,7 +112,7 @@ The Convex backend: the MCP tools, the upload page and the story-state store beh
   checklist: commit-ordered-effects dismissed: a scoped write issues no external effect; the server makes no AI calls
   checklist: durable-dispatch-intent dismissed: nothing is dispatched outside the transaction
   checklist: declared-target-coverage dismissed: no write fans out across targets
-  checklist: completion-evidence dismissed: no work is queued; each call commits or refuses
+  checklist: completion-evidence dismissed: whose records a call reaches is decided inside the call; the upload expiry and cleanup it schedules act only on that owner's upload by its id
 - upload page owner isolation: The upload page serves and accepts a transcript only for a signed-in owner's own session.
   over: an anonymous visitor and a second signed-in owner reading and uploading to the first owner's session through the upload page
   via: the upload page refuses anonymous visitors and sessions of another owner, and stores the owner's file byte-exact
@@ -132,4 +132,4 @@ The Convex backend: the MCP tools, the upload page and the story-state store beh
   checklist: commit-ordered-effects dismissed: a scoped write issues no external effect; the server makes no AI calls
   checklist: durable-dispatch-intent dismissed: nothing is dispatched outside the transaction
   checklist: declared-target-coverage dismissed: no write fans out across targets
-  checklist: completion-evidence dismissed: no work is queued; each call commits or refuses
+  checklist: completion-evidence dismissed: whose records a call reaches is decided inside the call; the upload expiry and cleanup it schedules act only on that owner's upload by its id

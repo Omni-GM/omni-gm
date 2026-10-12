@@ -43,7 +43,7 @@ jobs:
       - name: Spec check
         run: pnpm exec coherence spec --check
 
-      # Every chokepoint graded in process; a bypass, a missing chokepoint or an instrument that never answered fails the run.
-      - name: Chokepoints
+      # Every chokepoint and totality oracle graded in process; a bypass, a missing chokepoint, a failing or missing oracle test, or an instrument that never answered fails the run.
+      - name: Invariants
         if: ${{ !cancelled() }}
-        run: pnpm exec coherence run --form chokepoint --no-server --session "ci-${{ github.run_id }}" --agent ci
+        run: pnpm exec coherence run --no-server --session "ci-${{ github.run_id }}" --agent ci

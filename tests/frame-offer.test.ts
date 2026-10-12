@@ -91,9 +91,11 @@ test("prep leads the briefing's what-next options with a skippable short frame t
   await c.init();
   const briefing = (await c.call("skill", { name: "briefing" })).procedure;
   for (const text of [
+    "exactly as stored, except for the What next change below",
     "overview.frame.currency is missing or stale",
-    "short frame talk added as option 1",
-    "renumbered",
+    "add a short frame talk there as option 1 (recommended)",
+    "renumber the stored options after it and drop their recommended mark",
+    "every other stored line stays word for word",
     "skip",
   ])
     expect(briefing).toContain(text);

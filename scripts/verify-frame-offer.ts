@@ -3,6 +3,10 @@ import { readFile, writeFile } from "node:fs/promises";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
+import {
+  checkFrameOfferTranscript,
+  type TranscriptEvent,
+} from "./frame-offer-transcript";
 
 const url = process.env.OMNI_GM_MCP_URL;
 const token = process.env.OMNI_GM_ACCESS_TOKEN;
@@ -71,56 +75,6 @@ async function story(): Promise<unknown> {
     checklist: await get("checklist"),
   };
 }
-type Block = {
-  type: string;
-  name?: string;
-  input?: Record<string, unknown>;
-  text?: string;
-};
-type Event = {
-  type: string;
-  subtype?: string;
-  message?: { model?: string; content: Block[] | string };
-};
-type Turn = {
-  calls: { name: string; input: Record<string, unknown> }[];
-  text: string;
-};
-function turnsOf(events: Event[]): Turn[] {
-  const turns: Turn[] = [{ calls: [], text: "" }];
-  for (const event of events) {
-    const turn = turns[turns.length - 1];
-    if (event.type === "result") {
-      assert.equal(event.subtype, "success");
-      turns.push({ calls: [], text: "" });
-    }
-    if (event.type !== "assistant") continue;
-    assert.equal(event.message?.model, "claude-opus-5-5");
-    assert(Array.isArray(event.message.content));
-    for (const block of event.message.content) {
-      if (block.type === "tool_use" && block.name && block.input)
-        turn.calls.push({ name: block.name, input: block.input });
-      if (block.type === "text" && block.text) turn.text += `${block.text}\n`;
-    }
-  }
-  return turns.filter((turn) => turn.text || turn.calls.length);
-}
-const tool = (call: { name: string }) => call.name.split("__").at(-1) ?? "";
-const skillName = (call: { input: Record<string, unknown> }) =>
-  String(call.input.name ?? "")
-    .toLowerCase()
-    .replace(/[ _]+/g, "-");
-const loadedSkill = (turn: Turn) =>
-  turn.calls.filter((call) => tool(call) === "skill").map(skillName);
-function whatNextOptions(text: string): string[] {
-  const part = text.slice(text.lastIndexOf("What next"));
-  return part
-    .split("\n")
-    .filter((line) => /^\s*\d[.)]/.test(line))
-    .map((line) => line.trim());
-}
-const questions = (text: string) => text.match(/[^.!?\n]*\?/g) ?? [];
-
 try {
   if (process.argv.includes("--before")) {
     const overview = await get<Overview>("overview");
@@ -144,55 +98,10 @@ try {
     const events = (await readFile(`${proofDir}/claude.jsonl`, "utf8"))
       .trim()
       .split("\n")
-      .map((line) => JSON.parse(line) as Event);
-    const turns = turnsOf(events);
-    assert.equal(turns.length, 5);
-    const [briefing, pick, ...answers] = turns;
-
-    assert.deepEqual(loadedSkill(briefing), ["briefing"]);
-    assert(
-      briefing.calls.every((c) => ["skill", "get", "find"].includes(tool(c))),
-    );
-    assert(briefing.text.includes("Holloway calls at the mill"));
-    const options = whatNextOptions(briefing.text);
-    assert(options.length >= 2 && options.length <= 4, options.join(" | "));
-    assert.match(options[0], /frame talk/i);
-    assert(options.slice(1).some((o) => /checklist|first section/i.test(o)));
-    console.log(
-      `PASS prep opened with the stored briefing and its what-next options lead with the short frame talk: ${options[0]}`,
-    );
-
-    assert(loadedSkill(pick).includes("frame-talk"));
-    for (const turn of [pick, ...answers.slice(0, -1)]) {
-      const asked = questions(turn.text);
-      assert.equal(asked.length, 1, turn.text);
-      assert.doesNotMatch(asked[0], /finale|pressure|next session/i);
-    }
-    console.log(
-      "PASS frame-talk loaded on the pick; each frame-talk turn asks exactly one question and starts no optional topic",
-    );
-
-    const writes = turns.flatMap((turn, index) =>
-      turn.calls
-        .filter(
-          (c) => tool(c) !== "skill" && !["get", "find"].includes(tool(c)),
-        )
-        .map((c) => ({ tool: tool(c), index })),
-    );
-    assert(writes.length > 0);
-    assert(writes.every((w) => w.tool === "frame_update" && w.index >= 2));
-    const last = answers[answers.length - 1];
-    const lastWrite = last.calls.map(tool).lastIndexOf("frame_update");
-    assert(lastWrite >= 0);
-    assert(
-      last.calls
-        .slice(lastWrite + 1)
-        .some((c) => tool(c) === "skill" && skillName(c) === "prep-sparring"),
-    );
-    assert(last.text.includes("Strong start"));
-    console.log(
-      "PASS only frame_update wrote, after the answers, then prep-sparring took the game master back to the first section",
-    );
+      .map((line) => JSON.parse(line) as TranscriptEvent);
+    const storedBriefing = (await get<Overview>("overview")).briefing.text;
+    for (const passed of checkFrameOfferTranscript(events, storedBriefing))
+      console.log(passed);
 
     const frame = await get<Frame>("frame");
     assert.deepEqual(Object.keys(frame.fields).sort(), [

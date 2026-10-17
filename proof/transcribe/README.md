@@ -60,11 +60,17 @@ and `shell-run-readback.log` reads the stored bytes back and confirms the
 served `transcribe` text starts with the final `SKILL.md` body. The shell
 run offers to delete its work folder at the end, and the no-shell answer
 names the exact export format and says that SRT and VTT need converting.
+The procedure's final read changed only audio branches after `d745c87`:
+parts joined into one recording, the channel-split question, install
+sources, speaker separation on a Mac, and the exact utterance limit. The
+VTT and no-shell runs do not reach those branches, so they were not rerun.
 The `-v1` files are the runs against the first text at `912f1fb` and
 `131b501`.
 
 Published runs keep the game-master input, assistant text, tool calls and
-tool results. They drop thinking, usage and session identifiers, and the
+tool results, each result cut to its first 4,000 characters. The served
+procedure text is therefore incomplete in the runs; the readback logs compare
+it in full. Runs drop thinking, usage and session identifiers, and the
 single-use upload token is replaced.
 
 ## Gaps

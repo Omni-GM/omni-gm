@@ -3,12 +3,13 @@
 Omni-GM remembers your tabletop campaign between sessions. After you play,
 your AI client reads the session transcript with you and records what changed.
 When you sit down to prep, it opens with one page on where the story stands.
-Every line on that page points back to the moment at the table it came from.
+Each fact names its source: a timestamp in the transcript, your own answer,
+or a record in your campaign.
 It works with D&D, Daggerheart, and other TTRPGs.
 
 ![A prep briefing in Claude: where the party stands, what pulls, forgotten threads, clocks, and numbered next steps, each line with a transcript timestamp](docs/images/prep-briefing.png)
 
-<sub>A prep briefing from a test run. The session, NPCs, and players are invented.</sub>
+<sub>A shortened excerpt of a prep briefing from a test run. The session, NPCs, and players are invented.</sub>
 
 ## The problem
 
@@ -18,9 +19,10 @@ the stranger on the roof that one player asked about. Your notes caught some
 of it. A recording caught all of it, but nobody listens to four hours again.
 
 Omni-GM keeps your campaign's story state: NPCs, threads, clocks, places, and
-character goals. Each entry records the transcript line it came from and who
-said it, so an NPC's claim stays a claim and a player's guess stays a guess.
-Nothing enters the store until you approve it.
+character goals. Each entry records where it came from and who said
+it, so an NPC's claim stays a claim and a player's guess stays a guess.
+Omni-GM stores your transcript when you upload it and the draft while you
+review it, but a change enters the story state only after you approve it.
 
 ## Get started
 
@@ -32,9 +34,12 @@ In Claude Code, run this and then sign in with `/mcp`:
 claude mcp add --transport http omni-gm https://useful-dinosaur-785.convex.site/mcp
 ```
 
-In Claude Desktop or claude.ai, open Settings, then Connectors, choose
-"Add custom connector", paste `https://useful-dinosaur-785.convex.site/mcp`,
-and sign in.
+In Claude Desktop or claude.ai on a Pro or Max plan, open
+[Customize, then Connectors](https://claude.ai/customize/connectors). Click
+"+ Add", choose "Add custom connector", paste
+`https://useful-dinosaur-785.convex.site/mcp`, and sign in. On a Team or
+Enterprise plan, an owner adds the connector for the organization first,
+and then you click "Connect" next to it.
 
 Then tell your AI client:
 

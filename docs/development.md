@@ -7,6 +7,13 @@ pnpm install --frozen-lockfile
 pnpm check
 ```
 
+Procedures written in markdown live in `skills/<name>/SKILL.md`, with `name`
+and `description` frontmatter. Convex cannot bundle markdown, so
+`pnpm procedures` writes them into `convex/skillFiles.ts`, and the `skill`
+tool serves them beside the procedures in `convex/skills.ts`. Run it after
+editing a `SKILL.md`. `tests/transcribe.test.ts` fails when the served text
+differs from the file.
+
 The gate runs Biome, Convex codegen, TypeScript, and endpoint tests. Codegen
 uses an isolated anonymous local Convex deployment in `.codegen/` with
 an empty auth configuration. It never uses a deploy key or a hosted

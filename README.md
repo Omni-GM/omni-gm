@@ -43,15 +43,24 @@ and then you click "Connect" next to it.
 
 Then tell your AI client:
 
-> Debrief my last session. The transcript is in `session-12.txt`.
+> Debrief my last session. The recording is in `~/Downloads/session-12.m4a`.
 
 On first use it creates your campaign and asks which adventure the party
 is in.
 
-## Your transcript
+## Your recording
 
-Omni-GM reads text transcripts, not audio. Put one utterance per line with a
-timestamp and the speaker:
+Bring whatever you recorded: a phone recording of the whole table, one file per
+player from a Discord bot, or a transcript another tool already made. In
+Claude Code, Omni-GM's `transcribe` procedure turns it into a transcript on
+your machine. It checks which speech-to-text tool you have installed, such
+as Whisper, and asks before it installs one. Your audio never leaves your
+computer, and the transcript is ready in the time your computer takes to
+transcribe the recording. For a long session on a laptop that can be hours.
+
+Claude Desktop and claude.ai can't run speech-to-text. There, transcribe
+with any tool you like, then make sure the file has one utterance per line
+with a timestamp and the speaker:
 
 ```text
 [00:01:10] GM as Sera Venn: Mind the stones, dear.

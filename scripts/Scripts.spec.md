@@ -48,6 +48,9 @@ The operator's tooling: end-to-end walks and real-client verifications run again
 - verify agent upload: the operator verifies an agent's upload with a real client
   handler: verify-agent-upload.ts
   trust: operator
+- procedures: the operator regenerates the served procedures from skills/*/SKILL.md
+  handler: procedures.ts
+  trust: operator
 - verify briefing: the operator verifies the briefing with a real client
   handler: verify-briefing.ts
   trust: operator

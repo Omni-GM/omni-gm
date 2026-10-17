@@ -13,6 +13,11 @@ claude mcp add --transport http omni-gm https://useful-dinosaur-785.convex.site/
 
 In Claude Code, use `/mcp` to sign in. Load `skill` with `name: "debrief"`
 before starting. The procedure also loads `map-speakers` and `split-scenes`.
+When the game master brings a recording or another tool's transcript, it
+loads `transcribe` first. That procedure needs a shell. It transcribes or
+converts on the game master's machine, asks before installing a
+speech-to-text engine or sending audio anywhere, and writes
+`<recording name>.omni-gm.txt` next to the recording for the upload.
 The server stores and validates the story state; it makes no AI calls.
 
 Start with `adventure_start`, then `session_create` and `transcript_upload_url`.

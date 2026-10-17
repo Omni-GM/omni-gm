@@ -1,5 +1,6 @@
 import { ConvexError, type Infer, v } from "convex/values";
 import { internalQuery } from "./_generated/server";
+import { skillFiles } from "./skillFiles";
 import { callerArgs } from "./store";
 export const standingRules = `Give before you ask. The creative part belongs to the game master; they decide.
 Pitch only where the procedure calls for it: small, droppable situations built on named story-state facts with sources, never outcomes and never what the players choose. The section's definition sets their shape and count. A pitch adds pressure to the players' plan and must never block it or a scene the game master prepared.
@@ -8,7 +9,7 @@ Ask about situations and pressure, never player decisions or outcomes.
 Story state records what happened. The adventure frame records intent. Unplayed background the game master decides is a secret, stored with secret_write apart from entities and story state. Keep them apart.
 Write in the game master's language.`;
 export const instructions = `Load the matching procedure with skill before starting a workflow.\n${standingRules}`;
-const uploadProcedure = `If the session has no stored transcript, call transcript_upload_url. With a shell and a file on disk, run curl -T <file> <signed-url> directly from disk. Never read, echo, cat or repeat the file to upload it. The signed URL is single-use and expires after ten minutes.
+const uploadProcedure = `When the game master brings a recording, or a transcript in another format, instead of an Omni-GM transcript file, load skill transcribe first. If the session has no stored transcript, call transcript_upload_url. With a shell and a file on disk, run curl -T <file> <signed-url> directly from disk. Never read, echo, cat or repeat the file to upload it. The signed URL is single-use and expires after ten minutes.
 Without a shell or without the original file on disk, immediately give the game master pageUrl to sign in and upload the original transcript file. Pause until they have uploaded it. Do not retype the transcript in tool calls or chat, even when you hold it in context.
 Both paths use UTF-8 [HH:MM:SS] Speaker: text with continuation lines, at most 8 MB and 20000 utterances, 32 KB per utterance including continuations. Upload before scenes or draft changes exist. Read get transcript:<session> to confirm it is stored before mapping speakers, splitting scenes or starting the debrief. If the transcript is still missing, wait for the upload.`;
 const procedures: Record<string, { description: string; procedure: string }> = {
@@ -67,6 +68,7 @@ Stop once goal, stakes, and timeframe are named and the game master is satisfied
 Store only the game master's supplied or accepted intent with frame_update, a reason in their words, and only changed fields, or in the short form the fields they confirmed: goal, stakes, timeframe, pressure, finale, moves_main_plot, pulls_in, next_session_starts. An empty string clears a field; omitted fields stay as they were. Read get frame to confirm the saved intent and its history. get overview shows the current frame alongside the stored briefing.
 Keep frame edits apart from story state. If an answer corrects what happened, use story_commit with basis game_master and the answer as source, separately and only after confirmation. Never disguise a correction as frame intent.`,
   },
+  ...skillFiles,
   "map-speakers": {
     description:
       "Map transcript speakers to the game master, players and characters.",

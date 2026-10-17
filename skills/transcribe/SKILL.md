@@ -13,12 +13,12 @@ This procedure needs a shell on the game master's own machine, where the recordi
 
 With a shell, ask for the path of the recording or transcript if you do not have it. Inspect it before asking anything else: the file type, and for audio or video the duration and channel count with `ffprobe` when it is installed. Read only the first lines of a text file. Then ask only what inspection cannot tell you, in one message:
 
-- For audio: is it one recording of the whole table, several parts of one recording in order, or one file per person? Which person is on which file? For a 2-channel recording, does each channel hold one person? Which language was spoken? With several languages, the engine gets the main one, and lines in the others come out less accurate.
+- For audio: is it one recording of the whole table, several parts of one recording in order, or one file per person? Which person is on which file? For a 2-channel recording, does each channel hold one person, and who is on which channel? Which language was spoken? With several languages, the engine gets the main one, and lines in the others come out less accurate.
 - For a transcript with generic labels such as `SPEAKER_00`: who is at the table, so labels can become people's names later.
 
 A 2-channel recording counts as one file per person only when the game master says each channel holds one person; split it with `ffmpeg` (`channelsplit`) in step 3. Otherwise it is one mixed recording.
 
-This step is done when you know the input kind (one mixed recording, parts in order, one file per person, or an existing transcript), and for audio the language and the person on each per-person file.
+This step is done when you know the input kind (one mixed recording, parts in order, one file per person, or an existing transcript), and for audio the language and the person on each per-person file or channel.
 
 ## 2. Convert an existing transcript
 
@@ -28,17 +28,20 @@ A transcript without timestamps cannot be used, because the debrief cites every 
 
 ## 3. Transcribe the audio
 
+Join parts in order into one file in the work folder with `ffmpeg` (`concat`), and treat it as one mixed recording from here on.
+
 Pick the speech-to-text engine:
 
 1. Use one that is already installed. Check for `whisper-cli` or `main` (whisper.cpp), `mlx_whisper` (Apple Silicon), `whisper` (openai-whisper), `whisper-ctranslate2` (faster-whisper) and `whisperx`, and read its `--help` for the exact flags.
-2. When none is installed, propose one by machine: `mlx-whisper` on Apple Silicon, `whisperx` with an NVIDIA GPU, otherwise whisper.cpp or `whisper-ctranslate2`. For one mixed recording, also offer `whisperx` as the engine that separates speakers, slower without an NVIDIA GPU. Name every install in one question, `ffmpeg` included when it is missing. Install Python engines in isolation with `uv tool` or `pipx`, and `ffmpeg` and whisper.cpp with the system package manager, such as `brew`, `apt` or `winget`. Give the model download size, often more than a gigabyte. Install only after the game master agrees.
+2. When none is installed, propose one by machine: `mlx-whisper` on Apple Silicon, `whisperx` with an NVIDIA GPU, otherwise whisper.cpp or `whisper-ctranslate2`. Name every install in one question, `ffmpeg` included when it is missing. Install Python engines in isolation with `uv tool` or `pipx`, and `ffmpeg` and whisper.cpp with the system package manager, such as `brew`, `apt` or `winget`. Give the model download size, often more than a gigabyte. Install only after the game master agrees.
+3. For one mixed recording, when the chosen engine cannot separate speakers, also offer `whisperx`, which can, and say it is slower without an NVIDIA GPU.
 
-Join parts in order into one file in the work folder with `ffmpeg` (`concat`), and treat it as one mixed recording from here on. Use the `large-v3-turbo` model unless the game master asks for `large-v3` accuracy or a smaller model for speed. Convert audio with `ffmpeg` when the engine needs another format; phone recordings are often `.m4a`. Pass the language from step 1. Before the full run, transcribe a 60-second clip, then tell the game master the estimated total time. Run the full transcription in the background and report progress. Ask the engine for segment timestamps, as JSON, SRT or VTT.
+Use the `large-v3-turbo` model unless the game master asks for `large-v3` accuracy or a smaller model for speed. Convert audio with `ffmpeg` when the engine needs another format; phone recordings are often `.m4a`. Pass the language from step 1. Before the full run, transcribe a 60-second clip, then tell the game master the estimated total time. Run the full transcription in the background and report progress. Ask the engine for segment timestamps, as JSON, SRT or VTT.
 
 Speakers come from the input kind:
 
 - **One file per person.** Check with `ffprobe` that the tracks have about the same length; when they differ, ask how they line up. Turn on the engine's voice-activity filter, such as `--vad_filter True` in whisper-ctranslate2, since mostly silent tracks otherwise collect invented text. Label every segment with that file's person.
-- **One mixed recording.** Offer speaker separation when the engine supports it, such as `whisperx --diarize`. It needs a free Hugging Face token and accepting the pyannote model terms. The game master signs in with `hf auth login` themselves, or `uvx --from huggingface_hub hf auth login` when `hf` is not installed, so the token stays out of the conversation. Show two or three lines per separated speaker and ask who each one is. A label they cannot place stays `Speaker 1`, `Speaker 2`. Without speaker separation, label every line `Table`, and tell the game master that the debrief then guesses who spoke from what was said, which is less accurate.
+- **One mixed recording.** With an engine that separates speakers, such as `whisperx --diarize`, offer speaker separation. It needs a free Hugging Face token and accepting the pyannote model terms. The game master signs in with `hf auth login` themselves, or `uvx --from huggingface_hub hf auth login` when `hf` is not installed, so the token stays out of the conversation. Show two or three lines per separated speaker and ask who each one is. A label they cannot place stays `Speaker 1`, `Speaker 2`. Without speaker separation, label every line `Table`, and tell the game master that the debrief then guesses who spoke from what was said, which is less accurate.
 
 This step is done when every segment has a start time, a speaker and text.
 

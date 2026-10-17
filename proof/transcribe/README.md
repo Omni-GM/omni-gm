@@ -57,13 +57,21 @@ above.
 review's fixes, and the preview `handsome-malamute-155`. `shell-run.jsonl`
 and `no-shell-run.jsonl` are the same inputs run again against that text,
 and `shell-run-readback.log` reads the stored bytes back and confirms the
-served `transcribe` text starts with the final `SKILL.md` body. The shell
-run offers to delete its work folder at the end, and the no-shell answer
-names the exact export format and says that SRT and VTT need converting.
-The procedure's final read changed only audio branches after `d745c87`:
-parts joined into one recording, the channel-split question, install
-sources, speaker separation on a Mac, and the exact utterance limit. The
-VTT and no-shell runs do not reach those branches, so they were not rerun.
+served `transcribe` text starts with the `SKILL.md` body at `d745c87`. The
+shell run offers to delete its work folder at the end, and the no-shell
+answer names the exact export format and says that SRT and VTT need
+converting.
+
+The procedure's final reads changed the text after `d745c87` without a
+hosted rerun. The changes cover step 1's questions (generic transcript
+labels, who is on which channel), step 3's audio branches (parts joined
+first, install sources, `whisperx` offered for speaker separation) and step
+4's speaker and size rules (`GM` or the game master's name, under 32,000
+bytes per utterance). The VTT run's output already meets the final step 4
+rules: its speakers are the game master's and players' names and its
+longest line is far below the limit. The audio branches stay unexercised,
+as listed under Gaps. `tests/transcribe.test.ts` checks that the served text
+equals the final `SKILL.md`.
 The `-v1` files are the runs against the first text at `912f1fb` and
 `131b501`.
 

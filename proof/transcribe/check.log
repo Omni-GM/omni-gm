@@ -1,0 +1,58 @@
+
+> omni-gm@0.1.0 check /home/coder/.t3/worktrees/omni-gm/t3-1f5624ea
+> pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test
+
+tests/mcp.test.ts:714:11 lint/style/useTemplate  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Template literals are preferred over string concatenation.
+  
+    712 │   const failed = await c.t.fetch(path, {
+    713 │     method: "PUT",
+  > 714 │     body: "[00:00:00] GM: Hello\n" + "x".repeat(600000),
+        │           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    715 │   });
+    716 │   expect(failed.status).toBe(400);
+  
+  i Unsafe fix: Use a template literal.
+  
+     712  712 │     const failed = await c.t.fetch(path, {
+     713  713 │       method: "PUT",
+     714      │ - ····body:·"[00:00:00]·GM:·Hello\n"·+·"x".repeat(600000),
+          714 │ + ····body:·`[00:00:00]·GM:·Hello\n${"x".repeat(600000)}`,
+     715  715 │     });
+     716  716 │     expect(failed.status).toBe(400);
+  
+
+Checked 79 files in 60ms. No fixes applied.
+Found 1 info.
+CONVEX_AGENT_MODE=anonymous mode is in beta, functionality may change in the future.
+▌ Developing against deployment:
+▌ [Local] Port 3210 • No Convex account (run npx convex login to link to a project)
+▌ └─ http://127.0.0.1:3210
+- Preparing Convex functions...
+
+[36mA minor update is available for Convex[39m [2m(1.46.0 → 1.47.0)[22m
+[2mChangelog:[22m [4mhttps://github.com/get-convex/convex-js/blob/main/CHANGELOG.md#changelog[24m
+Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
+✔ 05:51:46 Convex functions ready! (849.07ms)
+Finding component definitions...
+Generating server code...
+Bundling component definitions...
+Bundling component schemas and implementations...
+Downloading current deployment state...
+Uploading functions to Convex...
+Generating TypeScript bindings...
+Running TypeScript...
+
+> omni-gm@0.1.0 test /home/coder/.t3/worktrees/omni-gm/t3-1f5624ea
+> vitest run
+
+
+[1m[46m RUN [49m[22m [36mv4.1.0 [39m[90m/home/coder/.t3/worktrees/omni-gm/t3-1f5624ea[39m
+
+
+[2m Test Files [22m [1m[32m17 passed[39m[22m[90m (17)[39m
+[2m      Tests [22m [1m[32m125 passed[39m[22m[90m (125)[39m
+[2m   Start at [22m 05:51:53
+[2m   Duration [22m 11.03s[2m (transform 5.41s, setup 0ms, import 3.49s, tests 20.74s, environment 1ms)[22m
+

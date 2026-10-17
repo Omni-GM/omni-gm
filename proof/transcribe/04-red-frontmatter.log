@@ -1,0 +1,30 @@
+
+[1m[46m RUN [49m[22m [36mv4.1.0 [39m[90m/home/coder/.t3/worktrees/omni-gm/t3-1f5624ea[39m
+
+ [31m❯[39m tests/transcribe.test.ts [2m([22m[2m3 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 390[2mms[22m[39m
+[31m   [31m×[31m SKILL.md frontmatter reads the same with CRLF line endings and quoted values[39m[32m 3[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/transcribe.test.ts[2m > [22mSKILL.md frontmatter reads the same with CRLF line endings and quoted values
+[31m[1mAssertionError[22m: transcribe/SKILL.md needs frontmatter[39m
+
+simple
+
+[36m [2m❯[22m parseSkillFile scripts/skillFile.ts:[2m16:3[22m[39m
+    [90m 14|[39m     [36m/^---\n([\s\S]*?)\n---\n([\s\S]*)$/[39m[33m.[39m[34mexec[39m(text) [33m??[39m
+    [90m 15|[39m     [][33m;[39m
+    [90m 16|[39m   [34massert[39m(frontmatter[33m,[39m [32m`[39m[36m${[39mfolder[36m}[39m[32m/SKILL.md needs frontmatter`[39m)[33m;[39m
+    [90m   |[39m   [31m^[39m
+    [90m 17|[39m   [35mconst[39m field [33m=[39m (key[33m:[39m string) [33m=>[39m {
+    [90m 18|[39m     const value = new RegExp(`^${key}:(.*)$`, "m").exec(frontmatter)?.…
+[90m [2m❯[22m tests/transcribe.test.ts:[2m30:18[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m2 passed[39m[22m[90m (3)[39m
+[2m   Start at [22m 05:41:57
+[2m   Duration [22m 626ms[2m (transform 336ms, setup 0ms, import 129ms, tests 390ms, environment 0ms)[22m
+

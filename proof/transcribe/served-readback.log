@@ -1,0 +1,14 @@
+PROOF TARGET https://cool-guanaco-43.convex.site
+== skill (list)
+{"name":"briefing","description":"Open prep with a one-page, plot-first briefing of what the store knows, every fa"}
+{"name":"prep-sparring","description":"Walk the game master's prep checklist section by section: sourced facts, pitches"}
+{"name":"plank-questions","description":"Ask one main-plot background question and record the game master's unplayed answ"}
+{"name":"frame-talk","description":"Ask the game master for the current adventure's intent, grounded in story state."}
+{"name":"transcribe","description":"Turn the game master's session recording, or a transcript from another tool, int"}
+{"name":"map-speakers","description":"Map transcript speakers to the game master, players and characters."}
+{"name":"split-scenes","description":"Split a stored transcript into continuous places and situations."}
+{"name":"debrief","description":"Draft story-state changes and reveals of open secrets scene by scene and review "}
+== skill transcribe equals skills/transcribe/SKILL.md body
+served starts with SKILL.md body: True
+== debrief points at transcribe
+When the game master brings a recording, or a transcript in another format, instead of an Omni-GM transcript file, load skill transcribe first.

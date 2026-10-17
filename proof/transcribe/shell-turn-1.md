@@ -1,0 +1,1 @@
+Here's last night's session, I want to debrief it. My recording app exported it as <gm-machine>/session-3.vtt. It's one recording of the whole table, in English. I'm Michael, the GM; Jo plays Ilka and Sam plays Rowan. Get it into Omni-GM, but stop once it's stored, I'll do the review tomorrow.

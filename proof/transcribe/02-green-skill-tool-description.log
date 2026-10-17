@@ -1,0 +1,9 @@
+
+[1m[46m RUN [49m[22m [36mv4.1.0 [39m[90m/home/coder/.t3/worktrees/omni-gm/t3-1f5624ea[39m
+
+
+[2m Test Files [22m [1m[32m16 passed[39m[22m[90m (16)[39m
+[2m      Tests [22m [1m[32m123 passed[39m[22m[90m (123)[39m
+[2m   Start at [22m 05:36:16
+[2m   Duration [22m 11.23s[2m (transform 5.10s, setup 0ms, import 3.63s, tests 19.62s, environment 1ms)[22m
+

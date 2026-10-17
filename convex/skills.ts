@@ -1,5 +1,6 @@
 import { ConvexError, type Infer, v } from "convex/values";
 import { internalQuery } from "./_generated/server";
+import { skillFiles } from "./skillFiles";
 import { callerArgs } from "./store";
 export const standingRules = `Give before you ask. The creative part belongs to the game master; they decide.
 Pitch only where the procedure calls for it: small, droppable situations built on named story-state facts with sources, never outcomes and never what the players choose. The section's definition sets their shape and count. A pitch adds pressure to the players' plan and must never block it or a scene the game master prepared.
@@ -8,10 +9,10 @@ Ask about situations and pressure, never player decisions or outcomes.
 Story state records what happened. The adventure frame records intent. Unplayed background the game master decides is a secret, stored with secret_write apart from entities and story state. Keep them apart.
 Write in the game master's language.`;
 export const instructions = `Load the matching procedure with skill before starting a workflow.\n${standingRules}`;
-const uploadProcedure = `If the session has no stored transcript, call transcript_upload_url. With a shell and a file on disk, run curl -T <file> <signed-url> directly from disk. Never read, echo, cat or repeat the file to upload it. The signed URL is single-use and expires after ten minutes.
+const uploadProcedure = `When the game master brings a recording, or a transcript in another format, instead of an Omni-GM transcript file, load skill transcribe first. If the session has no stored transcript, call transcript_upload_url. With a shell and a file on disk, run curl -T <file> <signed-url> directly from disk. Never read, echo, cat or repeat the file to upload it. The signed URL is single-use and expires after ten minutes.
 Without a shell or without the original file on disk, immediately give the game master pageUrl to sign in and upload the original transcript file. Pause until they have uploaded it. Do not retype the transcript in tool calls or chat, even when you hold it in context.
 Both paths use UTF-8 [HH:MM:SS] Speaker: text with continuation lines, at most 8 MB and 20000 utterances, 32 KB per utterance including continuations. Upload before scenes or draft changes exist. Read get transcript:<session> to confirm it is stored before mapping speakers, splitting scenes or starting the debrief. If the transcript is still missing, wait for the upload.`;
-const procedures: Record<string, { description: string; procedure: string }> = {
+const written: Record<string, { description: string; procedure: string }> = {
   briefing: {
     description:
       "Open prep with a one-page, plot-first briefing of what the store knows, every fact sourced, ending in numbered what-next options.",
@@ -101,6 +102,11 @@ Each answer becomes a draft change with debrief_add, basis game_master and their
 Call debrief_commit only after the game master says the draft is right. It applies the entire draft with its reveals, appends story and secret history and keeps the briefing in the store atomically: all or nothing; a commit without a briefing is refused. The stored briefing opens the next prep. A committed debrief never changes; later fixes use story_commit with a reason and the game master's answer as source.`,
   },
 };
+export const skillNames = [...Object.keys(written), ...Object.keys(skillFiles)];
+const twice = skillNames.filter((name, i) => skillNames.indexOf(name) !== i);
+if (twice.length)
+  throw new Error(`Procedures defined twice: ${twice.join(", ")}`);
+const procedures = { ...written, ...skillFiles };
 export const skillArgs = { ...callerArgs, name: v.optional(v.string()) };
 export const skillResult = v.object({
   skills: v.array(v.object({ name: v.string(), description: v.string() })),
@@ -122,9 +128,7 @@ export const skill = internalQuery({
       .replace(/[\s_]+/g, "-");
     const p = procedures[key];
     if (!Object.hasOwn(procedures, key))
-      throw new ConvexError(
-        `Allowed skills: ${Object.keys(procedures).join(", ")}`,
-      );
+      throw new ConvexError(`Allowed skills: ${skillNames.join(", ")}`);
     return {
       skills: [],
       name: key,

@@ -191,6 +191,7 @@ test("skills list and load the procedures with the standing rules, and initializ
     "map-speakers",
     "split-scenes",
     "debrief",
+    "transcribe",
   ]);
   for (const name of [
     "map speakers",

@@ -7,7 +7,8 @@
   "scripts": {
     "test": "vitest run",
     "check": "pnpm exec biome check . && bash scripts/codegen.sh && pnpm exec tsc --noEmit -p convex/tsconfig.json && pnpm exec tsc --noEmit && pnpm test",
-    "e2e": "tsx scripts/e2e.ts"
+    "e2e": "tsx scripts/e2e.ts",
+    "procedures": "tsx scripts/procedures.ts && biome format --write convex/skillFiles.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.29.0",

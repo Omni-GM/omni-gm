@@ -1,0 +1,30 @@
+
+[1m[46m RUN [49m[22m [36mv4.1.0 [39m[90m/home/coder/.t3/worktrees/omni-gm/t3-1f5624ea[39m
+
+ [31m❯[39m tests/transcribe.test.ts [2m([22m[2m2 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 394[2mms[22m[39m
+[31m   [31m×[31m a game master with a recording instead of a transcript is sent to transcribe first[39m[32m 26[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/transcribe.test.ts[2m > [22ma game master with a recording instead of a transcript is sent to transcribe first
+[31m[1mAssertionError[22m: expected 'List procedures without a name, or lo…' to contain 'transcribe'[39m
+
+Expected: [32m"transcribe"[39m
+Received: [31m"List procedures without a name, or load briefing, prep-sparring, plank-questions, frame-talk, map-speakers, split-scenes or debrief, including standing rules. Prep opens with briefing. Load the matching procedure before a workflow."[39m
+
+[36m [2m❯[22m tests/transcribe.test.ts:[2m43:23[22m[39m
+    [90m 41|[39m   [35mconst[39m skillTool [33m=[39m tools[33m.[39m[34mfind[39m((t) [33m=>[39m t[33m.[39mname [33m===[39m [32m"skill"[39m)[33m?.[39mdescription[33m;[39m
+    [90m 42|[39m   [35mfor[39m ([35mconst[39m { name } [35mof[39m ([35mawait[39m c[33m.[39m[34mcall[39m([32m"skill"[39m))[33m.[39mskills)
+    [90m 43|[39m     [34mexpect[39m(skillTool)[33m.[39m[34mtoContain[39m(name)[33m;[39m
+    [90m   |[39m                       [31m^[39m
+    [90m 44|[39m   expect(skillTool).toContain("A recording or another tool's transcrip…
+    [90m 45|[39m   [35mfor[39m ([35mconst[39m name [35mof[39m [[32m"debrief"[39m[33m,[39m [32m"map-speakers"[39m])
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (2)[39m
+[2m   Start at [22m 05:36:08
+[2m   Duration [22m 649ms[2m (transform 366ms, setup 0ms, import 149ms, tests 394ms, environment 0ms)[22m
+

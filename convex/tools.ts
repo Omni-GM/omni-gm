@@ -21,7 +21,7 @@ import { noteArgs, noteResult } from "./notes";
 import { schemaChangeArgs, schemaChangeResult } from "./schemaChanges";
 import { findArgs, findResult } from "./search";
 import { secretArgs, secretResult } from "./secrets";
-import { skillArgs, skillResult } from "./skills";
+import { skillArgs, skillNames, skillResult } from "./skills";
 import {
   adventureArgs,
   frameArgs,
@@ -87,8 +87,7 @@ export const tools: McpToolRegistration[] = [
   }),
   defineMcpQuery({
     name: "skill",
-    description:
-      "List procedures without a name, or load briefing, prep-sparring, plank-questions, frame-talk, map-speakers, split-scenes or debrief, including standing rules. Prep opens with briefing. Load the matching procedure before a workflow.",
+    description: `List procedures without a name, or load ${skillNames.join(", ")}, including standing rules. Prep opens with briefing. A recording or another tool's transcript starts with transcribe. Load the matching procedure before a workflow.`,
     fn: internal.skills.skill,
     identityArg: "caller",
     args: skillArgs,

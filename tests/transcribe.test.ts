@@ -35,6 +35,13 @@ test("the transcribe procedure is served word for word from its markdown file", 
 test("a game master with a recording instead of a transcript is sent to transcribe first", async () => {
   const c = client();
   await c.init();
+  const tools: { name: string; description: string }[] = (
+    await c.rpc("tools/list")
+  ).result.tools;
+  const skillTool = tools.find((t) => t.name === "skill")?.description;
+  for (const { name } of (await c.call("skill")).skills)
+    expect(skillTool).toContain(name);
+  expect(skillTool).toContain("A recording or another tool's transcript");
   for (const name of ["debrief", "map-speakers"])
     expect((await c.call("skill", { name })).procedure).toContain(
       "load skill transcribe",

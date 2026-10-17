@@ -103,6 +103,7 @@ Each answer becomes a draft change with debrief_add, basis game_master and their
 Call debrief_commit only after the game master says the draft is right. It applies the entire draft with its reveals, appends story and secret history and keeps the briefing in the store atomically: all or nothing; a commit without a briefing is refused. The stored briefing opens the next prep. A committed debrief never changes; later fixes use story_commit with a reason and the game master's answer as source.`,
   },
 };
+export const skillNames = Object.keys(procedures);
 export const skillArgs = { ...callerArgs, name: v.optional(v.string()) };
 export const skillResult = v.object({
   skills: v.array(v.object({ name: v.string(), description: v.string() })),
@@ -124,9 +125,7 @@ export const skill = internalQuery({
       .replace(/[\s_]+/g, "-");
     const p = procedures[key];
     if (!Object.hasOwn(procedures, key))
-      throw new ConvexError(
-        `Allowed skills: ${Object.keys(procedures).join(", ")}`,
-      );
+      throw new ConvexError(`Allowed skills: ${skillNames.join(", ")}`);
     return {
       skills: [],
       name: key,

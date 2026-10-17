@@ -28,7 +28,7 @@ behavior in the working tree, and the fix went back before the green run.
 MCP with curl. `transcribe` is listed, its served text starts with the
 `SKILL.md` body, and the debrief carries the pointer.
 
-`shell-run.jsonl` is one two-turn Claude Opus 5.5 conversation with a
+`shell-run-v1.jsonl` is one two-turn Claude Opus 5.5 conversation with a
 shell, started from `shell-turn-1.md` and continued with `shell-turn-2.md`.
 The game master brings `session-3.vtt`, an invented call export with voice
 tags. The agent loads `transcribe`, reads only the first lines, converts
@@ -36,7 +36,7 @@ the file with a local script into `session-3.omni-gm.txt`, checks its
 format and shows the summary. It asks for an adventure name before it
 creates a campaign. After the answer it starts the adventure, creates the
 session, uploads with `curl -T` from disk and confirms the transcript with
-`get transcript:<session>`. `shell-run-readback.log` reads the transcript
+`get transcript:<session>`. `shell-run-v1-readback.log` reads the transcript
 back independently: 8 utterances from three speakers, and the stored bytes
 equal the converted file.
 
@@ -44,7 +44,7 @@ equal the converted file.
 `effervescent-vulture-152`. `skill-tool-readback.log` shows the `skill`
 tool description naming `transcribe`.
 
-`no-shell-run.jsonl` is a Claude Opus 5.5 run with only the MCP tools, as
+`no-shell-run-v1.jsonl` is a Claude Opus 5.5 run with only the MCP tools, as
 in Claude Desktop, given `no-shell-turn.md`. It loads `transcribe`, says
 this client cannot transcribe, and offers Claude Code or another
 transcription tool. Then it shows the line format and the limits.
@@ -52,6 +52,16 @@ transcription tool. Then it shows the line format and the limits.
 That run never called `skill`. It answered from general knowledge and
 offered a disk upload it had no shell for. It led to the description fix
 above.
+
+`preview-deploy-3.log` names commit `d745c87`, which carries the procedure
+review's fixes, and the preview `handsome-malamute-155`. `shell-run.jsonl`
+and `no-shell-run.jsonl` are the same inputs run again against that text,
+and `shell-run-readback.log` reads the stored bytes back and confirms the
+served `transcribe` text starts with the final `SKILL.md` body. The shell
+run offers to delete its work folder at the end, and the no-shell answer
+names the exact export format and says that SRT and VTT need converting.
+The `-v1` files are the runs against the first text at `912f1fb` and
+`131b501`.
 
 Published runs keep the game-master input, assistant text, tool calls and
 tool results. They drop thinking, usage and session identifiers, and the
@@ -63,6 +73,6 @@ single-use upload token is replaced.
   engine or text-to-speech tool to make invented audio, so step 3 of the
   procedure, engine choice and speaker separation, has no headless run.
   A phone recording on a Mac is the next check.
-- The preview deployments could not be deleted. The Convex team access token
+- The three preview deployments could not be deleted. The Convex team access token
   in the operator's local secrets returned 401. Staging previews expire on
   their own.

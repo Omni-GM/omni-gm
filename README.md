@@ -54,9 +54,10 @@ Bring whatever you recorded: a phone recording of the whole table, one file per
 player from a Discord bot, or a transcript another tool already made. In
 Claude Code, Omni-GM's `transcribe` procedure turns it into a transcript on
 your machine. It checks which speech-to-text tool you have installed, such
-as Whisper, and asks before it installs one. Your audio never leaves your
-computer, and the transcript is ready in the time your computer takes to
-transcribe the recording. For a long session on a laptop that can be hours.
+as Whisper, and asks before it installs one. Your audio stays on your
+computer unless you ask for a cloud service. The transcript is ready in the
+time your computer takes to transcribe the recording, which can be hours for
+a long session on a laptop.
 
 Claude Desktop and claude.ai can't run speech-to-text. There, transcribe
 with any tool you like, then make sure the file has one utterance per line

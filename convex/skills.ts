@@ -12,7 +12,7 @@ export const instructions = `Load the matching procedure with skill before start
 const uploadProcedure = `When the game master brings a recording, or a transcript in another format, instead of an Omni-GM transcript file, load skill transcribe first. If the session has no stored transcript, call transcript_upload_url. With a shell and a file on disk, run curl -T <file> <signed-url> directly from disk. Never read, echo, cat or repeat the file to upload it. The signed URL is single-use and expires after ten minutes.
 Without a shell or without the original file on disk, immediately give the game master pageUrl to sign in and upload the original transcript file. Pause until they have uploaded it. Do not retype the transcript in tool calls or chat, even when you hold it in context.
 Both paths use UTF-8 [HH:MM:SS] Speaker: text with continuation lines, at most 8 MB and 20000 utterances, 32 KB per utterance including continuations. Upload before scenes or draft changes exist. Read get transcript:<session> to confirm it is stored before mapping speakers, splitting scenes or starting the debrief. If the transcript is still missing, wait for the upload.`;
-const procedures: Record<string, { description: string; procedure: string }> = {
+const written: Record<string, { description: string; procedure: string }> = {
   briefing: {
     description:
       "Open prep with a one-page, plot-first briefing of what the store knows, every fact sourced, ending in numbered what-next options.",
@@ -68,7 +68,6 @@ Stop once goal, stakes, and timeframe are named and the game master is satisfied
 Store only the game master's supplied or accepted intent with frame_update, a reason in their words, and only changed fields, or in the short form the fields they confirmed: goal, stakes, timeframe, pressure, finale, moves_main_plot, pulls_in, next_session_starts. An empty string clears a field; omitted fields stay as they were. Read get frame to confirm the saved intent and its history. get overview shows the current frame alongside the stored briefing.
 Keep frame edits apart from story state. If an answer corrects what happened, use story_commit with basis game_master and the answer as source, separately and only after confirmation. Never disguise a correction as frame intent.`,
   },
-  ...skillFiles,
   "map-speakers": {
     description:
       "Map transcript speakers to the game master, players and characters.",
@@ -103,7 +102,11 @@ Each answer becomes a draft change with debrief_add, basis game_master and their
 Call debrief_commit only after the game master says the draft is right. It applies the entire draft with its reveals, appends story and secret history and keeps the briefing in the store atomically: all or nothing; a commit without a briefing is refused. The stored briefing opens the next prep. A committed debrief never changes; later fixes use story_commit with a reason and the game master's answer as source.`,
   },
 };
-export const skillNames = Object.keys(procedures);
+export const skillNames = [...Object.keys(written), ...Object.keys(skillFiles)];
+const twice = skillNames.filter((name, i) => skillNames.indexOf(name) !== i);
+if (twice.length)
+  throw new Error(`Procedures defined twice: ${twice.join(", ")}`);
+const procedures = { ...written, ...skillFiles };
 export const skillArgs = { ...callerArgs, name: v.optional(v.string()) };
 export const skillResult = v.object({
   skills: v.array(v.object({ name: v.string(), description: v.string() })),

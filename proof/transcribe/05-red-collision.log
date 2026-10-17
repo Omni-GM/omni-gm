@@ -1,0 +1,54 @@
+
+[1m[46m RUN [49m[22m [36mv4.1.0 [39m[90m/home/coder/.t3/worktrees/omni-gm/t3-1f5624ea[39m
+
+ [31m❯[39m tests/procedure-collision.test.ts [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 445[2mms[22m[39m
+[31m   [31m×[31m a SKILL.md that reuses a written procedure's name stops the server instead of replacing it[39m[33m 444[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/procedure-collision.test.ts[2m > [22ma SKILL.md that reuses a written procedure's name stops the server instead of replacing it
+[31m[1mAssertionError[22m: promise resolved "{ jsonrpc: '2.0', id: 1, …(1) }" instead of rejecting[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Error {[39m
+[32m-   "message": "rejected promise",[39m
+[31m+ {[39m
+[31m+   "id": 1,[39m
+[31m+   "jsonrpc": "2.0",[39m
+[31m+   "result": {[39m
+[31m+     "capabilities": {[39m
+[31m+       "tools": {},[39m
+[31m+     },[39m
+[31m+     "instructions": "Load the matching procedure with skill before starting a workflow.[39m
+[31m+ Give before you ask. The creative part belongs to the game master; they decide.[39m
+[31m+ Pitch only where the procedure calls for it: small, droppable situations built on named story-state facts with sources, never outcomes and never what the players choose. The section's definition sets their shape and count. A pitch adds pressure to the players' plan and must never block it or a scene the game master prepared.[39m
+[31m+ Only the game master's picks enter the note. An ignored pitch leaves no trace.[39m
+[31m+ Ask about situations and pressure, never player decisions or outcomes.[39m
+[31m+ Story state records what happened. The adventure frame records intent. Unplayed background the game master decides is a secret, stored with secret_write apart from entities and story state. Keep them apart.[39m
+[31m+ Write in the game master's language.",[39m
+[31m+     "protocolVersion": "2025-06-18",[39m
+[31m+     "serverInfo": {[39m
+[31m+       "name": "omni-gm",[39m
+[31m+       "version": "0.1.0",[39m
+[31m+     },[39m
+[31m+   },[39m
+[2m  }[22m
+
+[36m [2m❯[22m tests/procedure-collision.test.ts:[2m12:25[22m[39m
+    [90m 10|[39m   [35mconst[39m { client } [33m=[39m [35mawait[39m [35mimport[39m([32m"./mcp-client"[39m)[33m;[39m
+    [90m 11|[39m   [35mconst[39m c [33m=[39m [34mclient[39m()[33m;[39m
+    [90m 12|[39m   await expect(c.init()).rejects.toThrow("Procedures defined twice: de…
+    [90m   |[39m                         [31m^[39m
+    [90m 13|[39m })[33m;[39m
+    [90m 14|[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m   Start at [22m 05:42:32
+[2m   Duration [22m 625ms[2m (transform 363ms, setup 0ms, import 65ms, tests 445ms, environment 0ms)[22m
+

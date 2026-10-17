@@ -1,35 +1,42 @@
-import { readFileSync } from "node:fs";
 import { expect, test } from "vitest";
+import { parseSkillFile, readSkillFiles } from "../scripts/skillFile";
 import { client } from "./mcp-client";
 
-function skillFile(path: string) {
-  const [, frontmatter, body] =
-    /^---\n([\s\S]*?)\n---\n([\s\S]*)$/.exec(readFileSync(path, "utf8")) ?? [];
-  const field = (key: string) =>
-    new RegExp(`^${key}: (.*)$`, "m").exec(frontmatter)?.[1];
-  return {
-    name: field("name"),
-    description: field("description"),
-    body: body.trim(),
-  };
-}
-
-test("the transcribe procedure is served word for word from its markdown file", async () => {
+test("every markdown procedure is served word for word from its SKILL.md", async () => {
   const c = client();
   await c.init();
-  const file = skillFile("skills/transcribe/SKILL.md");
+  const files = await readSkillFiles();
+  expect(files.map((file) => file.name)).toContain("transcribe");
 
   const listed = (await c.call("skill")).skills;
-  expect(listed).toContainEqual({
-    name: "transcribe",
-    description: file.description,
-  });
-  const loaded = await c.call("skill", { name: "Transcribe" });
-  expect(file.name).toBe("transcribe");
-  expect(loaded.name).toBe("transcribe");
-  expect(loaded.procedure.startsWith(`${file.body}\n\nStanding rules\n`)).toBe(
-    true,
+  for (const file of files) {
+    expect(listed).toContainEqual({
+      name: file.name,
+      description: file.description,
+    });
+    const loaded = await c.call("skill", { name: file.name.toUpperCase() });
+    expect(loaded.name).toBe(file.name);
+    expect(
+      loaded.procedure.startsWith(`${file.procedure}\n\nStanding rules\n`),
+    ).toBe(true);
+  }
+});
+
+test("SKILL.md frontmatter reads the same with CRLF line endings and quoted values", () => {
+  const plain = parseSkillFile(
+    "---\nname: transcribe\ndescription: Turn a recording: any kind.\n---\n\nBody line.\n",
+    "transcribe",
   );
+  const quoted = parseSkillFile(
+    "---\r\nname: \"transcribe\"\r\ndescription: 'Turn a recording: any kind.'\r\n---\r\n\r\nBody line.\r\n",
+    "transcribe",
+  );
+  expect(quoted).toEqual(plain);
+  expect(plain).toEqual({
+    name: "transcribe",
+    description: "Turn a recording: any kind.",
+    procedure: "Body line.",
+  });
 });
 
 test("a game master with a recording instead of a transcript is sent to transcribe first", async () => {

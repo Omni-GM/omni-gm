@@ -188,10 +188,10 @@ test("skills list and load the procedures with the standing rules, and initializ
     "prep-sparring",
     "plank-questions",
     "frame-talk",
-    "transcribe",
     "map-speakers",
     "split-scenes",
     "debrief",
+    "transcribe",
   ]);
   for (const name of [
     "map speakers",

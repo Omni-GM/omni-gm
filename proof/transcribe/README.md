@@ -13,9 +13,12 @@ The test seam is the `skill` tool and `tools/list` over MCP JSON-RPC, in
 | The `skill` tool lists `transcribe` with its frontmatter description, and `skill name: "Transcribe"` returns the `SKILL.md` body word for word, then the standing rules | [01-red](01-red-served-procedure.log): the file does not exist | [01-green](01-green-served-procedure.log) |
 | `debrief` and `map-speakers` send a recording to `transcribe` first | [01-red](01-red-served-procedure.log): no `load skill transcribe` | [01-green](01-green-served-procedure.log) |
 | The `skill` tool description names every served procedure and says a recording starts with `transcribe` | [02-red](02-red-skill-tool-description.log): the hand-written list misses `transcribe` | [02-green](02-green-skill-tool-description.log) |
+| `SKILL.md` frontmatter reads the same with CRLF line endings and quoted values, through the parser that the generator and the drift test share | [04-red](04-red-frontmatter.log): the old parsing rejects CRLF as missing frontmatter | [04-green](04-green-frontmatter.log) |
+| A `SKILL.md` that reuses a written procedure's name stops the server instead of replacing the procedure | [05-red](05-red-collision.log): the server starts and the later definition wins | [05-green](05-green-collision.log) |
 
 The third row comes from the first no-shell run below, which never loaded
-`transcribe` because the description listed procedures by hand.
+`transcribe` because the description listed procedures by hand. Rows 4 and 5 come from the code review. Each red run restored the old
+behavior in the working tree, and the fix went back before the green run.
 `check.log` is the full gate (`pnpm check`) on the final tree.
 
 ## Hosted proof
